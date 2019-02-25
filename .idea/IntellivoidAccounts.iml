@@ -3,6 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Objects" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Objects/Account" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Objects/Account/PersonalInformation" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
