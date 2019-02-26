@@ -11,4 +11,6 @@
         const Successful = 0;
 
         const IncorrectCredentials = 1;
+
+        const IncorrectVerificationCode = 2;
     }

@@ -8,6 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Objects/Account" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Objects/Account/PersonalInformation" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Abstracts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Managers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Utilities" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Exceptions" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
