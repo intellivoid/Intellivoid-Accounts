@@ -12,4 +12,7 @@
         const InvalidEmailException = 101;
         const InvalidPasswordException = 102;
         const ConfigurationNotFoundException = 103;
+        const DatabaseException = 104;
+        const InvalidSearchMethodException = 105;
+        const AccountNotFoundException = 106;
     }
