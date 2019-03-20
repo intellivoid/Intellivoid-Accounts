@@ -10,6 +10,7 @@
       },
       "MODULES":
       {
+
         "Credentials": {
           "REQUIRE_AUTHENTICATION": false,
           "REQUIRE_USAGE": false,
@@ -20,6 +21,7 @@
             "uid": {"REQUIRED": true, "DEFAULT": null}
           }
         },
+
         "RegisterAccount": {
           "REQUIRE_AUTHENTICATION": true,
           "REQUIRE_USAGE": false,
@@ -33,6 +35,7 @@
             "email": {"REQUIRED": true, "DEFAULT": null}
           }
         }
+
       }
     }
 }
