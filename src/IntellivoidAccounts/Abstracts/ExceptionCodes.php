@@ -17,4 +17,5 @@
         const AccountNotFoundException = 106;
         const UsernameAlreadyExistsException = 107;
         const EmailAlreadyExistsException = 108;
+        const IncorrectLoginDetailsException = 109;
     }

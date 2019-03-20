@@ -27,4 +27,15 @@
 
             return hash('ripemd320', $crc_2 . $crc_3);
         }
+
+        /**
+         * Hashes the password
+         *
+         * @param string $password
+         * @return string
+         */
+        public static function password(string $password)
+        {
+            return hash('sha512', $password) .  hash('haval256,5', $password);
+        }
     }

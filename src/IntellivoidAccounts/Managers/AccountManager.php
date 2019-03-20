@@ -1,11 +1,13 @@
 <?php
 
     namespace IntellivoidAccounts\Managers;
+
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\EmailAlreadyExistsException;
+    use IntellivoidAccounts\Exceptions\IncorrectLoginDetailsException;
     use IntellivoidAccounts\Exceptions\InvalidEmailException;
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
@@ -81,7 +83,7 @@
             $public_id = Hashing::publicID($username, $password, $email);
             $username = $this->intellivoidAccounts->database->real_escape_string($username);
             $email = $this->intellivoidAccounts->database->real_escape_string($email);
-            $password = $this->intellivoidAccounts->database->real_escape_string($password);
+            $password = $this->intellivoidAccounts->database->real_escape_string(Hashing::password($password));
             $status = (int)AccountStatus::Active;
             $personal_information = new Account\PersonalInformation();
             $personal_information = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($personal_information->toArray()));
@@ -160,6 +162,41 @@
                 $Row['configuration'] = ZiProto::decode($Row['configuration']);
                 return Account::fromArray($Row);
             }
+        }
+
+        /**
+         * Checks the login details of the account
+         *
+         * @param string $username_or_email
+         * @param string $password
+         * @return bool
+         * @throws IncorrectLoginDetailsException
+         */
+        public function checkLogin(string $username_or_email, string $password): bool
+        {
+            $account_details = null;
+
+            if($this->usernameExists($username_or_email) == true)
+            {
+                $account_details = $this->getAccount(AccountSearchMethod::byUsername, $username_or_email);
+            }
+            elseif($this->emailExists($username_or_email) == true)
+            {
+                $account_details = $this->getAccount(AccountSearchMethod::byEmail, $username_or_email);
+            }
+            else
+            {
+                throw new IncorrectLoginDetailsException();
+            }
+
+            // TODO: Add status check
+
+            if($account_details->Password !== Hashing::password($password))
+            {
+                throw new IncorrectLoginDetailsException();
+            }
+
+            return true;
         }
 
         /**
