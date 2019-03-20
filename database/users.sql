@@ -6,8 +6,8 @@ CREATE TABLE users
     email VARCHAR(255) COMMENT 'The Email Address that''s associated with this Account',
     password TEXT COMMENT 'The password for authentication (hashed)',
     status INT(255) COMMENT 'The status of the account',
-    personal_information MEDIUMTEXT COMMENT 'The personal information associated with this account (JSON Encoded)',
-    configuration MEDIUMTEXT COMMENT 'The configuration associated with this account (JSON Encoded)',
+    personal_information BLOB COMMENT 'The personal information associated with this account (JSON Encoded)',
+    configuration BLOB COMMENT 'The configuration associated with this account (JSON Encoded)',
     last_login_id INT(255) COMMENT 'The ID of the last login record',
     creation_date INT(255) COMMENT 'The Unix Timestamp of when this Account was created'
 );
