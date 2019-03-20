@@ -18,4 +18,5 @@
         const UsernameAlreadyExistsException = 107;
         const EmailAlreadyExistsException = 108;
         const IncorrectLoginDetailsException = 109;
+        const AccountSuspendedException = 110;
     }

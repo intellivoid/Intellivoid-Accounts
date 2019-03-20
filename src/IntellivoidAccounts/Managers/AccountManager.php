@@ -5,6 +5,7 @@
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
+    use IntellivoidAccounts\Exceptions\AccountSuspendedException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\EmailAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\IncorrectLoginDetailsException;
@@ -170,6 +171,7 @@
          * @param string $username_or_email
          * @param string $password
          * @return bool
+         * @throws AccountSuspendedException
          * @throws IncorrectLoginDetailsException
          */
         public function checkLogin(string $username_or_email, string $password): bool
@@ -189,7 +191,10 @@
                 throw new IncorrectLoginDetailsException();
             }
 
-            // TODO: Add status check
+            if($account_details->Status == AccountStatus::Suspended)
+            {
+                throw new AccountSuspendedException();
+            }
 
             if($account_details->Password !== Hashing::password($password))
             {
