@@ -139,6 +139,6 @@
          */
         public static function getConfiguration(): array
         {
-            return parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR, false);
+            return parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . '..' .DIRECTORY_SEPARATOR . 'IntellivoidAccounts' . DIRECTORY_SEPARATOR . 'configuration.ini', false);
         }
     }

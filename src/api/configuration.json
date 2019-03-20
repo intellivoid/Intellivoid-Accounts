@@ -10,15 +10,27 @@
       },
       "MODULES":
       {
-        "GetTime": {
-          "REQUIRE_AUTHENTICATION": true,
-          "REQUIRE_USAGE": true,
+        "Credentials": {
+          "REQUIRE_AUTHENTICATION": false,
+          "REQUIRE_USAGE": false,
           "POST_METHOD_ALLOWED": true,
           "GET_METHOD_ALLOWED": true,
-          "SCRIPT": "get_time",
+          "SCRIPT": "credentials",
+          "PARAMETERS": {
+            "uid": {"REQUIRED": true, "DEFAULT": null}
+          }
+        },
+        "RegisterAccount": {
+          "REQUIRE_AUTHENTICATION": true,
+          "REQUIRE_USAGE": false,
+          "POST_METHOD_ALLOWED": true,
+          "GET_METHOD_ALLOWED": true,
+          "SCRIPT": "register_account",
           "PARAMETERS":
           {
-            "timezone": {"REQUIRED": false, "DEFAULT": "example123"}
+            "username": {"REQUIRED": true, "DEFAULT": null},
+            "password": {"REQUIRED": true, "DEFAULT": null},
+            "email": {"REQUIRED": true, "DEFAULT": null}
           }
         }
       }
