@@ -5,16 +5,16 @@
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
-     * Class AccountNotFoundException
+     * Class EmailAlreadyExistsException
      * @package IntellivoidAccounts\Exceptions
      */
-    class AccountNotFoundException extends \Exception
+    class EmailAlreadyExistsException extends \Exception
     {
         /**
-         * AccountNotFoundException constructor.
+         * EmailAlreadyExistsException constructor.
          */
         public function __construct()
         {
-            parent::__construct('The requested account was not found', ExceptionCodes::AccountNotFoundException, null);
+            parent::__construct('The Email already exists', ExceptionCodes::EmailAlreadyExistsException, null);
         }
     }

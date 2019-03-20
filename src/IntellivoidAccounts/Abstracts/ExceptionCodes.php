@@ -15,4 +15,6 @@
         const DatabaseException = 104;
         const InvalidSearchMethodException = 105;
         const AccountNotFoundException = 106;
+        const UsernameAlreadyExistsException = 107;
+        const EmailAlreadyExistsException = 108;
     }

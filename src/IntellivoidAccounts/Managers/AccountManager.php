@@ -5,10 +5,12 @@
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\EmailAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\InvalidEmailException;
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
+    use IntellivoidAccounts\Exceptions\UsernameAlreadyExistsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Hashing;
@@ -43,9 +45,11 @@
          * @param string $password
          * @return Account
          * @throws DatabaseException
+         * @throws EmailAlreadyExistsException
          * @throws InvalidEmailException
          * @throws InvalidPasswordException
          * @throws InvalidUsernameException
+         * @throws UsernameAlreadyExistsException
          */
         public function registerAccount(string $username, string $email, string $password): Account
         {
@@ -62,6 +66,16 @@
             if(Validate::password($password) == false)
             {
                 throw new InvalidPasswordException();
+            }
+
+            if($this->usernameExists($username) == true)
+            {
+                throw new UsernameAlreadyExistsException();
+            }
+
+            if($this->emailExists($email) == true)
+            {
+                throw new EmailAlreadyExistsException();
             }
 
             $public_id = Hashing::publicID($username, $password, $email);
@@ -145,6 +159,44 @@
                 $Row['personal_information'] = ZiProto::decode($Row['personal_information']);
                 $Row['configuration'] = ZiProto::decode($Row['configuration']);
                 return Account::fromArray($Row);
+            }
+        }
+
+        /**
+         * Determines if the Email exists on the Database
+         *
+         * @param string $email
+         * @return bool
+         */
+        public function emailExists(string $email): bool
+        {
+            try
+            {
+                $this->getAccount(AccountSearchMethod::byEmail, $email);
+                return true;
+            }
+            catch(AccountNotFoundException $accountNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        /**
+         * Determines if the Username exists on the Database
+         *
+         * @param string $username
+         * @return bool
+         */
+        public function usernameExists(string $username): bool
+        {
+            try
+            {
+                $this->getAccount(AccountSearchMethod::byUsername, $username);
+                return true;
+            }
+            catch(AccountNotFoundException $accountNotFoundException)
+            {
+                return false;
             }
         }
     }
