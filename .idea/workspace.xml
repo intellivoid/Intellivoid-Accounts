@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/ec635b36-12e1-493b-bf95-19e46f51dd2d.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/ec635b36-12e1-493b-bf95-19e46f51dd2d.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/login_records.sql" afterPath="$PROJECT_DIR$/database/login_records.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -72,8 +68,8 @@
       <file leaf-file-name="AccountManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="106" column="13" lean-forward="true" selection-start-line="97" selection-start-column="12" selection-end-line="106" selection-end-column="13" />
+            <state relative-caret-position="1513">
+              <caret line="106" column="13" lean-forward="false" selection-start-line="97" selection-start-column="12" selection-end-line="106" selection-end-column="13" />
               <folding>
                 <marker date="1553982603496" expanded="true" signature="3794:4069" ph="INSERT INTO `users`... " />
                 <marker date="1553982603496" expanded="true" signature="6136:6301" ph="SELECT id, p... users" />
@@ -85,13 +81,12 @@
       <file leaf-file-name="LoginRecordManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="33" column="53" lean-forward="false" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+            <state relative-caret-position="17">
+              <caret line="8" column="18" lean-forward="true" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
               <folding>
-                <element signature="e#56#102#0#PHP" expanded="true" />
-                <marker date="1553982628016" expanded="true" signature="2740:2767" ph="INSERT INTO `login_records`... " />
-                <marker date="1553982628016" expanded="true" signature="2740:2768" ph="INSERT INTO `login_records`... " />
-                <marker date="1553982628016" expanded="true" signature="2740:2902" ph="INSERT INTO `login_records`... " />
+                <marker date="1553986190170" expanded="true" signature="2835:2862" ph="INSERT INTO `login_records`... " />
+                <marker date="1553986190170" expanded="true" signature="2835:2863" ph="INSERT INTO `login_records`... " />
+                <marker date="1553986190170" expanded="true" signature="2835:2997" ph="INSERT INTO `login_records`... " />
               </folding>
             </state>
           </provider>
@@ -120,7 +115,7 @@
       <file leaf-file-name="IntellivoidAccounts.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
+            <state relative-caret-position="306">
               <caret line="20" column="121" lean-forward="false" selection-start-line="20" selection-start-column="121" selection-end-line="20" selection-end-column="121" />
               <folding>
                 <element signature="e#46#112#0#PHP" expanded="true" />
@@ -471,17 +466,18 @@
       <workItem from="1551135847367" duration="4490000" />
       <workItem from="1553958858454" duration="1458000" />
       <workItem from="1553978538243" duration="3247000" />
+      <workItem from="1553985975552" duration="216000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16372000" />
+    <option name="totallyTimeSpent" value="16588000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19486405" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1978852" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998326" sideWeight="0.5030211" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19561933" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -513,6 +509,63 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="106" column="13" lean-forward="true" selection-start-line="97" selection-start-column="12" selection-end-line="106" selection-end-column="13" />
+          <folding>
+            <marker date="1553982603496" expanded="true" signature="3794:4069" ph="INSERT INTO `users`... " />
+            <marker date="1553982603496" expanded="true" signature="6136:6301" ph="SELECT id, p... users" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/login_records.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidLoginStatusException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" column="121" lean-forward="false" selection-start-line="20" selection-start-column="121" selection-end-line="20" selection-end-column="121" />
+          <folding>
+            <element signature="e#46#112#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="33" column="53" lean-forward="false" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+          <folding>
+            <marker date="1553986190170" expanded="true" signature="2835:2862" ph="INSERT INTO `login_records`... " />
+            <marker date="1553986190170" expanded="true" signature="2835:2863" ph="INSERT INTO `login_records`... " />
+            <marker date="1553986190170" expanded="true" signature="2835:2997" ph="INSERT INTO `login_records`... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3145">
           <caret line="201" column="13" lean-forward="false" selection-start-line="201" selection-start-column="13" selection-end-line="201" selection-end-column="13" />
           <folding>
@@ -526,7 +579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -587,9 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="42" column="20" lean-forward="false" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
-          <folding>
-            <element signature="e#54#108#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -616,9 +665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
           <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
-          <folding>
-            <element signature="e#54#108#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -626,7 +672,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="748">
           <caret line="44" column="28" lean-forward="true" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -658,7 +703,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1123">
           <caret line="108" column="63" lean-forward="false" selection-start-line="108" selection-start-column="63" selection-end-line="108" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -687,7 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="23" column="36" lean-forward="false" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -702,9 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1126">
           <caret line="149" column="80" lean-forward="false" selection-start-line="149" selection-start-column="80" selection-end-line="149" selection-end-column="80" />
-          <folding>
-            <element signature="e#54#108#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -712,7 +752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="50" lean-forward="false" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -759,7 +798,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -805,7 +843,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
+        <state relative-caret-position="306">
           <caret line="20" column="121" lean-forward="false" selection-start-line="20" selection-start-column="121" selection-end-line="20" selection-end-column="121" />
           <folding>
             <element signature="e#46#112#0#PHP" expanded="true" />
@@ -831,8 +869,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="106" column="13" lean-forward="true" selection-start-line="97" selection-start-column="12" selection-end-line="106" selection-end-column="13" />
+        <state relative-caret-position="1513">
+          <caret line="106" column="13" lean-forward="false" selection-start-line="97" selection-start-column="12" selection-end-line="106" selection-end-column="13" />
           <folding>
             <marker date="1553982603496" expanded="true" signature="3794:4069" ph="INSERT INTO `users`... " />
             <marker date="1553982603496" expanded="true" signature="6136:6301" ph="SELECT id, p... users" />
@@ -842,13 +880,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="33" column="53" lean-forward="false" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+        <state relative-caret-position="17">
+          <caret line="8" column="18" lean-forward="true" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
           <folding>
-            <element signature="e#56#102#0#PHP" expanded="true" />
-            <marker date="1553982628016" expanded="true" signature="2740:2767" ph="INSERT INTO `login_records`... " />
-            <marker date="1553982628016" expanded="true" signature="2740:2768" ph="INSERT INTO `login_records`... " />
-            <marker date="1553982628016" expanded="true" signature="2740:2902" ph="INSERT INTO `login_records`... " />
+            <marker date="1553986190170" expanded="true" signature="2835:2862" ph="INSERT INTO `login_records`... " />
+            <marker date="1553986190170" expanded="true" signature="2835:2863" ph="INSERT INTO `login_records`... " />
+            <marker date="1553986190170" expanded="true" signature="2835:2997" ph="INSERT INTO `login_records`... " />
           </folding>
         </state>
       </provider>

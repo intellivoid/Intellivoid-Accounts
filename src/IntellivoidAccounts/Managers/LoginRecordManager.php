@@ -4,6 +4,7 @@
 
     use IntellivoidAccounts\Abstracts\LoginStatus;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
+    use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
     use IntellivoidAccounts\Exceptions\InvalidLoginStatusException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -39,6 +40,7 @@
          * @param string $origin
          * @return bool
          * @throws AccountNotFoundException
+         * @throws DatabaseException
          * @throws InvalidIpException
          * @throws InvalidLoginStatusException
          */
