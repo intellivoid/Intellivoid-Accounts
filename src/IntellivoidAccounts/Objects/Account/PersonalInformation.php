@@ -10,6 +10,14 @@
     class PersonalInformation
     {
         /**
+         * PersonalInformation constructor.
+         */
+        public function __construct()
+        {
+            $this->BirthDate = new BirthDate();
+        }
+
+        /**
          * The first name of the user
          *
          * @var string
