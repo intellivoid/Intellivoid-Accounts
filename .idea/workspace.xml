@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -86,8 +87,8 @@
       <file leaf-file-name="LoginRecordManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="35" column="96" lean-forward="false" selection-start-line="35" selection-start-column="96" selection-end-line="35" selection-end-column="96" />
+            <state relative-caret-position="378">
+              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding>
                 <element signature="e#56#116#0#PHP" expanded="true" />
               </folding>
@@ -95,11 +96,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Validate.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InvalidIpException.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Validate.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="78" column="62" lean-forward="false" selection-start-line="78" selection-start-column="62" selection-end-line="78" selection-end-column="62" />
+            <state relative-caret-position="171">
+              <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExceptionCodes.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -160,14 +181,15 @@
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/AccountStatus.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/LoginStatus.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/ConfigurationNotFoundException.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" />
         <option value="$PROJECT_DIR$/database/login_records.sql" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" />
       </list>
     </option>
   </component>
@@ -440,12 +462,12 @@
       <workItem from="1551109731381" duration="4670000" />
       <workItem from="1551135847367" duration="4490000" />
       <workItem from="1553958858454" duration="1458000" />
-      <workItem from="1553978538243" duration="1661000" />
+      <workItem from="1553978538243" duration="1910000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14786000" />
+    <option name="totallyTimeSpent" value="15035000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -716,14 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidEmailException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -785,20 +799,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="35" column="96" lean-forward="false" selection-start-line="35" selection-start-column="96" selection-end-line="35" selection-end-column="96" />
+        <state relative-caret-position="378">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
             <element signature="e#56#116#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php">
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="78" column="62" lean-forward="false" selection-start-line="78" selection-start-column="62" selection-end-line="78" selection-end-column="62" />
+        <state relative-caret-position="357">
+          <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
           <folding />
         </state>
       </provider>

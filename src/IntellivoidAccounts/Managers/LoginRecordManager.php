@@ -32,6 +32,8 @@
                 throw new AccountNotFoundException();
             }
 
+
+
             $account_id = $this->intellivoidAccounts->database->real_escape_string($account_id);
             $ip_address = $this->intellivoidAccounts->database->real_escape_string($ip_address);
         }

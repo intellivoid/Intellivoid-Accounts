@@ -19,4 +19,5 @@
         const EmailAlreadyExistsException = 108;
         const IncorrectLoginDetailsException = 109;
         const AccountSuspendedException = 110;
+        const InvalidIpException = 111;
     }
