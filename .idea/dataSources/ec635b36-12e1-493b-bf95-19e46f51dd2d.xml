@@ -46,7 +46,7 @@
     <column id="18" parent="12" name="origin">
       <Position>5</Position>
       <Comment>The origin of this login</Comment>
-      <DataType>text|0</DataType>
+      <DataType>varchar(255)|0</DataType>
     </column>
     <column id="19" parent="12" name="time">
       <Position>6</Position>

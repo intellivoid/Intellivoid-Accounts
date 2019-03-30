@@ -94,8 +94,8 @@
             $last_login_id = (int)0;
             $creation_date = (int)time();
 
-            $query = "INSERT INTO `users` (public_id, username, email, password, status, personal_information, configuration, last_login_id, creation_date) VALUES ('$public_id', '$username', '$email', '$password', $status, '$personal_information', '$configuration', $last_login_id, $creation_date)";
-            $QueryResults = $this->intellivoidAccounts->database->query($query);
+            $Query = "INSERT INTO `users` (public_id, username, email, password, status, personal_information, configuration, last_login_id, creation_date) VALUES ('$public_id', '$username', '$email', '$password', $status, '$personal_information', '$configuration', $last_login_id, $creation_date)";
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
             {
@@ -103,7 +103,7 @@
             }
             else
             {
-                throw new DatabaseException($query, $this->intellivoidAccounts->database->error);
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
         }
 
