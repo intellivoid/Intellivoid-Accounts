@@ -33,101 +33,106 @@
       <Comment>The Public ID of the login record</Comment>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="16" parent="12" name="ip_address">
+    <column id="16" parent="12" name="account_id">
       <Position>3</Position>
+      <Comment>The Account ID of this login</Comment>
+      <DataType>int(255)|0</DataType>
+    </column>
+    <column id="17" parent="12" name="ip_address">
+      <Position>4</Position>
       <Comment>The IP Address that was used for authentication</Comment>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="17" parent="12" name="origin">
-      <Position>4</Position>
+    <column id="18" parent="12" name="origin">
+      <Position>5</Position>
       <Comment>The origin of this login</Comment>
       <DataType>text|0</DataType>
     </column>
-    <column id="18" parent="12" name="time">
-      <Position>5</Position>
+    <column id="19" parent="12" name="time">
+      <Position>6</Position>
       <Comment>The Unix Timestamp of this login</Comment>
       <DataType>int(255)|0</DataType>
     </column>
-    <column id="19" parent="12" name="status">
-      <Position>6</Position>
+    <column id="20" parent="12" name="status">
+      <Position>7</Position>
       <Comment>The status of the login</Comment>
       <DataType>int(255)|0</DataType>
     </column>
-    <index id="20" parent="12" name="login_record_id_uindex">
+    <index id="21" parent="12" name="login_record_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="21" parent="12" name="PRIMARY">
+    <key id="22" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="22" parent="12" name="login_record_id_uindex">
+    <key id="23" parent="12" name="login_record_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>login_record_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="23" parent="13" name="id">
+    <column id="24" parent="13" name="id">
       <Position>1</Position>
       <Comment>The ID of the account</Comment>
       <DataType>int(255)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="24" parent="13" name="public_id">
+    <column id="25" parent="13" name="public_id">
       <Position>2</Position>
       <Comment>The Public ID of the account</Comment>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="25" parent="13" name="username">
+    <column id="26" parent="13" name="username">
       <Position>3</Position>
       <Comment>The Alias/Username used for identifying this account</Comment>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="26" parent="13" name="email">
+    <column id="27" parent="13" name="email">
       <Position>4</Position>
       <Comment>The Email Adrress that&apos;s associated with this Account</Comment>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="27" parent="13" name="password">
+    <column id="28" parent="13" name="password">
       <Position>5</Position>
       <Comment>The password for authentication (hashed)</Comment>
       <DataType>text|0</DataType>
     </column>
-    <column id="28" parent="13" name="status">
+    <column id="29" parent="13" name="status">
       <Position>6</Position>
       <Comment>The status of the account</Comment>
       <DataType>int(255)|0</DataType>
     </column>
-    <column id="29" parent="13" name="personal_information">
+    <column id="30" parent="13" name="personal_information">
       <Position>7</Position>
       <Comment>The personal information associated with this account (JSON Encoded)</Comment>
       <DataType>mediumtext|0</DataType>
     </column>
-    <column id="30" parent="13" name="configuration">
+    <column id="31" parent="13" name="configuration">
       <Position>8</Position>
       <Comment>The configuration associated with this account (JSON Encoded)</Comment>
       <DataType>mediumtext|0</DataType>
     </column>
-    <column id="31" parent="13" name="last_login_id">
+    <column id="32" parent="13" name="last_login_id">
       <Position>9</Position>
       <Comment>The ID of the last login record</Comment>
       <DataType>int(255)|0</DataType>
     </column>
-    <column id="32" parent="13" name="creation_date">
+    <column id="33" parent="13" name="creation_date">
       <Position>10</Position>
       <Comment>The Unix Timestamp of when this Account was created</Comment>
       <DataType>int(255)|0</DataType>
     </column>
-    <index id="33" parent="13" name="users_id_uindex">
+    <index id="34" parent="13" name="users_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="34" parent="13" name="PRIMARY">
+    <key id="35" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="35" parent="13" name="users_id_uindex">
+    <key id="36" parent="13" name="users_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>users_id_uindex</UnderlyingIndexName>
     </key>
