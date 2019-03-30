@@ -38,4 +38,28 @@
         {
             return hash('sha512', $password) .  hash('haval256,5', $password);
         }
+
+        /**
+         * Creates a public ID for a login record
+         *
+         * @param int $account_id
+         * @param int $unix_timestamp
+         * @param int $status
+         * @param string $origin
+         * @param string $ip_address
+         * @return string
+         */
+        public static function loginPublicID(int $account_id, int $unix_timestamp, int $status, string $origin, string $ip_address)
+        {
+            $account_id = hash('haval256,5', $account_id);
+            $unix_timestamp = hash('haval256,5', $unix_timestamp);
+            $status = hash('haval256,5', $status);
+            $origin = hash('haval256,5', $origin);
+            $ip_address = hash('haval256,5', $ip_address);
+
+            $crc1 = hash('sha256', $account_id . $unix_timestamp . $status);
+            $crc2 = hash('sha256', $origin, $ip_address);
+
+            return $crc1 . $crc2;
+        }
     }

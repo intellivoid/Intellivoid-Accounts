@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/IntellivoidAccounts.iml" afterPath="$PROJECT_DIR$/.idea/IntellivoidAccounts.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/ec635b36-12e1-493b-bf95-19e46f51dd2d.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/ec635b36-12e1-493b-bf95-19e46f51dd2d.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/login_records.sql" afterPath="$PROJECT_DIR$/database/login_records.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -70,7 +65,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AccountManager.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AccountManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
@@ -83,10 +78,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Hashing.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="55">
+              <caret line="42" column="49" lean-forward="false" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="LoginRecordManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
+            <state relative-caret-position="35">
               <caret line="38" column="56" lean-forward="false" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
               <folding>
                 <element signature="e#56#102#0#PHP" expanded="true" />
@@ -159,7 +164,6 @@
         <option value="$PROJECT_DIR$/database/users.sql" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/AccountStatus.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/LoginStatus.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/ConfigurationNotFoundException.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" />
@@ -170,6 +174,7 @@
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" />
       </list>
     </option>
   </component>
@@ -468,12 +473,12 @@
       <workItem from="1551109731381" duration="4670000" />
       <workItem from="1551135847367" duration="4490000" />
       <workItem from="1553958858454" duration="1458000" />
-      <workItem from="1553978538243" duration="2541000" />
+      <workItem from="1553978538243" duration="2853000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15666000" />
+    <option name="totallyTimeSpent" value="15978000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -730,14 +735,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="45" lean-forward="false" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -817,16 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="38" column="56" lean-forward="false" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
-          <folding>
-            <element signature="e#56#102#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -845,6 +832,24 @@
             <marker date="1553981911243" expanded="true" signature="3794:4069" ph="INSERT INTO `users`... " />
             <marker date="1553981911243" expanded="true" signature="6136:6301" ph="SELECT id, p... users" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35">
+          <caret line="38" column="56" lean-forward="false" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
+          <folding>
+            <element signature="e#56#102#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="42" column="49" lean-forward="false" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
