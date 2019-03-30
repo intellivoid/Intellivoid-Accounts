@@ -11,6 +11,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Managers" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Utilities" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Exceptions" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/ZiProto/TypeTransformer" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/ZiProto/Type" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/ZiProto/Exception" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/ZiProto/Abstracts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/ZiProto" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
