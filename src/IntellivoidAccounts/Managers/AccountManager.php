@@ -18,6 +18,7 @@
     use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use function PHPSTORM_META\type;
     use ZiProto\ZiProto;
 
     /**
@@ -234,6 +235,25 @@
             try
             {
                 $this->getAccount(AccountSearchMethod::byUsername, $username);
+                return true;
+            }
+            catch(AccountNotFoundException $accountNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        /**
+         * Determines if the Public ID exists on the database
+         *
+         * @param string $public_id
+         * @return bool
+         */
+        public function publicIdExists(string $public_id): bool
+        {
+            try
+            {
+                $this->getAccount(AccountSearchMethod::byPublicID, $public_id);
                 return true;
             }
             catch(AccountNotFoundException $accountNotFoundException)

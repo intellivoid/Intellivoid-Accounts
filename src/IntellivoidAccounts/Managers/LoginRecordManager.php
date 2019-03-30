@@ -23,4 +23,9 @@
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
         }
+
+        public function createLoginRecord(string $account_id, string $ip_address, int $status, string $origin)
+        {
+
+        }
     }

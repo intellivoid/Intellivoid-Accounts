@@ -28,7 +28,7 @@
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="15" parent="12" name="public_Id">
+    <column id="15" parent="12" name="public_id">
       <Position>2</Position>
       <Comment>The Public ID of the login record</Comment>
       <DataType>varchar(255)|0</DataType>
