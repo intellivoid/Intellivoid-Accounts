@@ -74,4 +74,25 @@
 
             return true;
         }
+
+        /**
+         * Validates if the given IP is ipv4 and or ipv6 valid
+         *
+         * @param string $ip_address
+         * @return bool
+         */
+        public static function ip(string $ip_address): bool
+        {
+            if(filter_var($ip_address, FILTER_VALIDATE_IP,FILTER_FLAG_IPV4) == true)
+            {
+                return true;
+            }
+
+            if(filter_var($ip_address, FILTER_VALIDATE_IP,FILTER_FLAG_IPV6) == true)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
