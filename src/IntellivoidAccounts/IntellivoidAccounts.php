@@ -2,6 +2,8 @@
 
     namespace IntellivoidAccounts;
     use IntellivoidAccounts\Exceptions\ConfigurationNotFoundException;
+    use IntellivoidAccounts\Managers\AccountManager;
+    use IntellivoidAccounts\Managers\LoginRecordManager;
 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'AccountSearchMethod.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountStatus.php');
@@ -52,6 +54,16 @@
         public $database;
 
         /**
+         * @var LoginRecordManager
+         */
+        private $LoginRecordManager;
+
+        /**
+         * @var AccountManager
+         */
+        private $AccountManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws ConfigurationNotFoundException
          */
@@ -71,5 +83,25 @@
                 $this->configuration['DatabaseName'],
                 $this->configuration['DatabasePort']
             );
+
+            $this->AccountManager = new AccountManager($this);
+            $this->LoginRecordManager = new LoginRecordManager($this);
         }
+
+        /**
+         * @return LoginRecordManager
+         */
+        public function getLoginRecordManager(): LoginRecordManager
+        {
+            return $this->LoginRecordManager;
+        }
+
+        /**
+         * @return AccountManager
+         */
+        public function getAccountManager(): AccountManager
+        {
+            return $this->AccountManager;
+        }
+
     }

@@ -1,9 +1,26 @@
 <?php
 
-namespace IntellivoidAccounts\Managers;
+    namespace IntellivoidAccounts\Managers;
 
+    use IntellivoidAccounts\IntellivoidAccounts;
 
-class LoginRecordManager
-{
+    /**
+     * Class LoginRecordManager
+     * @package IntellivoidAccounts\Managers
+     */
+    class LoginRecordManager
+    {
+        /**
+         * @var IntellivoidAccounts
+         */
+        private $intellivoidAccounts;
 
-}
+        /**
+         * LoginRecordManager constructor.
+         * @param IntellivoidAccounts $intellivoidAccounts
+         */
+        public function __construct(IntellivoidAccounts $intellivoidAccounts)
+        {
+            $this->intellivoidAccounts = $intellivoidAccounts;
+        }
+    }
