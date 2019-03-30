@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidLoginStatusException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,74 +47,41 @@
         <option name="myItemId" value="accounts" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="users" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-    </PATH>
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="accounts@127.0.0.1" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="accounts" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="login_records" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
     </PATH>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AccountManager.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="259" column="13" lean-forward="true" selection-start-line="259" selection-start-column="13" selection-end-line="259" selection-end-column="13" />
-              <folding>
-                <marker date="1553979222538" expanded="true" signature="3794:4069" ph="INSERT INTO `users`... " />
-                <marker date="1553979222538" expanded="true" signature="6136:6301" ph="SELECT id, p... users" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LoginRecordManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="511">
+              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
-                <element signature="e#56#116#0#PHP" expanded="true" />
+                <element signature="e#56#102#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InvalidIpException.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php">
+      <file leaf-file-name="InvalidLoginStatusException.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidLoginStatusException.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Validate.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php">
+      <file leaf-file-name="IntellivoidAccounts.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="340">
+              <caret line="20" column="121" lean-forward="false" selection-start-line="20" selection-start-column="121" selection-end-line="20" selection-end-column="121" />
+              <folding>
+                <element signature="e#46#112#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -119,41 +89,9 @@
       <file leaf-file-name="ExceptionCodes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+            <state relative-caret-position="374">
+              <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginStatus.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/LoginStatus.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="intellivoid_accounts.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IntellivoidAccounts.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="68" column="11" lean-forward="false" selection-start-line="68" selection-start-column="11" selection-end-line="68" selection-end-column="11" />
-              <folding>
-                <element signature="e#46#112#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -183,13 +121,14 @@
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/ConfigurationNotFoundException.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" />
         <option value="$PROJECT_DIR$/database/login_records.sql" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidLoginStatusException.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" />
       </list>
     </option>
   </component>
@@ -462,12 +401,12 @@
       <workItem from="1551109731381" duration="4670000" />
       <workItem from="1551135847367" duration="4490000" />
       <workItem from="1553958858454" duration="1458000" />
-      <workItem from="1553978538243" duration="1910000" />
+      <workItem from="1553978538243" duration="2215000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15035000" />
+    <option name="totallyTimeSpent" value="15340000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -762,16 +701,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="68" column="11" lean-forward="false" selection-start-line="68" selection-start-column="11" selection-end-line="68" selection-end-column="11" />
-          <folding>
-            <element signature="e#46#112#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/login_records.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -807,29 +736,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="2" lean-forward="true" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="511">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
-            <element signature="e#56#116#0#PHP" expanded="true" />
+            <element signature="e#56#102#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+        <state relative-caret-position="374">
+          <caret line="22" column="48" lean-forward="false" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php">
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidLoginStatusException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="121" lean-forward="false" selection-start-line="20" selection-start-column="121" selection-end-line="20" selection-end-column="121" />
+          <folding>
+            <element signature="e#46#112#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

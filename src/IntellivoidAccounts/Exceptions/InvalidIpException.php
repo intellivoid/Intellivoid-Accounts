@@ -1,7 +1,7 @@
 <?php
 
     namespace IntellivoidAccounts\Exceptions;
-    
+
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**

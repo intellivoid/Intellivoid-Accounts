@@ -20,4 +20,5 @@
         const IncorrectLoginDetailsException = 109;
         const AccountSuspendedException = 110;
         const InvalidIpException = 111;
+        const InvalidLoginStatusException = 112;
     }
