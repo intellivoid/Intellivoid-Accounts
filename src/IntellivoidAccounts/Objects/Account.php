@@ -118,7 +118,7 @@
 
             if(isset($data['public_id']))
             {
-                $AccountObject->Username = $data['public_id'];
+                $AccountObject->PublicID = $data['public_id'];
             }
 
             if(isset($data['username']))
