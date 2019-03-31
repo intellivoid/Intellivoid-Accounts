@@ -106,12 +106,12 @@
     <column id="30" parent="13" name="personal_information">
       <Position>7</Position>
       <Comment>The personal information associated with this account (JSON Encoded)</Comment>
-      <DataType>mediumtext|0</DataType>
+      <DataType>blob|0</DataType>
     </column>
     <column id="31" parent="13" name="configuration">
       <Position>8</Position>
       <Comment>The configuration associated with this account (JSON Encoded)</Comment>
-      <DataType>mediumtext|0</DataType>
+      <DataType>blob|0</DataType>
     </column>
     <column id="32" parent="13" name="last_login_id">
       <Position>9</Position>
