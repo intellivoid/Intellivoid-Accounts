@@ -51,7 +51,7 @@
                 throw new InvalidIpException();
             }
 
-            if($this->intellivoidAccounts->getAccountManager()->publicIdExists($account_id) == false)
+            if($this->intellivoidAccounts->getAccountManager()->IdExists($account_id) == false)
             {
                 throw new AccountNotFoundException();
             }
