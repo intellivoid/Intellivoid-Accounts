@@ -1,13 +1,14 @@
 <?php
 
     namespace IntellivoidAccounts\Exceptions;
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class ConfigurationNotFoundException
      * @package IntellivoidAccounts\Exceptions
      */
-    class ConfigurationNotFoundException extends \Exception
+    class ConfigurationNotFoundException extends Exception
     {
         /**
          * ConfigurationNotFoundException constructor.

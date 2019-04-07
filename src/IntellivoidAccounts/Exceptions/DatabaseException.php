@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class DatabaseException
      * @package IntellivoidAccounts\Exceptions
      */
-    class DatabaseException extends \Exception
+    class DatabaseException extends Exception
     {
         /**
          * @var string

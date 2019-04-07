@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class AccountNotFoundException
      * @package IntellivoidAccounts\Exceptions
      */
-    class AccountNotFoundException extends \Exception
+    class AccountNotFoundException extends Exception
     {
         /**
          * AccountNotFoundException constructor.

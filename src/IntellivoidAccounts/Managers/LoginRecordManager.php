@@ -7,6 +7,7 @@
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
     use IntellivoidAccounts\Exceptions\InvalidLoginStatusException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
@@ -43,6 +44,7 @@
          * @throws DatabaseException
          * @throws InvalidIpException
          * @throws InvalidLoginStatusException
+         * @throws InvalidSearchMethodException
          */
         public function createLoginRecord(int $account_id, string $ip_address, int $status, string $origin): bool
         {

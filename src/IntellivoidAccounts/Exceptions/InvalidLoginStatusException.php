@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidLoginStatusException
      * @package IntellivoidAccounts\Exceptions
      */
-    class InvalidLoginStatusException extends \Exception
+    class InvalidLoginStatusException extends Exception
     {
         /**
          * InvalidLoginStatusException constructor.

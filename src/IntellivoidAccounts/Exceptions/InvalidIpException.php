@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidIpException
      * @package IntellivoidAccounts\Exceptions
      */
-    class InvalidIpException extends \Exception
+    class InvalidIpException extends Exception
     {
         /**
          * InvalidIpException constructor.

@@ -4,6 +4,7 @@
     use IntellivoidAccounts\Exceptions\ConfigurationNotFoundException;
     use IntellivoidAccounts\Managers\AccountManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
+    use mysqli;
 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'AccountSearchMethod.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountStatus.php');
@@ -54,7 +55,7 @@
         public $configuration;
 
         /**
-         * @var \mysqli
+         * @var mysqli
          */
         public $database;
 
@@ -81,7 +82,7 @@
 
             $this->configuration = parse_ini_file(__DIR__ . DIRECTORY_SEPARATOR . 'configuration.ini');
 
-            $this->database = new \mysqli(
+            $this->database = new mysqli(
                 $this->configuration['DatabaseHost'],
                 $this->configuration['DatabaseUsername'],
                 $this->configuration['DatabasePassword'],

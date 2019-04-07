@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class UsernameAlreadyExistsException
      * @package IntellivoidAccounts\Exceptions
      */
-    class UsernameAlreadyExistsException extends \Exception
+    class UsernameAlreadyExistsException extends Exception
     {
         /**
          * UsernameAlreadyExistsException constructor.

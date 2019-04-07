@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidSearchMethodException
      * @package IntellivoidAccounts\Exceptions
      */
-    class InvalidSearchMethodException extends \Exception
+    class InvalidSearchMethodException extends Exception
     {
         /**
          * InvalidSearchMethodException constructor.

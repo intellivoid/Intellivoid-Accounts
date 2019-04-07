@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class AccountSuspendedException
      * @package IntellivoidAccounts\Exceptions
      */
-    class AccountSuspendedException extends \Exception
+    class AccountSuspendedException extends Exception
     {
         /**
          * AccountSuspendedException constructor.

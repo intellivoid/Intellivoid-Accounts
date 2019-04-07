@@ -2,6 +2,10 @@
 
     namespace ZiProto;
 
+    use ZiProto\Exception\DecodingFailedException;
+    use ZiProto\Exception\EncodingFailedException;
+    use ZiProto\Exception\InvalidOptionException;
+
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'Options.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'Regex.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exception' . DIRECTORY_SEPARATOR . 'DecodingFailedException.php');
@@ -33,8 +37,8 @@
          * @param mixed $value
          * @param EncodingOptions|int|null $options
          *
-         * @throws \ZiProto\Exception\InvalidOptionException
-         * @throws \ZiProto\Exception\EncodingFailedException
+         * @throws InvalidOptionException
+         * @throws EncodingFailedException
          *
          * @return string
          */
@@ -46,8 +50,8 @@
          * @param string $data
          * @param DecodingOptions|int|null $options
          *
-         * @throws \ZiProto\Exception\InvalidOptionException
-         * @throws \ZiProto\Exception\DecodingFailedException
+         * @throws InvalidOptionException
+         * @throws DecodingFailedException
          *
          * @return mixed
          */

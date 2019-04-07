@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class EmailAlreadyExistsException
      * @package IntellivoidAccounts\Exceptions
      */
-    class EmailAlreadyExistsException extends \Exception
+    class EmailAlreadyExistsException extends Exception
     {
         /**
          * EmailAlreadyExistsException constructor.

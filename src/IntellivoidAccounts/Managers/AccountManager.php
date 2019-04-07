@@ -18,7 +18,6 @@
     use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
-    use function PHPSTORM_META\type;
     use ZiProto\ZiProto;
 
     /**
@@ -48,10 +47,12 @@
          * @param string $email
          * @param string $password
          * @return Account
+         * @throws AccountNotFoundException
          * @throws DatabaseException
          * @throws EmailAlreadyExistsException
          * @throws InvalidEmailException
          * @throws InvalidPasswordException
+         * @throws InvalidSearchMethodException
          * @throws InvalidUsernameException
          * @throws UsernameAlreadyExistsException
          */
@@ -172,8 +173,11 @@
          * @param string $username_or_email
          * @param string $password
          * @return bool
+         * @throws AccountNotFoundException
          * @throws AccountSuspendedException
+         * @throws DatabaseException
          * @throws IncorrectLoginDetailsException
+         * @throws InvalidSearchMethodException
          */
         public function checkLogin(string $username_or_email, string $password): bool
         {
@@ -210,6 +214,8 @@
          *
          * @param string $email
          * @return bool
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function emailExists(string $email): bool
         {
@@ -229,6 +235,8 @@
          *
          * @param string $username
          * @return bool
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function usernameExists(string $username): bool
         {
@@ -248,6 +256,8 @@
          *
          * @param string $public_id
          * @return bool
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function publicIdExists(string $public_id): bool
         {
@@ -267,6 +277,8 @@
          *
          * @param int $id
          * @return bool
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function IdExists(int $id): bool
         {

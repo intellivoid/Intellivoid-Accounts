@@ -2,13 +2,14 @@
 
     namespace IntellivoidAccounts\Exceptions;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
 
     /**
      * Class InvalidEmailException
      * @package IntellivoidAccounts\Exceptions
      */
-    class InvalidEmailException extends \Exception
+    class InvalidEmailException extends Exception
     {
         /**
          * InvalidEmailException constructor.
