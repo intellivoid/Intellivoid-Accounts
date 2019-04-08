@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" afterDir="false" />
-    </list>
+    <list default="true" id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
+            <state relative-caret-position="-1075">
               <caret line="214" column="15" selection-start-line="214" selection-start-column="15" selection-end-line="214" selection-end-column="15" />
               <folding>
                 <element signature="e#56#104#0#PHP" expanded="true" />
@@ -61,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-199">
-              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="-378">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
             </state>
           </provider>
         </entry>
@@ -76,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+            <state relative-caret-position="34">
+              <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -132,10 +130,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1524" />
-    <option name="y" value="79" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
+    <option name="x" value="73" />
+    <option name="y" value="38" />
+    <option name="width" value="1223" />
+    <option name="height" value="646" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -173,7 +171,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Netkas/PhpstormProjects/IntellivoidAccounts/src/IntellivoidAccounts/Managers/AccountManager.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../sws" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RunDashboard">
@@ -218,15 +216,16 @@
       <workItem from="1553985975552" duration="644000" />
       <workItem from="1553989568590" duration="948000" />
       <workItem from="1554046016917" duration="2274000" />
-      <workItem from="1554679249469" duration="179000" />
+      <workItem from="1554679249469" duration="1580000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20417000" />
+    <option name="totallyTimeSpent" value="21818000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1524" y="79" width="1382" height="754" extended-state="0" />
+    <frame x="1479" y="26" width="1382" height="754" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20726173" />
       <window_info id="Structure" order="1" weight="0.16691843" />
@@ -417,29 +416,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-378">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
+        <state relative-caret-position="-1075">
           <caret line="214" column="15" selection-start-line="214" selection-start-column="15" selection-end-line="214" selection-end-column="15" />
           <folding>
             <element signature="e#56#104#0#PHP" expanded="true" />
             <marker date="1554679347007" expanded="true" signature="3849:4124" ph="INSERT INTO `users`... " />
             <marker date="1554679347007" expanded="true" signature="6191:6356" ph="SELECT id, p... users" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-199">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
         </state>
       </provider>
     </entry>
