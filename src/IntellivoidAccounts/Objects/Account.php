@@ -81,6 +81,15 @@
         public $CreationDate;
 
         /**
+         * Account constructor.
+         */
+        public function __construct()
+        {
+            $this->PersonalInformation = new PersonalInformation();
+            $this->Configuration = new Configuration();
+        }
+
+        /**
          * Converts object to array
          *
          * @return array
