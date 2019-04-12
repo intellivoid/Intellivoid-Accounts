@@ -3,6 +3,7 @@
     namespace IntellivoidAccounts\Objects\Account\Configuration;
 
     use IntellivoidAccounts\Abstracts\OpenBluPlan;
+    use IntellivoidAccounts\Abstracts\TransactionStatus;
 
     /**
      * Class OpenBlu
@@ -11,9 +12,18 @@
     class OpenBlu
     {
         /**
+         * The current plan of the API
+         *
          * @var OpenBluPlan|int
          */
         public $CurrentPlan;
+
+        /**
+         * The status of the transaction status right now
+         *
+         * @var TransactionStatus|int
+         */
+        public $TransactionStatus;
 
         /**
          * The access key ID
@@ -21,6 +31,22 @@
          * @var int
          */
         public $AccessKeyID;
+
+        /**
+         * Indicates if a merchant was used to active this plan, if so
+         * then it cannot be cancelled/replaced directly
+         *
+         * @var bool
+         */
+        public $MerchantUsed;
+
+        /**
+         * The code that was used with this plan, this allows the plan
+         * conditions to be altered, including the price.
+         *
+         * @var string
+         */
+        public $PlanCode;
 
         /**
          * The PayPal Transaction ID
@@ -51,7 +77,10 @@
         {
             return array(
                 'current_plan' => (int)$this->CurrentPlan,
+                'transaction_status' => (int)$this->TransactionStatus,
                 'access_key_id' => (int)$this->AccessKeyID,
+                'merchant_used' => $this->MerchantUsed,
+                'plan_code' => $this->PlanCode,
                 'transaction_id' => $this->TransactionID,
                 'transaction_processed_timestamp' => (int)$this->TransactionProcessedTimestamp
             );
@@ -72,9 +101,24 @@
                 $ConfigurationObject->CurrentPlan = (int)$data['current_plan'];
             }
 
+            if(isset($data['transaction_status']))
+            {
+                $ConfigurationObject->TransactionStatus = (int)$data['transaction_status'];
+            }
+
             if(isset($data['access_key_id']))
             {
                 $ConfigurationObject->AccessKeyID = (int)$data['access_key_id'];
+            }
+
+            if(isset($data['merchant_used']))
+            {
+                $ConfigurationObject->MerchantUsed = $data['merchant_used'];
+            }
+
+            if(isset($data['plan_code']))
+            {
+                $ConfigurationObject->PlanCode = $data['plan_code'];
             }
 
             if(isset($data['transaction_id']))
