@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" afterDir="false" />
+    <list default="true" id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts" />
+    <list id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/IntellivoidAccounts.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IntellivoidAccounts.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ec635b36-12e1-493b-bf95-19e46f51dd2d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ec635b36-12e1-493b-bf95-19e46f51dd2d.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/netkas.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/netkas.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,90 +29,60 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="intellivoid@127.0.0.1" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="intellivoid@127.0.0.1" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="intellivoid@127.0.0.1" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="intellivoid: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
     <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/balance_transactions.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="47" lean-forward="true" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/login_records.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="65" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/users.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="150">
               <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="214" column="15" selection-start-line="214" selection-start-column="15" selection-end-line="214" selection-end-column="15" />
-              <folding>
-                <element signature="e#56#104#0#PHP" expanded="true" />
-                <marker date="1554679347007" expanded="true" signature="3849:4124" ph="INSERT INTO `users`... " />
-                <marker date="1554679347007" expanded="true" signature="6191:6356" ph="SELECT id, p... users" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/ZiProto/Type/Map.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/ZiProto/ziproto.json">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2023">
-              <caret line="120" column="40" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>InvalidLoginDetails</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -113,13 +91,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/PersonalInformation/BirthDate.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/LoginRecord.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidUsernameException.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidEmailException.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidPasswordException.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/ApplicationConfiguration.php" />
         <option value="$PROJECT_DIR$/database/users.sql" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/AccountStatus.php" />
@@ -127,25 +103,40 @@
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/ConfigurationNotFoundException.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidIpException.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidLoginStatusException.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" />
         <option value="$PROJECT_DIR$/database/login_records.sql" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/PersonalInformation.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account.php" />
-        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/OpenBluPlan.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/TransactionStatus.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration/OpenBlu.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini" />
+        <option value="$PROJECT_DIR$/database/balance_transactions.sql" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/ec635b36-12e1-493b-bf95-19e46f51dd2d/console.sql" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceTransactionType.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/PaymentProcessor.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceEffect.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/BalanceTransaction.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/SearchMethods/BalanceTransactionSearchMethod.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/BalanceTransactionRecordNotFoundException.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/AccountLimitedException.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidAccountStatusException.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" />
         <option value="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/PersonalInformation.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration.php" />
+        <option value="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/BalanceTransactions.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="73" />
-    <option name="y" value="38" />
-    <option name="width" value="1223" />
-    <option name="height" value="646" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="28" />
+    <option name="width" value="1366" />
+    <option name="height" value="740" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -153,13 +144,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
               <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
@@ -171,6 +166,66 @@
               <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Abstracts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Abstracts" type="462c0819:PsiDirectoryNode" />
+              <item name="SearchMethods" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Exceptions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Managers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Objects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Objects" type="462c0819:PsiDirectoryNode" />
+              <item name="Account" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Objects" type="462c0819:PsiDirectoryNode" />
+              <item name="Account" type="462c0819:PsiDirectoryNode" />
+              <item name="Configuration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intellivoid-accounts" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="IntellivoidAccounts" type="462c0819:PsiDirectoryNode" />
+              <item name="Utilities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="intellivoid-accounts" type="b2602c69:ProjectViewProjectNode" />
@@ -183,6 +238,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -190,7 +246,9 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Netkas/PhpstormProjects/IntellivoidAccounts/src/IntellivoidAccounts/Managers/AccountManager.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/IntellivoidAccounts" />
+    <property name="database.console.LAST_STATE" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
@@ -242,18 +300,32 @@
       <workItem from="1554046016917" duration="2274000" />
       <workItem from="1554679249469" duration="1580000" />
       <workItem from="1554692585107" duration="79000" />
+      <workItem from="1555015363330" duration="3045000" />
+      <workItem from="1555031450695" duration="849000" />
+      <workItem from="1555106761600" duration="7063000" />
+      <workItem from="1555164723976" duration="8080000" />
     </task>
+    <task id="LOCAL-00001" summary="Version 1.0.0.10">
+      <changelist id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts" />
+      <created>1555179094132</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1555179094132</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <option name="trackContextForNewChangelist" value="true" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21897000" />
+    <option name="totallyTimeSpent" value="40934000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="73" y="38" width="1223" height="646" extended-state="0" />
+    <frame x="0" y="28" width="1366" height="740" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23903698" />
-      <window_info id="Structure" order="1" weight="0.16691843" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18636364" />
+      <window_info id="Structure" order="1" weight="0.16666667" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -262,20 +334,50 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49697885" visible="true" weight="0.4020408" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32954547" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49697885" weight="0.40038314" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5030211" side_tool="true" weight="0.32998326" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="11" weight="0.32954547" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32943144" />
+      <window_info anchor="bottom" id="Database Console" order="13" weight="0.32954547" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.22184007" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.19772728" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -309,9 +411,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/ec635b36-12e1-493b-bf95-19e46f51dd2d/console.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/ApplicationConfiguration.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -331,13 +430,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -376,13 +468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidLoginStatusException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -390,86 +475,216 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="51" column="37" lean-forward="true" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/login_records.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/PersonalInformation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/88e2fca0/ec635b36-12e1-493b-bf95-19e46f51dd2d/accounts.users" />
-    <entry file="file://$PROJECT_DIR$/database/users.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2023">
-          <caret line="120" column="40" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="214" column="15" selection-start-line="214" selection-start-column="15" selection-end-line="214" selection-end-column="15" />
-          <folding>
-            <element signature="e#56#104#0#PHP" expanded="true" />
-            <marker date="1554679347007" expanded="true" signature="3849:4124" ph="INSERT INTO `users`... " />
-            <marker date="1554679347007" expanded="true" signature="6191:6356" ph="SELECT id, p... users" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/ZiProto/Type/Map.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/ZiProto/ziproto.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/TransactionStatus.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration/OpenBlu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1560">
+          <caret line="105" column="91" selection-start-line="105" selection-start-column="91" selection-end-line="105" selection-end-column="91" />
+          <folding>
+            <element signature="e#77#123#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/OpenBluPlan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/ec635b36-12e1-493b-bf95-19e46f51dd2d/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="86" lean-forward="true" selection-start-line="6" selection-start-column="86" selection-end-line="6" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceTransactionType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="39" column="25" lean-forward="true" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/PaymentProcessor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="76" column="38" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceEffect.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/SearchMethods/BalanceTransactionSearchMethod.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="59" selection-start-line="7" selection-start-column="59" selection-end-line="7" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/BalanceTransaction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="180" selection-start-line="180" selection-end-line="180" />
+          <folding>
+            <element signature="e#56#104#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/BalanceTransactionRecordNotFoundException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+          <folding>
+            <element signature="e#60#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/AccountLimitedException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#60#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidAccountStatusException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+          <folding>
+            <element signature="e#68#82#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-525">
+          <caret line="13" selection-start-line="11" selection-start-column="73" selection-end-line="13" />
+          <folding>
+            <element signature="e#47#113#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2176">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#56#104#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="160" selection-start-line="160" selection-end-line="160" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/PersonalInformation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="658">
+          <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/BalanceTransactions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="187" column="25" lean-forward="true" selection-start-line="187" selection-start-column="25" selection-end-line="187" selection-end-column="25" />
+          <folding>
+            <element signature="e#57#105#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+        <state relative-caret-position="15">
+          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/users.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/login_records.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/balance_transactions.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="47" lean-forward="true" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
         </state>
       </provider>
     </entry>

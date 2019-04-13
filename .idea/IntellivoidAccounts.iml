@@ -17,6 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/ZiProto/Abstracts" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/ZiProto" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Abstracts/SearchMethods" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/IntellivoidAccounts/Objects/Account/Configuration" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
