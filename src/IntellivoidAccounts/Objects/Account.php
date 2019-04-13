@@ -60,13 +60,6 @@
         public $PersonalInformation;
 
         /**
-         * The current account balance
-         *
-         * @var float
-         */
-        public $Balance;
-
-        /**
          * Account Configuration for various properties
          *
          * @var Configuration
@@ -94,7 +87,6 @@
         {
             $this->PersonalInformation = new PersonalInformation();
             $this->Configuration = new Configuration();
-            $this->Balance = 0;
         }
 
         /**
@@ -112,7 +104,6 @@
                 'password' => $this->Password,
                 'status' => (int)$this->Status,
                 'personal_information' => $this->PersonalInformation->toArray(),
-                'balance' => $this->Balance,
                 'configuration' => $this->Configuration->toArray(),
                 'last_login_id' => $this->LastLoginID,
                 'creation_date' => (int)$this->CreationDate
@@ -166,15 +157,6 @@
             else
             {
                 $AccountObject->PersonalInformation = new PersonalInformation();
-            }
-
-            if(isset($data['balance']))
-            {
-                $AccountObject->Balance = $data['balance'];
-            }
-            else
-            {
-                $AccountObject->Balance = 0;
             }
 
             if(isset($data['configuration']))

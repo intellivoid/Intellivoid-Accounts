@@ -21,4 +21,7 @@
         const AccountSuspendedException = 110;
         const InvalidIpException = 111;
         const InvalidLoginStatusException = 112;
+        const BalanceTransactionRecordNotFoundException = 113;
+        const AccountLimitedException = 114;
+        const InvalidAccountStatusException = 115;
     }

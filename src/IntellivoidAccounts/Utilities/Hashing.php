@@ -9,6 +9,28 @@
     class Hashing
     {
         /**
+         * Peppers a hash using whirlpool
+         *
+         * @param string $Data The hash to pepper
+         * @param int $Min Minimal amounts of executions
+         * @param int $Max Maximum amount of executions
+         * @return string
+         */
+        public static function pepper(string $Data, int $Min = 100, int $Max = 1000): string
+        {
+            $n = rand($Min, $Max);
+            $res = '';
+            $Data = hash('whirlpool', $Data);
+            for ($i=0,$l=strlen($Data) ; $l ; $l--)
+            {
+                $i = ($i+$n-1) % $l;
+                $res = $res . $Data[$i];
+                $Data = ($i ? substr($Data, 0, $i) : '') . ($i < $l-1 ? substr($Data, $i+1) : '');
+            }
+            return($res);
+        }
+
+        /**
          * Calculates the Public ID of the Account
          *
          * @param string $username
@@ -61,5 +83,25 @@
             $crc2 = hash('sha256', $origin, $ip_address);
 
             return $crc1 . $crc2;
+        }
+
+        /**
+         * Creates a public ID for a balance transaction record
+         *
+         * @param int $account_id
+         * @param int $unix_timestamp
+         * @param int $amount
+         * @param string $source
+         * @return string
+         */
+        public static function balanceTransactionPublicID(int $account_id, int $unix_timestamp, int $amount, string $source): string
+        {
+            $builder = self::pepper($source);
+            $builder .= hash('crc32', $account_id);
+            $builder .= hash('crc32', $unix_timestamp);
+            $builder .= hash('crc32', $amount);
+            $builder .= hash('crc32', $source);
+
+            return $builder;
         }
     }

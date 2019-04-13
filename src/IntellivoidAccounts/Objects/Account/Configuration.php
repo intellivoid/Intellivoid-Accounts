@@ -16,11 +16,19 @@
         public $OpenBlu;
 
         /**
+         * The current balance in the account
+         *
+         * @var float
+         */
+        public $Balance;
+
+        /**
          * Configuration constructor.
          */
         public function __construct()
         {
             $this->OpenBlu = new OpenBlu();
+            $this->Balance = 0;
         }
 
         /**
@@ -31,7 +39,8 @@
         public function toArray(): array
         {
             return array(
-                'openblu' => $this->OpenBlu->toArray()
+                'openblu' => $this->OpenBlu->toArray(),
+                'balance' => (float)$this->Balance
             );
         }
 
@@ -48,6 +57,11 @@
             if(isset($data['openblu']))
             {
                 $ConfigurationObject->OpenBlu = OpenBlu::fromArray($data['openblu']);
+            }
+
+            if(isset($data['balance']))
+            {
+                $ConfigurationObject->Balance = (float)$data['balance'];
             }
 
             return $ConfigurationObject;

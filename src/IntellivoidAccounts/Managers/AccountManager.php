@@ -9,6 +9,7 @@
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\EmailAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\IncorrectLoginDetailsException;
+    use IntellivoidAccounts\Exceptions\InvalidAccountStatusException;
     use IntellivoidAccounts\Exceptions\InvalidEmailException;
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
@@ -149,7 +150,7 @@
             $query = "SELECT id, public_id, username, email, password, status, personal_information, configuration, last_login_id, creation_date FROM `users` WHERE $search_method='$input'";
             $query_results = $this->intellivoidAccounts->database->query($query);
 
-            if($query == false)
+            if($query_results == false)
             {
                 throw new DatabaseException($query, $this->intellivoidAccounts->database->error);
             }
@@ -165,6 +166,81 @@
                 $Row['configuration'] = ZiProto::decode($Row['configuration']);
                 return Account::fromArray($Row);
             }
+        }
+
+        /**
+         * Updates an existing account in teh database
+         *
+         * @param Account $account
+         * @return bool
+         * @throws AccountNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidEmailException
+         * @throws InvalidPasswordException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidUsernameException
+         * @throws InvalidAccountStatusException
+         */
+        public function updateAccount(Account $account): bool
+        {
+            if($this->IdExists($account->ID) == false)
+            {
+                throw new AccountNotFoundException();
+            }
+
+            if(Validate::email($account->Email) == false)
+            {
+                throw new InvalidEmailException();
+            }
+
+            if(Validate::username($account->Username) == false)
+            {
+                throw new InvalidUsernameException();
+            }
+
+            if(Validate::password($account->Password) == false)
+            {
+                throw new InvalidPasswordException();
+            }
+
+            switch($account->Status)
+            {
+                case AccountStatus::Active: break;
+                case AccountStatus::Suspended: break;
+                case AccountStatus::Limited: break;
+                case AccountStatus::VerificationRequired: break;
+                default: throw new InvalidAccountStatusException();
+            }
+
+            $ID = (int)$account->ID;
+            $PublicID = $this->intellivoidAccounts->database->real_escape_string($account->PublicID);
+            $Username = $this->intellivoidAccounts->database->real_escape_string($account->Username);
+            $Email = $this->intellivoidAccounts->database->real_escape_string($account->Email);
+            $Password = $this->intellivoidAccounts->database->real_escape_string($account->Password);
+            $Status = (int)$account->Status;
+            $PersonalInformation = $this->intellivoidAccounts->database->real_escape_string(
+                ZiProto::encode($account->PersonalInformation->toArray())
+            );
+            $Configuration = $this->intellivoidAccounts->database->real_escape_string(
+                ZiProto::encode($account->Configuration->toArray())
+            );
+            $LastLoginId = (int)$account->LastLoginID;
+
+            $Query = sprintf(
+                "UPDATE `users` SET public_id='%s', username='%s', email='%s', password='%s', status=%s, personal_information='%s', configuration='%s', last_login_id=%s WHERE id=%s",
+                $PublicID, $Username, $Email, $Password, $Status, $PersonalInformation, $Configuration, $LastLoginId, $ID
+            );
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+
         }
 
         /**
