@@ -198,11 +198,6 @@
                 throw new InvalidUsernameException();
             }
 
-            if(Validate::password($account->Password) == false)
-            {
-                throw new InvalidPasswordException();
-            }
-
             switch($account->Status)
             {
                 case AccountStatus::Active: break;
@@ -216,7 +211,6 @@
             $PublicID = $this->intellivoidAccounts->database->real_escape_string($account->PublicID);
             $Username = $this->intellivoidAccounts->database->real_escape_string($account->Username);
             $Email = $this->intellivoidAccounts->database->real_escape_string($account->Email);
-            $Password = $this->intellivoidAccounts->database->real_escape_string($account->Password);
             $Status = (int)$account->Status;
             $PersonalInformation = $this->intellivoidAccounts->database->real_escape_string(
                 ZiProto::encode($account->PersonalInformation->toArray())
@@ -227,8 +221,8 @@
             $LastLoginId = (int)$account->LastLoginID;
 
             $Query = sprintf(
-                "UPDATE `users` SET public_id='%s', username='%s', email='%s', password='%s', status=%s, personal_information='%s', configuration='%s', last_login_id=%s WHERE id=%s",
-                $PublicID, $Username, $Email, $Password, $Status, $PersonalInformation, $Configuration, $LastLoginId, $ID
+                "UPDATE `users` SET public_id='%s', username='%s', email='%s', status=%s, personal_information='%s', configuration='%s', last_login_id=%s WHERE id=%s",
+                $PublicID, $Username, $Email, $Status, $PersonalInformation, $Configuration, $LastLoginId, $ID
             );
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
