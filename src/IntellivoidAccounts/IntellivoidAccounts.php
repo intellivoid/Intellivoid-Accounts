@@ -4,6 +4,7 @@
 
     use IntellivoidAccounts\Exceptions\ConfigurationNotFoundException;
     use IntellivoidAccounts\Managers\AccountManager;
+    use IntellivoidAccounts\Managers\BalanceTransactions;
     use IntellivoidAccounts\Managers\LoginRecordManager;
     use mysqli;
 
@@ -83,6 +84,11 @@
         private $AccountManager;
 
         /**
+         * @var BalanceTransactions
+         */
+        private $BalanceTransactions;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws ConfigurationNotFoundException
          */
@@ -105,6 +111,7 @@
 
             $this->AccountManager = new AccountManager($this);
             $this->LoginRecordManager = new LoginRecordManager($this);
+            $this->BalanceTransactions = new BalanceTransactions($this);
         }
 
         /**
@@ -121,6 +128,14 @@
         public function getAccountManager(): AccountManager
         {
             return $this->AccountManager;
+        }
+
+        /**
+         * @return BalanceTransactions
+         */
+        public function getBalanceTransactions(): BalanceTransactions
+        {
+            return $this->BalanceTransactions;
         }
 
     }
