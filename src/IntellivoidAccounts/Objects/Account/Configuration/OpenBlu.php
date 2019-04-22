@@ -57,9 +57,9 @@
          * The access key associated with this account, by default
          * if none, it's set to 0.
          *
-         * @var int
+         * @var string
          */
-        public $AccessKeyID;
+        public $AccessKeyPublicID;
 
         /**
          * OpenBlu constructor.
@@ -72,7 +72,6 @@
             $this->Price = 0;
             $this->CallsMonthly = 0;
             $this->Active = false;
-            $this->AccessKeyID = 0;
         }
 
         /**
@@ -89,7 +88,7 @@
                 'price' => (float)$this->Price,
                 'calls_monthly' => (int)$this->CallsMonthly,
                 'active' => (bool)$this->Active,
-                'access_key_id' => $this->AccessKeyID
+                'access_key_public_id' => $this->AccessKeyPublicID
             );
         }
 
@@ -138,9 +137,9 @@
                 $ConfigurationObject->AutoRenew = (bool)$data['auto_renew'];
             }
 
-            if(isset($data['access_key_id']))
+            if(isset($data['access_key_public_iid']))
             {
-                $ConfigurationObject->AccessKeyID = (int)$data['access_key_id'];
+                $ConfigurationObject->AccessKeyPublicID = $data['access_key_public_id'];
             }
 
             return $ConfigurationObject;
