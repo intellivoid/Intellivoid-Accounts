@@ -11,6 +11,13 @@
     class OpenBlu
     {
         /**
+         * Indicates if a promotion code is used or not
+         *
+         * @var bool
+         */
+        public $CodeUsed;
+
+        /**
          * The current plan of the API
          *
          * @var OpenBluPlan|int
@@ -32,20 +39,19 @@
         public $Price;
 
         /**
+         * The amount of monthly calls that are available, 0 is for unlimited
+         *
+         * @var int
+         */
+        public $CallsMonthly;
+
+        /**
          * Indicates if the current plan is active or not, this can
          * deactivate due to not paying the billing cycle
          *
          * @var bool
          */
         public $Active;
-
-        /**
-         * Indicates if the system has permission to take money
-         * from the account balance to auto-renew
-         *
-         * @var bool
-         */
-        public $AutoRenew;
 
         /**
          * The access key associated with this account, by default
@@ -60,11 +66,12 @@
          */
         public function __construct()
         {
+            $this->CodeUsed = false;
             $this->CurrentPlan = OpenBluPlan::None;
             $this->NexCycle = 0;
             $this->Price = 0;
+            $this->CallsMonthly = 0;
             $this->Active = false;
-            $this->AutoRenew = false;
             $this->AccessKeyID = 0;
         }
 
@@ -76,11 +83,12 @@
         public function toArray(): array
         {
             return array(
+                'code_used' => (bool)$this->CodeUsed,
                 'current_plan' => (int)$this->CurrentPlan,
                 'next_cycle' => (int)$this->NexCycle,
                 'price' => (float)$this->Price,
+                'calls_monthly' => (int)$this->CallsMonthly,
                 'active' => (bool)$this->Active,
-                'auto_renew' => (bool)$this->AutoRenew,
                 'access_key_id' => $this->AccessKeyID
             );
         }
@@ -95,6 +103,11 @@
         {
             $ConfigurationObject = new OpenBlu();
 
+            if(isset($data['code_used']))
+            {
+                $ConfigurationObject->CodeUsed = (bool)$data['code_used'];
+            }
+
             if(isset($data['current_plan']))
             {
                 $ConfigurationObject->CurrentPlan = (int)$data['current_plan'];
@@ -108,6 +121,11 @@
             if(isset($data['price']))
             {
                 $ConfigurationObject->Price = (float)$data['price'];
+            }
+
+            if(isset($data['calls_monthly']))
+            {
+                $ConfigurationObject->CallsMonthly = (int)$data['calls_monthly'];
             }
 
             if(isset($data['active']))
