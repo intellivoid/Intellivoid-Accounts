@@ -147,7 +147,7 @@
 
             if(isset($data['status']))
             {
-                $AccountObject->Status = $data['status'];
+                $AccountObject->Status = (int)$data['status'];
             }
 
             if(isset($data['personal_information']))
