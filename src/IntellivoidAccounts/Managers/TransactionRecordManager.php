@@ -5,7 +5,7 @@
 
     use IntellivoidAccounts\Abstracts\OperatorType;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
-    use IntellivoidAccounts\Abstracts\TransactionRecordSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\TransactionRecordSearchMethod;
     use IntellivoidAccounts\Abstracts\TransactionType;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;

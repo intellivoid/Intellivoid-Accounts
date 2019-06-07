@@ -1,7 +1,7 @@
 <?php
 
 
-    namespace IntellivoidAccounts\Abstracts;
+    namespace IntellivoidAccounts\Abstracts\SearchMethods;
 
     /**
      * Class TransactionRecordSearchMethod
