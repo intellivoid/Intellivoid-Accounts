@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" afterDir="false" />
     </list>
     <list id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
@@ -88,7 +86,7 @@
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+              <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -341,7 +339,7 @@
       <workItem from="1555164723976" duration="8080000" />
       <workItem from="1559881411665" duration="4394000" />
       <workItem from="1559926106557" duration="9615000" />
-      <workItem from="1559940990982" duration="41000" />
+      <workItem from="1559940990982" duration="68000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.0.10">
       <changelist id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts" />
@@ -356,7 +354,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54984000" />
+    <option name="totallyTimeSpent" value="55011000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -768,7 +766,7 @@
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
         </state>
       </provider>
     </entry>
