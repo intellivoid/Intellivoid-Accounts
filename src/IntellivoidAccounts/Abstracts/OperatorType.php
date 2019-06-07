@@ -18,4 +18,9 @@
          * Removes the given amount from the Account
          */
         const Withdraw = 1;
+
+        /**
+         * No money was transferred
+         */
+        const None = 3;
     }

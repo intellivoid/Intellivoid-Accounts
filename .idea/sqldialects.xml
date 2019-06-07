@@ -7,5 +7,6 @@
     <file url="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/AccountManager.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/BalanceTransactions.php" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/LoginRecordManager.php" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" dialect="MySQL" />
   </component>
 </project>

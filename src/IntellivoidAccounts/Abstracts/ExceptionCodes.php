@@ -24,4 +24,7 @@
         const BalanceTransactionRecordNotFoundException = 113;
         const AccountLimitedException = 114;
         const InvalidAccountStatusException = 115;
+        const InsufficientFundsException = 116;
+        const InvalidVendorException = 117;
+        const InvalidTransactionTypeException = 118;
     }
