@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts">
-      <change afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InsufficientFundsException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidTransactionTypeException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/InvalidVendorException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/ExceptionCodes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/OperatorType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/OperatorType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/IntellivoidAccounts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Hashing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Utilities/Validate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" afterDir="false" />
     </list>
     <list id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Netkas.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Netkas.xml" afterDir="false" />
@@ -65,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="126" column="85" selection-start-line="126" selection-start-column="85" selection-end-line="126" selection-end-column="85" />
+            <state relative-caret-position="414">
+              <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
               <folding>
                 <element signature="e#57#104#0#PHP" expanded="true" />
               </folding>
@@ -289,7 +279,7 @@
       <workItem from="1555106761600" duration="7063000" />
       <workItem from="1555164723976" duration="8080000" />
       <workItem from="1559881411665" duration="4394000" />
-      <workItem from="1559926106557" duration="6319000" />
+      <workItem from="1559926106557" duration="6356000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.0.10">
       <changelist id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts" />
@@ -304,7 +294,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51647000" />
+    <option name="totallyTimeSpent" value="51684000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -763,8 +753,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="126" column="85" selection-start-line="126" selection-start-column="85" selection-end-line="126" selection-end-column="85" />
+        <state relative-caret-position="414">
+          <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
           <folding>
             <element signature="e#57#104#0#PHP" expanded="true" />
           </folding>

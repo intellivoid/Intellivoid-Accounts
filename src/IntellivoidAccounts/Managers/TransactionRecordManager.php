@@ -9,8 +9,12 @@
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InsufficientFundsException;
+    use IntellivoidAccounts\Exceptions\InvalidAccountStatusException;
+    use IntellivoidAccounts\Exceptions\InvalidEmailException;
+    use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidTransactionTypeException;
+    use IntellivoidAccounts\Exceptions\InvalidUsernameException;
     use IntellivoidAccounts\Exceptions\InvalidVendorException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TransactionRecord;
@@ -45,10 +49,14 @@
          * @return TransactionRecord
          * @throws AccountNotFoundException
          * @throws DatabaseException
-         * @throws InvalidSearchMethodException
          * @throws InsufficientFundsException
-         * @throws InvalidVendorException
+         * @throws InvalidSearchMethodException
          * @throws InvalidTransactionTypeException
+         * @throws InvalidVendorException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidPasswordException
+         * @throws InvalidUsernameException
          */
         public function createTransaction(int $account_id, float $amount, string $vendor, int $type): TransactionRecord
         {
