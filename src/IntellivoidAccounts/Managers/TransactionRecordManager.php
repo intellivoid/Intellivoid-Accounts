@@ -160,7 +160,7 @@
 
                 case TransactionRecordSearchMethod::byPublicId:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($search_method) . "'";
+                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($value) . "'";
                     break;
 
                 default:

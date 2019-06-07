@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json" afterDir="false" />
     </list>
     <list id="68e197dd-5b61-4089-86a0-c67efe63d5f3" name="Default" comment="">
@@ -64,11 +66,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="181" column="17" lean-forward="true" selection-start-line="181" selection-start-column="17" selection-end-line="181" selection-end-column="17" />
+            <state relative-caret-position="137">
+              <caret line="162" column="98" selection-start-line="162" selection-start-column="98" selection-end-line="162" selection-end-column="98" />
               <folding>
                 <element signature="e#57#104#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -77,7 +88,7 @@
         <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+              <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -329,7 +340,8 @@
       <workItem from="1555106761600" duration="7063000" />
       <workItem from="1555164723976" duration="8080000" />
       <workItem from="1559881411665" duration="4394000" />
-      <workItem from="1559926106557" duration="9549000" />
+      <workItem from="1559926106557" duration="9615000" />
+      <workItem from="1559940990982" duration="41000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.0.10">
       <changelist id="2748ead0-25f6-4da2-b812-ccb68a418715" name="Version 1.0.0.10" comment="The changes for version 1.0.0.10 in IntellivoidAccounts" />
@@ -344,13 +356,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54877000" />
+    <option name="totallyTimeSpent" value="54984000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2118003" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21482602" />
       <window_info id="Structure" order="1" weight="0.16666667" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -533,13 +545,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/PaymentProcessor.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -547,33 +552,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/SearchMethods/BalanceTransactionSearchMethod.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="59" selection-start-line="7" selection-start-column="59" selection-end-line="7" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/BalanceTransaction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="180" selection-start-line="180" selection-end-line="180" />
-          <folding>
-            <element signature="e#56#104#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/BalanceTransactionRecordNotFoundException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-          <folding>
-            <element signature="e#60#74#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/SearchMethods/BalanceTransactionSearchMethod.php" />
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Objects/BalanceTransaction.php" />
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/BalanceTransactionRecordNotFoundException.php" />
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Exceptions/AccountLimitedException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -608,16 +589,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/BalanceTransactions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="187" column="25" lean-forward="true" selection-start-line="187" selection-start-column="25" selection-end-line="187" selection-end-column="25" />
-          <folding>
-            <element signature="e#57#105#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/BalanceTransactions.php" />
     <entry file="file://$PROJECT_DIR$/database/balance_transactions.sql" />
     <entry file="das://ec635b36-12e1-493b-bf95-19e46f51dd2d/schema/intellivoid/table/transaction_records.sql">
       <provider selected="true" editor-type-id="text-editor" />
@@ -735,27 +707,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceEffect.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceTransactionType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/TransactionStatus.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceEffect.php" />
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/BalanceTransactionType.php" />
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/TransactionStatus.php" />
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/TransactionType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -767,13 +721,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1961">
           <caret line="183" column="5" lean-forward="true" selection-start-line="183" selection-start-column="5" selection-end-line="183" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/SearchMethods/AccountSearchMethod.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -794,20 +741,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Abstracts/SearchMethods/AccountSearchMethod.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/Managers/TransactionRecordManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="181" column="17" lean-forward="true" selection-start-line="181" selection-start-column="17" selection-end-line="181" selection-end-column="17" />
+        <state relative-caret-position="137">
+          <caret line="162" column="98" selection-start-line="162" selection-start-column="98" selection-end-line="162" selection-end-column="98" />
           <folding>
             <element signature="e#57#104#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/configuration.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/IntellivoidAccounts/intellivoid_accounts.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+          <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
         </state>
       </provider>
     </entry>
