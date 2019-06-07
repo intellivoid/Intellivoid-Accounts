@@ -5,6 +5,7 @@
 
     use IntellivoidAccounts\Abstracts\OperatorType;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
+    use IntellivoidAccounts\Abstracts\TransactionRecordSearchMethod;
     use IntellivoidAccounts\Abstracts\TransactionType;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -16,6 +17,7 @@
     use IntellivoidAccounts\Exceptions\InvalidTransactionTypeException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
     use IntellivoidAccounts\Exceptions\InvalidVendorException;
+    use IntellivoidAccounts\Exceptions\TransactionRecordNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TransactionRecord;
     use IntellivoidAccounts\Utilities\Hashing;
@@ -57,6 +59,7 @@
          * @throws InvalidEmailException
          * @throws InvalidPasswordException
          * @throws InvalidUsernameException
+         * @throws TransactionRecordNotFoundException
          */
         public function createTransaction(int $account_id, float $amount, string $vendor, int $type): TransactionRecord
         {
@@ -133,6 +136,52 @@
             }
 
             $this->intellivoidAccounts->getAccountManager()->updateAccount($Account);
-            // return new transaction record
+            return $this->getTransactionRecord(TransactionRecordSearchMethod::byPublicId, $PublicID);
+        }
+
+        /**
+         * Returns an existing transaction record from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return TransactionRecord
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TransactionRecordNotFoundException
+         */
+        public function getTransactionRecord(string $search_method, string $value): TransactionRecord
+        {
+            switch($search_method)
+            {
+                case TransactionRecordSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                case TransactionRecordSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($search_method) . "'";
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = "SELECT id, public_id, account_id, amount, operator_type, type, vendor, timestamp FROM `transaction_records` where $search_method=$value";
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new TransactionRecordNotFoundException();
+                }
+
+                return TransactionRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+            }
         }
     }

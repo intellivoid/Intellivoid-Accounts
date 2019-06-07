@@ -27,4 +27,5 @@
         const InsufficientFundsException = 116;
         const InvalidVendorException = 117;
         const InvalidTransactionTypeException = 118;
+        const TransactionRecordNotFoundException = 119;
     }
