@@ -1,10 +1,14 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="netkas">
+  <dictionary name="Netkas">
     <words>
-      <w>haval</w>
-      <w>intellivoid</w>
-      <w>openblu</w>
-      <w>uindex</w>
+      <w>bitmask</w>
+      <w>fixarray</w>
+      <w>fixint</w>
+      <w>fixmap</w>
+      <w>fixstr</w>
+      <w>negfixint</w>
+      <w>overlongs</w>
+      <w>trydecode</w>
     </words>
   </dictionary>
 </component>
