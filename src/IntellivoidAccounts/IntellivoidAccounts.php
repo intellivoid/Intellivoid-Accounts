@@ -58,6 +58,11 @@
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'ZiProto' . DIRECTORY_SEPARATOR . 'ZiProto.php');
     }
 
+    if(class_exists('BasicCalculator\BC') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'BasicCalculator' . DIRECTORY_SEPARATOR . 'BC.php');
+    }
+
 
     /**
      * Class IntellivoidAccounts
