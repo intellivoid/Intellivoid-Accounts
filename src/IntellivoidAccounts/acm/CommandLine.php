@@ -127,13 +127,13 @@
             }
 
             print("Building configuration from schema\n");
-            foreach($this->acm->getMasterConfiguration()['schemas'] as $schemaName => $schemaValue)
+            foreach($this->acm->MasterConfiguration['schemas'] as $schemaName => $schemaValue)
             {
                 print("Parsing $schemaName\n");
-                foreach($this->acm->getMasterConfiguration()['schemas'][$schemaName] as $schemaKey => $defaultValue)
+                foreach($this->acm->MasterConfiguration['schemas'][$schemaName] as $schemaKey => $defaultValue)
                 {
                     print("Creating $schemaKey=>'$defaultValue' from $schemaName\n");
-                    $this->acm->getMasterConfiguration()['configurations'][$schemaName][$schemaKey] = $defaultValue;
+                    $this->acm->MasterConfiguration['configurations'][$schemaName][$schemaKey] = $defaultValue;
                 }
             }
 
@@ -147,7 +147,7 @@
                     foreach($ParsedConfiguration[$configurationName] as $configKey => $configValue)
                     {
                         print("Creating $configKey=>'$configValue' from $configurationName\n");
-                        $this->acm->getMasterConfiguration()['configurations'][$configurationName][$configKey] = $configValue;
+                        $this->acm->MasterConfiguration['configurations'][$configurationName][$configKey] = $configValue;
                     }
                 }
 

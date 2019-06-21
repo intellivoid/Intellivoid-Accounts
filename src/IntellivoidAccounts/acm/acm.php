@@ -43,7 +43,7 @@
         /**
          * @var array
          */
-        private $MasterConfiguration;
+        public $MasterConfiguration;
 
         /**
          * @var string
@@ -312,13 +312,6 @@
             $CommandLine->processCommandLine();
         }
 
-        /**
-         * @return array
-         */
-        public function getMasterConfiguration(): array
-        {
-            return $this->MasterConfiguration;
-        }
 
         /**
          * @return string
