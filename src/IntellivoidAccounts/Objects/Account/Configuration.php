@@ -2,19 +2,12 @@
 
     namespace IntellivoidAccounts\Objects\Account;
 
-    use IntellivoidAccounts\Objects\Account\Configuration\OpenBlu;
-
     /**
      * Class Configuration
      * @package IntellivoidAccounts\Objects\Account
      */
     class Configuration
     {
-        /**
-         * @var OpenBlu
-         */
-        public $OpenBlu;
-
         /**
          * The current balance in the account
          *
@@ -27,7 +20,6 @@
          */
         public function __construct()
         {
-            $this->OpenBlu = new OpenBlu();
             $this->Balance = 0;
         }
 
@@ -39,7 +31,6 @@
         public function toArray(): array
         {
             return array(
-                'openblu' => $this->OpenBlu->toArray(),
                 'balance' => (float)$this->Balance
             );
         }
@@ -53,11 +44,6 @@
         public static function fromArray(array $data): Configuration
         {
             $ConfigurationObject = new Configuration();
-
-            if(isset($data['openblu']))
-            {
-                $ConfigurationObject->OpenBlu = OpenBlu::fromArray($data['openblu']);
-            }
 
             if(isset($data['balance']))
             {
