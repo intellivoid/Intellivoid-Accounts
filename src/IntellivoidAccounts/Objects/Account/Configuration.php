@@ -2,12 +2,21 @@
 
     namespace IntellivoidAccounts\Objects\Account;
 
+    use IntellivoidAccounts\Objects\Account\Configuration\VerificationMethods;
+
     /**
      * Class Configuration
      * @package IntellivoidAccounts\Objects\Account
      */
     class Configuration
     {
+        /**
+         * Verification Methods that are available for this account
+         *
+         * @var VerificationMethods
+         */
+        public $VerificationMethods;
+
         /**
          * The current balance in the account
          *
@@ -31,7 +40,8 @@
         public function toArray(): array
         {
             return array(
-                'balance' => (float)$this->Balance
+                'balance' => (float)$this->Balance,
+                'verification_methods' => $this->VerificationMethods
             );
         }
 
@@ -48,6 +58,11 @@
             if(isset($data['balance']))
             {
                 $ConfigurationObject->Balance = (float)$data['balance'];
+            }
+
+            if(isset($data['verification_methods']))
+            {
+                $ConfigurationObject->VerificationMethods = VerificationMethods::fromArray($data['verification_methods']);
             }
 
             return $ConfigurationObject;
