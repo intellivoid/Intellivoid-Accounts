@@ -6,6 +6,7 @@
     use Exception;
     use IntellivoidAccounts\Exceptions\ConfigurationNotFoundException;
     use IntellivoidAccounts\Managers\AccountManager;
+    use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
     use IntellivoidAccounts\Managers\TransactionRecordManager;
     use mysqli;
@@ -114,6 +115,11 @@
         private $DatabaseConfiguration;
 
         /**
+         * @var KnownHostsManager
+         */
+        private $KnownHostsManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws ConfigurationNotFoundException
          * @throws Exception
@@ -132,6 +138,7 @@
             );
 
             $this->AccountManager = new AccountManager($this);
+            $this->KnownHostsManager = new KnownHostsManager($this);
             $this->LoginRecordManager = new LoginRecordManager($this);
             $this->TransactionRecordManager = new TransactionRecordManager($this);
         }
@@ -158,6 +165,14 @@
         public function getTransactionRecordManager(): TransactionRecordManager
         {
             return $this->TransactionRecordManager;
+        }
+
+        /**
+         * @return KnownHostsManager
+         */
+        public function getKnownHostsManager(): KnownHostsManager
+        {
+            return $this->KnownHostsManager;
         }
 
     }
