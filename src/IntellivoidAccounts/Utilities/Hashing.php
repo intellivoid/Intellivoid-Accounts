@@ -105,6 +105,16 @@
             return $builder;
         }
 
+        /**
+         * Creates a transaction public record ID
+         *
+         * @param int $account_id
+         * @param int $unix_timestamp
+         * @param float $amount
+         * @param string $vendor
+         * @param int $operator_type
+         * @return string
+         */
         public static function transactionRecordPublicID(int $account_id, int $unix_timestamp, float $amount, string $vendor, int $operator_type): string
         {
             $builder = self::pepper($vendor);
@@ -113,6 +123,25 @@
             $builder .= hash('crc32', $unix_timestamp - 100);
             $builder .= hash('crc32', $amount + 200);
             $builder .= hash('crc32', $operator_type + 5);
+
+            return $builder;
+        }
+
+        /**
+         * Creates a Public ID for a known host record
+         *
+         * @param int $account_id
+         * @param string $ip_address
+         * @param int $unix_timestamp
+         * @return string
+         */
+        public static function knownHostPublicID(int $account_id, string $ip_address, int $unix_timestamp): string
+        {
+            $builder = self::pepper($ip_address);
+
+            $builder .= hash('haval256,5', $ip_address);
+            $builder .= hash('crc32', $account_id . $builder);
+            $builder .= hash('crc32', $unix_timestamp . $builder);
 
             return $builder;
         }
