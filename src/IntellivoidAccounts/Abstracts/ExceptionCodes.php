@@ -29,4 +29,5 @@
         const InvalidTransactionTypeException = 118;
         const TransactionRecordNotFoundException = 119;
         const HostNotKnownException = 120;
+        const HostBlockedFromAccountException = 121;
     }

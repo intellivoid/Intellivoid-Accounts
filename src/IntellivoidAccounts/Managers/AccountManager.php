@@ -280,6 +280,48 @@
         }
 
         /**
+         * Returns the account if the authentication is correct
+         *
+         * @param string $username_or_email
+         * @param string $password
+         * @return Account
+         * @throws AccountNotFoundException
+         * @throws AccountSuspendedException
+         * @throws DatabaseException
+         * @throws IncorrectLoginDetailsException
+         * @throws InvalidSearchMethodException
+         */
+        public function getAccountByAuth(string $username_or_email, string $password): Account
+        {
+            $account_details = null;
+
+            if($this->usernameExists($username_or_email) == true)
+            {
+                $account_details = $this->getAccount(AccountSearchMethod::byUsername, $username_or_email);
+            }
+            elseif($this->emailExists($username_or_email) == true)
+            {
+                $account_details = $this->getAccount(AccountSearchMethod::byEmail, $username_or_email);
+            }
+            else
+            {
+                throw new IncorrectLoginDetailsException();
+            }
+
+            if($account_details->Status == AccountStatus::Suspended)
+            {
+                throw new AccountSuspendedException();
+            }
+
+            if($account_details->Password !== Hashing::password($password))
+            {
+                throw new IncorrectLoginDetailsException();
+            }
+
+            return $account_details;
+        }
+
+        /**
          * Determines if the Email exists on the Database
          *
          * @param string $email
