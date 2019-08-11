@@ -167,7 +167,7 @@
             $blocked = (int)$knownHost->Blocked;
             $last_used = (int)$knownHost->LastUsed;
 
-            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', account_id=$account_id, verified=$verified, blocked=$blocked, last_used=$last_used WHERE public_id=$public_id";
+            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', account_id=$account_id, verified=$verified, blocked=$blocked, last_used=$last_used WHERE public_id='$public_id'";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
