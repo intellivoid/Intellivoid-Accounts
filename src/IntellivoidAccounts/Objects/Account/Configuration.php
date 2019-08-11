@@ -64,6 +64,10 @@
             {
                 $ConfigurationObject->VerificationMethods = VerificationMethods::fromArray($data['verification_methods']);
             }
+            else
+            {
+                $ConfigurationObject->VerificationMethods = VerificationMethods::fromArray(array());
+            }
 
             return $ConfigurationObject;
         }
