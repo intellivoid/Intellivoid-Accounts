@@ -121,6 +121,11 @@
         private $KnownHostsManager;
 
         /**
+         * @var LoginRecordManager
+         */
+        private $LoginProcessor;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws ConfigurationNotFoundException
          * @throws Exception
@@ -142,6 +147,7 @@
             $this->KnownHostsManager = new KnownHostsManager($this);
             $this->LoginRecordManager = new LoginRecordManager($this);
             $this->TransactionRecordManager = new TransactionRecordManager($this);
+            $this->LoginProcessor = new LoginRecordManager($this);
         }
 
         /**
@@ -174,6 +180,14 @@
         public function getKnownHostsManager(): KnownHostsManager
         {
             return $this->KnownHostsManager;
+        }
+
+        /**
+         * @return LoginRecordManager
+         */
+        public function getLoginProcessor(): LoginRecordManager
+        {
+            return $this->LoginProcessor;
         }
 
     }
