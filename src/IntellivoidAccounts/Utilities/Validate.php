@@ -116,4 +116,55 @@
 
             return true;
         }
+
+        /**
+         * Determines if the message subject is valid or not
+         *
+         * @param string $input
+         * @return bool
+         */
+        public static function messageSubject(string $input): bool
+        {
+            if(strlen($input) < 5)
+            {
+                return false;
+            }
+
+            if(strlen($input) > 120)
+            {
+                return false;
+            }
+
+            $input = base64_encode($input);
+
+            if(strlen($input) > 255)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /**
+         * Determines if the message content is valid or not
+         *
+         * @param string $input
+         * @return bool
+         */
+        public static function messageContent(string $input): bool
+        {
+            $input = base64_encode($input);
+
+            if(strlen($input) < 1)
+            {
+                return false;
+            }
+
+            if(strlen($input) > 50000)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }

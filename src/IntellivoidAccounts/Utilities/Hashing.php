@@ -2,6 +2,10 @@
 
     namespace IntellivoidAccounts\Utilities;
 
+    use tsa\Classes\Crypto;
+    use tsa\Exceptions\BadLengthException;
+    use tsa\Exceptions\SecuredRandomProcessorNotFoundException;
+
     /**
      * Class Hashing
      * @package IntellivoidAccounts\Utilities
@@ -144,5 +148,37 @@
             $builder .= hash('crc32', $unix_timestamp . $builder);
 
             return $builder;
+        }
+
+        /**
+         * Creates a new Message Public ID
+         *
+         * @param int $from_id
+         * @param int $to_id
+         * @param int $unix_timestamp
+         * @return string
+         */
+        public static function messagePublicID(int $from_id, int $to_id, int $unix_timestamp): string
+        {
+            $builder = "M-";
+
+            $builder .= hash("crc32", $from_id);
+            $builder .= hash("crc32", $to_id);
+            $builder .= hash("crc32", $unix_timestamp);
+            $builder .= self::pepper($builder);
+
+            return $builder;
+        }
+
+        /**
+         * Creates a random but secured recovery code
+         *
+         * @return string
+         * @throws BadLengthException
+         * @throws SecuredRandomProcessorNotFoundException
+         */
+        public static function recoveryCode(): string
+        {
+            return hash('adler32', self::pepper(Crypto::BuildSecretSignature(16) . time()));
         }
     }

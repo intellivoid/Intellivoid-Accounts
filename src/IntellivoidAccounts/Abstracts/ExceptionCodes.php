@@ -30,4 +30,6 @@
         const TransactionRecordNotFoundException = 119;
         const HostNotKnownException = 120;
         const HostBlockedFromAccountException = 121;
+        const InvalidMessageSubjectException = 122;
+        const InvalidMessageContentException = 123;
     }

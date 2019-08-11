@@ -10,6 +10,8 @@ create table user_messages
 	verified BOOL null comment 'Indicates if this message is verified',
 	seen BOOL null comment 'Indicates if this message has been seen, this value is ignored if it''s a broadcast message',
 	allow_reply BOOL null comment 'Indicates if it allows the receiver to reply to this message',
+	from_deleted BOOL null comment 'Indicates if the sender deleted this message from their inbox',
+	to_deleted BOOL null comment 'Indicates if the receiver deleted this message from their inbox',
 	timestamp INT(255) null comment 'The Unix Timestamp of when this message was sent'
 ) comment 'Messages sent by users within the system';
 create unique index user_messages_id_uindex on user_messages (id);
