@@ -8,11 +8,32 @@
     use tsa\Exceptions\BadLengthException;
     use tsa\Exceptions\SecuredRandomProcessorNotFoundException;
 
+    /**
+     * Class RecoveryCodes
+     * @package IntellivoidAccounts\Objects\VerificationMethods
+     */
     class RecoveryCodes
     {
+        /**
+         * Indicates if the method is enabled or not
+         *
+         * @var bool
+         */
         public $Enabled;
 
+        /**
+         * Array of available recovery codes
+         *
+         * @var array
+         */
         public $RecoveryCodes;
+
+        /**
+         * The Unix Timestamp of when this was last updated
+         *
+         * @var int
+         */
+        public $LastUpdated;
 
         /**
          * Enables this method of verification and creates the recovery codes set
@@ -24,6 +45,7 @@
         {
             $this->Enabled = true;
             $this->RecoveryCodes = [];
+            $this->LastUpdated = (int)time();
 
             while(true)
             {
@@ -43,6 +65,7 @@
         {
             $this->Enabled = false;
             $this->RecoveryCodes = [];
+            $this->LastUpdated = 0;
         }
 
 
@@ -83,7 +106,8 @@
         {
             return array(
                 'enabled' => (bool)$this->Enabled,
-                'recovery_codes' => $this->RecoveryCodes
+                'recovery_codes' => $this->RecoveryCodes,
+                'last_updated' => (int)$this->LastUpdated
             );
         }
 
@@ -105,6 +129,11 @@
             if(isset($data['recovery_codes']))
             {
                 $RecoveryCodesObject->RecoveryCodes = $data['recovery_codes'];
+            }
+
+            if(isset($data['last_updated']))
+            {
+                $RecoveryCodesObject->LastUpdated = (int)$data['last_updated'];
             }
 
             return $RecoveryCodesObject;
