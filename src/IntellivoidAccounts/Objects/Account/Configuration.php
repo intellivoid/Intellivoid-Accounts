@@ -41,7 +41,7 @@
         {
             return array(
                 'balance' => (float)$this->Balance,
-                'verification_methods' => $this->VerificationMethods
+                'verification_methods' => $this->VerificationMethods->toArray()
             );
         }
 
