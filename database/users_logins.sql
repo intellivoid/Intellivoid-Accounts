@@ -10,7 +10,7 @@ create table users_logins
 	1 = Incorrect Credentials
 	2 = Verification Failed
 	3 = Blocked due to untrusted IP
-	4 = Blocked due to suspicious activties ',
+	4 = Blocked due to suspicious activities ',
 	timestamp INT(255) null comment 'The Unix Timestamp of when this record was created'
 )
 comment 'Login history for Intellivoid Accounts (new)';

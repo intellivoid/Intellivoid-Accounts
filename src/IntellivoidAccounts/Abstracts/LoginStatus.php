@@ -8,9 +8,15 @@
      */
     abstract class LoginStatus
     {
-        const Successful = 0;
+        const Unknown = 0;
 
-        const IncorrectCredentials = 1;
+        const Successful = 1;
 
-        const IncorrectVerificationCode = 2;
+        const IncorrectCredentials = 2;
+
+        const VerificationFailed = 3;
+
+        const UntrustedIpBlocked = 4;
+
+        const BlockedSuspiciousActivities = 5;
     }

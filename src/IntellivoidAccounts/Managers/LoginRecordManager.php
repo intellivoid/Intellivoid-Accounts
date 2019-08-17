@@ -5,12 +5,12 @@
     use IntellivoidAccounts\Abstracts\LoginStatus;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\HostNotKnownException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
     use IntellivoidAccounts\Exceptions\InvalidLoginStatusException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Utilities\Hashing;
-    use IntellivoidAccounts\Utilities\Validate;
 
     /**
      * Class LoginRecordManager
@@ -32,9 +32,8 @@
             $this->intellivoidAccounts = $intellivoidAccounts;
         }
 
+
         /**
-         * Creates a new Login Record in the database
-         *
          * @param int $account_id
          * @param string $ip_address
          * @param int $status
@@ -45,28 +44,32 @@
          * @throws InvalidIpException
          * @throws InvalidLoginStatusException
          * @throws InvalidSearchMethodException
+         * @throws HostNotKnownException
          */
         public function createLoginRecord(int $account_id, string $ip_address, int $status, string $origin): bool
         {
-            if(Validate::ip($ip_address) == false)
-            {
-                throw new InvalidIpException();
-            }
-
             if($this->intellivoidAccounts->getAccountManager()->IdExists($account_id) == false)
             {
                 throw new AccountNotFoundException();
             }
 
+            $KnownHost = $this->intellivoidAccounts->getKnownHostsManager()->syncHost($ip_address, $account_id);
+
             switch($status)
             {
+                case LoginStatus::Unknown:
+                    break;
+
                 case LoginStatus::Successful:
                     break;
 
-                case LoginStatus::IncorrectCredentials:
+                case LoginStatus::VerificationFailed:
                     break;
 
-                case LoginStatus::IncorrectVerificationCode:
+                case LoginStatus::UntrustedIpBlocked:
+                    break;
+
+                case LoginStatus::BlockedSuspiciousActivities:
                     break;
 
                 default:
@@ -74,14 +77,14 @@
             }
 
             $account_id = $this->intellivoidAccounts->database->real_escape_string($account_id);
-            $ip_address = $this->intellivoidAccounts->database->real_escape_string($ip_address);
+            $host_id = $this->intellivoidAccounts->database->real_escape_string($KnownHost->ID);
             $login_status = (int)$status;
             $origin = $this->intellivoidAccounts->database->real_escape_string($origin);
-            $time = (int)time();
-            $public_id = Hashing::loginPublicID($account_id, $time, $login_status, $origin, $ip_address);
+            $timestamp = (int)time();
+            $public_id = Hashing::loginPublicID($account_id, $timestamp, $login_status, $origin, $ip_address);
             $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
 
-            $Query = "INSERT INTO `login_records` (public_id, account_id, ip_address, origin, time, status) VALUES ('$public_id', $account_id, '$ip_address', '$origin', $time, $status)";
+            $Query = "INSERT INTO `users_logins` (public_id, origin, host_id, account_id, status, timestamp) VALUES ('$public_id', '$origin', $host_id, $account_id, $status, $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
@@ -92,6 +95,5 @@
             {
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
-
         }
     }
