@@ -84,7 +84,7 @@
             $ip_address = hash('haval256,5', $ip_address);
 
             $crc1 = hash('sha256', $account_id . $unix_timestamp . $status);
-            $crc2 = hash('sha256', $origin, $ip_address);
+            $crc2 = hash('sha256', $origin . $ip_address);
 
             return $crc1 . $crc2;
         }
@@ -148,6 +148,65 @@
             $builder .= hash('crc32', $unix_timestamp . $builder);
 
             return $builder;
+        }
+
+        /**
+         * Creates a magic key that can be use to calculate the client side
+         *
+         * @return string
+         * @throws BadLengthException
+         * @throws SecuredRandomProcessorNotFoundException
+         */
+        public static function magicKey(): string
+        {
+            $builder = self::pepper(hash('sha256', time())) . self::recoveryCode();
+            return hash('haval256,5', $builder . self::recoveryCode());
+        }
+
+        /**
+         * Calculates the public key for cURL
+         *
+         * @param string $magic_key
+         * @return string
+         */
+        public static function curlPublicKey(string $magic_key): string
+        {
+            return self::pepper($magic_key) . "-intellivoid-iauth";
+        }
+
+        /**
+         * Creates a unique cURL Challenge
+         *
+         * @param string $magic_key
+         * @return string
+         */
+        public static function curlCreateChallenge(string $magic_key): string
+        {
+            return self::pepper($magic_key) .  hash('sha256', self::pepper($magic_key) . time());
+        }
+
+        /**
+         * Calculates the answer to the challenge
+         *
+         * @param string $challenge
+         * @param $private_key
+         * @return string
+         */
+        public static function curlChallengeAnswer(string $challenge, $private_key): string
+        {
+            return hash('sha256', $challenge . $private_key);
+        }
+
+        /**
+         * Calculates the private key for cURL
+         *
+         * @param string $public_key
+         * @param string $magic_key
+         * @return string
+         */
+        public static function curlPrivateKey(string $public_key, string $magic_key): string
+        {
+            return hash('sha256', $public_key . '-' . $magic_key);
         }
 
         /**
