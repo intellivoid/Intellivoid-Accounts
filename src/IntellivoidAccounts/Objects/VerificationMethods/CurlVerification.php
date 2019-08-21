@@ -73,6 +73,7 @@
             $this->CurrentChallenge = Hashing::curlCreateChallenge($this->MagicKey);
             return $this->CurrentChallenge;
         }
+        
 
         /**
          * Verifies the Curl Challenge
