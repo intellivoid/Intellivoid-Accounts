@@ -143,6 +143,12 @@
             );
         }
 
+        /**
+         * Creates object from array
+         *
+         * @param array $data
+         * @return CurlVerification
+         */
         public static function fromArray(array $data): CurlVerification
         {
             $CurlVerificationObject = new CurlVerification();
@@ -154,7 +160,22 @@
 
             if(isset($data['magic_key']))
             {
-                $
+                $CurlVerificationObject->MagicKey = $data['magic_key'];
+            }
+
+            if(isset($data['public_key']))
+            {
+                $CurlVerificationObject->PublicKey = $data['public_key'];
+            }
+
+            if(isset($data['current_challenge']))
+            {
+                $CurlVerificationObject->CurrentChallenge = $data['current_challenge'];
+            }
+
+            if(isset($data['last_updated']))
+            {
+                $CurlVerificationObject->LastUpdated = (int)$data['last_updated'];
             }
 
             return $CurlVerificationObject;
