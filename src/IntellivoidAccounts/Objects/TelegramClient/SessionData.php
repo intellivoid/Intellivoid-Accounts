@@ -63,6 +63,23 @@
         }
 
         /**
+         * Determines if the key exists
+         *
+         * @param string $identifier
+         * @param string $key
+         * @return bool
+         */
+        public function keyExists(string $identifier, string $key): bool
+        {
+            if(isset($this->Data[$identifier][$key]))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
          * Returns the array of this object
          *
          * @return array
