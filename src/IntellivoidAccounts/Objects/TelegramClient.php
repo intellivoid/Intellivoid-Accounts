@@ -96,6 +96,24 @@
         }
 
         /**
+         * Returns the User ID if it exists
+         *
+         * @return int
+         */
+        public function getUserId(): int
+        {
+            if(isset($this->User))
+            {
+                if(isset($this->User->ID))
+                {
+                    return (int)$this->User->ID;
+                }
+            }
+
+            return 0;
+        }
+
+        /**
          * Creates array from object
          *
          * @return array
