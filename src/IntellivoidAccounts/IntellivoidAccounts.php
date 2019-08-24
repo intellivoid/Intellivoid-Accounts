@@ -9,6 +9,7 @@
     use IntellivoidAccounts\Managers\AccountManager;
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
+    use IntellivoidAccounts\Managers\TelegramClientManager;
     use IntellivoidAccounts\Managers\TransactionRecordManager;
     use mysqli;
 
@@ -50,6 +51,7 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'KnownHostsManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'LoginRecordManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'MessagesManager.php');
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'TransactionRecordManager.php');
 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'VerificationMethods.php');
@@ -147,6 +149,11 @@
         private $LoginProcessor;
 
         /**
+         * @var TelegramClientManager
+         */
+        private $TelegramClientManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws ConfigurationNotFoundException
          * @throws Exception
@@ -168,6 +175,7 @@
             $this->KnownHostsManager = new KnownHostsManager($this);
             $this->LoginRecordManager = new LoginRecordManager($this);
             $this->TransactionRecordManager = new TransactionRecordManager($this);
+            $this->TelegramClientManager = new TelegramClientManager($this);
             $this->LoginProcessor = new LoginProcessor($this);
         }
 
@@ -209,6 +217,14 @@
         public function getLoginProcessor(): LoginProcessor
         {
             return $this->LoginProcessor;
+        }
+
+        /**
+         * @return TelegramClientManager
+         */
+        public function getTelegramClientManager(): TelegramClientManager
+        {
+            return $this->TelegramClientManager;
         }
 
     }

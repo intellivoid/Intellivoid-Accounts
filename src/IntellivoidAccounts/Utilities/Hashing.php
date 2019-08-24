@@ -240,4 +240,21 @@
         {
             return hash('adler32', self::pepper(Crypto::BuildSecretSignature(16) . time()));
         }
+
+        /**
+         * Creates a unique public telegram client ID
+         *
+         * @param string $chat_id
+         * @param int $timestamp
+         * @return string
+         */
+        public static function telegramClientPublicID(string $chat_id, int $timestamp): string
+        {
+            $builder = "TEL-";
+
+            $builder .= hash('sha256', $chat_id);
+            $builder .= hash('crc32', $timestamp);
+
+            return $builder;
+        }
     }

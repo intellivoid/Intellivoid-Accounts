@@ -115,6 +115,11 @@
          */
         public function toArray(): array
         {
+            if($this->Data == null)
+            {
+                return array();
+            }
+
             return $this->Data;
         }
 
