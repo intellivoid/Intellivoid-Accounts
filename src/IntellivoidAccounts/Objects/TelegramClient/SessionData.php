@@ -63,6 +63,19 @@
         }
 
         /**
+         * Removes the identifier session
+         *
+         * @param string $identifier
+         */
+        public function removeIdentifier(string $identifier)
+        {
+            if(isset($this->Data[$identifier]))
+            {
+                unset($this->Data[$identifier]);
+            }
+        }
+
+        /**
          * Determines if the key exists
          *
          * @param string $identifier
