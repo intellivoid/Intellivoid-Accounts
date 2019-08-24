@@ -82,6 +82,11 @@
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'BasicCalculator' . DIRECTORY_SEPARATOR . 'BC.php');
     }
 
+    if(class_exists('msqg\msqg') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'msqg' . DIRECTORY_SEPARATOR . 'msqg.php');
+    }
+
     if(class_exists('tsa\tsa') == false)
     {
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'tsa' . DIRECTORY_SEPARATOR . 'tsa.php');

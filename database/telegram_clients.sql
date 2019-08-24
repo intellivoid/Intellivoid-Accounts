@@ -14,4 +14,3 @@ create table telegram_clients
 ) comment 'Table of Telegram Clients that were assocaited with a Telegram Bot';
 create unique index telegram_clients_id_uindex on telegram_clients (id);
 alter table telegram_clients add constraint telegram_clients_pk primary key (id);
-
