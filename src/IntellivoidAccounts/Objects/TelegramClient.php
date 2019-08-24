@@ -78,6 +78,24 @@
         public $CreatedTimestamp;
 
         /**
+         * Returns the Chat ID if it exists
+         *
+         * @return int
+         */
+        public function getChatId(): int
+        {
+            if(isset($this->Chat))
+            {
+                if(isset($this->Chat->ID))
+                {
+                    return (int)$this->Chat->ID;
+                }
+            }
+
+            return 0;
+        }
+
+        /**
          * Creates array from object
          *
          * @return array
