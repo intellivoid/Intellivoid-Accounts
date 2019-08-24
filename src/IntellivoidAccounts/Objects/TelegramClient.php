@@ -3,7 +3,6 @@
 
     namespace IntellivoidAccounts\Objects;
 
-
     use IntellivoidAccounts\Objects\TelegramClient\Chat;
     use IntellivoidAccounts\Objects\TelegramClient\SessionData;
     use IntellivoidAccounts\Objects\TelegramClient\User;

@@ -49,6 +49,20 @@
         }
 
         /**
+         * Removes a data key from the session
+         *
+         * @param string $identifier
+         * @param string $key
+         */
+        public function removeData(string $identifier, string $key)
+        {
+            if(isset($this->Data[$identifier][$key]))
+            {
+                unset($this->Data[$identifier][$key]);
+            }
+        }
+
+        /**
          * Returns the array of this object
          *
          * @return array
