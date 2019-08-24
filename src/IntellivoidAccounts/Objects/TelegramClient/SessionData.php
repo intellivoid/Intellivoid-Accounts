@@ -80,6 +80,22 @@
         }
 
         /**
+         * Determines if the Identifier exists
+         *
+         * @param string $identifier
+         * @return bool
+         */
+        public function identifierExists(string $identifier): bool
+        {
+            if(isset($this->Data[$identifier]))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
          * Returns the array of this object
          *
          * @return array
