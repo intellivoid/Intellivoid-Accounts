@@ -128,6 +128,8 @@
                 'user' => $this->User->toArray(),
                 'chat' => $this->Chat->toArray(),
                 'session_data' => $this->toArray(),
+                'chat_id' => (int)self::getChatId(),
+                'user_id' => (int)self::getUserId(),
                 'last_activity' => $this->LastActivityTimestamp,
                 'created' => $this->CreatedTimestamp
             );
