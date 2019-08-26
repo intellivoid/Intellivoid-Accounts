@@ -13,6 +13,7 @@
     use IntellivoidAccounts\Objects\LocationData;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use IPStack\IPStack;
 
 
     /**
@@ -34,6 +35,7 @@
         public function __construct(IntellivoidAccounts $intellivoidAccounts)
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
+            $this->ip_stack = new IPStack('');
         }
 
         /**
@@ -77,8 +79,10 @@
             $verified = 0;
             $blocked = 0;
             $last_used = $timestamp;
+            $location_data = new LocationData();
 
-            $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, account_id, verified, blocked, last_used, created) VALUES ('$public_id', '$ip_address', $account_id, $verified, $blocked, $last_used, $timestamp)";
+
+            $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, user_agents, created) VALUES ('$public_id', '$ip_address', $account_id, $verified, $blocked, $last_used, $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
