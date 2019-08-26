@@ -12,6 +12,7 @@
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\KnownHost;
     use IntellivoidAccounts\Objects\LocationData;
+    use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use IPStack\IPStack;
@@ -44,7 +45,6 @@
          * Syncs the host into the database
          *
          * @param string $ip_address
-         * @param int $account_id
          * @param string $user_agent
          * @return KnownHost
          * @throws AccountNotFoundException
@@ -69,10 +69,9 @@
             }
 
             $timestamp = (int)time();
-            $public_id = Hashing::knownHostPublicID($ip_address, $user_agent $timestamp);
+            $public_id = Hashing::knownHostPublicID($ip_address, $user_agent, $timestamp);
             $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
             $ip_address = $this->intellivoidAccounts->database->real_escape_string($ip_address);
-            $verified = 0;
             $blocked = 0;
             $last_used = $timestamp;
 
@@ -115,14 +114,29 @@
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
             // Parse the user agent if available
-            $user_agent
+            $user_agent = null;
 
-            $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, user_agents, created) VALUES ('$public_id', '$ip_address', $account_id, $verified, $blocked, $last_used, $timestamp)";
+            if(Validate::userAgent($user_agent) == false)
+            {
+                $user_agent = new UserAgent();
+                $user_agent->UserAgentString = "None";
+            }
+            else
+            {
+                $user_agent = UserAgent::fromString($user_agent);
+            }
+
+            $user_agents = [];
+            $user_agents[] = $user_agent->toArray();
+            $user_agents = ZiProto::encode($user_agents);
+            $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
+
+            $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, user_agents, created) VALUES ('$public_id', '$ip_address', $blocked, $last_used, '$location_data', '$user_agents', $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
             {
-                return $this->getHost($ip_address, $account_id);
+                return $this->getHost($ip_address);
             }
 
             throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
