@@ -59,4 +59,70 @@
          * @var int
          */
         public $Timestamp;
+
+        /**
+         * Returns an array that represents this object
+         *
+         * @return array
+         */
+        public function toArray(): array
+        {
+            return array(
+                'id' => $this->ID,
+                'public_id' => $this->PublicID,
+                'origin' => $this->Origin,
+                'host_id' => $this->HostID,
+                'account_id' => $this->AccountID,
+                'status' => $this->Status,
+                'timestamp' => $this->Timestamp
+            );
+        }
+
+        /**
+         * Creates an object from an array structure
+         *
+         * @param array $data
+         * @return UserLoginRecord
+         */
+        public static function fromArray(array $data): UserLoginRecord
+        {
+            $UserLoginRecordObject = new UserLoginRecord();
+
+            if(isset($data['id']))
+            {
+                $UserLoginRecordObject->ID = (int)$data['id'];
+            }
+
+            if(isset($data['public_id']))
+            {
+                $UserLoginRecordObject->PublicID = $data['public_id'];
+            }
+
+            if(isset($data['origin']))
+            {
+                $UserLoginRecordObject->Origin = $data['origin'];
+            }
+
+             if(isset($data['host_id']))
+             {
+                 $UserLoginRecordObject->HostID = (int)$data['host_id'];
+             }
+
+             if(isset($data['account_id']))
+             {
+                 $UserLoginRecordObject->AccountID = (int)$data['account_id'];
+             }
+
+             if(isset($data['status']))
+             {
+                 $UserLoginRecordObject->Status = (int)$data['stauts'];
+             }
+
+             if(isset($data['timestamp']))
+             {
+                 $UserLoginRecordObject->Timestamp = (int)$data['timestamp'];
+             }
+
+            return $UserLoginRecordObject;
+        }
     }
