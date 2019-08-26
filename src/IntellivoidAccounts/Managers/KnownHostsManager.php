@@ -69,10 +69,9 @@
             }
 
             $timestamp = (int)time();
-            $public_id = Hashing::knownHostPublicID($account_id, $ip_address, $timestamp);
+            $public_id = Hashing::knownHostPublicID($ip_address, $user_agent $timestamp);
             $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
             $ip_address = $this->intellivoidAccounts->database->real_escape_string($ip_address);
-            $account_id = (int)$account_id;
             $verified = 0;
             $blocked = 0;
             $last_used = $timestamp;
@@ -116,7 +115,7 @@
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
             // Parse the user agent if available
-
+            $user_agent
 
             $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, user_agents, created) VALUES ('$public_id', '$ip_address', $account_id, $verified, $blocked, $last_used, $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);

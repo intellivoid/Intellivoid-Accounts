@@ -167,4 +167,25 @@
 
             return true;
         }
+
+        /**
+         * Determines if the user agent is valid
+         *
+         * @param string $input
+         * @return bool
+         */
+        public static function userAgent(string $input): bool
+        {
+            if(strlen($input) < 3)
+            {
+                return false;
+            }
+
+            if(strlen($input) > 526)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
