@@ -56,6 +56,11 @@
         public $LastUsed;
 
         /**
+         * @var
+         */
+        public $LocationData;
+
+        /**
          * The Unix Timestamp for when this host was registered into the system
          *
          * @var int
