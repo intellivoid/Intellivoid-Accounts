@@ -94,6 +94,11 @@
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'BasicCalculator' . DIRECTORY_SEPARATOR . 'BC.php');
     }
 
+    if(class_exists('IPStack\IPStack') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'IPStack' . DIRECTORY_SEPARATOR . 'IPStack.php');
+    }
+
     if(class_exists('msqg\msqg') == false)
     {
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'msqg' . DIRECTORY_SEPARATOR . 'msqg.php');
