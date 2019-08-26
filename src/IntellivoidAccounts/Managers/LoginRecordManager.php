@@ -14,6 +14,7 @@
     use IntellivoidAccounts\Exceptions\LoginRecordNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\LoginRecord;
+    use IntellivoidAccounts\Objects\UserLoginRecord;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\QueryBuilder;
 
@@ -110,12 +111,12 @@
          *
          * @param string $search_method
          * @param string $value
-         * @return LoginRecord
+         * @return UserLoginRecord
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          * @throws LoginRecordNotFoundException
          */
-        public function getLoginRecord(string $search_method, string $value): LoginRecord
+        public function getLoginRecord(string $search_method, string $value): UserLoginRecord
         {
             switch($search_method)
             {
@@ -155,7 +156,7 @@
                     throw new LoginRecordNotFoundException();
                 }
 
-                return LoginRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+                return UserLoginRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
         }
 
