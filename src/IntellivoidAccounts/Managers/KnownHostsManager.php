@@ -146,7 +146,6 @@
          * Gets the known host from the database if it exists
          *
          * @param string $ip_address
-         * @param int $account_id
          * @return KnownHost
          * @throws AccountNotFoundException
          * @throws DatabaseException
@@ -161,15 +160,10 @@
                 throw new InvalidIpException();
             }
 
-            if($this->intellivoidAccounts->getAccountManager()->IdExists($account_id) == false)
-            {
-                throw new AccountNotFoundException();
-            }
-
             $ip_address = $this->intellivoidAccounts->database->real_escape_string($ip_address);
             $account_id = (int)$account_id;
 
-            $Query = "SELECT * FROM `users_known_hosts` WHERE ip_address='$ip_address' AND account_id='$account_id'";
+            $Query = "SELECT * FROM `users_known_hosts` WHERE ip_address='$ip_address'";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
             {
