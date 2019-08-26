@@ -56,9 +56,18 @@
         public $LastUsed;
 
         /**
-         * @var
+         * The location data associated with this host
+         *
+         * @var LocationData
          */
         public $LocationData;
+
+        /**
+         * Array of user agents associated with this host
+         *
+         * @var array
+         */
+        public $UserAgents;
 
         /**
          * The Unix Timestamp for when this host was registered into the system
@@ -74,6 +83,16 @@
          */
         public function toArray(): array
         {
+            $UserAgentsArray = [];
+            if($this->UserAgents !== null)
+            {
+                /** @var UserAgent $userAgent */
+                foreach($this->UserAgents as $userAgent)
+                {
+                    $UserAgentsArray[] = $userAgent->toArray();
+                }
+            }
+
             return array(
                 'id' => (int)$this->ID,
                 'public_id' => $this->PublicID,
@@ -82,6 +101,8 @@
                 'verified' => (bool)$this->Verified,
                 'blocked' => (bool)$this->Blocked,
                 'last_used' => (int)$this->LastUsed,
+                'location_data' => $this->LocationData->toArray(),
+                'user_agents' => $this->UserAgents,
                 'created' => $this->LastUsed
             );
         }
@@ -129,6 +150,28 @@
             if(isset($data['last_used']))
             {
                 $KnownHostObject->LastUsed = (int)$data['last_used'];
+            }
+
+            if(isset($data['location_data']))
+            {
+                $KnownHostObject->LocationData = LocationData::fromArray($data['location_data']);
+            }
+            else
+            {
+                $KnownHostObject->LocationData = new LocationData();
+            }
+
+            if(isset($data['user_agents']))
+            {
+                $KnownHostObject->UserAgents = [];
+                foreach($KnownHostObject->UserAgents as $userAgent)
+                {
+                    $KnownHostObject->UserAgents[] = UserAgent::fromArray($userAgent);
+                }
+            }
+            else
+            {
+                $KnownHostObject->UserAgents = [];
             }
 
             if(isset($data['created']))
