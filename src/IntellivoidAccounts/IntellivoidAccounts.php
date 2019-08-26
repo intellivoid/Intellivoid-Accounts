@@ -179,7 +179,6 @@
 
         /**
          * IntellivoidAccounts constructor.
-         * @throws ConfigurationNotFoundException
          * @throws Exception
          */
         public function __construct()
