@@ -7,6 +7,7 @@
     /**
      * Class LoginRecord
      * @package IntellivoidAccounts\Objects
+     * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
      */
     class LoginRecord
     {
@@ -14,6 +15,7 @@
          * The ID of the login record
          *
          * @var int
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public $ID;
 
@@ -21,6 +23,7 @@
          * The Public ID of the Login Record
          *
          * @var string
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public $PublicID;
 
@@ -28,6 +31,7 @@
          * The account ID associated with this Login Record
          *
          * @var int
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public $AccountID;
 
@@ -35,6 +39,7 @@
          * The IP Address
          *
          * @var string
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public $IPAddress;
 
@@ -42,6 +47,7 @@
          * The origin of the login
          *
          * @var string
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public $Origin;
 
@@ -49,6 +55,7 @@
          * The Unix Timestamp of when this login has been established
          *
          * @var int
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public $Time;
 
@@ -56,6 +63,7 @@
          * The status of the login
          *
          * @var int|LoginStatus
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public $Status;
 
@@ -63,6 +71,7 @@
          * Converts object to array
          *
          * @return array
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public function toArray(): array
         {
@@ -82,6 +91,7 @@
          *
          * @param array $data
          * @return LoginRecord
+         * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
         public static function fromArray(array $data): LoginRecord
         {
