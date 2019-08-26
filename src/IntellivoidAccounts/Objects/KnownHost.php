@@ -102,7 +102,7 @@
                 'blocked' => (bool)$this->Blocked,
                 'last_used' => (int)$this->LastUsed,
                 'location_data' => $this->LocationData->toArray(),
-                'user_agents' => $this->UserAgents,
+                'user_agents' => $UserAgentsArray,
                 'created' => $this->LastUsed
             );
         }
@@ -164,7 +164,7 @@
             if(isset($data['user_agents']))
             {
                 $KnownHostObject->UserAgents = [];
-                foreach($KnownHostObject->UserAgents as $userAgent)
+                foreach($data['user_agents'] as $userAgent)
                 {
                     $KnownHostObject->UserAgents[] = UserAgent::fromArray($userAgent);
                 }

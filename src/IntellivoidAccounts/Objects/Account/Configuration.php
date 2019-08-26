@@ -2,6 +2,7 @@
 
     namespace IntellivoidAccounts\Objects\Account;
 
+    use IntellivoidAccounts\Objects\Account\Configuration\KnownHosts;
     use IntellivoidAccounts\Objects\Account\Configuration\VerificationMethods;
 
     /**
@@ -10,6 +11,14 @@
      */
     class Configuration
     {
+
+        /**
+         * Known hosts associated with this account
+         *
+         * @var KnownHosts
+         */
+        public $KnownHosts;
+
         /**
          * Verification Methods that are available for this account
          *
@@ -30,6 +39,8 @@
         public function __construct()
         {
             $this->Balance = 0;
+            $this->VerificationMethods = new VerificationMethods();
+            $this->KnownHosts = new KnownHosts();
         }
 
         /**
@@ -41,7 +52,8 @@
         {
             return array(
                 'balance' => (float)$this->Balance,
-                'verification_methods' => $this->VerificationMethods->toArray()
+                'verification_methods' => $this->VerificationMethods->toArray(),
+                'known_hosts' => $this->KnownHosts->toArray()
             );
         }
 
@@ -67,6 +79,16 @@
             else
             {
                 $ConfigurationObject->VerificationMethods = VerificationMethods::fromArray(array());
+            }
+
+            if(isset($data['known_hosts']))
+            {
+                $ConfigurationObject->KnownHosts = KnownHosts::fromArray($data['known_hosts']);
+            }
+            else
+            {
+                $ConfigurationObject->KnownHosts = new KnownHosts();
+                $ConfigurationObject->KnownHosts->KnownHosts = [];
             }
 
             return $ConfigurationObject;

@@ -10,6 +10,7 @@
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\KnownHost;
+    use IntellivoidAccounts\Objects\LocationData;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
 
@@ -40,6 +41,7 @@
          *
          * @param string $ip_address
          * @param int $account_id
+         * @param string $user_agent
          * @return KnownHost
          * @throws AccountNotFoundException
          * @throws DatabaseException
@@ -47,7 +49,7 @@
          * @throws InvalidIpException
          * @throws InvalidSearchMethodException
          */
-        public function syncHost(string $ip_address, int $account_id): KnownHost
+        public function syncHost(string $ip_address, int $account_id, string $user_agent): KnownHost
         {
             if($this->hostKnown($ip_address, $account_id) == true)
             {
