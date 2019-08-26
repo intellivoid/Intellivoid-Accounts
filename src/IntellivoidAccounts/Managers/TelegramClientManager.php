@@ -4,7 +4,10 @@
     namespace IntellivoidAccounts\Managers;
 
 
+    use IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TelegramClient;
     use IntellivoidAccounts\Objects\TelegramClient\Chat;
@@ -81,5 +84,177 @@
             }
 
             return new TelegramClient();
+        }
+
+        /**
+         * @param string $search_method
+         * @param string $value
+         * @return TelegramClient
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramClientNotFoundException
+         */
+        public function getClient(string $search_method, string $value): TelegramClient
+        {
+            switch($search_method)
+            {
+                case TelegramClientSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                case TelegramClientSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('telegram_clients', [
+                'id',
+                'public_id',
+                'available',
+                'account_id',
+                'user',
+                'chat',
+                'session_data',
+                'chat_id',
+                'user_id',
+                'last_activity',
+                'created'
+            ], $search_method, $value);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new TelegramClientNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['user'] = ZiProto::decode($Row['user']);
+                $Row['chat'] = ZiProto::decode($Row['chat']);
+                $Row['session_data'] = ZiProto::decode($Row['session_data']);
+                return TelegramClient::fromArray($Row);
+            }
+        }
+
+        /**
+         * Returns an array of Telegram Clients associated with the given search query
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return array
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function getAssociatedClients(string $search_method, string $value): array
+        {
+            switch($search_method)
+            {
+                case TelegramClientSearchMethod::byUserId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
+                    break;
+
+                case TelegramClientSearchMethod::byChatId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
+                    break;
+
+                case TelegramClientSearchMethod::byAccountId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;;
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('telegram_clients', [
+                'id',
+                'public_id',
+                'available',
+                'account_id',
+                'user',
+                'chat',
+                'session_data',
+                'chat_id',
+                'user_id',
+                'last_activity',
+                'created'
+            ], $search_method, $value);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+            }
+            else
+            {
+                $ResultsArray = [];
+
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $Row['user'] = ZiProto::decode($Row['user']);
+                    $Row['chat'] = ZiProto::decode($Row['chat']);
+                    $Row['session_data'] = ZiProto::decode($Row['session_data']);
+                    $ResultsArray[] = TelegramClient::fromArray($Row);
+                }
+
+                return $ResultsArray;
+            }
+        }
+
+        /**
+         * Updates an existing TelegramClient in the Database
+         *
+         * @param TelegramClient $telegramClient
+         * @return bool
+         * @throws DatabaseException
+         */
+        public function updateClient(TelegramClient $telegramClient): bool
+        {
+            $id = (int)$telegramClient->ID;
+            $available = (int)$telegramClient->Available;
+            $account_id = (int)$telegramClient->AccountID;
+            $user = ZiProto::encode($telegramClient->User->toArray());
+            $user = $this->intellivoidAccounts->database->real_escape_string($user);
+            $chat = ZiProto::encode($telegramClient->Chat->toArray());
+            $chat = $this->intellivoidAccounts->database->real_escape_string($chat);
+            $session_data = ZiProto::encode($telegramClient->SessionData->toArray());
+            $session_data = $this->intellivoidAccounts->database->real_escape_string($session_data);
+            $chat_id = $this->intellivoidAccounts->database->real_escape_string($telegramClient->Chat->ID);
+            $user_id = $this->intellivoidAccounts->database->real_escape_string($telegramClient->User->ID);
+            $last_activity = (int)time();
+
+            $Query = QueryBuilder::update('telegram_clients', array(
+                'available' => $available,
+                'account_id' => $account_id,
+                'user' => $user,
+                'chat' => $chat,
+                'session_data' => $session_data,
+                'chat_id' => $chat_id,
+                'user_id' => $user_id,
+                'last_activity' => $last_activity
+            ), 'id', $id);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
         }
     }

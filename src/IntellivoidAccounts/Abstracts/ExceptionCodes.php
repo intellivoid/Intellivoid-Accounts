@@ -32,4 +32,5 @@
         const HostBlockedFromAccountException = 121;
         const InvalidMessageSubjectException = 122;
         const InvalidMessageContentException = 123;
+        const TelegramClientNotFoundException = 124;
     }
