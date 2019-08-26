@@ -13,7 +13,6 @@
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\LoginRecordNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
-    use IntellivoidAccounts\Objects\LoginRecord;
     use IntellivoidAccounts\Objects\UserLoginRecord;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\QueryBuilder;
@@ -161,8 +160,68 @@
         }
 
 
+        /**
+         * Searches for login records and returns an array of login records
+         *
+         * @param string $search_method
+         * @param string $value
+         * @param int $limit
+         * @param int $offset
+         * @return array
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
         public function searchRecords(string $search_method, string $value, int $limit=100, int $offset=0): array
         {
+            switch($search_method)
+            {
+                case LoginRecordSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
 
+                case LoginRecordSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select("user_logins", [
+                'id',
+                'public_id',
+                'origin',
+                'host_id',
+                'account_id',
+                'status',
+                'timestamp'
+            ], $search_method, $value, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    $ResultsArray = [];
+
+                    while($Row = $QueryResults->fetch_assoc())
+                    {
+                        $ResultsArray[] = $Row;
+                    }
+
+                    return $ResultsArray;
+                }
+            }
         }
     }
