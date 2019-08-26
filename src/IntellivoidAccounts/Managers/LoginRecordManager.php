@@ -50,14 +50,15 @@
          * @throws InvalidSearchMethodException
          * @throws HostNotKnownException
          */
-        public function createLoginRecord(int $account_id, string $ip_address, int $status, string $origin): bool
+        public function createLoginRecord(int $account_id, int $known_host_id, int $status, string $origin): bool
         {
             if($this->intellivoidAccounts->getAccountManager()->IdExists($account_id) == false)
             {
                 throw new AccountNotFoundException();
             }
 
-            $KnownHost = $this->intellivoidAccounts->getKnownHostsManager()->syncHost($ip_address, $account_id);
+            // NOTE: Removed "SyncHost" call here because it is no longer attached to an account ID, the account
+            // configuration is attached to the HostID instead.
 
             switch($status)
             {
@@ -80,8 +81,8 @@
                     throw new InvalidLoginStatusException();
             }
 
-            $account_id = $this->intellivoidAccounts->database->real_escape_string($account_id);
-            $host_id = $this->intellivoidAccounts->database->real_escape_string($KnownHost->ID);
+            $account_id = (int)$account_id;
+            $known_host_id = (int)$known_host_id;
             $login_status = (int)$status;
             $origin = $this->intellivoidAccounts->database->real_escape_string($origin);
             $timestamp = (int)time();
