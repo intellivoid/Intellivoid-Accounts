@@ -129,14 +129,14 @@
                     throw new InvalidSearchMethodException();
             }
 
-            $Query = QueryBuilder::select("login_records", [
+            $Query = QueryBuilder::select("user_logins", [
                 'id',
                 'public_id',
-                'account_id',
-                'ip_address',
                 'origin',
-                'time',
-                'status'
+                'host_id',
+                'account_id',
+                'status',
+                'timestamp'
             ], $search_method, $value);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
@@ -153,5 +153,11 @@
 
                 return LoginRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
+        }
+
+
+        public function searchRecords(string $search_method, string $value, int $limit=100, int $offset=0): array
+        {
+
         }
     }
