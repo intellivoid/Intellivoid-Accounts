@@ -204,15 +204,13 @@
          *
          * @param KnownHost $knownHost
          * @return bool
-         * @throws AccountNotFoundException
          * @throws DatabaseException
          * @throws HostNotKnownException
          * @throws InvalidIpException
-         * @throws InvalidSearchMethodException
          */
         public function updateKnownHost(KnownHost $knownHost): bool
         {
-            if($this->hostKnown($knownHost->IpAddress, $knownHost->AccountID) == false)
+            if($this->hostKnown($knownHost->IpAddress) == false)
             {
                 throw new HostNotKnownException();
             }
@@ -222,19 +220,16 @@
                 throw new InvalidIpException();
             }
 
-            if($this->intellivoidAccounts->getAccountManager()->IdExists($knownHost->AccountID) == false)
-            {
-                throw new AccountNotFoundException();
-            }
-
             $public_id = $this->intellivoidAccounts->database->real_escape_string($knownHost->PublicID);
             $ip_address = $this->intellivoidAccounts->database->real_escape_string($knownHost->IpAddress);
-            $account_id = (int)$knownHost->AccountID;
-            $verified = (int)$knownHost->Verified;
             $blocked = (int)$knownHost->Blocked;
+            $location_data = ZiProto::encode($knownHost->LocationData->toArray());
+            $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
+            $user_agents = ZiProto::encode($knownHost->toArray()['user_agents']);
+            $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
             $last_used = (int)$knownHost->LastUsed;
 
-            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', account_id=$account_id, verified=$verified, blocked=$blocked, last_used=$last_used WHERE public_id='$public_id'";
+            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', blocked=$blocked, location_data='$location_data', user_agents='$user_agents', last_used=$last_used WHERE public_id='$public_id'";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
