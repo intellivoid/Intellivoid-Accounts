@@ -3,6 +3,7 @@
     namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\LoginStatus;
+    use IntellivoidAccounts\Abstracts\SearchMethods\KnownHostsSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\LoginRecordSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -39,16 +40,16 @@
 
         /**
          * @param int $account_id
-         * @param string $ip_address
-         * @param int $status
+         * @param int $known_host_id
+         * @param LoginStatus|int $status
          * @param string $origin
          * @return bool
          * @throws AccountNotFoundException
          * @throws DatabaseException
+         * @throws HostNotKnownException
          * @throws InvalidIpException
          * @throws InvalidLoginStatusException
          * @throws InvalidSearchMethodException
-         * @throws HostNotKnownException
          */
         public function createLoginRecord(int $account_id, int $known_host_id, int $status, string $origin): bool
         {
@@ -56,6 +57,8 @@
             {
                 throw new AccountNotFoundException();
             }
+
+            $this->intellivoidAccounts->getKnownHostsManager()->getHost(KnownHostsSearchMethod::byId, $known_host_id);
 
             // NOTE: Removed "SyncHost" call here because it is no longer attached to an account ID, the account
             // configuration is attached to the HostID instead.
@@ -86,10 +89,10 @@
             $login_status = (int)$status;
             $origin = $this->intellivoidAccounts->database->real_escape_string($origin);
             $timestamp = (int)time();
-            $public_id = Hashing::loginPublicID($account_id, $timestamp, $login_status, $origin, $ip_address);
+            $public_id = Hashing::loginPublicID($account_id, $timestamp, $login_status, $origin);
             $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
 
-            $Query = "INSERT INTO `users_logins` (public_id, origin, host_id, account_id, status, timestamp) VALUES ('$public_id', '$origin', $host_id, $account_id, $status, $timestamp)";
+            $Query = "INSERT INTO `users_logins` (public_id, origin, host_id, account_id, status, timestamp) VALUES ('$public_id', '$origin', $known_host_id, $account_id, $status, $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
