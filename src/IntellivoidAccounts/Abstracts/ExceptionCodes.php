@@ -34,4 +34,5 @@
         const InvalidMessageContentException = 123;
         const TelegramClientNotFoundException = 124;
         const LoginRecordNotFoundException = 125;
+        const InvalidArgumentException = 126;
     }
