@@ -3,6 +3,7 @@
 
     namespace IntellivoidAccounts\Managers;
 
+    use Exception;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\HostNotKnownException;
@@ -14,6 +15,7 @@
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use IPStack\IPStack;
+    use ZiProto\ZiProto;
 
 
     /**
@@ -51,11 +53,11 @@
          * @throws InvalidIpException
          * @throws InvalidSearchMethodException
          */
-        public function syncHost(string $ip_address, int $account_id, string $user_agent): KnownHost
+        public function syncHost(string $ip_address, string $user_agent): KnownHost
         {
-            if($this->hostKnown($ip_address, $account_id) == true)
+            if($this->hostKnown($ip_address) == true)
             {
-                $KnownHost = $this->getHost($ip_address, $account_id);
+                $KnownHost = $this->getHost($ip_address);
                 $KnownHost->LastUsed = time();
                 $this->updateKnownHost($KnownHost);
                 return $KnownHost;
@@ -66,11 +68,6 @@
                 throw new InvalidIpException();
             }
 
-            if($this->intellivoidAccounts->getAccountManager()->IdExists($account_id) == false)
-            {
-                throw new AccountNotFoundException();
-            }
-
             $timestamp = (int)time();
             $public_id = Hashing::knownHostPublicID($account_id, $ip_address, $timestamp);
             $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
@@ -79,7 +76,46 @@
             $verified = 0;
             $blocked = 0;
             $last_used = $timestamp;
+
+            // Fetch location data
             $location_data = new LocationData();
+            $location_data->LastUpdated = time();
+
+            try
+            {
+                $UseSSL = false;
+
+                if(strtolower($this->intellivoidAccounts->getIpStackConfiguration()['UseSSL']) == 'true')
+                {
+                    $UseSSL = true;
+                }
+
+                $IPStack = new IPStack(
+                    $this->intellivoidAccounts->getIpStackConfiguration()["AccessKey"],
+                    $UseSSL,
+                    $this->intellivoidAccounts->getIpStackConfiguration()['IpStackHost']
+                );
+
+                $Results = $IPStack->lookup($ip_address);
+
+                $location_data->CountryName = $Results->CountryName;
+                $location_data->ContinentCode = $Results->ContinentCode;
+                $location_data->ZipCode = $Results->Zip;
+                $location_data->ContinentName = $Results->ContinentName;
+                $location_data->CountryCode = $Results->CountryCode;
+                $location_data->City = $Results->City;
+                $location_data->Longitude = $Results->Longitude;
+                $location_data->Latitude = $Results->Latitude;
+            }
+            catch(Exception $exception)
+            {
+                // Ignore the error
+            }
+
+            $location_data = ZiProto::encode($location_data->toArray());
+            $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
+
+            // Parse the user agent if available
 
 
             $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, user_agents, created) VALUES ('$public_id', '$ip_address', $account_id, $verified, $blocked, $last_used, $timestamp)";
@@ -105,7 +141,7 @@
          * @throws InvalidIpException
          * @throws InvalidSearchMethodException
          */
-        public function getHost(string $ip_address, int $account_id): KnownHost
+        public function getHost(string $ip_address): KnownHost
         {
             if(Validate::ip($ip_address) == false)
             {

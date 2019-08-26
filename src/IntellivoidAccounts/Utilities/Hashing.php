@@ -134,17 +134,17 @@
         /**
          * Creates a Public ID for a known host record
          *
-         * @param int $account_id
          * @param string $ip_address
+         * @param string $user_agent
          * @param int $unix_timestamp
          * @return string
          */
-        public static function knownHostPublicID(int $account_id, string $ip_address, int $unix_timestamp): string
+        public static function knownHostPublicID(string $ip_address, string $user_agent, int $unix_timestamp): string
         {
             $builder = self::pepper($ip_address);
 
             $builder .= hash('haval256,5', $ip_address);
-            $builder .= hash('crc32', $account_id . $builder);
+            $builder .= hash('crc32', $user_agent . $builder);
             $builder .= hash('crc32', $unix_timestamp . $builder);
 
             return $builder;

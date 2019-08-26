@@ -170,6 +170,11 @@
         private $TelegramClientManager;
 
         /**
+         * @var mixed
+         */
+        private $IpStackConfiguration;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws ConfigurationNotFoundException
          * @throws Exception
@@ -178,6 +183,7 @@
         {
             $this->acm = new acm(__DIR__, 'Intellivoid Accounts');
             $this->DatabaseConfiguration = $this->acm->getConfiguration('Database');
+            $this->IpStackConfiguration = $this->acm->getConfiguration('IpStack');
 
             $this->database = new mysqli(
                 $this->DatabaseConfiguration['Host'],
@@ -241,6 +247,22 @@
         public function getTelegramClientManager(): TelegramClientManager
         {
             return $this->TelegramClientManager;
+        }
+
+        /**
+         * @return acm
+         */
+        public function getAcm(): acm
+        {
+            return $this->acm;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getIpStackConfiguration()
+        {
+            return $this->IpStackConfiguration;
         }
 
     }
