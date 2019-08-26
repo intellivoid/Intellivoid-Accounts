@@ -77,6 +77,10 @@
             {
                 $KnownHost = $this->getHost(KnownHostsSearchMethod::byPublicId, $ip_address);
                 $KnownHost->LastUsed = time();
+                if((time() - $KnownHost->LocationData->LastUpdated) > 172800)
+                {
+                    $KnownHost->LocationData = $this->getLocationData($ip_address);
+                }
                 $this->updateKnownHost($KnownHost);
                 return $KnownHost;
             }
@@ -93,27 +97,7 @@
             $blocked = 0;
             $last_used = $timestamp;
 
-            // Fetch location data
-            $location_data = new LocationData();
-            $location_data->LastUpdated = time();
-
-            try
-            {
-                $Results = $this->ip_stack->lookup($ip_address);
-                $location_data->CountryName = $Results->CountryName;
-                $location_data->ContinentCode = $Results->ContinentCode;
-                $location_data->ZipCode = $Results->Zip;
-                $location_data->ContinentName = $Results->ContinentName;
-                $location_data->CountryCode = $Results->CountryCode;
-                $location_data->City = $Results->City;
-                $location_data->Longitude = $Results->Longitude;
-                $location_data->Latitude = $Results->Latitude;
-            }
-            catch(Exception $exception)
-            {
-                // Ignore the error
-            }
-
+            $location_data = $this->getLocationData($ip_address);
             $location_data = ZiProto::encode($location_data->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
@@ -144,6 +128,32 @@
             }
 
             throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+        }
+
+        private function getLocationData(string $ip_address)
+        {
+            // Fetch location data
+            $location_data = new LocationData();
+            $location_data->LastUpdated = time();
+
+            try
+            {
+                $Results = $this->ip_stack->lookup($ip_address);
+                $location_data->CountryName = $Results->CountryName;
+                $location_data->ContinentCode = $Results->ContinentCode;
+                $location_data->ZipCode = $Results->Zip;
+                $location_data->ContinentName = $Results->ContinentName;
+                $location_data->CountryCode = $Results->CountryCode;
+                $location_data->City = $Results->City;
+                $location_data->Longitude = $Results->Longitude;
+                $location_data->Latitude = $Results->Latitude;
+            }
+            catch(Exception $exception)
+            {
+                // Ignore the error
+            }
+
+            return $location_data;
         }
 
         /**
@@ -180,7 +190,7 @@
                     break;
             }
 
-            $Query = "SELECT * FROM `users_known_hosts` WHERE $search_method=$value";
+            $Query = "SELECT id, public_id, ip_address, blocked, last_used, location_data, user_agents, created FROM `users_known_hosts` WHERE $search_method=$value";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == false)
