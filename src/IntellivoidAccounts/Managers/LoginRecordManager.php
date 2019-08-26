@@ -3,14 +3,18 @@
     namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\LoginStatus;
+    use IntellivoidAccounts\Abstracts\SearchMethods\LoginRecordSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\HostNotKnownException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
     use IntellivoidAccounts\Exceptions\InvalidLoginStatusException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\LoginRecordNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\LoginRecord;
     use IntellivoidAccounts\Utilities\Hashing;
+    use msqg\QueryBuilder;
 
     /**
      * Class LoginRecordManager
@@ -94,6 +98,60 @@
             else
             {
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+        }
+
+        /**
+         * Gets an existing Login Record from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return LoginRecord
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws LoginRecordNotFoundException
+         */
+        public function getLoginRecord(string $search_method, string $value): LoginRecord
+        {
+            switch($search_method)
+            {
+                case LoginRecordSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                case LoginRecordSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select("login_records", [
+                'id',
+                'public_id',
+                'account_id',
+                'ip_address',
+                'origin',
+                'time',
+                'status'
+            ], $search_method, $value);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new LoginRecordNotFoundException();
+                }
+
+                return LoginRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
         }
     }
