@@ -249,18 +249,15 @@
          * Determines if the host is known or not
          *
          * @param string $ip_address
-         * @param int $account_id
          * @return bool
-         * @throws AccountNotFoundException
          * @throws DatabaseException
          * @throws InvalidIpException
-         * @throws InvalidSearchMethodException
          */
-        public function hostKnown(string $ip_address, int $account_id): bool
+        public function hostKnown(string $ip_address): bool
         {
             try
             {
-                $this->getHost($ip_address, $account_id);
+                $this->getHost(KnownHostsSearchMethod::byIpAddress, $ip_address);
                 return True;
             }
             catch(HostNotKnownException $hostNotKnownException)
