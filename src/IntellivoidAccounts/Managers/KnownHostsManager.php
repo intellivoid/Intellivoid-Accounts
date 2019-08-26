@@ -5,11 +5,9 @@
 
     use Exception;
     use IntellivoidAccounts\Abstracts\SearchMethods\KnownHostsSearchMethod;
-    use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\HostNotKnownException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
-    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\KnownHost;
     use IntellivoidAccounts\Objects\LocationData;
@@ -65,11 +63,9 @@
          * @param string $ip_address
          * @param string $user_agent
          * @return KnownHost
-         * @throws AccountNotFoundException
          * @throws DatabaseException
          * @throws HostNotKnownException
          * @throws InvalidIpException
-         * @throws InvalidSearchMethodException
          */
         public function syncHost(string $ip_address, string $user_agent): KnownHost
         {
