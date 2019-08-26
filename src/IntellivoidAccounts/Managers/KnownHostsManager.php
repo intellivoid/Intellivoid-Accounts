@@ -4,6 +4,7 @@
     namespace IntellivoidAccounts\Managers;
 
     use Exception;
+    use IntellivoidAccounts\Abstracts\SearchMethods\KnownHostsSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\HostNotKnownException;
@@ -32,13 +33,30 @@
         private $intellivoidAccounts;
 
         /**
+         * @var IPStack
+         */
+        private $ip_stack;
+
+        /**
          * KnownHostsManager constructor.
          * @param IntellivoidAccounts $intellivoidAccounts
          */
         public function __construct(IntellivoidAccounts $intellivoidAccounts)
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
-            $this->ip_stack = new IPStack('');
+            
+            $UseSSL = false;
+
+            if(strtolower($this->intellivoidAccounts->getIpStackConfiguration()['UseSSL']) == 'true')
+            {
+                $UseSSL = true;
+            }
+            
+            $this->ip_stack = new IPStack(
+                $intellivoidAccounts->getIpStackConfiguration()["AccessKey"],
+                $UseSSL,
+                $intellivoidAccounts->getIpStackConfiguration()['IpStackHost']
+            );
         }
 
         /**
@@ -57,7 +75,7 @@
         {
             if($this->hostKnown($ip_address) == true)
             {
-                $KnownHost = $this->getHost($ip_address);
+                $KnownHost = $this->getHost(KnownHostsSearchMethod::byPublicId, $ip_address);
                 $KnownHost->LastUsed = time();
                 $this->updateKnownHost($KnownHost);
                 return $KnownHost;
@@ -81,21 +99,7 @@
 
             try
             {
-                $UseSSL = false;
-
-                if(strtolower($this->intellivoidAccounts->getIpStackConfiguration()['UseSSL']) == 'true')
-                {
-                    $UseSSL = true;
-                }
-
-                $IPStack = new IPStack(
-                    $this->intellivoidAccounts->getIpStackConfiguration()["AccessKey"],
-                    $UseSSL,
-                    $this->intellivoidAccounts->getIpStackConfiguration()['IpStackHost']
-                );
-
-                $Results = $IPStack->lookup($ip_address);
-
+                $Results = $this->ip_stack->lookup($ip_address);
                 $location_data->CountryName = $Results->CountryName;
                 $location_data->ContinentCode = $Results->ContinentCode;
                 $location_data->ZipCode = $Results->Zip;
@@ -136,7 +140,7 @@
 
             if($QueryResults)
             {
-                return $this->getHost($ip_address);
+                return $this->getHost(KnownHostsSearchMethod::byPublicId, $ip_address);
             }
 
             throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
@@ -145,26 +149,40 @@
         /**
          * Gets the known host from the database if it exists
          *
-         * @param string $ip_address
+         * @param string $search_method
+         * @param string $value
          * @return KnownHost
-         * @throws AccountNotFoundException
          * @throws DatabaseException
          * @throws HostNotKnownException
          * @throws InvalidIpException
-         * @throws InvalidSearchMethodException
          */
-        public function getHost(string $ip_address): KnownHost
+        public function getHost(string $search_method, string $value): KnownHost
         {
-            if(Validate::ip($ip_address) == false)
+            switch($search_method)
             {
-                throw new InvalidIpException();
+                case KnownHostsSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                case KnownHostsSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($value) . "'";
+                    break;
+
+                case KnownHostsSearchMethod::byIpAddress:
+                    if(Validate::ip($value) == false)
+                    {
+                        throw new InvalidIpException();
+                    }
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($value) . "'";
+                    break;
             }
 
-            $ip_address = $this->intellivoidAccounts->database->real_escape_string($ip_address);
-            $account_id = (int)$account_id;
-
-            $Query = "SELECT * FROM `users_known_hosts` WHERE ip_address='$ip_address'";
+            $Query = "SELECT * FROM `users_known_hosts` WHERE $search_method=$value";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
             if($QueryResults == false)
             {
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
