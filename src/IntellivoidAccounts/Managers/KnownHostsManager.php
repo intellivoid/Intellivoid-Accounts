@@ -98,20 +98,20 @@
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
             // Parse the user agent if available
-            $user_agent = null;
+            $user_agent_object = null;
 
             if(Validate::userAgent($user_agent) == false)
             {
-                $user_agent = new UserAgent();
-                $user_agent->UserAgentString = "None";
+                $user_agent_object = new UserAgent();
+                $user_agent_object->UserAgentString = "None";
             }
             else
             {
-                $user_agent = UserAgent::fromString($user_agent);
+                $user_agent_object = UserAgent::fromString($user_agent);
             }
 
             $user_agents = [];
-            $user_agents[] = $user_agent->toArray();
+            $user_agents[] = $user_agent_object->toArray();
             $user_agents = ZiProto::encode($user_agents);
             $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
 
