@@ -1,6 +1,8 @@
-<?php
+<?php /** @noinspection PhpDocRedundantThrowsInspection */
 
-    namespace IntellivoidAccounts\Managers;
+/** @noinspection PhpDuplicateSwitchCaseBodyInspection */
+
+namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
@@ -128,17 +130,13 @@
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
 
+                case AccountSearchMethod::byEmail:
                 case AccountSearchMethod::byPublicID:
                     $input = $this->intellivoidAccounts->database->real_escape_string($input);
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
 
                 case AccountSearchMethod::byUsername:
-                    $input = $this->intellivoidAccounts->database->real_escape_string($input);
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    break;
-
-                case AccountSearchMethod::byEmail:
                     $input = $this->intellivoidAccounts->database->real_escape_string($input);
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
@@ -305,8 +303,6 @@
             {
                 throw new IncorrectLoginDetailsException();
             }
-
-            $account_details = null;
 
             if($this->usernameExists($username_or_email) == true)
             {
