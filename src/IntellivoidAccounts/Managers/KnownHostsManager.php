@@ -201,6 +201,8 @@
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['location_data'] = ZiProto::decode($Row['location_data']);
+                $Row['user_agents'] = ZiProto::decode($Row['user_agents']);
                 return KnownHost::fromArray($Row);
             }
         }
