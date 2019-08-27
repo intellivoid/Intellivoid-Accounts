@@ -44,6 +44,15 @@
         public $RecoveryCodes;
 
         /**
+         * VerificationMethods constructor.
+         */
+        public function __construct()
+        {
+            $this->TwoFactorAuthentication = new TwoFactorAuthentication();
+            $this->RecoveryCodes = new RecoveryCodes();
+        }
+
+        /**
          * Creates array from object
          *
          * @return array
