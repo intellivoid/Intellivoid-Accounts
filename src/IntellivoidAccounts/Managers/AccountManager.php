@@ -293,6 +293,19 @@
          */
         public function getAccountByAuth(string $username_or_email, string $password): Account
         {
+            if(Validate::email($username_or_email) == false)
+            {
+                if(Validate::username($username_or_email) == false)
+                {
+                    throw new IncorrectLoginDetailsException();
+                }
+            }
+
+            if(Validate::password($password) == false)
+            {
+                throw new IncorrectLoginDetailsException();
+            }
+
             $account_details = null;
 
             if($this->usernameExists($username_or_email) == true)
