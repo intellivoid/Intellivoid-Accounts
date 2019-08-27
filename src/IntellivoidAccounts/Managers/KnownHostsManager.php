@@ -71,12 +71,37 @@
         {
             if($this->hostKnown($ip_address) == true)
             {
-                $KnownHost = $this->getHost(KnownHostsSearchMethod::byPublicId, $ip_address);
+                $KnownHost = $this->getHost(KnownHostsSearchMethod::byIpAddress, $ip_address);
                 $KnownHost->LastUsed = time();
                 if((time() - $KnownHost->LocationData->LastUpdated) > 172800)
                 {
                     $KnownHost->LocationData = $this->getLocationData($ip_address);
                 }
+
+                $UserAgentExists = false;
+                /** @var UserAgent $userAgent */
+                foreach($KnownHost->UserAgents as $userAgent)
+                {
+                    if($userAgent->UserAgentString == $userAgent)
+                    {
+                        $UserAgentExists = true;
+                    }
+                }
+
+                if($UserAgentExists == false)
+                {
+                    if(Validate::userAgent($user_agent) == false)
+                    {
+                        $user_agent_object = new UserAgent();
+                        $user_agent_object->UserAgentString = "None";
+                        $KnownHost->UserAgents[] = $user_agent_object;
+                    }
+                    else
+                    {
+                        $KnownHost->UserAgents[] = UserAgent::fromString($user_agent);
+                    }
+                }
+
                 $this->updateKnownHost($KnownHost);
                 return $KnownHost;
             }
@@ -120,7 +145,7 @@
 
             if($QueryResults)
             {
-                return $this->getHost(KnownHostsSearchMethod::byPublicId, $ip_address);
+                return $this->getHost(KnownHostsSearchMethod::byPublicId, $public_id);
             }
 
             throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
