@@ -78,28 +78,9 @@
                     $KnownHost->LocationData = $this->getLocationData($ip_address);
                 }
 
-                $UserAgentExists = false;
-                /** @var UserAgent $userAgent */
-                foreach($KnownHost->UserAgents as $userAgent)
+                if(isset($KnownHost->UserAgents[$user_agent]) == false)
                 {
-                    if($userAgent->UserAgentString == $userAgent)
-                    {
-                        $UserAgentExists = true;
-                    }
-                }
-
-                if($UserAgentExists == false)
-                {
-                    if(Validate::userAgent($user_agent) == false)
-                    {
-                        $user_agent_object = new UserAgent();
-                        $user_agent_object->UserAgentString = "None";
-                        $KnownHost->UserAgents[] = $user_agent_object;
-                    }
-                    else
-                    {
-                        $KnownHost->UserAgents[] = UserAgent::fromString($user_agent);
-                    }
+                    $KnownHost->UserAgents[] = $user_agent;
                 }
 
                 $this->updateKnownHost($KnownHost);
@@ -122,21 +103,8 @@
             $location_data = ZiProto::encode($location_data->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
-            // Parse the user agent if available
-            $user_agent_object = null;
-
-            if(Validate::userAgent($user_agent) == false)
-            {
-                $user_agent_object = new UserAgent();
-                $user_agent_object->UserAgentString = "None";
-            }
-            else
-            {
-                $user_agent_object = UserAgent::fromString($user_agent);
-            }
-
             $user_agents = [];
-            $user_agents[] = $user_agent_object->toArray();
+            $user_agents[] = $user_agent;
             $user_agents = ZiProto::encode($user_agents);
             $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
 
@@ -258,7 +226,7 @@
             $blocked = (int)$knownHost->Blocked;
             $location_data = ZiProto::encode($knownHost->LocationData->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
-            $user_agents = ZiProto::encode($knownHost->toArray()['user_agents']);
+            $user_agents = ZiProto::encode($knownHost->UserAgents);
             $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
             $last_used = (int)$knownHost->LastUsed;
 

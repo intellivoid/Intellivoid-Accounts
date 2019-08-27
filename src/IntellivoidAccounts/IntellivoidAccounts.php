@@ -4,8 +4,6 @@
 
     use acm\acm;
     use Exception;
-    use IntellivoidAccounts\Classes\LoginProcessor;
-    use IntellivoidAccounts\Exceptions\ConfigurationNotFoundException;
     use IntellivoidAccounts\Managers\AccountManager;
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
@@ -25,8 +23,6 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'OperatorType.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'TelegramChatType.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Abstracts' . DIRECTORY_SEPARATOR . 'TransactionType.php');
-
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Classes' . DIRECTORY_SEPARATOR . 'LoginProcessor.php');
 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'AccountLimitedException.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'AccountNotFoundException.php');
@@ -164,11 +160,6 @@
         private $KnownHostsManager;
 
         /**
-         * @var LoginProcessor
-         */
-        private $LoginProcessor;
-
-        /**
          * @var TelegramClientManager
          */
         private $TelegramClientManager;
@@ -201,7 +192,6 @@
             $this->LoginRecordManager = new LoginRecordManager($this);
             $this->TransactionRecordManager = new TransactionRecordManager($this);
             $this->TelegramClientManager = new TelegramClientManager($this);
-            $this->LoginProcessor = new LoginProcessor($this);
         }
 
         /**
@@ -234,14 +224,6 @@
         public function getKnownHostsManager(): KnownHostsManager
         {
             return $this->KnownHostsManager;
-        }
-
-        /**
-         * @return LoginProcessor
-         */
-        public function getLoginProcessor(): LoginProcessor
-        {
-            return $this->LoginProcessor;
         }
 
         /**

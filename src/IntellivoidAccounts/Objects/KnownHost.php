@@ -69,16 +69,6 @@
          */
         public function toArray(): array
         {
-            $UserAgentsArray = [];
-            if($this->UserAgents !== null)
-            {
-                /** @var UserAgent $userAgent */
-                foreach($this->UserAgents as $userAgent)
-                {
-                    $UserAgentsArray[] = $userAgent->toArray();
-                }
-            }
-
             return array(
                 'id' => (int)$this->ID,
                 'public_id' => $this->PublicID,
@@ -86,7 +76,7 @@
                 'blocked' => (bool)$this->Blocked,
                 'last_used' => (int)$this->LastUsed,
                 'location_data' => $this->LocationData->toArray(),
-                'user_agents' => $UserAgentsArray,
+                'user_agents' => $this->UserAgents,
                 'created' => $this->LastUsed
             );
         }
@@ -137,11 +127,7 @@
 
             if(isset($data['user_agents']))
             {
-                $KnownHostObject->UserAgents = [];
-                foreach($data['user_agents'] as $userAgent)
-                {
-                    $KnownHostObject->UserAgents[] = UserAgent::fromArray($userAgent);
-                }
+                $KnownHostObject->UserAgents = $data['user_agents'];
             }
             else
             {
