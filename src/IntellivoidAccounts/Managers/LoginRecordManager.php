@@ -108,7 +108,7 @@
                 $user_agent_x = new UserAgent();
                 $user_agent_x->UserAgentString = "None";
             }
-            $user_agent_x = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($user_agent_x));
+            $user_agent_x = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($user_agent_x->toArray()));
 
             $Query = "INSERT INTO `users_logins` (public_id, origin, host_id, user_agent, account_id, status, timestamp) VALUES ('$public_id', '$origin', $known_host_id, '$user_agent_x', $account_id, $status, $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
