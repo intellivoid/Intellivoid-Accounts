@@ -13,9 +13,12 @@
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\LoginRecordNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Objects\UserLoginRecord;
     use IntellivoidAccounts\Utilities\Hashing;
+    use IntellivoidAccounts\Utilities\Validate;
     use msqg\QueryBuilder;
+    use ZiProto\ZiProto;
 
     /**
      * Class LoginRecordManager
@@ -43,6 +46,7 @@
          * @param int $known_host_id
          * @param LoginStatus|int $status
          * @param string $origin
+         * @param string $user_agent
          * @return bool
          * @throws AccountNotFoundException
          * @throws DatabaseException
@@ -51,7 +55,7 @@
          * @throws InvalidLoginStatusException
          * @throws InvalidSearchMethodException
          */
-        public function createLoginRecord(int $account_id, int $known_host_id, int $status, string $origin): bool
+        public function createLoginRecord(int $account_id, int $known_host_id, int $status, string $origin, string $user_agent): bool
         {
             if($this->intellivoidAccounts->getAccountManager()->IdExists($account_id) == false)
             {
@@ -91,8 +95,19 @@
             $timestamp = (int)time();
             $public_id = Hashing::loginPublicID($account_id, $timestamp, $login_status, $origin);
             $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
+            $user_agent_x = null;
+            if(Validate::userAgent($user_agent))
+            {
+                $user_agent_x = UserAgent::fromString($user_agent);
+            }
+            else
+            {
+                $user_agent_x = new UserAgent();
+                $user_agent_x->UserAgentString = "None";
+            }
+            $user_agent_x = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($user_agent_x));
 
-            $Query = "INSERT INTO `users_logins` (public_id, origin, host_id, account_id, status, timestamp) VALUES ('$public_id', '$origin', $known_host_id, $account_id, $status, $timestamp)";
+            $Query = "INSERT INTO `users_logins` (public_id, origin, host_id, user_agent, account_id, status, timestamp) VALUES ('$public_id', '$origin', $known_host_id, '$user_agent_x', $account_id, $status, $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
@@ -138,6 +153,7 @@
                 'public_id',
                 'origin',
                 'host_id',
+                'user_agent',
                 'account_id',
                 'status',
                 'timestamp'
@@ -155,7 +171,9 @@
                     throw new LoginRecordNotFoundException();
                 }
 
-                return UserLoginRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['user_agent'] = ZiProto::decode($Row['user_agent']);
+                return UserLoginRecord::fromArray($Row);
             }
         }
 
@@ -194,6 +212,7 @@
                 'public_id',
                 'origin',
                 'host_id',
+                'user_agent',
                 'account_id',
                 'status',
                 'timestamp'
@@ -217,6 +236,7 @@
 
                     while($Row = $QueryResults->fetch_assoc())
                     {
+                        $Row['user_agent'] = ZiProto::decode($Row['user_agent']);
                         $ResultsArray[] = $Row;
                     }
 

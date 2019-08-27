@@ -40,6 +40,13 @@
         public $HostID;
 
         /**
+         * Parsed user agent data associated with this login record
+         *
+         * @var UserAgent
+         */
+        public $UserAgent;
+
+        /**
          * The account ID associated with this Login Record
          *
          * @var int
@@ -72,6 +79,7 @@
                 'public_id' => $this->PublicID,
                 'origin' => $this->Origin,
                 'host_id' => $this->HostID,
+                'user_agent' => $this->UserAgent->toArray(),
                 'account_id' => $this->AccountID,
                 'status' => $this->Status,
                 'timestamp' => $this->Timestamp
@@ -106,6 +114,11 @@
              if(isset($data['host_id']))
              {
                  $UserLoginRecordObject->HostID = (int)$data['host_id'];
+             }
+
+             if(isset($data['user_agent']))
+             {
+                 $UserLoginRecordObject->UserAgent = UserAgent::fromArray($data['user_agent']);
              }
 
              if(isset($data['account_id']))
