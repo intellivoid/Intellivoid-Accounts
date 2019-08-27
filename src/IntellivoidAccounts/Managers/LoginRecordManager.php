@@ -75,6 +75,9 @@
                 case LoginStatus::Successful:
                     break;
 
+                case LoginStatus::IncorrectCredentials:
+                    break;
+
                 case LoginStatus::VerificationFailed:
                     break;
 
