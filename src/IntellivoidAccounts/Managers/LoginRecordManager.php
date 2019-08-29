@@ -18,6 +18,7 @@
     use IntellivoidAccounts\Objects\UserLoginRecord;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use msqg\Abstracts\SortBy;
     use msqg\QueryBuilder;
     use ZiProto\ZiProto;
 
@@ -220,7 +221,7 @@
                 'account_id',
                 'status',
                 'timestamp'
-            ], $search_method, $value, 'timestamp', 'asc', $limit, $offset);
+            ], $search_method, $value, 'timestamp', SortBy::descending, $limit, $offset);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
