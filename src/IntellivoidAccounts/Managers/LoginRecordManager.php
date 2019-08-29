@@ -152,7 +152,7 @@
                     throw new InvalidSearchMethodException();
             }
 
-            $Query = QueryBuilder::select("user_logins", [
+            $Query = QueryBuilder::select("users_logins", [
                 'id',
                 'public_id',
                 'origin',
@@ -211,7 +211,7 @@
                     throw new InvalidSearchMethodException();
             }
 
-            $Query = QueryBuilder::select("user_logins", [
+            $Query = QueryBuilder::select("users_logins", [
                 'id',
                 'public_id',
                 'origin',
