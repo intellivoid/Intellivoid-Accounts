@@ -128,7 +128,7 @@
 
              if(isset($data['status']))
              {
-                 $UserLoginRecordObject->Status = (int)$data['stauts'];
+                 $UserLoginRecordObject->Status = (int)$data['status'];
              }
 
              if(isset($data['timestamp']))
