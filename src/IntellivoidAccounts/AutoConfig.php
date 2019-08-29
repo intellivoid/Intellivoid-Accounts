@@ -18,4 +18,9 @@
     $DatabaseSchema->setDefinition('Name', 'intellivoid');
     $acm->defineSchema('Database', $DatabaseSchema);
 
+    $IpStackSchema = new Schema();
+    $IpStackSchema->setDefinition('AccessKey', '<API KEY>');
+    $IpStackSchema->setDefinition('UseSSL', 'false');
+    $IpStackSchema->setDefinition('IpStackHost', 'api.ipstack.com');
+
     $acm->processCommandLine();
