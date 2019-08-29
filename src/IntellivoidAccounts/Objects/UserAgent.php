@@ -108,22 +108,19 @@
                 $ParsedData = array();
             }
 
-            if(isset($data['user_agent_string']))
-            {
-                $UserAgentObject->UserAgentString = $UserAgentObject;
-            }
+            $UserAgentObject->UserAgentString = $user_agent;
 
-            if(isset($data['platform']))
+            if(isset($ParsedData['platform']))
             {
                 $UserAgentObject->Platform = $ParsedData['platform'];
             }
 
-            if(isset($data['browser']))
+            if(isset($ParsedData['browser']))
             {
                 $UserAgentObject->Browser = $ParsedData['browser'];
             }
 
-            if(isset($data['version']))
+            if(isset($ParsedData['version']))
             {
                 $UserAgentObject->Version = $ParsedData['version'];
             }

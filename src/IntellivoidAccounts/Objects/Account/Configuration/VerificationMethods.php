@@ -49,7 +49,7 @@
         public function __construct()
         {
             $this->TwoFactorAuthentication = new TwoFactorAuthentication();
-            $this->RecoveryCodes = new RecoveryCodes();
+            $this->RecoveryCodes =  new RecoveryCodes();
         }
 
         /**

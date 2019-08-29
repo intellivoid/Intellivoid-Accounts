@@ -1,8 +1,6 @@
-<?php /** @noinspection PhpDocRedundantThrowsInspection */
+<?php
 
-/** @noinspection PhpDuplicateSwitchCaseBodyInspection */
-
-namespace IntellivoidAccounts\Managers;
+    namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
@@ -130,13 +128,17 @@ namespace IntellivoidAccounts\Managers;
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
 
-                case AccountSearchMethod::byEmail:
                 case AccountSearchMethod::byPublicID:
                     $input = $this->intellivoidAccounts->database->real_escape_string($input);
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
 
                 case AccountSearchMethod::byUsername:
+                    $input = $this->intellivoidAccounts->database->real_escape_string($input);
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    break;
+
+                case AccountSearchMethod::byEmail:
                     $input = $this->intellivoidAccounts->database->real_escape_string($input);
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
@@ -173,11 +175,10 @@ namespace IntellivoidAccounts\Managers;
          * @return bool
          * @throws AccountNotFoundException
          * @throws DatabaseException
+         * @throws InvalidAccountStatusException
          * @throws InvalidEmailException
-         * @throws InvalidPasswordException
          * @throws InvalidSearchMethodException
          * @throws InvalidUsernameException
-         * @throws InvalidAccountStatusException
          */
         public function updateAccount(Account $account): bool
         {
@@ -303,6 +304,8 @@ namespace IntellivoidAccounts\Managers;
             {
                 throw new IncorrectLoginDetailsException();
             }
+
+            $account_details = null;
 
             if($this->usernameExists($username_or_email) == true)
             {

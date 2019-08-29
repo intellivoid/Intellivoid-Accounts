@@ -188,4 +188,21 @@
 
             return true;
         }
+
+        /**
+         * Verifies if the given password and the hashed password matches
+         *
+         * @param string $password
+         * @param string $hash
+         * @return bool
+         */
+        public static function verifyHashedPassword(string $password, string $hash): bool
+        {
+            if($hash == Hashing::password($password))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }

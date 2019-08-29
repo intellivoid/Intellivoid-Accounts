@@ -11,6 +11,7 @@
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\KnownHost;
     use IntellivoidAccounts\Objects\LocationData;
+    use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use IPStack\IPStack;
