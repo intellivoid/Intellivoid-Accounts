@@ -4,6 +4,7 @@
 
     use IntellivoidAccounts\Abstracts\LoginStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\KnownHostsSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\LoginRecordMultiSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\LoginRecordSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -196,12 +197,12 @@
         {
             switch($search_method)
             {
-                case LoginRecordSearchMethod::byPublicId:
+                case LoginRecordMultiSearchMethod::byIpAddress:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     $value = $this->intellivoidAccounts->database->real_escape_string($value);
                     break;
 
-                case LoginRecordSearchMethod::byId:
+                case LoginRecordMultiSearchMethod::byAccountId:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     $value = (int)$value;
                     break;
