@@ -220,7 +220,7 @@
                 'account_id',
                 'status',
                 'timestamp'
-            ], $search_method, $value, null, null, $limit, $offset);
+            ], $search_method, $value, 'timestamp', 'asc', $limit, $offset);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
