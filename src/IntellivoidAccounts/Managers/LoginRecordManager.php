@@ -249,4 +249,52 @@
                 }
             }
         }
+
+        /**
+         * Counts the total amount of records that are found
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return int
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function getTotalRecords(string $search_method, string $value): int
+        {
+            switch($search_method)
+            {
+                case LoginRecordMultiSearchMethod::byIpAddress:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($value) . "'";
+                    break;
+
+                case LoginRecordMultiSearchMethod::byAccountId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = "SELECT COUNT(id) AS total FROM `users_logins` WHERE $search_method=$value";
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    return (int)$QueryResults->fetch_array()['total'];
+                }
+            }
+        }
     }
