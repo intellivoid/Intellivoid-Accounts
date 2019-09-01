@@ -2,6 +2,7 @@
 
     namespace IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Objects\Account\PersonalInformation\BirthDate;
+    use IntellivoidAccounts\Objects\Account\PersonalInformation\LoginLocations;
 
     /**
      * Class PersonalInformation
@@ -15,6 +16,7 @@
         public function __construct()
         {
             $this->BirthDate = new BirthDate();
+            $this->LoginLocations = new LoginLocations();
         }
 
         /**
@@ -53,6 +55,13 @@
         public $PhoneNumber;
 
         /**
+         * Tracked login locations for this Intellivoid Account
+         *
+         * @var LoginLocations;
+         */
+        public $LoginLocations;
+
+        /**
          * Converts object to array
          *
          * @return array
@@ -64,10 +73,17 @@
                 'last_name' => $this->LastName,
                 'country' => $this->Country,
                 'birth_date' => $this->BirthDate->toArray(),
-                'phone_number' => $this->PhoneNumber
+                'phone_number' => $this->PhoneNumber,
+                'login_locations' => $this->LoginLocations->toArray()
             );
         }
 
+        /**
+         * Constructs object from array
+         *
+         * @param array $data
+         * @return PersonalInformation
+         */
         public static function fromArray(array $data): PersonalInformation
         {
             $PersonalInformationObject = new PersonalInformation();
@@ -115,6 +131,15 @@
             else
             {
                 $PersonalInformationObject->PhoneNumber = null;
+            }
+
+            if(isset($data['login_locations']))
+            {
+                $PersonalInformationObject->LoginLocations = $data['login_locations'];
+            }
+            else
+            {
+                $PersonalInformationObject->LoginLocations = new LoginLocations();
             }
 
             return $PersonalInformationObject;
