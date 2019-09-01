@@ -3,6 +3,7 @@
     namespace IntellivoidAccounts\Objects;
     use IntellivoidAccounts\Objects\Account\Configuration;
     use IntellivoidAccounts\Objects\Account\PersonalInformation;
+    use IntellivoidAccounts\Utilities\Hashing;
 
     /**
      * Class Account
@@ -87,6 +88,16 @@
         {
             $this->PersonalInformation = new PersonalInformation();
             $this->Configuration = new Configuration();
+        }
+
+        /**
+         * Updates the existing password of this account object
+         *
+         * @param string $new_password
+         */
+        public function updatePassword(string $new_password)
+        {
+            $this->Password = Hashing::password($new_password);
         }
 
         /**
