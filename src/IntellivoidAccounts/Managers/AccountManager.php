@@ -201,7 +201,7 @@
             $ID = (int)$account->ID;
             $PublicID = $this->intellivoidAccounts->database->real_escape_string($account->PublicID);
             $Username = $this->intellivoidAccounts->database->real_escape_string($account->Username);
-            $Password = $this->intellivoidAccounts->database->real_connect($account->Password);
+            $Password = $this->intellivoidAccounts->database->real_escape_string($account->Password);
             $Email = $this->intellivoidAccounts->database->real_escape_string($account->Email);
             $Status = (int)$account->Status;
             $PersonalInformation = $this->intellivoidAccounts->database->real_escape_string(
