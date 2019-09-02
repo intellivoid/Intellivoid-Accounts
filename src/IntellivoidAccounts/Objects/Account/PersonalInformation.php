@@ -135,7 +135,7 @@
 
             if(isset($data['login_locations']))
             {
-                $PersonalInformationObject->LoginLocations = $data['login_locations'];
+                $PersonalInformationObject->LoginLocations = LoginLocations::fromArray($data['login_locations']);
             }
             else
             {
