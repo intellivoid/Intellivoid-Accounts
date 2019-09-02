@@ -128,17 +128,9 @@
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
 
-                case AccountSearchMethod::byPublicID:
-                    $input = $this->intellivoidAccounts->database->real_escape_string($input);
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    break;
-
                 case AccountSearchMethod::byUsername:
-                    $input = $this->intellivoidAccounts->database->real_escape_string($input);
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    break;
-
                 case AccountSearchMethod::byEmail:
+                case AccountSearchMethod::byPublicID:
                     $input = $this->intellivoidAccounts->database->real_escape_string($input);
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     break;
@@ -209,6 +201,7 @@
             $ID = (int)$account->ID;
             $PublicID = $this->intellivoidAccounts->database->real_escape_string($account->PublicID);
             $Username = $this->intellivoidAccounts->database->real_escape_string($account->Username);
+            $Password = $this->intellivoidAccounts->database->real_connect($account->Password);
             $Email = $this->intellivoidAccounts->database->real_escape_string($account->Email);
             $Status = (int)$account->Status;
             $PersonalInformation = $this->intellivoidAccounts->database->real_escape_string(
@@ -220,8 +213,8 @@
             $LastLoginId = (int)$account->LastLoginID;
 
             $Query = sprintf(
-                "UPDATE `users` SET public_id='%s', username='%s', email='%s', status=%s, personal_information='%s', configuration='%s', last_login_id=%s WHERE id=%s",
-                $PublicID, $Username, $Email, $Status, $PersonalInformation, $Configuration, $LastLoginId, $ID
+                "UPDATE `users` SET public_id='%s', username='%s', password='%s', email='%s', status=%s, personal_information='%s', configuration='%s', last_login_id=%s WHERE id=%s",
+                $PublicID, $Username, $Password, $Email, $Status, $PersonalInformation, $Configuration, $LastLoginId, $ID
             );
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
