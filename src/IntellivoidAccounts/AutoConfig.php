@@ -22,5 +22,11 @@
     $IpStackSchema->setDefinition('AccessKey', '<API KEY>');
     $IpStackSchema->setDefinition('UseSSL', 'false');
     $IpStackSchema->setDefinition('IpStackHost', 'api.ipstack.com');
+    $acm->defineSchema('IpStack', $IpStackSchema);
+
+    $SystemSchema = new Schema();
+    $SystemSchema->setDefinition('ProfilesLocation_Unix', '/etc/user_pictures');
+    $SystemSchema->setDefinition('ProfilesLocation_Windows', 'C:\\user_pictures');
+    $acm->defineSchema('System', $SystemSchema);
 
     $acm->processCommandLine();
