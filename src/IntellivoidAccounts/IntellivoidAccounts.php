@@ -116,6 +116,11 @@
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'acm' . DIRECTORY_SEPARATOR . 'acm.php');
     }
 
+    if(class_exists('udp\udp') == false)
+    {
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'udp' . DIRECTORY_SEPARATOR . 'udp.php');
+    }
+
     include(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');
 
     /**
