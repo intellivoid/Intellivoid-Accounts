@@ -1,10 +1,11 @@
 <?php
-
+    /** @noinspection PhpUnused */
     namespace IntellivoidAccounts;
 
     use acm\acm;
     use Exception;
     use IntellivoidAccounts\Managers\AccountManager;
+    use IntellivoidAccounts\Managers\ApplicationManager;
     use IntellivoidAccounts\Managers\CrossOverAuthenticationManager;
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
@@ -57,6 +58,7 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'UsernameAlreadyExistsException.php');
 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'AccountManager.php');
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'ApplicationManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'CrossOverAuthenticationManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'KnownHostsManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'LoginRecordManager.php');
@@ -200,6 +202,11 @@
         private $CrossOverAuthenticationManager;
 
         /**
+         * @var ApplicationManager
+         */
+        private $ApplicationManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -224,6 +231,8 @@
             $this->TransactionRecordManager = new TransactionRecordManager($this);
             $this->TelegramClientManager = new TelegramClientManager($this);
             $this->CrossOverAuthenticationManager = new CrossOverAuthenticationManager($this);
+            $this->ApplicationManager = new ApplicationManager($this);
+
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
                 $this->udp = new udp($this->SystemConfiguration['ProfilesLocation_Windows']);
@@ -312,6 +321,14 @@
         public function getCrossOverAuthenticationManager(): CrossOverAuthenticationManager
         {
             return $this->CrossOverAuthenticationManager;
+        }
+
+        /**
+         * @return ApplicationManager
+         */
+        public function getApplicationManager(): ApplicationManager
+        {
+            return $this->ApplicationManager;
         }
 
     }
