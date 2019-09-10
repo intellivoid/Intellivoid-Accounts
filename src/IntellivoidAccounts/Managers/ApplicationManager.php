@@ -5,6 +5,7 @@
 
 
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\COA\Application;
 
     /**
      * Class ApplicationManager
@@ -24,5 +25,10 @@
         public function __construct(IntellivoidAccounts $intellivoidAccounts)
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
+        }
+
+        public function register_application(string $name, int $authentication_mode, array $permissions): Application
+        {
+
         }
     }
