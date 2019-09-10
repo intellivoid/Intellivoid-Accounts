@@ -29,6 +29,6 @@
 
         public function register_application(string $name, int $authentication_mode, array $permissions): Application
         {
-
+            $PublicApplicationId =
         }
     }

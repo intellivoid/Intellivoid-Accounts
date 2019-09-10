@@ -255,4 +255,19 @@
 
             return $builder;
         }
+
+        /**
+         * Creates a unique public id for the application
+         *
+         * @param string $name
+         * @param int $timestamp
+         * @return string
+         */
+        public static function applicationPublicId(string $name, int $timestamp): string
+        {
+            $builder = "APP";
+            $builder .= hash('sha256', $name . $timestamp);
+            $builder .= hash('crc32', $timestamp);
+            return $builder;
+        }
     }
