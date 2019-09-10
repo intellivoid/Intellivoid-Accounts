@@ -6,6 +6,7 @@
 
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\COA\Application;
+    use IntellivoidAccounts\Utilities\Hashing;
 
     /**
      * Class ApplicationManager
@@ -29,6 +30,8 @@
 
         public function register_application(string $name, int $authentication_mode, array $permissions): Application
         {
-            $PublicApplicationId =
+            $CreatedTimestamp = (int)time();
+            $PublicApplicationId = Hashing::applicationPublicId($name, $CreatedTimestamp);
+
         }
     }

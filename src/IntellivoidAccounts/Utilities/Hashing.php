@@ -270,4 +270,16 @@
             $builder .= hash('crc32', $timestamp);
             return $builder;
         }
+
+        /**
+         * Builds a secret key for the application
+         *
+         * @param string $public_key
+         * @param int $timestamp
+         * @return string
+         */
+        public static function applicationSecretKey(string $public_key, int $timestamp): string
+        {
+            return hash('sha256', self::pepper($public_key) . $timestamp) . hash('crc32', self::pepper($timestamp));
+        }
     }
