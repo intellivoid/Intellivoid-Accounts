@@ -5,6 +5,7 @@
     use acm\acm;
     use Exception;
     use IntellivoidAccounts\Managers\AccountManager;
+    use IntellivoidAccounts\Managers\CrossOverAuthenticationManager;
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
     use IntellivoidAccounts\Managers\TelegramClientManager;
@@ -56,6 +57,7 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'UsernameAlreadyExistsException.php');
 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'AccountManager.php');
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'CrossOverAuthenticationManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'KnownHostsManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'LoginRecordManager.php');
     include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Managers' . DIRECTORY_SEPARATOR . 'MessagesManager.php');
@@ -193,6 +195,11 @@
         private $udp;
 
         /**
+         * @var CrossOverAuthenticationManager
+         */
+        private $CrossOverAuthenticationManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -216,6 +223,7 @@
             $this->LoginRecordManager = new LoginRecordManager($this);
             $this->TransactionRecordManager = new TransactionRecordManager($this);
             $this->TelegramClientManager = new TelegramClientManager($this);
+            $this->CrossOverAuthenticationManager = new CrossOverAuthenticationManager($this);
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
                 $this->udp = new udp($this->SystemConfiguration['ProfilesLocation_Windows']);
@@ -296,6 +304,14 @@
         public function getUdp(): udp
         {
             return $this->udp;
+        }
+
+        /**
+         * @return CrossOverAuthenticationManager
+         */
+        public function getCrossOverAuthenticationManager(): CrossOverAuthenticationManager
+        {
+            return $this->CrossOverAuthenticationManager;
         }
 
     }
