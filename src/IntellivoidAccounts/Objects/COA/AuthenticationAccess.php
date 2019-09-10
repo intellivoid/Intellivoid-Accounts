@@ -91,4 +91,62 @@
                 'created_timestamp' => $this->CreatedTimestamp
             );
         }
+
+        /**
+         * Constructs object from array
+         *
+         * @param array $data
+         * @return AuthenticationAccess
+         */
+        public static function fromArray(array $data): AuthenticationAccess
+        {
+            $AuthenticationAccessObject = new AuthenticationAccess();
+
+            if(isset($data['id']))
+            {
+                $AuthenticationAccessObject->ID = (int)$data['id'];
+            }
+
+            if(isset($data['access_token']))
+            {
+                $AuthenticationAccessObject->AccessToken = $data['access_token'];
+            }
+
+            if(isset($data['application_id']))
+            {
+                $AuthenticationAccessObject->ApplicationId = (int)$data['application_id'];
+            }
+
+            if(isset($data['account_id']))
+            {
+                $AuthenticationAccessObject->AccountId = (int)$data['account_id'];
+            }
+
+            if(isset($data['request_id']))
+            {
+                $AuthenticationAccessObject->RequestId = (int)$data['request_id'];
+            }
+
+            if(isset($data['status']))
+            {
+                $AuthenticationAccessObject->Status = (int)$data['status'];
+            }
+
+            if(isset($data['expires_timestamp']))
+            {
+                $AuthenticationAccessObject->ExpiresTimestamp = (int)$data['expires_timestamp'];
+            }
+
+            if(isset($data['last_used_timestamp']))
+            {
+                $AuthenticationAccessObject->LastUsedTimestamp = (int)$data['last_used_timestamp'];
+            }
+
+            if(isset($data['created_timestamp']))
+            {
+                $AuthenticationAccessObject->CreatedTimestamp = (int)$data['created_timestamp'];
+            }
+
+            return $AuthenticationAccessObject;
+        }
     }
