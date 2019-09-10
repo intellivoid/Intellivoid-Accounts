@@ -3,7 +3,10 @@
 
     namespace IntellivoidAccounts\Objects\COA;
 
-
+    /**
+     * Class AuthenticationRequest
+     * @package IntellivoidAccounts\Objects\COA
+     */
     class AuthenticationRequest
     {
         /**
