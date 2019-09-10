@@ -4,6 +4,7 @@
     namespace IntellivoidAccounts\Objects\COA;
 
     use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
+    use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
 
     /**
      * Class Application
@@ -96,6 +97,13 @@
             $this->Permissions = [];
         }
 
+        /**
+         * Applies a permission to the application
+         *
+         * @param string|AccountRequestPermissions $permission
+         * @return bool
+         * @throws InvalidRequestPermissionException
+         */
         public function apply_permission(string $permission): bool
         {
             if(isset($this->Permissions[$permission]))
@@ -111,8 +119,28 @@
                 case AccountRequestPermissions::TelegramAccount:
                     break;
                 default:
-                    throw new
+                    throw new InvalidRequestPermissionException();
             }
+
+            $this->Permissions[] = $permission;
+            return true;
+        }
+
+        /**
+         * Revokes an existing permission
+         *
+         * @param string $permission
+         * @return bool
+         */
+        public function revoke_permission(string $permission): bool
+        {
+            if(isset($this->Permissions[$permission]) == false)
+            {
+                return false;
+            }
+
+            unset($this->Permissions[$permission]);
+            return true;
         }
 
         /**
