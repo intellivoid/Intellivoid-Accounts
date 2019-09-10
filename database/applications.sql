@@ -14,4 +14,3 @@ create table applications
     constraint applications_id_uindex unique (id)
 ) comment 'Table for Applications that are registered in Intellivoid';
 alter table applications add primary key (id);
-
