@@ -3,6 +3,7 @@
     namespace IntellivoidAccounts\Objects\Account;
 
     use IntellivoidAccounts\Objects\Account\Configuration\KnownHosts;
+    use IntellivoidAccounts\Objects\Account\Configuration\Roles;
     use IntellivoidAccounts\Objects\Account\Configuration\VerificationMethods;
 
     /**
@@ -27,6 +28,13 @@
         public $VerificationMethods;
 
         /**
+         * Roles associated with this account
+         *
+         * @var Roles
+         */
+        public $Roles;
+
+        /**
          * The current balance in the account
          *
          * @var float
@@ -41,6 +49,7 @@
             $this->Balance = 0;
             $this->VerificationMethods = new VerificationMethods();
             $this->KnownHosts = new KnownHosts();
+            $this->Roles = new Roles();
         }
 
         /**
@@ -53,7 +62,8 @@
             return array(
                 'balance' => (float)$this->Balance,
                 'verification_methods' => $this->VerificationMethods->toArray(),
-                'known_hosts' => $this->KnownHosts->toArray()
+                'known_hosts' => $this->KnownHosts->toArray(),
+                'roles' => $this->Roles->toArray()
             );
         }
 
@@ -89,6 +99,16 @@
             {
                 $ConfigurationObject->KnownHosts = new KnownHosts();
                 $ConfigurationObject->KnownHosts->KnownHosts = [];
+            }
+
+            if(isset($data['roles']))
+            {
+                $ConfigurationObject->Roles = Roles::fromArray($data['roles']);
+            }
+            else
+            {
+                $ConfigurationObject->Roles = new Roles();
+                $ConfigurationObject->Roles->Roles = [];
             }
 
             return $ConfigurationObject;
