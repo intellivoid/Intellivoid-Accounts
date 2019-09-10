@@ -35,4 +35,5 @@
         const TelegramClientNotFoundException = 124;
         const LoginRecordNotFoundException = 125;
         const InvalidArgumentException = 126;
+        const InvalidRequestPermissionException = 127;
     }

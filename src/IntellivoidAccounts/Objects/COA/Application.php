@@ -3,6 +3,8 @@
 
     namespace IntellivoidAccounts\Objects\COA;
 
+    use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
+
     /**
      * Class Application
      * @package IntellivoidAccounts\Objects\COA
@@ -92,6 +94,25 @@
         public function __construct()
         {
             $this->Permissions = [];
+        }
+
+        public function apply_permission(string $permission): bool
+        {
+            if(isset($this->Permissions[$permission]))
+            {
+                return false;
+            }
+
+            switch($permission)
+            {
+                case AccountRequestPermissions::AccountBalance:
+                case AccountRequestPermissions::ChangeAccountSettings:
+                case AccountRequestPermissions::PersonalInformation:
+                case AccountRequestPermissions::TelegramAccount:
+                    break;
+                default:
+                    throw new
+            }
         }
 
         /**
