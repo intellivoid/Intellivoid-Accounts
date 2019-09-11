@@ -6,11 +6,14 @@
 
     use IntellivoidAccounts\Abstracts\ApplicationStatus;
     use IntellivoidAccounts\Abstracts\AuthenticationMode;
+    use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\COA\Application;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use msqg\QueryBuilder;
+    use ZiProto\ZiProto;
 
     /**
      * Class ApplicationManager
@@ -32,8 +35,20 @@
             $this->intellivoidAccounts = $intellivoidAccounts;
         }
 
+        /**
+         * Registers an existing application to the database
+         *
+         * @param string $name
+         * @param int $authentication_mode
+         * @param array $permissions
+         * @return Application
+         * @throws DatabaseException
+         * @throws InvalidRequestPermissionException
+         */
         public function register_application(string $name, int $authentication_mode, array $permissions): Application
         {
+            // TODO: Determine if the the application already exists
+
             $CreatedTimestamp = (int)time();
             $PublicApplicationId = Hashing::applicationPublicId($name, $CreatedTimestamp);
             $PublicApplicationId = $this->intellivoidAccounts->database->real_escape_string($PublicApplicationId);
@@ -51,7 +66,33 @@
 
                 $Permissions[] = $permission;
             }
-            $Status = ApplicationStatus::Active;
-            $AuthenticationMode = AuthenticationMode::
+            $Permissions = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($Permissions));
+            $Status = (int)ApplicationStatus::Active;
+            $AuthenticationMode = (int)$authentication_mode;
+            $AccountID = 0;
+            $LastUpdatedTimestamp = $CreatedTimestamp;
+
+            $Query = QueryBuilder::insert_into('applications', array(
+                'public_app_id' => $PublicApplicationId,
+                'secret_key' => $SecretKey,
+                'name' => $Name,
+                'name_safe' => $NameSafe,
+                'permissions' => $Permissions,
+                'status' => $Status,
+                'authentication_mode' => $AuthenticationMode,
+                'account_id' => $AccountID,
+                'creation_timestamp' => $CreatedTimestamp,
+                'last_updated_timestamp' => $LastUpdatedTimestamp
+            ));
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                // TODO:  Add return
+            }
         }
     }
