@@ -2,6 +2,9 @@
 
     namespace IntellivoidAccounts\Utilities;
 
+    use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
+    use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
+
     /**
      * Class Validate
      * @package IntellivoidAccounts\Utilities
@@ -204,5 +207,25 @@
             }
 
             return false;
+        }
+
+        /**
+         * Verifies if the given permission is valid
+         *
+         * @param string $permission
+         * @return bool
+         */
+        public static function verify_permission(string $permission): bool
+        {
+            switch($permission)
+            {
+                case AccountRequestPermissions::AccountBalance:
+                case AccountRequestPermissions::ChangeAccountSettings:
+                case AccountRequestPermissions::PersonalInformation:
+                case AccountRequestPermissions::TelegramAccount:
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
