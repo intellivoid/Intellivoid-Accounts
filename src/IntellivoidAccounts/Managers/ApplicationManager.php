@@ -56,6 +56,7 @@
             $SecretKey = $this->intellivoidAccounts->database->real_escape_string($SecretKey);
             $Name = $this->intellivoidAccounts->database->real_escape_string($name);
             $NameSafe = str_ireplace(' ', '_', strtolower($name));
+            $NameSafe = $this->intellivoidAccounts->database->real_escape_string($NameSafe);
             $Permissions = [];
             foreach($permissions as $permission)
             {
