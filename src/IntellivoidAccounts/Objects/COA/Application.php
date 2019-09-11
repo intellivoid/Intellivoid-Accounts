@@ -5,6 +5,7 @@
 
     use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
+    use IntellivoidAccounts\Utilities\Validate;
 
     /**
      * Class Application
@@ -111,15 +112,9 @@
                 return false;
             }
 
-            switch($permission)
+            if(Validate::verify_permission($permission) == false)
             {
-                case AccountRequestPermissions::AccountBalance:
-                case AccountRequestPermissions::ChangeAccountSettings:
-                case AccountRequestPermissions::PersonalInformation:
-                case AccountRequestPermissions::TelegramAccount:
-                    break;
-                default:
-                    throw new InvalidRequestPermissionException();
+                throw new InvalidRequestPermissionException();
             }
 
             $this->Permissions[] = $permission;
