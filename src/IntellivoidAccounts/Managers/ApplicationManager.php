@@ -96,4 +96,9 @@
                 // TODO:  Add return
             }
         }
+
+        public function get_application(string $search_method, string $value): Application
+        {
+
+        }
     }
