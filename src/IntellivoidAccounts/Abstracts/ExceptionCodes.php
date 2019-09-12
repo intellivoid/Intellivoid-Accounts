@@ -36,4 +36,5 @@
         const LoginRecordNotFoundException = 125;
         const InvalidArgumentException = 126;
         const InvalidRequestPermissionException = 127;
+        const ApplicationNotFoundException = 128;
     }

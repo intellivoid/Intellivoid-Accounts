@@ -6,8 +6,11 @@
 
     use IntellivoidAccounts\Abstracts\ApplicationStatus;
     use IntellivoidAccounts\Abstracts\AuthenticationMode;
+    use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\COA\Application;
     use IntellivoidAccounts\Utilities\Hashing;
@@ -97,8 +100,64 @@
             }
         }
 
+        /**
+         * Retrieves an existing application from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return Application
+         * @throws ApplicationNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
         public function get_application(string $search_method, string $value): Application
         {
+            switch($search_method)
+            {
+                case ApplicationSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+                case ApplicationSearchMethod::byApplicationId:
+                case ApplicationSearchMethod::byName:
+                case ApplicationSearchMethod::byNameSafe:
+                case ApplicationSearchMethod::bySecretKey:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+                default:
+                    throw new InvalidSearchMethodException();
+            }
 
+            $Query = QueryBuilder::select('applications', [
+                'id',
+                'public_app_id',
+                'secret_key',
+                'name',
+                'name_safe',
+                'permissions',
+                'status',
+                'authentication_mode',
+                'account_id',
+                'creation_timestamp',
+                'last_updated_timestamp'
+            ], $search_method, $value);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new ApplicationNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                return Application::fromArray($Row);
+            }
         }
     }
