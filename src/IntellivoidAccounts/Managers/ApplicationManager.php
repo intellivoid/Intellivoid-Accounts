@@ -45,8 +45,10 @@
          * @param int $authentication_mode
          * @param array $permissions
          * @return Application
+         * @throws ApplicationNotFoundException
          * @throws DatabaseException
          * @throws InvalidRequestPermissionException
+         * @throws InvalidSearchMethodException
          */
         public function register_application(string $name, int $authentication_mode, array $permissions): Application
         {
@@ -96,7 +98,7 @@
             }
             else
             {
-                // TODO:  Add return
+                return $this->get_application(ApplicationSearchMethod::byApplicationId, $PublicApplicationId);
             }
         }
 
