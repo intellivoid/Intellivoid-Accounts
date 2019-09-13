@@ -2,6 +2,7 @@
 
     namespace IntellivoidAccounts\Utilities;
 
+    use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
     use tsa\Classes\Crypto;
     use tsa\Exceptions\BadLengthException;
     use tsa\Exceptions\SecuredRandomProcessorNotFoundException;
@@ -281,5 +282,27 @@
         public static function applicationSecretKey(string $public_key, int $timestamp): string
         {
             return hash('sha256', self::pepper($public_key) . $timestamp) . hash('crc32', self::pepper($timestamp));
+        }
+
+        /**
+         * Creates an authentication request token
+         *
+         * @param int $application_id
+         * @param string $application_name
+         * @param int $host_id
+         * @param int $timestamp
+         * @return AuthenticationRequest
+         */
+        public static function authenticationRequestToken(int $application_id, string $application_name, int $host_id, int $timestamp): AuthenticationRequest
+        {
+            $application_id = hash('crc32', $application_id);
+            $application_name = hash('crc32', $application_name);
+            $host_id = hash('crc32', $host_id);
+            $timestamp = hash('crc32', $timestamp);
+
+            $hash = hash('sha256', $application_id . $application_name . $host_id . $timestamp);
+            $ending = hash('crc32', self::pepper($hash));
+
+            return $hash . $ending;
         }
     }

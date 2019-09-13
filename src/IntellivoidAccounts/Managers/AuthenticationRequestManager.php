@@ -5,6 +5,8 @@
 
 
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\COA\Application;
+    use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
 
     /**
      * Class AuthenticationRequestManager
@@ -24,5 +26,10 @@
         public function __construct(IntellivoidAccounts $intellivoidAccounts)
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
+        }
+
+        public function create_authentication_token(Application $application, int $host_id): AuthenticationRequest
+        {
+
         }
     }
