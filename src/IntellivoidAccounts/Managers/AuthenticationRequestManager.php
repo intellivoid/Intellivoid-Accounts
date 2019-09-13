@@ -5,7 +5,9 @@
 
 
     use IntellivoidAccounts\Abstracts\AuthenticationRequestStatus;
+    use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationRequestSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\COA\Application;
     use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
@@ -73,5 +75,35 @@
             {
                 // TODO:  Add return
             }
+        }
+
+        public function get_authentication_request(string $search_method, string $value): AuthenticationRequest
+        {
+            switch($search_method)
+            {
+                case AuthenticationRequestSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                case AuthenticationRequestSearchMethod::requestToken:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('authentication_requests',[
+                'id',
+                'request_token',
+                'application_id',
+                'status',
+                'account_id',
+                'host_id',
+                'created_timestamp',
+                'expires_timestamp'
+            ], $search_method, $value);
         }
     }
