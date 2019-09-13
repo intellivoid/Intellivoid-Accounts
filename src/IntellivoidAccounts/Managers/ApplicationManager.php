@@ -6,6 +6,7 @@
 
     use IntellivoidAccounts\Abstracts\ApplicationStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Exceptions\ApplicationAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
@@ -44,6 +45,7 @@
          * @param int $authentication_mode
          * @param array $permissions
          * @return Application
+         * @throws ApplicationAlreadyExistsException
          * @throws ApplicationNotFoundException
          * @throws DatabaseException
          * @throws InvalidRequestPermissionException
@@ -73,7 +75,7 @@
 
             if($ApplicationExists)
             {
-
+                throw new ApplicationAlreadyExistsException();
             }
 
             $CreatedTimestamp = (int)time();
