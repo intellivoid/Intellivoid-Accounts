@@ -160,4 +160,45 @@
                 return Application::fromArray($Row);
             }
         }
+
+        /**
+         * Updates an existing Application in the database
+         *
+         * @param Application $application
+         * @return bool
+         * @throws ApplicationNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function update_application(Application $application)
+        {
+            $this->get_application(ApplicationSearchMethod::byId, $application->ID);
+
+            $id = (int)$application->ID;
+            $secret_key = $this->intellivoidAccounts->database->real_escape_string($application->SecretKey);
+            $permissions = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($application->Permissions));
+            $status = (int)$application->Status;
+            $authentication_mode = (int)$application->AuthenticationMode;
+            $creation_timestamp = (int)$application->CreationTimestamp;
+            $last_updated_timestamp = (int)$application->LastUpdatedTimestamp;
+
+            $Query = QueryBuilder::update('applications', array(
+                'secret_key' => $secret_key,
+                'permissions' => $permissions,
+                'status' => $status,
+                'authentication_mode' => $authentication_mode,
+                'creation_timestamp' => $creation_timestamp,
+                'last_updated_timestamp' => $last_updated_timestamp
+            ), 'id', $id);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+        }
     }
