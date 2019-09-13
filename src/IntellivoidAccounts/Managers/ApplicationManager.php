@@ -5,7 +5,6 @@
 
 
     use IntellivoidAccounts\Abstracts\ApplicationStatus;
-    use IntellivoidAccounts\Abstracts\AuthenticationMode;
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -52,7 +51,30 @@
          */
         public function register_application(string $name, int $authentication_mode, array $permissions): Application
         {
-            // TODO: Determine if the the application already exists
+            $ApplicationExists = false;
+
+            try
+            {
+                $this->get_application(ApplicationSearchMethod::byName, $name);
+            }
+            catch(ApplicationNotFoundException $applicationNotFoundException)
+            {
+                $ApplicationExists = true;
+            }
+
+            try
+            {
+                $this->get_application(ApplicationSearchMethod::byNameSafe, str_ireplace(' ', '_', strtolower($name)));
+            }
+            catch(ApplicationNotFoundException $applicationNotFoundException)
+            {
+                $ApplicationExists = true;
+            }
+
+            if($ApplicationExists)
+            {
+
+            }
 
             $CreatedTimestamp = (int)time();
             $PublicApplicationId = Hashing::applicationPublicId($name, $CreatedTimestamp);
