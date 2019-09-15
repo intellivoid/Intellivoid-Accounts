@@ -41,7 +41,9 @@
          * @param Application $application
          * @param int $host_id
          * @return AuthenticationRequest
+         * @throws AuthenticationRequestNotFoundException
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function create_authentication_request(Application $application, int $host_id): AuthenticationRequest
         {
@@ -74,7 +76,7 @@
             }
             else
             {
-                // TODO:  Add return
+                return $this->get_authentication_request(AuthenticationRequestSearchMethod::requestToken, $request_token);
             }
         }
 
