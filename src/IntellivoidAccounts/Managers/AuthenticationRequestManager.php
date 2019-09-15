@@ -135,4 +135,42 @@
                 return AuthenticationRequest::fromArray($Row);
             }
         }
+
+        /**
+         * Updates an existing authentication request
+         *
+         * @param AuthenticationRequest $authenticationRequest
+         * @return bool
+         * @throws DatabaseException
+         */
+        public function update_authentication_request(AuthenticationRequest $authenticationRequest): bool
+        {
+            $id = (int)$authenticationRequest->Id;
+            $request_token = $this->intellivoidAccounts->database->real_escape_string($authenticationRequest->RequestToken);
+            $application_id = (int)$authenticationRequest->ApplicationId;
+            $status = (int)$authenticationRequest->Status;
+            $account_id = (int)$authenticationRequest->AccountId;
+            $host_id = (int)$authenticationRequest->HostId;
+            $expires = (int)$authenticationRequest->ExpiresTimestamp;
+
+            $Query = QueryBuilder::update('authentication_requests', array(
+                'id' => $id,
+                'request_token' => $request_token,
+                'application_id' => $application_id,
+                'status' => $status,
+                'account_id' => $account_id,
+                'host_id' => $host_id,
+                'expires_timestamp' => $expires
+            ), 'id', (int)$authenticationRequest->Id);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+        }
     }
