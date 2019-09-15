@@ -105,5 +105,20 @@
                 'created_timestamp',
                 'expires_timestamp'
             ], $search_method, $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new ApplicationNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                return AuthenticationRequest::fromArray($Row);
+            }
         }
     }
