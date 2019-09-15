@@ -6,6 +6,7 @@
 
     use IntellivoidAccounts\Abstracts\AuthenticationRequestStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationRequestSearchMethod;
+    use IntellivoidAccounts\Exceptions\AuthenticationRequestNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -77,6 +78,16 @@
             }
         }
 
+        /**
+         * Returns an existing Authentication Request from the Database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return AuthenticationRequest
+         * @throws AuthenticationRequestNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
         public function get_authentication_request(string $search_method, string $value): AuthenticationRequest
         {
             switch($search_method)
@@ -105,6 +116,7 @@
                 'created_timestamp',
                 'expires_timestamp'
             ], $search_method, $value);
+
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
             {
@@ -114,7 +126,7 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new ApplicationNotFoundException();
+                    throw new AuthenticationRequestNotFoundException();
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
