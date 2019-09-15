@@ -24,4 +24,6 @@
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
         }
+
+        public function create_authentication_access
     }

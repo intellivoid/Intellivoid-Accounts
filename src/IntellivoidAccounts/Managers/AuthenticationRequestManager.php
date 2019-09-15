@@ -41,11 +41,9 @@
          * @param Application $application
          * @param int $host_id
          * @return AuthenticationRequest
-         * @throws AuthenticationRequestNotFoundException
          * @throws DatabaseException
-         * @throws InvalidSearchMethodException
          */
-        public function create_authentication_request(Application $application, int $host_id): AuthenticationRequest
+        public function createAuthenticationAccess(Application $application, int $host_id): AuthenticationRequest
         {
             $current_timestamp = (int)time();
             $request_token = Hashing::authenticationRequestToken(
@@ -90,7 +88,7 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          */
-        public function get_authentication_request(string $search_method, string $value): AuthenticationRequest
+        public function getAuthenticationRequest(string $search_method, string $value): AuthenticationRequest
         {
             switch($search_method)
             {
@@ -143,7 +141,7 @@
          * @return bool
          * @throws DatabaseException
          */
-        public function update_authentication_request(AuthenticationRequest $authenticationRequest): bool
+        public function updateAuthenticationRequest(AuthenticationRequest $authenticationRequest): bool
         {
             $id = (int)$authenticationRequest->Id;
             $request_token = $this->intellivoidAccounts->database->real_escape_string($authenticationRequest->RequestToken);
