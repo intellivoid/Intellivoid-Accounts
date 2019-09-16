@@ -6,6 +6,7 @@
     use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationAccessSearchMethod;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
+    use IntellivoidAccounts\Exceptions\AuthenticationAccessNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -86,6 +87,16 @@
             }
         }
 
+        /**
+         * Returns an existing AuthenticationAccess record from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return AuthenticationAccess
+         * @throws AuthenticationAccessNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
         public function getAuthenticationAccess(string $search_method, string $value): AuthenticationAccess
         {
             switch($search_method)
@@ -124,7 +135,7 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new ApplicationNotFoundException();
+                    throw new AuthenticationAccessNotFoundException();
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
