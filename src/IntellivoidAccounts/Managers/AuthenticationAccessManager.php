@@ -39,7 +39,9 @@
          *
          * @param AuthenticationRequest $authenticationRequest
          * @return AuthenticationAccess
+         * @throws AuthenticationAccessNotFoundException
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function createAuthenticationAccess(AuthenticationRequest $authenticationRequest): AuthenticationAccess
         {
@@ -80,7 +82,7 @@
             }
             else
             {
-                // TODO: Add return method
+                return $this->getAuthenticationAccess(AuthenticationAccessSearchMethod::byAccessToken, $access_token);
             }
         }
 
