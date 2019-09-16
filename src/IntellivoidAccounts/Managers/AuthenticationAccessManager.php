@@ -3,10 +3,14 @@
 
     namespace IntellivoidAccounts\Managers;
 
+    use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
+    use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\COA\AuthenticationAccess;
     use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
     use IntellivoidAccounts\Utilities\Hashing;
+    use msqg\QueryBuilder;
 
     /**
      * Class AuthenticationAccessManager
@@ -28,8 +32,17 @@
             $this->intellivoidAccounts = $intellivoidAccounts;
         }
 
+        /**
+         * Creates a new Authentication Access Token
+         *
+         * @param AuthenticationRequest $authenticationRequest
+         * @return AuthenticationAccess
+         * @throws DatabaseException
+         */
         public function createAuthenticationAccess(AuthenticationRequest $authenticationRequest): AuthenticationAccess
         {
+            // TODO: Determine if the Request Token has already been used before
+
             $current_timestamp = (int)time();
             $access_token = Hashing::authenticationAccessToken(
                 $authenticationRequest->Id,
@@ -38,9 +51,34 @@
                 $authenticationRequest->AccountId,
                 $authenticationRequest->HostId
             );
+            $access_token = $this->intellivoidAccounts->database->real_escape_string($access_token);
             $application_id = (int)$authenticationRequest->ApplicationId;
             $account_id = (int)$authenticationRequest->AccountId;
             $request_id = (int)$authenticationRequest->Id;
-            $status =
+            $status = (int)AuthenticationAccessStatus::Active;
+            $expires_timestamp = $current_timestamp + 43200;
+            $last_used_timestamp = $current_timestamp;
+            $created_timestamp = $current_timestamp;
+
+            $Query = QueryBuilder::insert_into('authentication_access', array(
+                'access_token' => $access_token,
+                'application' => $application_id,
+                'account_id' => $account_id,
+                'request_id' => $request_id,
+                'status' => $status,
+                'expires_timestamp' => $expires_timestamp,
+                'last_used_timestamp' => $last_used_timestamp,
+                'created_timestamp' => $created_timestamp
+            ));
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                // TODO: Add return method
+            }
         }
     }
