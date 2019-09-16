@@ -4,6 +4,8 @@
     namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\COA\AuthenticationAccess;
+    use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
 
     /**
      * Class AuthenticationAccessManager
@@ -25,5 +27,8 @@
             $this->intellivoidAccounts = $intellivoidAccounts;
         }
 
-        public function create_authentication_access
+        public function createAuthenticationAccess(AuthenticationRequest $authenticationRequest): AuthenticationAccess
+        {
+            $accessToken
+        }
     }

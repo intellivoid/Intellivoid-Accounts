@@ -291,9 +291,9 @@
          * @param string $application_name
          * @param int $host_id
          * @param int $timestamp
-         * @return AuthenticationRequest
+         * @return string
          */
-        public static function authenticationRequestToken(int $application_id, string $application_name, int $host_id, int $timestamp): AuthenticationRequest
+        public static function authenticationRequestToken(int $application_id, string $application_name, int $host_id, int $timestamp): string
         {
             $application_id = hash('crc32', $application_id);
             $application_name = hash('crc32', $application_name);
@@ -304,5 +304,26 @@
             $ending = hash('crc32', self::pepper($hash));
 
             return $hash . $ending;
+        }
+
+        /**
+         * Creates an Authentication Access Token
+         *
+         * @param int $request_id
+         * @param string $request_token
+         * @param int $timestamp
+         * @param int $account_id
+         * @param int $host_id
+         * @return string
+         */
+        public static function authenticationAccessToken(int $request_id, string $request_token, int $timestamp, int $account_id, int $host_id): string
+        {
+            $request_id = hash('crc32', $request_id);
+            $request_token = self::pepper($request_token);
+            $timestamp = hash('crc32', $timestamp);
+            $account_id = hash('crc32', $account_id);
+            $host_id = hash('crc32', $host_id);
+
+            return hash('sha256', $request_id . $request_token . $timestamp . $account_id . $host_id);
         }
     }

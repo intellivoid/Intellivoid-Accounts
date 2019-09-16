@@ -37,4 +37,20 @@
             $this->authenticationRequestManager = new AuthenticationRequestManager($intellivoidAccounts);
             $this->authenticationAccessManager = new AuthenticationAccessManager($intellivoidAccounts);
         }
+
+        /**
+         * @return AuthenticationRequestManager
+         */
+        public function getAuthenticationRequestManager(): AuthenticationRequestManager
+        {
+            return $this->authenticationRequestManager;
+        }
+
+        /**
+         * @return AuthenticationAccessManager
+         */
+        public function getAuthenticationAccessManager(): AuthenticationAccessManager
+        {
+            return $this->authenticationAccessManager;
+        }
     }
