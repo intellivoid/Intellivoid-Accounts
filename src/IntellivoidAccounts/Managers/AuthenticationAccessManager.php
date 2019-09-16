@@ -1,11 +1,12 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 
-    namespace IntellivoidAccounts\Managers;
+namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationAccessSearchMethod;
     use IntellivoidAccounts\Exceptions\AuthenticationAccessNotFoundException;
+    use IntellivoidAccounts\Exceptions\AuthenticationRequestAlreadyUsedException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -42,10 +43,19 @@
          * @throws AuthenticationAccessNotFoundException
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
+         * @throws AuthenticationRequestAlreadyUsedException
          */
         public function createAuthenticationAccess(AuthenticationRequest $authenticationRequest): AuthenticationAccess
         {
-            // TODO: Determine if the Request Token has already been used before
+            try
+            {
+                $this->getAuthenticationAccess(AuthenticationAccessSearchMethod::byRequestId, $authenticationRequest->Id);
+                throw new AuthenticationRequestAlreadyUsedException();
+            }
+            catch(AuthenticationAccessNotFoundException $authenticationAccessNotFoundException)
+            {
+                unset($authenticationAccessNotFoundException);
+            }
 
             $current_timestamp = (int)time();
             $access_token = Hashing::authenticationAccessToken(

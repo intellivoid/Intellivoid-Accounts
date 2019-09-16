@@ -40,4 +40,5 @@
         const ApplicationAlreadyExistsException = 129;
         const AuthenticationRequestNotFoundException = 130;
         const AuthenticationAccessNotFoundException = 131;
+        const AuthenticationRequestAlreadyUsedException = 132;
     }
