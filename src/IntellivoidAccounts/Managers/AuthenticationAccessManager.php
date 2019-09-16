@@ -4,7 +4,6 @@
     namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
-    use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\COA\AuthenticationAccess;
@@ -80,5 +79,10 @@
             {
                 // TODO: Add return method
             }
+        }
+
+        public function getAuthenticationAccess(string $search_method, string $value): AuthenticationAccess
+        {
+
         }
     }
