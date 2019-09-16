@@ -39,4 +39,5 @@
         const ApplicationNotFoundException = 128;
         const ApplicationAlreadyExistsException = 129;
         const AuthenticationRequestNotFoundException = 130;
+        const AuthenticationAccessNotFoundException = 131;
     }

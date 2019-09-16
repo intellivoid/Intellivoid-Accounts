@@ -4,12 +4,17 @@
     namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
+    use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationAccessSearchMethod;
+    use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\COA\Application;
     use IntellivoidAccounts\Objects\COA\AuthenticationAccess;
     use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\QueryBuilder;
+    use ZiProto\ZiProto;
 
     /**
      * Class AuthenticationAccessManager
@@ -83,6 +88,47 @@
 
         public function getAuthenticationAccess(string $search_method, string $value): AuthenticationAccess
         {
+            switch($search_method)
+            {
+                case AuthenticationAccessSearchMethod::byRequestId:
+                case AuthenticationAccessSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
 
+                case AuthenticationAccessSearchMethod::byAccessToken:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('authentication_access', [
+                'id',
+                'access_token',
+                'account_id',
+                'request_id',
+                'status',
+                'expires_timestamp',
+                'last_used_timestamp',
+                'created_timestamp'
+            ], $search_method, $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new ApplicationNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                return AuthenticationAccess::fromArray($Row);
+            }
         }
     }
