@@ -6,6 +6,7 @@
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\COA\AuthenticationAccess;
     use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
+    use IntellivoidAccounts\Utilities\Hashing;
 
     /**
      * Class AuthenticationAccessManager
@@ -29,6 +30,17 @@
 
         public function createAuthenticationAccess(AuthenticationRequest $authenticationRequest): AuthenticationAccess
         {
-            $accessToken
+            $current_timestamp = (int)time();
+            $access_token = Hashing::authenticationAccessToken(
+                $authenticationRequest->Id,
+                $authenticationRequest->RequestToken,
+                $current_timestamp,
+                $authenticationRequest->AccountId,
+                $authenticationRequest->HostId
+            );
+            $application_id = (int)$authenticationRequest->ApplicationId;
+            $account_id = (int)$authenticationRequest->AccountId;
+            $request_id = (int)$authenticationRequest->Id;
+            $status =
         }
     }
