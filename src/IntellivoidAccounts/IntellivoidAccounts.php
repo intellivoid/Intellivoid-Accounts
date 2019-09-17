@@ -81,6 +81,33 @@
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TransactionRecordManager.php');
 
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'KnownHosts.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'Roles.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'VerificationMethods.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'PersonalInformation' . DIRECTORY_SEPARATOR . 'BirthDate.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'PersonalInformation' . DIRECTORY_SEPARATOR . 'LoginLocations.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'PersonalInformation.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'COA' . DIRECTORY_SEPARATOR . 'Application.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'COA' . DIRECTORY_SEPARATOR . 'AuthenticationAccess.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'COA' . DIRECTORY_SEPARATOR . 'AuthenticationRequest.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient' . DIRECTORY_SEPARATOR . 'Chat.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient' . DIRECTORY_SEPARATOR . 'SessionData.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient' . DIRECTORY_SEPARATOR . 'User.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'CurlVerification.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'RecoveryCodes.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'TwoFactorAuthentication.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'ApplicationConfiguration.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'KnownHost.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'LocationData.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'LoginRecord.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Message.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TransactionRecord.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserAgent.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserLoginRecord.php');
+
     if(class_exists('ZiProto\ZiProto') == false)
     {
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'ZiProto' . DIRECTORY_SEPARATOR . 'ZiProto.php');
