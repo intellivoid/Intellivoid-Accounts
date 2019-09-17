@@ -108,6 +108,10 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserAgent.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserLoginRecord.php');
 
+    include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Hashing.php');
+    include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Parse.php');
+    include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Validate.php');
+
     if(class_exists('ZiProto\ZiProto') == false)
     {
         include_once(__DIR__ . DIRECTORY_SEPARATOR . 'ZiProto' . DIRECTORY_SEPARATOR . 'ZiProto.php');
