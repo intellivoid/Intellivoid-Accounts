@@ -16,6 +16,9 @@
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use msqg\QueryBuilder;
+    use udp\Exceptions\ImageTooSmallException;
+    use udp\Exceptions\InvalidImageException;
+    use udp\Exceptions\UnsupportedFileTypeException;
     use ZiProto\ZiProto;
 
     /**
@@ -50,6 +53,9 @@
          * @throws DatabaseException
          * @throws InvalidRequestPermissionException
          * @throws InvalidSearchMethodException
+         * @throws ImageTooSmallException
+         * @throws InvalidImageException
+         * @throws UnsupportedFileTypeException
          */
         public function register_application(string $name, int $authentication_mode, array $permissions): Application
         {
@@ -122,6 +128,7 @@
             }
             else
             {
+                $this->intellivoidAccounts->getAppUdp()->getProfilePictureManager()->generate_avatar($PublicApplicationId);
                 return $this->get_application(ApplicationSearchMethod::byApplicationId, $PublicApplicationId);
             }
         }
