@@ -222,6 +222,11 @@
         private $ApplicationManager;
 
         /**
+         * @var udp
+         */
+        private $app_udp;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -251,10 +256,12 @@
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
                 $this->udp = new udp($this->SystemConfiguration['ProfilesLocation_Windows']);
+                $this->app_udp = new udp($this->SystemConfiguration['AppIconsLocation_Windows']);
             }
             else
             {
                 $this->udp = new udp($this->SystemConfiguration['ProfilesLocation_Unix']);
+                $this->app_udp = new udp($this->SystemConfiguration['AppIconsLocation_Unix']);
             }
         }
 
@@ -344,6 +351,14 @@
         public function getApplicationManager(): ApplicationManager
         {
             return $this->ApplicationManager;
+        }
+
+        /**
+         * @return udp
+         */
+        public function getAppUdp(): udp
+        {
+            return $this->app_udp;
         }
 
     }
