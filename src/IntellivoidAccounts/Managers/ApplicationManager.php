@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 
     namespace IntellivoidAccounts\Managers;
@@ -57,13 +57,13 @@
          * @throws InvalidImageException
          * @throws UnsupportedFileTypeException
          */
-        public function register_application(string $name, int $authentication_mode, array $permissions): Application
+        public function registerApplication(string $name, int $authentication_mode, array $permissions): Application
         {
             $ApplicationExists = false;
 
             try
             {
-                $this->get_application(ApplicationSearchMethod::byName, $name);
+                $this->getApplication(ApplicationSearchMethod::byName, $name);
             }
             catch(ApplicationNotFoundException $applicationNotFoundException)
             {
@@ -72,7 +72,7 @@
 
             try
             {
-                $this->get_application(ApplicationSearchMethod::byNameSafe, str_ireplace(' ', '_', strtolower($name)));
+                $this->getApplication(ApplicationSearchMethod::byNameSafe, str_ireplace(' ', '_', strtolower($name)));
             }
             catch(ApplicationNotFoundException $applicationNotFoundException)
             {
@@ -129,7 +129,7 @@
             else
             {
                 $this->intellivoidAccounts->getAppUdp()->getProfilePictureManager()->generate_avatar($PublicApplicationId);
-                return $this->get_application(ApplicationSearchMethod::byApplicationId, $PublicApplicationId);
+                return $this->getApplication(ApplicationSearchMethod::byApplicationId, $PublicApplicationId);
             }
         }
 
@@ -143,7 +143,7 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          */
-        public function get_application(string $search_method, string $value): Application
+        public function getApplication(string $search_method, string $value): Application
         {
             switch($search_method)
             {
@@ -203,9 +203,9 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          */
-        public function update_application(Application $application)
+        public function updateApplication(Application $application)
         {
-            $this->get_application(ApplicationSearchMethod::byId, $application->ID);
+            $this->getApplication(ApplicationSearchMethod::byId, $application->ID);
 
             $id = (int)$application->ID;
             $secret_key = $this->intellivoidAccounts->database->real_escape_string($application->SecretKey);
