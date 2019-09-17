@@ -151,4 +151,47 @@ namespace IntellivoidAccounts\Managers;
                 return AuthenticationAccess::fromArray($Row);
             }
         }
+
+        /**
+         * Updates an existing Authentication Access token in the database
+         *
+         * @param AuthenticationAccess $authenticationAccess
+         * @return bool
+         * @throws AuthenticationAccessNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function updateAuthenticationAccess(AuthenticationAccess $authenticationAccess): bool
+        {
+            $this->getAuthenticationAccess(AuthenticationAccessSearchMethod::byId, (int)$authenticationAccess->ID);
+
+            $id = (int)$authenticationAccess->ID;
+            $access_token = $this->intellivoidAccounts->database->real_escape_string($authenticationAccess->AccessToken);
+            $application_id = (int)$authenticationAccess->ApplicationId;
+            $account_id = (int)$authenticationAccess->AccountId;
+            $request_id = (int)$authenticationAccess->RequestId;
+            $status = (int)$authenticationAccess->Status;
+            $expires_timestamp = (int)$authenticationAccess->ExpiresTimestamp;
+            $last_used_timestamp = (int)$authenticationAccess->LastUsedTimestamp;
+
+            $Query = QueryBuilder::update('authentication_access', array(
+                'access_token' => $access_token,
+                'application_id' => $application_id,
+                'account_id' => $account_id,
+                'request_id' => $request_id,
+                'status' => $status,
+                'expires_timestamp' => $expires_timestamp,
+                'last_used_timestamp' => $last_used_timestamp
+            ), 'id', $id);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+        }
     }
