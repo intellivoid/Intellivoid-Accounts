@@ -12,20 +12,20 @@
         /**
          * Access to personal information such as First Name, Last name, birthday, email if available
          */
-        const PersonalInformation = "READ_PERSONAL_INFORMATION";
+        const ReadPersonalInformation = "READ_PERSONAL_INFORMATION";
 
         /**
-         * Access to Account Balance for creating transactions for payments
+         * Edits personal information
          */
-        const AccountBalance = "INVOKE_ACCOUNT_BALANCE";
+        const EditPersonalInformation = "EDIT_PERSONAL_INFORMATION";
 
         /**
-         * Access to send you notifications via Telegram
+         * Makes purchases or activate a paid subscription on the users behalf
          */
-        const TelegramAccount = "INVOKE_TELEGRAM_ACCOUNT";
+        const MakePurchases = "INVOKE_PURCHASES";
 
         /**
-         * Permission to change change personal information associated with your account
+         * Send notifications to Telegram if available
          */
-        const ChangeAccountSettings = "WRITE_PERSONAL_INFORMATION";
+        const TelegramNotifications = "INVOKE_TELEGRAM_NOTIFICATIONS";
     }
