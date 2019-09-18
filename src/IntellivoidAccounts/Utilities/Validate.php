@@ -219,10 +219,10 @@
         {
             switch($permission)
             {
-                case AccountRequestPermissions::AccountBalance:
-                case AccountRequestPermissions::ChangeAccountSettings:
-                case AccountRequestPermissions::PersonalInformation:
-                case AccountRequestPermissions::TelegramAccount:
+                case AccountRequestPermissions::ReadPersonalInformation:
+                case AccountRequestPermissions::EditPersonalInformation:
+                case AccountRequestPermissions::MakePurchases:
+                case AccountRequestPermissions::TelegramNotifications:
                     return true;
                 default:
                     return false;
