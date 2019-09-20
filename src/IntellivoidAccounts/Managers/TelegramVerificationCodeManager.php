@@ -8,6 +8,7 @@
     use IntellivoidAccounts\Abstracts\TelegramVerificationCodeStatus;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\TelegramVerificationCodeNotFound;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TelegramVerificationCode;
     use IntellivoidAccounts\Utilities\Hashing;
@@ -68,6 +69,16 @@
             }
         }
 
+        /**
+         * Gets an existing Verification Code from the Database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return TelegramVerificationCode
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramVerificationCodeNotFound
+         */
         public function getVerificationCode(string $search_method, string $value): TelegramVerificationCode
         {
             switch($search_method)
@@ -104,12 +115,10 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new ApplicationNotFoundException();
+                    throw new TelegramVerificationCodeNotFound();
                 }
 
-                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
-                $Row['permissions'] = ZiProto::decode($Row['permissions']);
-                return Application::fromArray($Row);
+                return Application::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
 
         }
