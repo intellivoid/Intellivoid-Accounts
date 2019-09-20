@@ -10,6 +10,7 @@
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
     use IntellivoidAccounts\Managers\TelegramClientManager;
+    use IntellivoidAccounts\Managers\TelegramVerificationCodeManager;
     use IntellivoidAccounts\Managers\TransactionRecordManager;
     use mysqli;
     use udp\udp;
@@ -80,6 +81,7 @@
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'LoginRecordManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'MessagesManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
+    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TransactionRecordManager.php');
 
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'KnownHosts.php');
@@ -229,6 +231,11 @@
         private $app_udp;
 
         /**
+         * @var TelegramVerificationCodeManager
+         */
+        private $TelegramVerificationCodeManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -254,6 +261,7 @@
             $this->TelegramClientManager = new TelegramClientManager($this);
             $this->CrossOverAuthenticationManager = new CrossOverAuthenticationManager($this);
             $this->ApplicationManager = new ApplicationManager($this);
+            $this->TelegramVerificationCodeManager = new TelegramVerificationCodeManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -361,6 +369,14 @@
         public function getAppUdp(): udp
         {
             return $this->app_udp;
+        }
+
+        /**
+         * @return TelegramVerificationCodeManager
+         */
+        public function getTelegramVerificationCodeManager(): TelegramVerificationCodeManager
+        {
+            return $this->TelegramVerificationCodeManager;
         }
 
     }
