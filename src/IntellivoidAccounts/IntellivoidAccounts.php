@@ -11,6 +11,7 @@
     use IntellivoidAccounts\Managers\LoginRecordManager;
     use IntellivoidAccounts\Managers\TelegramClientManager;
     use IntellivoidAccounts\Managers\TelegramVerificationCodeManager;
+    use IntellivoidAccounts\Managers\TrackingUserAgentManager;
     use IntellivoidAccounts\Managers\TransactionRecordManager;
     use mysqli;
     use udp\udp;
@@ -240,6 +241,11 @@
         private $TelegramVerificationCodeManager;
 
         /**
+         * @var TrackingUserAgentManager
+         */
+        private $TrackingUserAgentManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -266,6 +272,7 @@
             $this->CrossOverAuthenticationManager = new CrossOverAuthenticationManager($this);
             $this->ApplicationManager = new ApplicationManager($this);
             $this->TelegramVerificationCodeManager = new TelegramVerificationCodeManager($this);
+            $this->TrackingUserAgentManager = new TrackingUserAgentManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -381,6 +388,14 @@
         public function getTelegramVerificationCodeManager(): TelegramVerificationCodeManager
         {
             return $this->TelegramVerificationCodeManager;
+        }
+
+        /**
+         * @return TrackingUserAgentManager
+         */
+        public function getTrackingUserAgentManager(): TrackingUserAgentManager
+        {
+            return $this->TrackingUserAgentManager;
         }
 
     }
