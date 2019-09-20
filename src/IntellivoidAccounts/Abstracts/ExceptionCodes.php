@@ -75,4 +75,6 @@
         const AuthenticationAccessNotFoundException = 131;
 
         const AuthenticationRequestAlreadyUsedException = 132;
+
+        const TelegramVerificationCodeNotFound = 133;
     }

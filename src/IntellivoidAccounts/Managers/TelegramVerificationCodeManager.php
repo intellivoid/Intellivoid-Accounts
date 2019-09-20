@@ -4,8 +4,10 @@
     namespace IntellivoidAccounts\Managers;
 
 
+    use IntellivoidAccounts\Abstracts\SearchMethods\TelegramVerificationCodeSearchMethod;
     use IntellivoidAccounts\Abstracts\TelegramVerificationCodeStatus;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TelegramVerificationCode;
     use IntellivoidAccounts\Utilities\Hashing;
@@ -68,6 +70,47 @@
 
         public function getVerificationCode(string $search_method, string $value): TelegramVerificationCode
         {
+            switch($search_method)
+            {
+                case TelegramVerificationCodeSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                case TelegramVerificationCodeSearchMethod::byVerificationCode:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('telegram_verification_codes', [
+                'id',
+                'verification_code',
+                'telegram_client_id',
+                'status',
+                'expires',
+                'created'
+            ], $search_method, $value);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new ApplicationNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                return Application::fromArray($Row);
+            }
 
         }
     }
