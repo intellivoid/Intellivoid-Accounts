@@ -65,4 +65,9 @@
                 // TODO: Add return method
             }
         }
+
+        public function getVerificationCode(string $search_method, string $value): TelegramVerificationCode
+        {
+
+        }
     }
