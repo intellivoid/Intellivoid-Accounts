@@ -7,6 +7,7 @@
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\UserAgent;
+    use IntellivoidAccounts\Objects\UserAgentRecord;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use msqg\QueryBuilder;
@@ -91,6 +92,10 @@
             {
                 return $tracking_id;
             }
+        }
+
+        public function getRecord(string $search_method, string $value): UserAgentRecord
+        {
 
         }
     }
