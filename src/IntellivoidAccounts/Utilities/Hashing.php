@@ -326,4 +326,19 @@
 
             return hash('sha256', $request_id . $request_token . $timestamp . $account_id . $host_id);
         }
+
+        /**
+         * Generates a Telegram Verifrication Code
+         *
+         * @param int $telegram_client_id
+         * @param int $timestamp
+         * @return string
+         */
+        public static function telegramVerificationCode(int $telegram_client_id, int $timestamp): string
+        {
+            $telegram_client_id = hash('crc32', $telegram_client_id);
+            $timestamp = hash('sha256', $timestamp);
+
+            return hash('sha256', $telegram_client_id . $timestamp);
+        }
     }
