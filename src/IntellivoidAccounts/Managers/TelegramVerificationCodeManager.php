@@ -122,6 +122,42 @@
 
                 return TelegramVerificationCode::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
+        }
 
+        /**
+         * Updates an existing Verification Code on the Database
+         *
+         * @param TelegramVerificationCode $telegramVerificationCode
+         * @return bool
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramVerificationCodeNotFound
+         */
+        public function updateVerificationCode(TelegramVerificationCode $telegramVerificationCode): bool
+        {
+            $this->getVerificationCode(TelegramVerificationCodeSearchMethod::byId, $telegramVerificationCode->ID);
+
+            $id = (int)$telegramVerificationCode->ID;
+            $verification_code = $this->intellivoidAccounts->database->real_escape_string($telegramVerificationCode->VerificationCode);
+            $telegram_client_id = (int)$telegramVerificationCode->TelegramClientID;
+            $status = (int)$telegramVerificationCode->Status;
+            $expires = (int)$telegramVerificationCode->Expires;
+
+            $Query = QueryBuilder::update('telegram_verification_codes', array(
+                'verification_code' => $verification_code,
+                'telegram_client_id' => $telegram_client_id,
+                'status' => $status,
+                'expires' => $expires
+            ), 'id', $id);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
         }
     }
