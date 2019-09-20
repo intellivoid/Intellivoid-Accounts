@@ -120,7 +120,7 @@
                     throw new TelegramVerificationCodeNotFound();
                 }
 
-                return Application::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+                return TelegramVerificationCode::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
 
         }
