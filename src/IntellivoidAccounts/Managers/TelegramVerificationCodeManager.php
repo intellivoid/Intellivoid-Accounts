@@ -40,6 +40,8 @@
          * @param int $telegram_client_id
          * @return TelegramVerificationCode
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramVerificationCodeNotFound
          */
         public function generateCode(int $telegram_client_id): TelegramVerificationCode
         {
@@ -65,7 +67,7 @@
             }
             else
             {
-                // TODO: Add return method
+                return $this->getVerificationCode(TelegramVerificationCodeSearchMethod::byVerificationCode, $verification_code);
             }
         }
 
