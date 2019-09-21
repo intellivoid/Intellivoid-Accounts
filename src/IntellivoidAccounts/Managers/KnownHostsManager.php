@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 
     namespace IntellivoidAccounts\Managers;
@@ -8,10 +8,11 @@
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\HostNotKnownException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\UserAgentNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\KnownHost;
     use IntellivoidAccounts\Objects\LocationData;
-    use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use IPStack\IPStack;
@@ -66,6 +67,8 @@
          * @throws DatabaseException
          * @throws HostNotKnownException
          * @throws InvalidIpException
+         * @throws InvalidSearchMethodException
+         * @throws UserAgentNotFoundException
          */
         public function syncHost(string $ip_address, string $user_agent): KnownHost
         {
@@ -78,10 +81,8 @@
                     $KnownHost->LocationData = $this->getLocationData($ip_address);
                 }
 
-                if(isset($KnownHost->UserAgents[$user_agent]) == false)
-                {
-                    $KnownHost->UserAgents[] = $user_agent;
-                }
+                // NEW: Added TrackingUserAgents instead.
+                $this->intellivoidAccounts->getTrackingUserAgentManager()->syncRecord($user_agent, $KnownHost->ID);
 
                 $this->updateKnownHost($KnownHost);
                 return $KnownHost;
@@ -103,22 +104,25 @@
             $location_data = ZiProto::encode($location_data->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
-            $user_agents = [];
-            $user_agents[] = $user_agent;
-            $user_agents = ZiProto::encode($user_agents);
-            $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
-
-            $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, user_agents, created) VALUES ('$public_id', '$ip_address', $blocked, $last_used, '$location_data', '$user_agents', $timestamp)";
+            $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, created) VALUES ('$public_id', '$ip_address', $blocked, $last_used, '$location_data', $timestamp)";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
             {
-                return $this->getHost(KnownHostsSearchMethod::byPublicId, $public_id);
+                $host = $this->getHost(KnownHostsSearchMethod::byPublicId, $public_id);
+                $this->intellivoidAccounts->getTrackingUserAgentManager()->syncRecord($user_agent, $host->ID);
+                return $host;
             }
 
             throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
         }
 
+        /**
+         * Fetches location data of the given IP Address
+         *
+         * @param string $ip_address
+         * @return LocationData
+         */
         private function getLocationData(string $ip_address)
         {
             // Fetch location data
@@ -179,7 +183,7 @@
                     break;
             }
 
-            $Query = "SELECT id, public_id, ip_address, blocked, last_used, location_data, user_agents, created FROM `users_known_hosts` WHERE $search_method=$value";
+            $Query = "SELECT id, public_id, ip_address, blocked, last_used, location_data, created FROM `users_known_hosts` WHERE $search_method=$value";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == false)
@@ -195,7 +199,6 @@
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
                 $Row['location_data'] = ZiProto::decode($Row['location_data']);
-                $Row['user_agents'] = ZiProto::decode($Row['user_agents']);
                 return KnownHost::fromArray($Row);
             }
         }
@@ -226,11 +229,9 @@
             $blocked = (int)$knownHost->Blocked;
             $location_data = ZiProto::encode($knownHost->LocationData->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
-            $user_agents = ZiProto::encode($knownHost->UserAgents);
-            $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
             $last_used = (int)$knownHost->LastUsed;
 
-            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', blocked=$blocked, location_data='$location_data', user_agents='$user_agents', last_used=$last_used WHERE public_id='$public_id'";
+            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', blocked=$blocked, location_data='$location_data', last_used=$last_used WHERE public_id='$public_id'";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)

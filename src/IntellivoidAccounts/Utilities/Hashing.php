@@ -341,4 +341,16 @@
 
             return hash('sha256', $telegram_client_id . $timestamp);
         }
+
+        /**
+         * Calculates the tracking ID from the user_agent_string and host_id
+         *
+         * @param string $user_agent_string
+         * @param int $host_id
+         * @return string
+         */
+        public static function uaTrackingId(string $user_agent_string, int $host_id): string
+        {
+            return hash ('sha256', $user_agent_string . $host_id);
+        }
     }
