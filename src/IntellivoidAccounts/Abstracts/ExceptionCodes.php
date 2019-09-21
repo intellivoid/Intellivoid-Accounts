@@ -79,4 +79,6 @@
         const TelegramVerificationCodeNotFound = 133;
 
         const UserAgentNotFoundException = 134;
+
+        const OtlNotFoundException = 135;
     }
