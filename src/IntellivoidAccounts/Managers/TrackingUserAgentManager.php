@@ -216,4 +216,33 @@
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
         }
+
+        /**
+         * Syncs a record intelligently into the database, returns tracking ID
+         *
+         * @param string $user_agent_string
+         * @param int $host_id
+         * @return string
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws UserAgentNotFoundException
+         */
+        public function syncRecord(string $user_agent_string, int $host_id): string
+        {
+            $tracking_id = Hashing::uaTrackingId($user_agent_string, $host_id);
+
+            try
+            {
+                $user_agent_record = $this->getRecord(TrackingUserAgentSearchMethod::byTrackingId, $tracking_id);
+            }
+            catch(UserAgentNotFoundException $userAgentNotFoundException)
+            {
+                $this->registerRecord($user_agent_string, $host_id);
+                return $tracking_id;
+            }
+
+            $user_agent_record->LastSeen = (int)time();
+            $this->updateRecord($user_agent_record);
+            return $tracking_id;
+        }
     }
