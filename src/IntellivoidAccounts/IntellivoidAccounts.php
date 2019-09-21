@@ -413,4 +413,12 @@
             return $this->TrackingUserAgentManager;
         }
 
+        /**
+         * @return OtlManager
+         */
+        public function getOtlManager(): OtlManager
+        {
+            return $this->OtlManager;
+        }
+
     }
