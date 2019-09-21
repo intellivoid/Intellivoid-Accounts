@@ -353,4 +353,25 @@
         {
             return hash ('sha256', $user_agent_string . $host_id);
         }
+
+        /**
+         * Builds a unique, one-time login code used for authentication
+         *
+         * @param int $account_id
+         * @param int $timestamp
+         * @param int $expires
+         * @return string
+         */
+        public static function OneTimeLoginCode(int $account_id, int $timestamp, int $expires): string
+        {
+            $account = hash('sha256', $account_id);
+            $timestamp = hash('sha256', $timestamp . $expires);
+            $expires = hash('sha256', $expires . $timestamp);
+
+            $seed = hash('adler32', self::pepper($account));
+            $timestamp_arc = hash('crc32b', $account . $timestamp);
+            $expires_arc = hash('crc32b', $account . $expires);
+
+            return $timestamp_arc . $expires_arc . hash('crc32b', $timestamp_arc . $expires_arc . $seed);
+        }
     }
