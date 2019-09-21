@@ -5,8 +5,12 @@
 
 
     use IntellivoidAccounts\Abstracts\OtlStatus;
+    use IntellivoidAccounts\Abstracts\SearchMethods\OtlSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\OtlNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\OneTimeLoginCode;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\QueryBuilder;
 
@@ -64,6 +68,59 @@
             else
             {
                 return $code;
+            }
+        }
+
+        /**
+         * Gets an existing OtlRecord from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return OneTimeLoginCode
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws OtlNotFoundException
+         */
+        public function getOtlRecord(string $search_method, string $value): OneTimeLoginCode
+        {
+            switch($search_method)
+            {
+                case OtlSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                case OtlSearchMethod::byCode:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('otl_codes', [
+                'id',
+                'code',
+                'vendor',
+                'account_id',
+                'status',
+                'expires',
+                'created'
+            ], $search_method, $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new OtlNotFoundException();
+                }
+
+                return OneTimeLoginCode::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
         }
     }
