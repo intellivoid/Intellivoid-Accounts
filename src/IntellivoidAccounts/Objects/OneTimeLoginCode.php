@@ -104,7 +104,7 @@
 
             if(isset($data['account_id']))
             {
-                $OneTimeLoginCodeObject->AccountID = (int)$data['vendor'];
+                $OneTimeLoginCodeObject->AccountID = (int)$data['account_id'];
             }
 
             if(isset($data['status']))
