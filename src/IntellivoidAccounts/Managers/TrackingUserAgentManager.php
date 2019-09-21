@@ -152,4 +152,68 @@
                 return UserAgentRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
         }
+
+        /**
+         * Updates an existing record in the database
+         *
+         * @param UserAgentRecord $userAgentRecord
+         * @param bool $check
+         * @return bool
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws UserAgentNotFoundException
+         */
+        public function updateRecord(UserAgentRecord $userAgentRecord, bool $check = false): bool
+        {
+            if($check)
+            {
+                $this->getRecord(TrackingUserAgentSearchMethod::byId, $userAgentRecord->ID);
+            }
+
+            $tracking_id = Hashing::uaTrackingId($userAgentRecord->UserAgentString, $userAgentRecord->HostID);
+            $tracking_id = $this->intellivoidAccounts->database->real_escape_string($tracking_id);
+            $user_agent_parse = UserAgent::fromString($userAgentRecord->UserAgentString);
+            $user_agent_string = $this->intellivoidAccounts->database->real_escape_string($userAgentRecord->UserAgentString);
+            $platform = 'Unknown';
+            $browser = 'Unknown';
+            $version = 'Unknown';
+            $last_seen = (int)$userAgentRecord->LastSeen;
+
+            /** @noinspection DuplicatedCode */
+            if($user_agent_parse->Platform !== null)
+            {
+                $platform = $this->intellivoidAccounts->database->real_escape_string($user_agent_parse->Platform);
+            }
+
+            /** @noinspection DuplicatedCode */
+            if($user_agent_parse->Browser !== null)
+            {
+                $browser = $this->intellivoidAccounts->database->real_escape_string($user_agent_parse->Browser);
+            }
+
+            /** @noinspection DuplicatedCode */
+            if($user_agent_parse->Version !== null)
+            {
+                $version = $this->intellivoidAccounts->database->real_escape_string($user_agent_parse->Version);
+            }
+
+            $Query = QueryBuilder::update('tracking_user_agents', array(
+                'tracking' => $tracking_id,
+                'user_agent_string' => $user_agent_string,
+                'platform' => $platform,
+                'browser' => $browser,
+                'version' => $version,
+                'last_seen' => $last_seen
+            ), 'id', $userAgentRecord->ID);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+        }
     }
