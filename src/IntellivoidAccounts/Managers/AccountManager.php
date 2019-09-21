@@ -191,10 +191,10 @@
 
             switch($account->Status)
             {
+                case AccountStatus::VerificationRequired:
+                case AccountStatus::Suspended:
                 case AccountStatus::Active: break;
-                case AccountStatus::Suspended: break;
                 case AccountStatus::Limited: break;
-                case AccountStatus::VerificationRequired: break;
                 default: throw new InvalidAccountStatusException();
             }
 

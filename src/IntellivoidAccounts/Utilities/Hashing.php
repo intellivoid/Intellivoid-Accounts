@@ -2,6 +2,7 @@
 
     namespace IntellivoidAccounts\Utilities;
 
+    use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
     use tsa\Classes\Crypto;
     use tsa\Exceptions\BadLengthException;
     use tsa\Exceptions\SecuredRandomProcessorNotFoundException;
@@ -281,5 +282,96 @@
         public static function applicationSecretKey(string $public_key, int $timestamp): string
         {
             return hash('sha256', self::pepper($public_key) . $timestamp) . hash('crc32', self::pepper($timestamp));
+        }
+
+        /**
+         * Creates an authentication request token
+         *
+         * @param int $application_id
+         * @param string $application_name
+         * @param int $host_id
+         * @param int $timestamp
+         * @return string
+         */
+        public static function authenticationRequestToken(int $application_id, string $application_name, int $host_id, int $timestamp): string
+        {
+            $application_id = hash('crc32', $application_id);
+            $application_name = hash('crc32', $application_name);
+            $host_id = hash('crc32', $host_id);
+            $timestamp = hash('crc32', $timestamp);
+
+            $hash = hash('sha256', $application_id . $application_name . $host_id . $timestamp);
+            $ending = hash('crc32', self::pepper($hash));
+
+            return $hash . $ending;
+        }
+
+        /**
+         * Creates an Authentication Access Token
+         *
+         * @param int $request_id
+         * @param string $request_token
+         * @param int $timestamp
+         * @param int $account_id
+         * @param int $host_id
+         * @return string
+         */
+        public static function authenticationAccessToken(int $request_id, string $request_token, int $timestamp, int $account_id, int $host_id): string
+        {
+            $request_id = hash('crc32', $request_id);
+            $request_token = self::pepper($request_token);
+            $timestamp = hash('crc32', $timestamp);
+            $account_id = hash('crc32', $account_id);
+            $host_id = hash('crc32', $host_id);
+
+            return hash('sha256', $request_id . $request_token . $timestamp . $account_id . $host_id);
+        }
+
+        /**
+         * Generates a Telegram Verifrication Code
+         *
+         * @param int $telegram_client_id
+         * @param int $timestamp
+         * @return string
+         */
+        public static function telegramVerificationCode(int $telegram_client_id, int $timestamp): string
+        {
+            $telegram_client_id = hash('crc32', $telegram_client_id);
+            $timestamp = hash('sha256', $timestamp);
+
+            return hash('sha256', $telegram_client_id . $timestamp);
+        }
+
+        /**
+         * Calculates the tracking ID from the user_agent_string and host_id
+         *
+         * @param string $user_agent_string
+         * @param int $host_id
+         * @return string
+         */
+        public static function uaTrackingId(string $user_agent_string, int $host_id): string
+        {
+            return hash ('sha256', $user_agent_string . $host_id);
+        }
+
+        /**
+         * Builds a unique, one-time login code used for authentication
+         *
+         * @param int $account_id
+         * @param int $timestamp
+         * @param int $expires
+         * @return string
+         */
+        public static function OneTimeLoginCode(int $account_id, int $timestamp, int $expires): string
+        {
+            $account = hash('sha256', $account_id);
+            $timestamp = hash('sha256', $timestamp . $expires);
+            $expires = hash('sha256', $expires . $timestamp);
+
+            $seed = hash('adler32', self::pepper($account));
+            $timestamp_arc = hash('crc32b', $account . $timestamp);
+            $expires_arc = hash('crc32b', $account . $expires);
+
+            return $timestamp_arc . $expires_arc . hash('crc32b', $timestamp_arc . $expires_arc . $seed);
         }
     }

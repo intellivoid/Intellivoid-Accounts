@@ -67,7 +67,7 @@
         public function toArray(): array
         {
             return array(
-                'roles' => $this->ROles
+                'roles' => $this->Roles
             );
         }
 

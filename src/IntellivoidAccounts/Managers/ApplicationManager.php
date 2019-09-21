@@ -1,14 +1,15 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 
     namespace IntellivoidAccounts\Managers;
 
 
     use IntellivoidAccounts\Abstracts\ApplicationStatus;
-    use IntellivoidAccounts\Abstracts\AuthenticationMode;
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Exceptions\ApplicationAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidApplicationNameException;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -16,6 +17,9 @@
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use msqg\QueryBuilder;
+    use udp\Exceptions\ImageTooSmallException;
+    use udp\Exceptions\InvalidImageException;
+    use udp\Exceptions\UnsupportedFileTypeException;
     use ZiProto\ZiProto;
 
     /**
@@ -42,15 +46,51 @@
          * Registers an existing application to the database
          *
          * @param string $name
+         * @param int $account_id
          * @param int $authentication_mode
          * @param array $permissions
          * @return Application
+         * @throws ApplicationAlreadyExistsException
+         * @throws ApplicationNotFoundException
          * @throws DatabaseException
+         * @throws ImageTooSmallException
+         * @throws InvalidApplicationNameException
+         * @throws InvalidImageException
          * @throws InvalidRequestPermissionException
+         * @throws InvalidSearchMethodException
+         * @throws UnsupportedFileTypeException
          */
-        public function register_application(string $name, int $authentication_mode, array $permissions): Application
+        public function registerApplication(string $name, int $account_id, int $authentication_mode, array $permissions): Application
         {
-            // TODO: Determine if the the application already exists
+            $ApplicationExists = false;
+
+            if(Validate::applicationName($name) == false)
+            {
+                throw new InvalidApplicationNameException();
+            }
+
+            try
+            {
+                $this->getApplication(ApplicationSearchMethod::byName, $name);
+            }
+            catch(ApplicationNotFoundException $applicationNotFoundException)
+            {
+                $ApplicationExists = true;
+            }
+
+            try
+            {
+                $this->getApplication(ApplicationSearchMethod::byNameSafe, str_ireplace(' ', '_', strtolower($name)));
+            }
+            catch(ApplicationNotFoundException $applicationNotFoundException)
+            {
+                $ApplicationExists = true;
+            }
+
+            if($ApplicationExists)
+            {
+                throw new ApplicationAlreadyExistsException();
+            }
 
             $CreatedTimestamp = (int)time();
             $PublicApplicationId = Hashing::applicationPublicId($name, $CreatedTimestamp);
@@ -73,7 +113,7 @@
             $Permissions = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($Permissions));
             $Status = (int)ApplicationStatus::Active;
             $AuthenticationMode = (int)$authentication_mode;
-            $AccountID = 0;
+            $AccountID = (int)$account_id;
             $LastUpdatedTimestamp = $CreatedTimestamp;
 
             $Query = QueryBuilder::insert_into('applications', array(
@@ -96,7 +136,8 @@
             }
             else
             {
-                // TODO:  Add return
+                $this->intellivoidAccounts->getAppUdp()->getProfilePictureManager()->generate_avatar($PublicApplicationId);
+                return $this->getApplication(ApplicationSearchMethod::byApplicationId, $PublicApplicationId);
             }
         }
 
@@ -110,7 +151,7 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          */
-        public function get_application(string $search_method, string $value): Application
+        public function getApplication(string $search_method, string $value): Application
         {
             switch($search_method)
             {
@@ -170,9 +211,9 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          */
-        public function update_application(Application $application)
+        public function updateApplication(Application $application)
         {
-            $this->get_application(ApplicationSearchMethod::byId, $application->ID);
+            $this->getApplication(ApplicationSearchMethod::byId, $application->ID);
 
             $id = (int)$application->ID;
             $secret_key = $this->intellivoidAccounts->database->real_escape_string($application->SecretKey);

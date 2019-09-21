@@ -27,6 +27,8 @@
     $SystemSchema = new Schema();
     $SystemSchema->setDefinition('ProfilesLocation_Unix', '/etc/user_pictures');
     $SystemSchema->setDefinition('ProfilesLocation_Windows', 'C:\\user_pictures');
+    $SystemSchema->setDefinition('AppIconsLocation_Unix', '/etc/app_icons');
+    $SystemSchema->setDefinition('AppIconsLocation_Windows', 'C:\\app_icons');
     $acm->defineSchema('System', $SystemSchema);
 
     $acm->processCommandLine();
