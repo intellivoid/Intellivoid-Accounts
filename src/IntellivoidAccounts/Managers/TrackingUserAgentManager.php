@@ -78,7 +78,7 @@
 
             $Query = QueryBuilder::insert_into('tracking_user_agents', array(
                 'tracking_id' => $tracking_id,
-                'user_agent_string' => $user_agent_string,
+                'user_agent_string' => base64_encode($user_agent_string),
                 'platform' => $platform,
                 'browser' => $browser,
                 'version' => $version,
@@ -149,7 +149,10 @@
                     throw new UserAgentNotFoundException();
                 }
 
-                return UserAgentRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['user_agent_string'] = base64_decode($Row['user_agent_string']);
+
+                return UserAgentRecord::fromArray($Row);
             }
         }
 
