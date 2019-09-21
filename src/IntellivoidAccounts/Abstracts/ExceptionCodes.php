@@ -77,4 +77,6 @@
         const AuthenticationRequestAlreadyUsedException = 132;
 
         const TelegramVerificationCodeNotFound = 133;
+
+        const UserAgentNotFoundException = 134;
     }

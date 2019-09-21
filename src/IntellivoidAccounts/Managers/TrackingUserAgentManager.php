@@ -4,7 +4,9 @@
     namespace IntellivoidAccounts\Managers;
 
 
+    use IntellivoidAccounts\Abstracts\SearchMethods\TrackingUserAgentSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Objects\UserAgentRecord;
@@ -96,6 +98,49 @@
 
         public function getRecord(string $search_method, string $value): UserAgentRecord
         {
+            switch($search_method)
+            {
+                case TrackingUserAgentSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value =  (int)$value;
+                    break;
 
+                case TrackingUserAgentSearchMethod::byTrackingId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('tracking_user_agents', [
+                'id',
+                'tracking_id',
+                'user_agent_string',
+                'platform',
+                'browser',
+                'version',
+                'host_id',
+                'created',
+                'last_seen'
+            ], $search_method = $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new ApplicationNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                return Application::fromArray($Row);
+            }
         }
     }
