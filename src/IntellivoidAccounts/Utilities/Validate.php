@@ -3,7 +3,6 @@
     namespace IntellivoidAccounts\Utilities;
 
     use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
-    use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
 
     /**
      * Class Validate
@@ -107,17 +106,22 @@
          */
         public static function vendor(string $input): bool
         {
-            if(strlen($input) == 0)
-            {
-                return false;
-            }
-
             if(strlen($input) > 200)
             {
                 return false;
             }
 
-            return true;
+            if(strlen($input) < 3)
+            {
+                return false;
+            }
+
+            if(preg_match("^[a-zA-Z0-9 ]*$", $input))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /**

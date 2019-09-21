@@ -8,10 +8,12 @@
     use IntellivoidAccounts\Abstracts\SearchMethods\OtlSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\InvalidVendorException;
     use IntellivoidAccounts\Exceptions\OtlNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\OneTimeLoginCode;
     use IntellivoidAccounts\Utilities\Hashing;
+    use IntellivoidAccounts\Utilities\Validate;
     use msqg\QueryBuilder;
 
     /**
@@ -121,6 +123,49 @@
                 }
 
                 return OneTimeLoginCode::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+            }
+        }
+
+        /**
+         * Updates an existing OtlRecord
+         *
+         * @param OneTimeLoginCode $oneTimeLoginCode
+         * @param bool $check
+         * @return bool
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidVendorException
+         * @throws OtlNotFoundException
+         */
+        public function updateOtlRecord(OneTimeLoginCode $oneTimeLoginCode, bool $check = false): bool
+        {
+            if($check)
+            {
+                $this->getOtlRecord(OtlSearchMethod::byId, $oneTimeLoginCode->ID);
+            }
+
+            if(Validate::vendor($oneTimeLoginCode->Vendor) == false)
+            {
+                throw new InvalidVendorException();
+            }
+
+            $id = (int)$oneTimeLoginCode->ID;
+            $vendor = $this->intellivoidAccounts->database->real_escape_string($oneTimeLoginCode->Vendor);
+            $status = (int)$oneTimeLoginCode->Status;
+
+            $Query = QueryBuilder::update('otl_codes', array(
+                'vendor' => $vendor,
+                'status' => $status
+            ), 'id', $id);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
         }
     }
