@@ -7,6 +7,7 @@
     use IntellivoidAccounts\Abstracts\SearchMethods\TrackingUserAgentSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\UserAgentNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Objects\UserAgentRecord;
@@ -96,6 +97,16 @@
             }
         }
 
+        /**
+         * Gets an existing record from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return UserAgentRecord
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws UserAgentNotFoundException
+         */
         public function getRecord(string $search_method, string $value): UserAgentRecord
         {
             switch($search_method)
@@ -124,7 +135,7 @@
                 'host_id',
                 'created',
                 'last_seen'
-            ], $search_method = $value);
+            ], $search_method, $value);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == false)
@@ -135,12 +146,10 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new ApplicationNotFoundException();
+                    throw new UserAgentNotFoundException();
                 }
 
-                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
-                $Row['permissions'] = ZiProto::decode($Row['permissions']);
-                return Application::fromArray($Row);
+                return UserAgentRecord::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
         }
     }
