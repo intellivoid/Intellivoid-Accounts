@@ -49,13 +49,6 @@
         public $LocationData;
 
         /**
-         * Array of user agents associated with this host
-         *
-         * @var array
-         */
-        public $UserAgents;
-
-        /**
          * The Unix Timestamp for when this host was registered into the system
          *
          * @var int
@@ -76,7 +69,6 @@
                 'blocked' => (bool)$this->Blocked,
                 'last_used' => (int)$this->LastUsed,
                 'location_data' => $this->LocationData->toArray(),
-                'user_agents' => $this->UserAgents,
                 'created' => $this->LastUsed
             );
         }
@@ -123,15 +115,6 @@
             else
             {
                 $KnownHostObject->LocationData = new LocationData();
-            }
-
-            if(isset($data['user_agents']))
-            {
-                $KnownHostObject->UserAgents = $data['user_agents'];
-            }
-            else
-            {
-                $KnownHostObject->UserAgents = [];
             }
 
             if(isset($data['created']))
