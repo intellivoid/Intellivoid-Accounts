@@ -118,6 +118,12 @@
             throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
         }
 
+        /**
+         * Fetches location data of the given IP Address
+         *
+         * @param string $ip_address
+         * @return LocationData
+         */
         private function getLocationData(string $ip_address)
         {
             // Fetch location data
