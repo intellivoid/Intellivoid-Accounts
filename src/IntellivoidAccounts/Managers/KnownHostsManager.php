@@ -230,11 +230,9 @@
             $blocked = (int)$knownHost->Blocked;
             $location_data = ZiProto::encode($knownHost->LocationData->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
-            $user_agents = ZiProto::encode($knownHost->UserAgents);
-            $user_agents = $this->intellivoidAccounts->database->real_escape_string($user_agents);
             $last_used = (int)$knownHost->LastUsed;
 
-            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', blocked=$blocked, location_data='$location_data', user_agents='$user_agents', last_used=$last_used WHERE public_id='$public_id'";
+            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', blocked=$blocked, location_data='$location_data', last_used=$last_used WHERE public_id='$public_id'";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
