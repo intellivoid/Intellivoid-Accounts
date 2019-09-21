@@ -201,7 +201,7 @@
             }
 
             $Query = QueryBuilder::update('tracking_user_agents', array(
-                'tracking' => $tracking_id,
+                'tracking_id' => $tracking_id,
                 'user_agent_string' => $user_agent_string,
                 'platform' => $platform,
                 'browser' => $browser,
