@@ -184,7 +184,7 @@
                     break;
             }
 
-            $Query = "SELECT id, public_id, ip_address, blocked, last_used, location_data, user_agents, created FROM `users_known_hosts` WHERE $search_method=$value";
+            $Query = "SELECT id, public_id, ip_address, blocked, last_used, location_data, created FROM `users_known_hosts` WHERE $search_method=$value";
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == false)
@@ -200,7 +200,6 @@
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
                 $Row['location_data'] = ZiProto::decode($Row['location_data']);
-                $Row['user_agents'] = ZiProto::decode($Row['user_agents']);
                 return KnownHost::fromArray($Row);
             }
         }
