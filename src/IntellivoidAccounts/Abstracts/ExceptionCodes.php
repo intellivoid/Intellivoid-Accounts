@@ -81,4 +81,6 @@
         const UserAgentNotFoundException = 134;
 
         const OtlNotFoundException = 135;
+
+        const InvalidApplicationNameException = 136;
     }

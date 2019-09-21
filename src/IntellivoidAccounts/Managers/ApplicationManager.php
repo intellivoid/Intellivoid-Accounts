@@ -9,6 +9,7 @@
     use IntellivoidAccounts\Exceptions\ApplicationAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidApplicationNameException;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -45,21 +46,28 @@
          * Registers an existing application to the database
          *
          * @param string $name
+         * @param int $account_id
          * @param int $authentication_mode
          * @param array $permissions
          * @return Application
          * @throws ApplicationAlreadyExistsException
          * @throws ApplicationNotFoundException
          * @throws DatabaseException
+         * @throws ImageTooSmallException
+         * @throws InvalidApplicationNameException
+         * @throws InvalidImageException
          * @throws InvalidRequestPermissionException
          * @throws InvalidSearchMethodException
-         * @throws ImageTooSmallException
-         * @throws InvalidImageException
          * @throws UnsupportedFileTypeException
          */
-        public function registerApplication(string $name, int $authentication_mode, array $permissions): Application
+        public function registerApplication(string $name, int $account_id, int $authentication_mode, array $permissions): Application
         {
             $ApplicationExists = false;
+
+            if(Validate::applicationName($name) == false)
+            {
+                throw new InvalidApplicationNameException();
+            }
 
             try
             {
@@ -105,7 +113,7 @@
             $Permissions = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($Permissions));
             $Status = (int)ApplicationStatus::Active;
             $AuthenticationMode = (int)$authentication_mode;
-            $AccountID = 0;
+            $AccountID = (int)$account_id;
             $LastUpdatedTimestamp = $CreatedTimestamp;
 
             $Query = QueryBuilder::insert_into('applications', array(
