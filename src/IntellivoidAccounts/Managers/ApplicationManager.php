@@ -293,4 +293,73 @@
                 }
             }
         }
+
+        /**
+         * Returns an array of Applications
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return array
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function getRecords(string $search_method, string $value): array
+        {
+            /** @noinspection DuplicatedCode */
+            switch($search_method)
+            {
+                case ApplicationSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+                case ApplicationSearchMethod::byApplicationId:
+                case ApplicationSearchMethod::byName:
+                case ApplicationSearchMethod::byNameSafe:
+                case ApplicationSearchMethod::bySecretKey:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('applications', [
+                'id',
+                'public_app_id',
+                'secret_key',
+                'name',
+                'name_safe',
+                'permissions',
+                'status',
+                'authentication_mode',
+                'account_id',
+                'creation_timestamp',
+                'last_updated_timestamp'
+            ], $search_method, $value);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    $ResultsArray = [];
+
+                    while($Row = $QueryResults->fetch_assoc())
+                    {
+                        $ResultsArray[] = $Row;
+                    }
+
+                    return $ResultsArray;
+                }
+            }
+        }
     }
