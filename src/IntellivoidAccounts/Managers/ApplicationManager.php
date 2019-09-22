@@ -72,19 +72,21 @@
             try
             {
                 $this->getApplication(ApplicationSearchMethod::byName, $name);
+                $ApplicationExists = true;
             }
             catch(ApplicationNotFoundException $applicationNotFoundException)
             {
-                $ApplicationExists = true;
+                unset($applicationNotFoundException);
             }
 
             try
             {
                 $this->getApplication(ApplicationSearchMethod::byNameSafe, str_ireplace(' ', '_', strtolower($name)));
+                $ApplicationExists = true;
             }
             catch(ApplicationNotFoundException $applicationNotFoundException)
             {
-                $ApplicationExists = true;
+                unset($applicationNotFoundException);
             }
 
             if($ApplicationExists)
