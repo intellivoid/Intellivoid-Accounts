@@ -248,32 +248,14 @@
         /**
          * Counts the total amount of records that are found
          *
-         * @param string $search_method
-         * @param string $value
+         * @param int $account_id
          * @return int
          * @throws DatabaseException
-         * @throws InvalidSearchMethodException
          */
-        public function getTotalRecords(string $search_method, string $value): int
+        public function getTotalRecords(int $account_id): int
         {
-            switch($search_method)
-            {
-                case ApplicationSearchMethod::byId:
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = (int)$value;
-                    break;
-                case ApplicationSearchMethod::byApplicationId:
-                case ApplicationSearchMethod::byName:
-                case ApplicationSearchMethod::byNameSafe:
-                case ApplicationSearchMethod::bySecretKey:
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($value) . "'";
-                    break;
-                default:
-                    throw new InvalidSearchMethodException();
-            }
-
-            $Query = "SELECT COUNT(id) AS total FROM `applications` WHERE $search_method=$value";
+            $account_id = (int)$account_id;
+            $Query = "SELECT COUNT(id) AS total FROM `applications` WHERE account_id=$account_id";
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
@@ -297,31 +279,13 @@
         /**
          * Returns an array of Applications
          *
-         * @param string $search_method
-         * @param string $value
+         * @param int $account_id
          * @return array
          * @throws DatabaseException
-         * @throws InvalidSearchMethodException
          */
-        public function getRecords(string $search_method, string $value): array
+        public function getRecords(int $account_id): array
         {
-            /** @noinspection DuplicatedCode */
-            switch($search_method)
-            {
-                case ApplicationSearchMethod::byId:
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = (int)$value;
-                    break;
-                case ApplicationSearchMethod::byApplicationId:
-                case ApplicationSearchMethod::byName:
-                case ApplicationSearchMethod::byNameSafe:
-                case ApplicationSearchMethod::bySecretKey:
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
-                    break;
-                default:
-                    throw new InvalidSearchMethodException();
-            }
+            $account_id = (int)$account_id;
 
             $Query = QueryBuilder::select('applications', [
                 'id',
@@ -335,7 +299,7 @@
                 'account_id',
                 'creation_timestamp',
                 'last_updated_timestamp'
-            ], $search_method, $value);
+            ], 'account_id', $account_id);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
@@ -355,6 +319,7 @@
 
                     while($Row = $QueryResults->fetch_assoc())
                     {
+                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
                         $ResultsArray[] = $Row;
                     }
 
