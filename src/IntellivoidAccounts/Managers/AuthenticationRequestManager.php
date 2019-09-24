@@ -43,7 +43,7 @@
          * @return AuthenticationRequest
          * @throws DatabaseException
          */
-        public function createAuthenticationAccess(Application $application, int $host_id): AuthenticationRequest
+        public function createAuthenticationRequest(Application $application, int $host_id): AuthenticationRequest
         {
             $current_timestamp = (int)time();
             $request_token = Hashing::authenticationRequestToken(
