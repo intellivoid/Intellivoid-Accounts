@@ -74,7 +74,7 @@
             }
             else
             {
-                return $this->get_authentication_request(AuthenticationRequestSearchMethod::requestToken, $request_token);
+                return $this->getAuthenticationRequest(AuthenticationRequestSearchMethod::requestToken, $request_token);
             }
         }
 
