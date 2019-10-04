@@ -41,7 +41,9 @@
          * @param Application $application
          * @param int $host_id
          * @return AuthenticationRequest
+         * @throws AuthenticationRequestNotFoundException
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function createAuthenticationRequest(Application $application, int $host_id): AuthenticationRequest
         {
