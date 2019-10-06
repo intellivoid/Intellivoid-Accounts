@@ -134,6 +134,7 @@
                 'access_token',
                 'account_id',
                 'request_id',
+                'permissions',
                 'status',
                 'expires_timestamp',
                 'last_used_timestamp',
@@ -152,6 +153,7 @@
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['permissions'] = ZiProto::decode($Row['permissions']);
                 return AuthenticationAccess::fromArray($Row);
             }
         }
