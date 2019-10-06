@@ -14,6 +14,7 @@
     use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\QueryBuilder;
+    use ZiProto\ZiProto;
 
     /**
      * Class AuthenticationRequestManager
@@ -56,6 +57,8 @@
             $status = (int)AuthenticationRequestStatus::Active;
             $account_id = 0;
             $host_id = (int)$host_id;
+            $requested_permissions = ZiProto::encode($application->Permissions);
+            $requested_permissions = $this->intellivoidAccounts->database->real_escape_string($requested_permissions);
             $created_timestamp = $current_timestamp;
             $expires_timestamp = $current_timestamp + 600;
 
@@ -65,6 +68,7 @@
                 'status' => $status,
                 'account_id' => $account_id,
                 'host_id' => $host_id,
+                'requested_permissions' => $requested_permissions,
                 'created_timestamp' => $created_timestamp,
                 'expires_timestamp' => $expires_timestamp
             ));
