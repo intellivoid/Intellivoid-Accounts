@@ -119,6 +119,7 @@
                 'status',
                 'account_id',
                 'host_id',
+                'requested_permissions',
                 'created_timestamp',
                 'expires_timestamp'
             ], $search_method, $value);
@@ -136,6 +137,7 @@
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['requested_permissions'] = ZiProto::decode($Row['requested_permissions']);
                 return AuthenticationRequest::fromArray($Row);
             }
         }
