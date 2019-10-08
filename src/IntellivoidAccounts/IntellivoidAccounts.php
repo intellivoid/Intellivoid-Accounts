@@ -6,6 +6,7 @@
     use Exception;
     use IntellivoidAccounts\Managers\AccountManager;
     use IntellivoidAccounts\Managers\ApplicationManager;
+    use IntellivoidAccounts\Managers\AuditLogManager;
     use IntellivoidAccounts\Managers\CrossOverAuthenticationManager;
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
@@ -262,6 +263,11 @@
         private $OtlManager;
 
         /**
+         * @var AuditLogManager
+         */
+        private $AuditLogManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -290,6 +296,7 @@
             $this->TelegramVerificationCodeManager = new TelegramVerificationCodeManager($this);
             $this->TrackingUserAgentManager = new TrackingUserAgentManager($this);
             $this->OtlManager = new OtlManager($this);
+            $this->AuditLogManager = new AuditLogManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -421,6 +428,14 @@
         public function getOtlManager(): OtlManager
         {
             return $this->OtlManager;
+        }
+
+        /**
+         * @return AuditLogManager
+         */
+        public function getAuditLogManager(): AuditLogManager
+        {
+            return $this->AuditLogManager;
         }
 
     }
