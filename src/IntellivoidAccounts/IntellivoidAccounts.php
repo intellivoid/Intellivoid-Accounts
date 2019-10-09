@@ -117,6 +117,7 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'RecoveryCodes.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'TwoFactorAuthentication.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'ApplicationAccess.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'ApplicationConfiguration.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'AuditRecord.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'KnownHost.php');
