@@ -1,8 +1,7 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 
     namespace IntellivoidAccounts\Managers;
-
 
     use IntellivoidAccounts\Abstracts\AuditEventType;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -113,5 +112,49 @@
             }
         }
 
+        /**
+         * Returns an array of User Audit Logs
+         *
+         * @param int $account_id
+         * @param int $offset
+         * @param int $limit
+         * @return array
+         * @throws DatabaseException
+         */
+        public function getRecords(int $account_id, int $offset = 0, $limit = 50): array
+        {
+            $account_id = (int)$account_id;
 
+            $Query = QueryBuilder::select('users_audit', [
+                'id',
+                'account_id',
+                'event_type',
+                'timestamp'
+            ], 'account_id', $account_id, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    $ResultsArray = [];
+
+                    while($Row = $QueryResults->fetch_assoc())
+                    {
+                        $ResultsArray[] = $Row;
+                    }
+
+                    return $ResultsArray;
+                }
+            }
+        }
     }
