@@ -1,0 +1,6 @@
+v2.0.1.1 (Zi Xing)
+    - Added permissions property to Authentication Access and Authentication Request to prevet
+      Applications from bypassing the permissions restriction
+    - Added Audit Logs for accounts
+    - Bug fix where toArray() and fromArray() in Application Object does not parse creation_timestmap
+      and last_updated_timestamp properties.
