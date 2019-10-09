@@ -86,6 +86,7 @@
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'UsernameAlreadyExistsException.php');
 
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'AccountManager.php');
+    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'ApplicationAccessManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'ApplicationManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'AuditLogManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'AuthenticationAccessManager.php');
