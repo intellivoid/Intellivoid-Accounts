@@ -155,8 +155,8 @@
                 'status' => $this->Status,
                 'authentication_mode' => $this->AuthenticationMode,
                 'account_id' => $this->AccountID,
-                'creation_timestamp' => $this->CreationTimestamp,
-                'last_updated_timestamp' => $this->LastUpdatedTimestamp
+                'creation_timestamp' => (int)$this->CreationTimestamp,
+                'last_updated_timestamp' => (int)$this->LastUpdatedTimestamp
             );
         }
 
@@ -209,6 +209,24 @@
             if(isset($data['account_id']))
             {
                 $ApplicationObject->AccountID = (int)$data['account_id'];
+            }
+
+            if(isset($data['creation_timestamp']))
+            {
+                $ApplicationObject->CreationTimestamp = (int)$data['creation_timestamp'];
+            }
+            else
+            {
+                $ApplicationObject->CreationTimestamp = 0;
+            }
+
+            if(isset($data['last_updated_timestamp']))
+            {
+                $ApplicationObject->LastUpdatedTimestamp = (int)$data['last_updated_timestamp'];
+            }
+            else
+            {
+                $ApplicationObject->LastUpdatedTimestamp = 0;
             }
 
             return $ApplicationObject;

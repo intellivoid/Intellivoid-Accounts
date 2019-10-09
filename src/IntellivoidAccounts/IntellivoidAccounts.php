@@ -6,6 +6,7 @@
     use Exception;
     use IntellivoidAccounts\Managers\AccountManager;
     use IntellivoidAccounts\Managers\ApplicationManager;
+    use IntellivoidAccounts\Managers\AuditLogManager;
     use IntellivoidAccounts\Managers\CrossOverAuthenticationManager;
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
@@ -34,6 +35,7 @@
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountRequestPermissions.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'ApplicationStatus.php');
+    include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AuditEventType.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AuthenticationAccessStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AuthenticationMode.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AuthenticationRequestStatus.php');
@@ -64,6 +66,7 @@
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidApplicationNameException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidArgumentException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidEmailException.php');
+    include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidEventTypeException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidIpException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidLoginStatusException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidMessageContentException.php');
@@ -84,6 +87,7 @@
 
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'AccountManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'ApplicationManager.php');
+    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'AuditLogManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'AuthenticationAccessManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'AuthenticationRequestManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'CrossOverAuthenticationManager.php');
@@ -114,6 +118,7 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'TwoFactorAuthentication.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'ApplicationConfiguration.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'AuditRecord.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'KnownHost.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'LocationData.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'LoginRecord.php');
@@ -260,6 +265,11 @@
         private $OtlManager;
 
         /**
+         * @var AuditLogManager
+         */
+        private $AuditLogManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -288,6 +298,7 @@
             $this->TelegramVerificationCodeManager = new TelegramVerificationCodeManager($this);
             $this->TrackingUserAgentManager = new TrackingUserAgentManager($this);
             $this->OtlManager = new OtlManager($this);
+            $this->AuditLogManager = new AuditLogManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -419,6 +430,14 @@
         public function getOtlManager(): OtlManager
         {
             return $this->OtlManager;
+        }
+
+        /**
+         * @return AuditLogManager
+         */
+        public function getAuditLogManager(): AuditLogManager
+        {
+            return $this->AuditLogManager;
         }
 
     }

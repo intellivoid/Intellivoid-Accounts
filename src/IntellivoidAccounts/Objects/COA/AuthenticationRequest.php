@@ -52,6 +52,13 @@
         public $HostId;
 
         /**
+         * The permissions that the Application requests at the time
+         *
+         * @var array
+         */
+        public $RequestedPermissions;
+
+        /**
          * The Unix Timestamp of when this request was generated
          *
          * @var int
@@ -79,6 +86,7 @@
                 'status' => (int)$this->Status,
                 'account_id' => (int)$this->AccountId,
                 'host_id' => (int)$this->HostId,
+                'requested_permissions' => $this->RequestedPermissions,
                 'created_timestamp' => (int)$this->CreatedTimestamp,
                 'expires_timestamp' => (int)$this->ExpiresTimestamp
             );
@@ -126,6 +134,15 @@
             if(isset($data['host_id']))
             {
                 $AuthenticationRequestObject->HostId = (int)$data['host_id'];
+            }
+
+            if(isset($data['requested_permissions']))
+            {
+                $AuthenticationRequestObject->RequestedPermissions = $data['requested_permissions'];
+            }
+            else
+            {
+                $AuthenticationRequestObject->RequestedPermissions = array();
             }
 
             if(isset($data['created_timestamp']))

@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUnused */
 
 
-namespace IntellivoidAccounts\Managers;
+    namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationAccessSearchMethod;
@@ -14,6 +14,7 @@ namespace IntellivoidAccounts\Managers;
     use IntellivoidAccounts\Objects\COA\AuthenticationRequest;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\QueryBuilder;
+    use ZiProto\ZiProto;
 
     /**
      * Class AuthenticationAccessManager
@@ -69,6 +70,8 @@ namespace IntellivoidAccounts\Managers;
             $application_id = (int)$authenticationRequest->ApplicationId;
             $account_id = (int)$authenticationRequest->AccountId;
             $request_id = (int)$authenticationRequest->Id;
+            $permissions = $authenticationRequest->RequestedPermissions;
+            $permissions = ZiProto::encode($permissions);
             $status = (int)AuthenticationAccessStatus::Active;
             $expires_timestamp = $current_timestamp + 43200;
             $last_used_timestamp = $current_timestamp;
@@ -79,6 +82,7 @@ namespace IntellivoidAccounts\Managers;
                 'application' => $application_id,
                 'account_id' => $account_id,
                 'request_id' => $request_id,
+                'permissions' => $permissions,
                 'status' => $status,
                 'expires_timestamp' => $expires_timestamp,
                 'last_used_timestamp' => $last_used_timestamp,
@@ -130,6 +134,7 @@ namespace IntellivoidAccounts\Managers;
                 'access_token',
                 'account_id',
                 'request_id',
+                'permissions',
                 'status',
                 'expires_timestamp',
                 'last_used_timestamp',
@@ -148,6 +153,7 @@ namespace IntellivoidAccounts\Managers;
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['permissions'] = ZiProto::decode($Row['permissions']);
                 return AuthenticationAccess::fromArray($Row);
             }
         }
