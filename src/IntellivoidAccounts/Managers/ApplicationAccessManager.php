@@ -68,4 +68,9 @@
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
         }
+
+        public function getApplicationAccess(string $search_method, string $value): ApplicationAccess
+        {
+
+        }
     }
