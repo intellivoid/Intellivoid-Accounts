@@ -28,6 +28,11 @@
         private $authenticationAccessManager;
 
         /**
+         * @var ApplicationAccessManager
+         */
+        private $ApplicationAccessManager;
+
+        /**
          * CrossOverAuthenticationManager constructor.
          * @param IntellivoidAccounts $intellivoidAccounts
          */
@@ -36,6 +41,7 @@
             $this->intellivoidAccounts = $intellivoidAccounts;
             $this->authenticationRequestManager = new AuthenticationRequestManager($intellivoidAccounts);
             $this->authenticationAccessManager = new AuthenticationAccessManager($intellivoidAccounts);
+            $this->ApplicationAccessManager = new ApplicationAccessManager($intellivoidAccounts);
         }
 
         /**
@@ -52,5 +58,13 @@
         public function getAuthenticationAccessManager(): AuthenticationAccessManager
         {
             return $this->authenticationAccessManager;
+        }
+
+        /**
+         * @return ApplicationAccessManager
+         */
+        public function getApplicationAccessManager(): ApplicationAccessManager
+        {
+            return $this->ApplicationAccessManager;
         }
     }
