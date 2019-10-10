@@ -157,4 +157,35 @@ namespace IntellivoidAccounts\Managers;
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
         }
+
+        /**
+         * Returns the total records by Application ID
+         *
+         * @param int $application_id
+         * @return int
+         * @throws DatabaseException
+         */
+        public function getTotalRecordsOfApplication(int $application_id): int
+        {
+            $application_id = (int)$application_id;
+            $Query = "SELECT COUNT(id) AS total FROM `application_access` WHERE application_id=$application_id";
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    return (int)$QueryResults->fetch_array()['total'];
+                }
+            }
+        }
     }
