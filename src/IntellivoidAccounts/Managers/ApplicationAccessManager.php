@@ -12,6 +12,7 @@ namespace IntellivoidAccounts\Managers;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\ApplicationAccess;
     use IntellivoidAccounts\Utilities\Hashing;
+    use msqg\Abstracts\SortBy;
     use msqg\QueryBuilder;
 
     /**
@@ -216,6 +217,54 @@ namespace IntellivoidAccounts\Managers;
                 else
                 {
                     return (int)$QueryResults->fetch_array()['total'];
+                }
+            }
+        }
+
+        /**
+         * Returns records by Application
+         *
+         * @param string $search_method
+         * @param string $value
+         * @param int $limit
+         * @param int $offset
+         * @return array
+         * @throws DatabaseException
+         */
+        public function searchRecordsByApplication(string $search_method, string $value, int $limit=100, int $offset=0): array
+        {
+            $Query = QueryBuilder::select("application_access", [
+                'id',
+                'public_id',
+                'application_id',
+                'account_id',
+                'status',
+                'creation_timestamp',
+                'last_authenticated_timestamp'
+            ], $search_method, $value, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    $ResultsArray = [];
+
+                    while($Row = $QueryResults->fetch_assoc())
+                    {
+                        $ResultsArray[] = $Row;
+                    }
+
+                    return $ResultsArray;
                 }
             }
         }
