@@ -1,7 +1,7 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 
-    namespace IntellivoidAccounts\Managers;
+namespace IntellivoidAccounts\Managers;
 
 
     use IntellivoidAccounts\Abstracts\ApplicationAccessStatus;
@@ -123,6 +123,38 @@
                 }
 
                 return ApplicationAccess::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+            }
+        }
+
+        /**
+         * Updates an existing Application Access object in the database
+         *
+         * @param ApplicationAccess $applicationAccess
+         * @return bool
+         * @throws ApplicationAccessNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function updateApplicationAccess(ApplicationAccess $applicationAccess): bool
+        {
+            $this->getApplicationAccess(ApplicationAccessSearchMethod::byId, $applicationAccess->ID);
+
+            $status = (int)$applicationAccess->Status;
+            $last_authenticated_timestamp = (int)$applicationAccess->LastAuthenticatedTimestamp;
+
+            $Query = QueryBuilder::update('application_access', array(
+                'status' => $status,
+                'last_authenticated_timestamp' => $last_authenticated_timestamp
+            ), 'id', $applicationAccess->ID);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
         }
     }
