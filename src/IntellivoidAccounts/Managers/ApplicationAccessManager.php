@@ -14,7 +14,6 @@ namespace IntellivoidAccounts\Managers;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\ApplicationAccess;
     use IntellivoidAccounts\Utilities\Hashing;
-    use msqg\Abstracts\SortBy;
     use msqg\QueryBuilder;
 
     /**
