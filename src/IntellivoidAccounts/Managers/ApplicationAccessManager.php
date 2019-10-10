@@ -6,6 +6,7 @@
 
     use IntellivoidAccounts\Abstracts\ApplicationAccessStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationAccessSearchMethod;
+    use IntellivoidAccounts\Exceptions\ApplicationAccessNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -71,6 +72,16 @@
             }
         }
 
+        /**
+         * Retrieves an Application Access Object from the Database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return ApplicationAccess
+         * @throws ApplicationAccessNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
         public function getApplicationAccess(string $search_method, string $value): ApplicationAccess
         {
             switch($search_method)
@@ -108,12 +119,10 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new ApplicationNotFoundException();
+                    throw new ApplicationAccessNotFoundException();
                 }
 
-                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
-                $Row['permissions'] = ZiProto::decode($Row['permissions']);
-                return Application::fromArray($Row);
+                return ApplicationAccess::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
             }
         }
     }
