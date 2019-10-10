@@ -36,7 +36,7 @@
          *
          * @param int $application_id
          * @param int $account_id
-         * @return ApplicationAccess
+         * @return bool
          * @throws DatabaseException
          */
         public function createApplicationAccess(int $application_id, int $account_id): bool
