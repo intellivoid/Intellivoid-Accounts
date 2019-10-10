@@ -36,6 +36,6 @@
             $public_id = Hashing::ApplicationAccess($account_id, $application_id);
             $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
 
-            $
+
         }
     }

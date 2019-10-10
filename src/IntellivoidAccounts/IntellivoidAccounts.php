@@ -34,6 +34,7 @@
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TransactionRecordSearchMethod.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountRequestPermissions.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountStatus.php');
+    include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'ApplicationAccessStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'ApplicationStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AuditEventType.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AuthenticationAccessStatus.php');
