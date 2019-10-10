@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnused */
+<?php /** @noinspection DuplicatedCode */
+
+/** @noinspection PhpUnused */
 
 
 namespace IntellivoidAccounts\Managers;
@@ -224,14 +226,13 @@ namespace IntellivoidAccounts\Managers;
         /**
          * Returns records by Application
          *
-         * @param string $search_method
-         * @param string $value
+         * @param string $application_id
          * @param int $limit
          * @param int $offset
          * @return array
          * @throws DatabaseException
          */
-        public function searchRecordsByApplication(string $search_method, string $value, int $limit=100, int $offset=0): array
+        public function searchRecordsByApplication(string $application_id, int $limit=100, int $offset=0): array
         {
             $Query = QueryBuilder::select("application_access", [
                 'id',
@@ -241,7 +242,54 @@ namespace IntellivoidAccounts\Managers;
                 'status',
                 'creation_timestamp',
                 'last_authenticated_timestamp'
-            ], $search_method, $value, null, null, $limit, $offset);
+            ], 'application_id', $application_id, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    $ResultsArray = [];
+
+                    while($Row = $QueryResults->fetch_assoc())
+                    {
+                        $ResultsArray[] = $Row;
+                    }
+
+                    return $ResultsArray;
+                }
+            }
+        }
+
+        /**
+         * Returns records by Account
+         *
+         * @param string $account_id
+         * @param int $limit
+         * @param int $offset
+         * @return array
+         * @throws DatabaseException
+         */
+        public function searchRecordsByAccount(string $account_id, int $limit=100, int $offset=0): array
+        {
+            $Query = QueryBuilder::select("application_access", [
+                'id',
+                'public_id',
+                'application_id',
+                'account_id',
+                'status',
+                'creation_timestamp',
+                'last_authenticated_timestamp'
+            ], 'account_id', $account_id, null, null, $limit, $offset);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
