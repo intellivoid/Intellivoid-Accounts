@@ -1,9 +1,9 @@
-<?php /** @noinspection DuplicatedCode */
+<?php
 
-/** @noinspection PhpUnused */
+    /** @noinspection DuplicatedCode */
+    /** @noinspection PhpUnused */
 
-
-namespace IntellivoidAccounts\Managers;
+    namespace IntellivoidAccounts\Managers;
 
 
     use IntellivoidAccounts\Abstracts\ApplicationAccessStatus;
@@ -314,5 +314,32 @@ namespace IntellivoidAccounts\Managers;
                     return $ResultsArray;
                 }
             }
+        }
+
+        /**
+         * Syncs the Application Access object in the Database
+         *
+         * @param int $application_id
+         * @param int $account_id
+         * @return ApplicationAccess
+         * @throws ApplicationAccessNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function syncApplicationAccess(int $application_id, int $account_id): ApplicationAccess
+        {
+            $PublicID = Hashing::ApplicationAccess($account_id, $application_id);
+
+            try
+            {
+                $Application = $this->getApplicationAccess(ApplicationAccessSearchMethod::byPublicId, $PublicID);
+                return $Application;
+            }
+            catch(ApplicationAccessNotFoundException $applicationAccessNotFoundException)
+            {
+                $this->createApplicationAccess($application_id, $account_id);
+            }
+
+            return $this->getApplicationAccess(ApplicationAccessSearchMethod::byPublicId, $PublicID);
         }
     }
