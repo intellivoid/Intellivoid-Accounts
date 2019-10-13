@@ -374,4 +374,21 @@
 
             return $timestamp_arc . $expires_arc . hash('crc32b', $timestamp_arc . $expires_arc . $seed);
         }
+
+        /**
+         * Calculates the public ID for the
+         *
+         * @param int $account_id
+         * @param int $application_id
+         * @param int $timestamp
+         * @return string
+         */
+        public static function ApplicationAccess(int $account_id, int $application_id): string
+        {
+            $account_id_c = hash('sha256', $account_id  . 'ACCOUNT');
+            $application_id_c = hash('sha256', $application_id . 'APPLICATION');
+
+            $core = hash('sha256', $account_id_c . $application_id_c . 'C');
+            return $core . hash('crc32b', $account_id_c) . hash('crc32b', $application_id_c);
+        }
     }

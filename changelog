@@ -4,3 +4,9 @@ v2.0.1.1 (Zi Xing)
     - Added Audit Logs for accounts
     - Bug fix where toArray() and fromArray() in Application Object does not parse creation_timestmap
       and last_updated_timestamp properties.
+
+v2.0.1.2 (Zi Xing)
+    - Added Application Access Manager
+
+v2.0.1.3 (Zi Xing)
+    - Added method syncApplicationAccess() to the ApplicationAccessManager
