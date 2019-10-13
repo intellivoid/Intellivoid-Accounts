@@ -7,6 +7,7 @@
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidEventTypeException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use msqg\Abstracts\SortBy;
     use msqg\QueryBuilder;
 
     /**
@@ -118,19 +119,29 @@
          * @param int $account_id
          * @param int $offset
          * @param int $limit
+         * @param bool $newer
          * @return array
          * @throws DatabaseException
          */
-        public function getRecords(int $account_id, int $offset = 0, $limit = 50): array
+        public function getRecords(int $account_id, int $offset = 0, $limit = 50, $newer = true): array
         {
             $account_id = (int)$account_id;
+
+            $order_by = null;
+            $sort_by = null;
+
+            if($newer)
+            {
+                $order_by = SortBy::descending;
+                $sort_by = 'timestamp';
+            }
 
             $Query = QueryBuilder::select('users_audit', [
                 'id',
                 'account_id',
                 'event_type',
                 'timestamp'
-            ], 'account_id', $account_id, null, null, $limit, $offset);
+            ], 'account_id', $account_id, $order_by, $sort_by, $limit, $offset);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
