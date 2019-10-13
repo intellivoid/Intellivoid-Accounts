@@ -119,29 +119,64 @@
          * @param int $account_id
          * @param int $offset
          * @param int $limit
-         * @param bool $newer
          * @return array
          * @throws DatabaseException
          */
-        public function getRecords(int $account_id, $offset = 0, $limit = 50, $newer = true): array
+        public function getRecords(int $account_id, int $offset = 0, $limit = 50): array
         {
             $account_id = (int)$account_id;
-
-            $order_by = null;
-            $sort_by = null;
-
-            if($newer)
-            {
-                $order_by = SortBy::descending;
-                $sort_by = 'timestamp';
-            }
 
             $Query = QueryBuilder::select('users_audit', [
                 'id',
                 'account_id',
                 'event_type',
                 'timestamp'
-            ], 'account_id', $account_id, $order_by, $sort_by, $limit, $offset);
+            ], 'account_id', $account_id, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    $ResultsArray = [];
+
+                    while($Row = $QueryResults->fetch_assoc())
+                    {
+                        $ResultsArray[] = $Row;
+                    }
+
+                    return $ResultsArray;
+                }
+            }
+        }
+
+        /**
+         * Returns the newer recent audit records
+         *
+         * @param int $account_id
+         * @param int $limit
+         * @return array
+         * @throws DatabaseException
+         */
+        public function getNewRecords(int $account_id, $limit = 50): array
+        {
+            $account_id = (int)$account_id;
+
+            $Query = QueryBuilder::select('users_audit', [
+                'id',
+                'account_id',
+                'event_type',
+                'timestamp'
+            ], 'account_id', $account_id, 'timestamp', SortBy::descending, $limit);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
