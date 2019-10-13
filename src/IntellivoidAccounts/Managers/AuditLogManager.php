@@ -123,7 +123,7 @@
          * @return array
          * @throws DatabaseException
          */
-        public function getRecords(int $account_id, int $offset = 0, $limit = 50, $newer = true): array
+        public function getRecords(int $account_id, $offset = 0, $limit = 50, $newer = true): array
         {
             $account_id = (int)$account_id;
 
