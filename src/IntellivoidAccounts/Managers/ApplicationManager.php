@@ -116,6 +116,7 @@
             $Status = (int)ApplicationStatus::Active;
             $AuthenticationMode = (int)$authentication_mode;
             $AccountID = (int)$account_id;
+            $Flags = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode([]));
             $LastUpdatedTimestamp = $CreatedTimestamp;
 
             $Query = QueryBuilder::insert_into('applications', array(
@@ -127,6 +128,7 @@
                 'status' => $Status,
                 'authentication_mode' => $AuthenticationMode,
                 'account_id' => $AccountID,
+                'flags' => $Flags,
                 'creation_timestamp' => $CreatedTimestamp,
                 'last_updated_timestamp' => $LastUpdatedTimestamp
             ));
@@ -182,6 +184,7 @@
                 'status',
                 'authentication_mode',
                 'account_id',
+                'flags',
                 'creation_timestamp',
                 'last_updated_timestamp'
             ], $search_method, $value);
@@ -200,6 +203,7 @@
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
                 $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                $Row['flags'] = ZiProto::decode($Row['flags']);
                 return Application::fromArray($Row);
             }
         }
@@ -220,6 +224,7 @@
             $id = (int)$application->ID;
             $secret_key = $this->intellivoidAccounts->database->real_escape_string($application->SecretKey);
             $permissions = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($application->Permissions));
+            $flags = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($application->Flags));
             $status = (int)$application->Status;
             $authentication_mode = (int)$application->AuthenticationMode;
             $creation_timestamp = (int)$application->CreationTimestamp;
@@ -231,7 +236,8 @@
                 'status' => $status,
                 'authentication_mode' => $authentication_mode,
                 'creation_timestamp' => $creation_timestamp,
-                'last_updated_timestamp' => $last_updated_timestamp
+                'last_updated_timestamp' => $last_updated_timestamp,
+                'flags' => $flags,
             ), 'id', $id);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
@@ -297,6 +303,7 @@
                 'status',
                 'authentication_mode',
                 'account_id',
+                'flag',
                 'creation_timestamp',
                 'last_updated_timestamp'
             ], 'account_id', $account_id);
@@ -320,6 +327,7 @@
                     while($Row = $QueryResults->fetch_assoc())
                     {
                         $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                        $Row['flags'] = ZiProto::decode($Row['flags']);
                         $ResultsArray[] = $Row;
                     }
 
