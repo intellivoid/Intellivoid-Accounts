@@ -303,7 +303,7 @@
                 'status',
                 'authentication_mode',
                 'account_id',
-                'flag',
+                'flags',
                 'creation_timestamp',
                 'last_updated_timestamp'
             ], 'account_id', $account_id);
