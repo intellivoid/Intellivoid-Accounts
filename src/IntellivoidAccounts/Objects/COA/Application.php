@@ -4,6 +4,7 @@
     namespace IntellivoidAccounts\Objects\COA;
 
     use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
+    use IntellivoidAccounts\Exceptions\InvalidApplicationFlagException;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
     use IntellivoidAccounts\Utilities\Validate;
 
@@ -145,6 +146,13 @@
             return true;
         }
 
+        /**
+         * Applies a flag to this Application
+         *
+         * @param string $flag
+         * @return bool
+         * @throws InvalidApplicationFlagException
+         */
         public function apply_flag(string $flag): bool
         {
             if(isset($this->Flags[$flag]))
@@ -154,10 +162,27 @@
 
             if(Validate::verify_application_flag($flag) == false)
             {
-                throw new InvalidRequestPermissionException();
+                throw new InvalidApplicationFlagException();
             }
 
             $this->Flags[] = $flag;
+            return true;
+        }
+
+        /**
+         * Removes an existing flag from this Application
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public function remove_flag(string $flag): bool
+        {
+            if(isset($this->Flags[$flag]) == false)
+            {
+                return false;
+            }
+
+            unset($this->Flags[$flag]);
             return true;
         }
 
