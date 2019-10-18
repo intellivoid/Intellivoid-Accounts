@@ -3,6 +3,7 @@
     namespace IntellivoidAccounts\Utilities;
 
     use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
+    use IntellivoidAccounts\Abstracts\ApplicationFlags;
 
     /**
      * Class Validate
@@ -227,6 +228,25 @@
                 case AccountRequestPermissions::EditPersonalInformation:
                 case AccountRequestPermissions::MakePurchases:
                 case AccountRequestPermissions::TelegramNotifications:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /**
+         * Verifies if the given Application Flag is valid
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public static function verify_application_flag(string $flag): bool
+        {
+            switch($flag)
+            {
+                case ApplicationFlags::Official:
+                case ApplicationFlags::Untrusted:
+                case ApplicationFlags::Verified:
                     return true;
                 default:
                     return false;

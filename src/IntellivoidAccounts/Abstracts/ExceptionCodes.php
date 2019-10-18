@@ -87,4 +87,6 @@
         const InvalidEventTypeException = 137;
 
         const ApplicationAccessNotFoundException = 138;
+
+        const InvalidApplicationFlagException = 139;
     }

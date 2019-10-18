@@ -77,6 +77,13 @@
         public $AccountID;
 
         /**
+         * Flags associated with this Application
+         *
+         * @var array
+         */
+        public $Flags;
+
+        /**
          * The Unix Timestamp of when this Application was registered
          *
          * @var int
@@ -138,6 +145,22 @@
             return true;
         }
 
+        public function apply_flag(string $flag): bool
+        {
+            if(isset($this->Flags[$flag]))
+            {
+                return false;
+            }
+
+            if(Validate::verify_application_flag($flag) == false)
+            {
+                throw new InvalidRequestPermissionException();
+            }
+
+            $this->Flags[] = $flag;
+            return true;
+        }
+
         /**
          * Returns an array that represents this object
          *
@@ -155,6 +178,7 @@
                 'status' => $this->Status,
                 'authentication_mode' => $this->AuthenticationMode,
                 'account_id' => $this->AccountID,
+                'flags' => $this->Flags,
                 'creation_timestamp' => (int)$this->CreationTimestamp,
                 'last_updated_timestamp' => (int)$this->LastUpdatedTimestamp
             );
@@ -209,6 +233,15 @@
             if(isset($data['account_id']))
             {
                 $ApplicationObject->AccountID = (int)$data['account_id'];
+            }
+
+            if(isset($data['flags']))
+            {
+                $ApplicationObject->Flags = $data['flags'];
+            }
+            else
+            {
+                $ApplicationObject->Flags = [];
             }
 
             if(isset($data['creation_timestamp']))
