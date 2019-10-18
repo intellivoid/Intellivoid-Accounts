@@ -203,7 +203,14 @@
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
                 $Row['permissions'] = ZiProto::decode($Row['permissions']);
-                $Row['flags'] = ZiProto::decode($Row['flags']);
+                if($Row['flags'] == null)
+                {
+                    $Row['flags'] = [];
+                }
+                else
+                {
+                    $Row['flags'] = ZiProto::decode($Row['flags']);
+                }
                 return Application::fromArray($Row);
             }
         }

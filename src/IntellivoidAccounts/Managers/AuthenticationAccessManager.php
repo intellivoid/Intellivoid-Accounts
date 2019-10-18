@@ -79,7 +79,7 @@
 
             $Query = QueryBuilder::insert_into('authentication_access', array(
                 'access_token' => $access_token,
-                'application' => $application_id,
+                'application_id' => $application_id,
                 'account_id' => $account_id,
                 'request_id' => $request_id,
                 'permissions' => $permissions,

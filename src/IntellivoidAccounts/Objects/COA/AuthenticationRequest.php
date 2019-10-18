@@ -104,7 +104,7 @@
 
             if(isset($data['id']))
             {
-                $AuthenticationRequestObject->ID  = (int)$data['id'];
+                $AuthenticationRequestObject->Id  = (int)$data['id'];
             }
 
             if(isset($data['request_token']))
