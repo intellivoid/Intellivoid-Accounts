@@ -10,3 +10,4 @@ v2.0.1.2 (Zi Xing)
 
 v2.0.1.3 (Zi Xing)
     - Added method syncApplicationAccess() to the ApplicationAccessManager
+    - Added flags for Applications
