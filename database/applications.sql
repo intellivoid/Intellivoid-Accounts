@@ -9,6 +9,7 @@ create table applications
     status                 int(255)     null comment 'The status of this application, this determines the operation of the authentication',
     authentication_mode    int(255)     null comment 'The mode of authentication that this application uses',
     account_id             int(255)     null comment 'The account ID that this application is owned by',
+    flags                  blob         null comment 'Flags associated with this Application',
     creation_timestamp     int(255)     null comment 'The Unix Timestamp of when this application was registered',
     last_updated_timestamp int(255)     null comment 'The Unix Timestamp of when this application was last updated',
     constraint applications_id_uindex unique (id)
