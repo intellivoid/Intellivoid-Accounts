@@ -187,6 +187,25 @@
         }
 
         /**
+         * Determines if the Application has the specified permission
+         *
+         * @param string $permission
+         * @return bool
+         */
+        public function has_permission(string $permission): bool
+        {
+            if($this->Permissions !== null)
+            {
+                if(in_array($permission, $this->Permissions))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
          * Returns an array that represents this object
          *
          * @return array
