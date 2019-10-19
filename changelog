@@ -11,3 +11,9 @@ v2.0.1.2 (Zi Xing)
 v2.0.1.3 (Zi Xing)
     - Added method syncApplicationAccess() to the ApplicationAccessManager
     - Added flags for Applications
+    - Minor bug fixes with Authentication Access Manager
+    - Added permission 'READ_EMAIL'
+    - Added method has_permission() to \IntellivoidAccounts\Objects\COA > Application
+    - Added method has_flag() to \IntellivoidAccounts\Objects\COA > Application
+    - Added method has_permission() to \IntellivoidAccounts\Objects\COA > AuthenticationAccess
+    - Added method has_requested_permission() to \IntellivoidAccounts\Objects\COA > AuthenticationRequest
