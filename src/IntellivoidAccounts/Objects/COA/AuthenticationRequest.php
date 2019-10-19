@@ -73,6 +73,25 @@
         public $ExpiresTimestamp;
 
         /**
+         * Determines if the Authentication Request has the requested permission
+         *
+         * @param string $permission
+         * @return bool
+         */
+        public function has_requested_permission(string $permission): bool
+        {
+            if($this->RequestedPermissions !== null)
+            {
+                if(in_array($permission, $this->RequestedPermissions))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
          * Creates an array that represents this object
          *
          * @return array
