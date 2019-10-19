@@ -45,6 +45,13 @@
         public $RequestId;
 
         /**
+         * The permissions this Authentication Access has access to
+         *
+         * @var array
+         */
+        public $Permissions;
+
+        /**
          * The current status of the access
          *
          * @var int
@@ -85,6 +92,7 @@
                 'application_id' => (int)$this->ApplicationId,
                 'account_id' => (int)$this->AccountId,
                 'request_id' => (int)$this->RequestId,
+                'permissions' => $this->Permissions,
                 'status' => (int)$this->Status,
                 'expires_timestamp' => (int)$this->ExpiresTimestamp,
                 'last_used_timestamp' => (int)$this->LastUsedTimestamp,
@@ -125,6 +133,15 @@
             if(isset($data['request_id']))
             {
                 $AuthenticationAccessObject->RequestId = (int)$data['request_id'];
+            }
+
+            if(isset($data['permissions']))
+            {
+                $AuthenticationAccessObject->Permissions = $data['permissions'];
+            }
+            else
+            {
+                $AuthenticationAccessObject->Permissions = [];
             }
 
             if(isset($data['status']))

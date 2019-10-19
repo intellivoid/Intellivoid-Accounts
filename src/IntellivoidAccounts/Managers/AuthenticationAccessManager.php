@@ -4,9 +4,11 @@
     namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
+    use IntellivoidAccounts\Abstracts\AuthenticationRequestStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationAccessSearchMethod;
     use IntellivoidAccounts\Exceptions\AuthenticationAccessNotFoundException;
     use IntellivoidAccounts\Exceptions\AuthenticationRequestAlreadyUsedException;
+    use IntellivoidAccounts\Exceptions\AuthenticationRequestNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -45,6 +47,7 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          * @throws AuthenticationRequestAlreadyUsedException
+         * @throws AuthenticationRequestNotFoundException
          */
         public function createAuthenticationAccess(AuthenticationRequest $authenticationRequest): AuthenticationAccess
         {
@@ -57,6 +60,9 @@
             {
                 unset($authenticationAccessNotFoundException);
             }
+
+            $originalAuthenticationRequest = $this->intellivoidAccounts->getCrossOverAuthenticationManager()->getAuthenticationRequestManager()->getAuthenticationRequest(AuthenticationAccessSearchMethod::byId, $authenticationRequest->Id);
+            $originalAuthenticationRequest->AccountId = $authenticationRequest->AccountId;
 
             $current_timestamp = (int)time();
             $access_token = Hashing::authenticationAccessToken(
@@ -96,6 +102,7 @@
             }
             else
             {
+                $this->intellivoidAccounts->getCrossOverAuthenticationManager()->getAuthenticationRequestManager()->updateAuthenticationRequest($originalAuthenticationRequest);
                 return $this->getAuthenticationAccess(AuthenticationAccessSearchMethod::byAccessToken, $access_token);
             }
         }
