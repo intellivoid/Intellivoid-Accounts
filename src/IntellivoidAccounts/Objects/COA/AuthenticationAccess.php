@@ -80,6 +80,25 @@
         public $CreatedTimestamp;
 
         /**
+         * Determines if the Authentication Access has the specified permission
+         *
+         * @param string $permission
+         * @return bool
+         */
+        public function has_permission(string $permission): bool
+        {
+            if($this->Permissions !== null)
+            {
+                if(in_array($permission, $this->Permissions))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
          * Creates array from object
          *
          * @return array
