@@ -20,6 +20,11 @@
         const EditPersonalInformation = "EDIT_PERSONAL_INFORMATION";
 
         /**
+         * Views your Email Address
+         */
+        const ViewEmailAddress = "READ_EMAIL_ADDRESS";
+
+        /**
          * Makes purchases or activate a paid subscription on the users behalf
          */
         const MakePurchases = "INVOKE_PURCHASES";

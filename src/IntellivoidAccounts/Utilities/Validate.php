@@ -226,6 +226,7 @@
             {
                 case AccountRequestPermissions::ReadPersonalInformation:
                 case AccountRequestPermissions::EditPersonalInformation:
+                case AccountRequestPermissions::ViewEmailAddress:
                 case AccountRequestPermissions::MakePurchases:
                 case AccountRequestPermissions::TelegramNotifications:
                     return true;
