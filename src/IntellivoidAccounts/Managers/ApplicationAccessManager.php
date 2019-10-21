@@ -8,13 +8,16 @@
 
     use IntellivoidAccounts\Abstracts\ApplicationAccessStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationAccessSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
     use IntellivoidAccounts\Exceptions\ApplicationAccessNotFoundException;
+    use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\ApplicationAccess;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\QueryBuilder;
+    use ZiProto\ZiProto;
 
     /**
      * Class ApplicationAccessManager
@@ -43,6 +46,8 @@
          * @param int $account_id
          * @return bool
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws ApplicationNotFoundException
          */
         public function createApplicationAccess(int $application_id, int $account_id): bool
         {
@@ -54,10 +59,15 @@
             $status = (int)ApplicationAccessStatus::Authorized;
             $last_authenticated_timestamp = $creation_timestamp;
 
+            $application = $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
+            $permissions = ZiProto::encode($application->Permissions);
+            $permissions = $this->intellivoidAccounts->database->real_escape_string($permissions);
+
             $Query = QueryBuilder::insert_into('application_access', array(
                 'public_id' => $public_id,
                 'application_id' => $application_id,
                 'account_id' => $account_id,
+                'permissions' => $permissions,
                 'status' => $status,
                 'creation_timestamp' => $creation_timestamp,
                 'last_authenticated_timestamp' => $last_authenticated_timestamp
@@ -107,6 +117,7 @@
                 'public_id',
                 'application_id',
                 'account_id',
+                'permissions',
                 'status',
                 'creation_timestamp',
                 'last_authenticated_timestamp'
@@ -123,8 +134,10 @@
                 {
                     throw new ApplicationAccessNotFoundException();
                 }
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['permissions'] = ZiProto::decode($Row);
 
-                return ApplicationAccess::fromArray($QueryResults->fetch_array(MYSQLI_ASSOC));
+                return ApplicationAccess::fromArray($Row);
             }
         }
 
@@ -143,10 +156,13 @@
 
             $status = (int)$applicationAccess->Status;
             $last_authenticated_timestamp = (int)$applicationAccess->LastAuthenticatedTimestamp;
+            $permissions = ZiProto::encode($applicationAccess->Permissions);
+            $permissions = $this->intellivoidAccounts->database->real_escape_string($permissions);
 
             $Query = QueryBuilder::update('application_access', array(
                 'status' => $status,
-                'last_authenticated_timestamp' => $last_authenticated_timestamp
+                'last_authenticated_timestamp' => $last_authenticated_timestamp,
+                'permissions' => $permissions
             ), 'id', $applicationAccess->ID);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
@@ -238,6 +254,7 @@
                 'public_id',
                 'application_id',
                 'account_id',
+                'permissions',
                 'status',
                 'creation_timestamp',
                 'last_authenticated_timestamp'
@@ -261,6 +278,7 @@
 
                     while($Row = $QueryResults->fetch_assoc())
                     {
+                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
                         $ResultsArray[] = $Row;
                     }
 
@@ -285,6 +303,7 @@
                 'public_id',
                 'application_id',
                 'account_id',
+                'permissions',
                 'status',
                 'creation_timestamp',
                 'last_authenticated_timestamp'
@@ -308,6 +327,7 @@
 
                     while($Row = $QueryResults->fetch_assoc())
                     {
+                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
                         $ResultsArray[] = $Row;
                     }
 
@@ -325,6 +345,7 @@
          * @throws ApplicationAccessNotFoundException
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
+         * @throws ApplicationNotFoundException
          */
         public function syncApplicationAccess(int $application_id, int $account_id): ApplicationAccess
         {

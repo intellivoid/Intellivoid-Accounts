@@ -39,6 +39,13 @@
         public $AccountID;
 
         /**
+         * Permissions that this Application currently requests from the Account
+         *
+         * @var array
+         */
+        public $Permissions;
+
+        /**
          * The current status of the access of the Application has over the Account
          *
          * @var int
@@ -71,6 +78,7 @@
                 'public_id' => $this->PublicID,
                 'application_id' => (int)$this->ApplicationID,
                 'account_id' => (int)$this->AccountID,
+                'permissions' => $this->Permissions,
                 'status' => (int)$this->Status,
                 'creation_timestamp' => (int)$this->CreationTimestamp,
                 'last_authenticated_timestamp' => $this->LastAuthenticatedTimestamp
@@ -105,6 +113,15 @@
             if(isset($data['account_id']))
             {
                 $ApplicationAccessObject->AccountID = (int)$data['account_id'];
+            }
+
+            if(isset($data['permissions']))
+            {
+                $ApplicationAccessObject->Permissions = $data['permissions'];
+            }
+            else
+            {
+                $ApplicationAccessObject->Permissions = [];
             }
 
             if(isset($data['status']))
