@@ -242,12 +242,10 @@
          * Returns records by Application
          *
          * @param string $application_id
-         * @param int $limit
-         * @param int $offset
          * @return array
          * @throws DatabaseException
          */
-        public function searchRecordsByApplication(string $application_id, int $limit=100, int $offset=0): array
+        public function searchRecordsByApplication(string $application_id): array
         {
             $Query = QueryBuilder::select("application_access", [
                 'id',
@@ -258,7 +256,7 @@
                 'status',
                 'creation_timestamp',
                 'last_authenticated_timestamp'
-            ], 'application_id', $application_id, null, null, $limit, $offset);
+            ], 'application_id', $application_id);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
@@ -291,12 +289,10 @@
          * Returns records by Account
          *
          * @param string $account_id
-         * @param int $limit
-         * @param int $offset
          * @return array
          * @throws DatabaseException
          */
-        public function searchRecordsByAccount(string $account_id, int $limit=100, int $offset=0): array
+        public function searchRecordsByAccount(string $account_id): array
         {
             $Query = QueryBuilder::select("application_access", [
                 'id',
@@ -307,7 +303,7 @@
                 'status',
                 'creation_timestamp',
                 'last_authenticated_timestamp'
-            ], 'account_id', $account_id, null, null, $limit, $offset);
+            ], 'account_id', $account_id);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
