@@ -301,4 +301,25 @@
             return true;
         }
 
+        /**
+         * Validates if the last name is valid
+         *
+         * @param string $input
+         * @return bool
+         */
+        public static function lastName(string $input): bool
+        {
+            if(strlen($input) > 50)
+            {
+                return false;
+            }
+
+            if(!preg_match("/^([a-zA-Z' ]+)$/", $input))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
