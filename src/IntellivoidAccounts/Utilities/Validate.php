@@ -288,6 +288,11 @@
          */
         public static function firstName(string $input): bool
         {
+            if(strlen($input) < 1)
+            {
+                return false;
+            }
+
             if(strlen($input) > 50)
             {
                 return false;
@@ -309,6 +314,11 @@
          */
         public static function lastName(string $input): bool
         {
+            if(strlen($input) < 1)
+            {
+                return false;
+            }
+            
             if(strlen($input) > 50)
             {
                 return false;
