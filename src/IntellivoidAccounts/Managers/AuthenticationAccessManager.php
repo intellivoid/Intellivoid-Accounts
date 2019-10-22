@@ -139,6 +139,7 @@
             $Query = QueryBuilder::select('authentication_access', [
                 'id',
                 'access_token',
+                'application_id',
                 'account_id',
                 'request_id',
                 'permissions',
