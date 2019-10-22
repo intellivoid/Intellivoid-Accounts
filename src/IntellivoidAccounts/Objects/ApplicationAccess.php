@@ -102,7 +102,7 @@
 
             if(isset($data['public_id']))
             {
-                $ApplicationAccessObject->PublicID = (int)$data['public_id']; 
+                $ApplicationAccessObject->PublicID = $data['public_id'];
             }
 
             if(isset($data['application_id']))

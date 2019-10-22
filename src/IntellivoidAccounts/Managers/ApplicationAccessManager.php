@@ -134,8 +134,16 @@
                 {
                     throw new ApplicationAccessNotFoundException();
                 }
+
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
-                $Row['permissions'] = ZiProto::decode($Row);
+                if($Row['permissions'] == null)
+                {
+                    $Row['permissions'] = [];
+                }
+                else
+                {
+                    $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                }
 
                 return ApplicationAccess::fromArray($Row);
             }
@@ -276,7 +284,14 @@
 
                     while($Row = $QueryResults->fetch_assoc())
                     {
-                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                        if($Row['permissions'] == null)
+                        {
+                            $Row['permissions'] = [];
+                        }
+                        else
+                        {
+                            $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                        }
                         $ResultsArray[] = $Row;
                     }
 
@@ -323,7 +338,14 @@
 
                     while($Row = $QueryResults->fetch_assoc())
                     {
-                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                        if($Row['permissions'] == null)
+                        {
+                            $Row['permissions'] = [];
+                        }
+                        else
+                        {
+                            $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                        }
                         $ResultsArray[] = $Row;
                     }
 
