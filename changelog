@@ -18,3 +18,5 @@ v2.0.1.3 (Zi Xing)
     - Added method has_permission() to \IntellivoidAccounts\Objects\COA > AuthenticationAccess
     - Added method has_requested_permission() to \IntellivoidAccounts\Objects\COA > AuthenticationRequest
     - Added permissions to Account Access
+    - Added method firstName() to \IntellivoidAccounts\Utilities > Validate
+    - Added method lastName() to \IntellivoidAccounts\Utilities > Validate
