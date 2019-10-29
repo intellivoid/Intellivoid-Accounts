@@ -47,7 +47,7 @@
         public function registerClient(Chat $chat, User $user): TelegramClient
         {
             $CurrentTime = (int)time();
-            $PublicID = Hashing::telegramClientPublicID($chat->ID, $CurrentTime);
+            $PublicID = Hashing::telegramClientPublicID($chat->ID, $user->ID);
             $PublicID = $this->intellivoidAccounts->database->real_escape_string($PublicID);
             $Available = (int)true;
             $AccountID = 0;
