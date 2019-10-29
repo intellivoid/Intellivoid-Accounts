@@ -279,4 +279,56 @@
                 }
             }
         }
+
+        /**
+         * Returns an array of Records by the Host ID
+         *
+         * @param int $host_id
+         * @param int $offset
+         * @param int $limit
+         * @return array
+         * @throws DatabaseException
+         */
+        public function getRecordsByHost(int $host_id, int $offset = 0, $limit = 50): array
+        {
+            $host_id = (int)$host_id;
+
+            $Query = QueryBuilder::select('tracking_user_agents', [
+                'id',
+                'tracking_id',
+                'user_agent_string',
+                'platform',
+                'browser',
+                'version',
+                'host_id',
+                'created',
+                'last_seen'
+            ], 'account_id', $host_id, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if ($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if ($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    $ResultsArray = [];
+
+                    while ($Row = $QueryResults->fetch_assoc())
+                    {
+                        $ResultsArray[] = $Row;
+                    }
+
+                    return $ResultsArray;
+                }
+            }
+
+        }
     }
