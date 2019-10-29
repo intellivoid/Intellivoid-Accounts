@@ -99,7 +99,6 @@
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'CrossOverAuthenticationManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'KnownHostsManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'LoginRecordManager.php');
-    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'MessagesManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'OtlManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeManager.php');
@@ -129,7 +128,6 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'KnownHost.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'LocationData.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'LoginRecord.php');
-    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Message.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'OneTimeLoginCode.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramVerificationCode.php');
