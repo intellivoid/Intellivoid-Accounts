@@ -15,6 +15,7 @@
     use IntellivoidAccounts\Managers\TelegramVerificationCodeManager;
     use IntellivoidAccounts\Managers\TrackingUserAgentManager;
     use IntellivoidAccounts\Managers\TransactionRecordManager;
+    use IntellivoidAccounts\Services\Telegram;
     use mysqli;
     use udp\udp;
 
@@ -136,6 +137,8 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserAgent.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserAgentRecord.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserLoginRecord.php');
+
+    include_once($LocalDirectory . 'Services' . DIRECTORY_SEPARATOR . 'Telegram.php');
 
     include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Hashing.php');
     include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Parse.php');
@@ -281,6 +284,11 @@
         private $TelegramConfiguration;
 
         /**
+         * @var Telegram
+         */
+        private $TelegramService;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -311,6 +319,7 @@
             $this->TrackingUserAgentManager = new TrackingUserAgentManager($this);
             $this->OtlManager = new OtlManager($this);
             $this->AuditLogManager = new AuditLogManager($this);
+            $this->TelegramService = new Telegram($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -458,6 +467,14 @@
         public function getTelegramConfiguration()
         {
             return $this->TelegramConfiguration;
+        }
+
+        /**
+         * @return Telegram
+         */
+        public function getTelegramService(): Telegram
+        {
+            return $this->TelegramService;
         }
 
     }
