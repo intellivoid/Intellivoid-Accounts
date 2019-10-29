@@ -49,7 +49,7 @@
         {
             if(count($this->KnownLocations) == 0)
             {
-                return null;
+                return 'None';
             }
 
             $TopResult = null;
@@ -77,7 +77,7 @@
 
             if($TopResult == null)
             {
-                return null;
+                return 'Unknown';
             }
 
             return $TopResult['country'];
