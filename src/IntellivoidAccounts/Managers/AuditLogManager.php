@@ -101,15 +101,7 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    return (int)$QueryResults->fetch_array()['total'];
-                }
+                return (int)$QueryResults->fetch_array()['total'];
             }
         }
 
@@ -140,22 +132,14 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    $ResultsArray = [];
+                $ResultsArray = [];
 
-                    while($Row = $QueryResults->fetch_assoc())
-                    {
-                        $ResultsArray[] = $Row;
-                    }
-
-                    return $ResultsArray;
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $ResultsArray[] = $Row;
                 }
+
+                return $ResultsArray;
             }
         }
 
@@ -185,22 +169,14 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    $ResultsArray = [];
+                $ResultsArray = [];
 
-                    while($Row = $QueryResults->fetch_assoc())
-                    {
-                        $ResultsArray[] = $Row;
-                    }
-
-                    return $ResultsArray;
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $ResultsArray[] = $Row;
                 }
+
+                return $ResultsArray;
             }
         }
     }

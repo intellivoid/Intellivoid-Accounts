@@ -277,15 +277,7 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    return (int)$QueryResults->fetch_array()['total'];
-                }
+                return (int)$QueryResults->fetch_array()['total'];
             }
         }
 
@@ -322,31 +314,23 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    $ResultsArray = [];
+                $ResultsArray = [];
 
-                    while($Row = $QueryResults->fetch_assoc())
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                    if($Row['flags'] == null)
                     {
-                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
-                        if($Row['flags'] == null)
-                        {
-                            $Row['flags'] = [];
-                        }
-                        else
-                        {
-                            $Row['flags'] = ZiProto::decode($Row['flags']);
-                        }
-                        $ResultsArray[] = $Row;
+                        $Row['flags'] = [];
                     }
-
-                    return $ResultsArray;
+                    else
+                    {
+                        $Row['flags'] = ZiProto::decode($Row['flags']);
+                    }
+                    $ResultsArray[] = $Row;
                 }
+
+                return $ResultsArray;
             }
         }
     }

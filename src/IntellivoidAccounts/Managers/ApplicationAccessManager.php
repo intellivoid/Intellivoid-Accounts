@@ -203,15 +203,7 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    return (int)$QueryResults->fetch_array()['total'];
-                }
+                return (int)$QueryResults->fetch_array()['total'];
             }
         }
 
@@ -234,15 +226,7 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    return (int)$QueryResults->fetch_array()['total'];
-                }
+                return (int)$QueryResults->fetch_array()['total'];
             }
         }
 
@@ -273,30 +257,22 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    $ResultsArray = [];
+                $ResultsArray = [];
 
-                    while($Row = $QueryResults->fetch_assoc())
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    if($Row['permissions'] == null)
                     {
-                        if($Row['permissions'] == null)
-                        {
-                            $Row['permissions'] = [];
-                        }
-                        else
-                        {
-                            $Row['permissions'] = ZiProto::decode($Row['permissions']);
-                        }
-                        $ResultsArray[] = $Row;
+                        $Row['permissions'] = [];
                     }
-
-                    return $ResultsArray;
+                    else
+                    {
+                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                    }
+                    $ResultsArray[] = $Row;
                 }
+
+                return $ResultsArray;
             }
         }
 
@@ -327,30 +303,22 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    $ResultsArray = [];
+                $ResultsArray = [];
 
-                    while($Row = $QueryResults->fetch_assoc())
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    if($Row['permissions'] == null)
                     {
-                        if($Row['permissions'] == null)
-                        {
-                            $Row['permissions'] = [];
-                        }
-                        else
-                        {
-                            $Row['permissions'] = ZiProto::decode($Row['permissions']);
-                        }
-                        $ResultsArray[] = $Row;
+                        $Row['permissions'] = [];
                     }
-
-                    return $ResultsArray;
+                    else
+                    {
+                        $Row['permissions'] = ZiProto::decode($Row['permissions']);
+                    }
+                    $ResultsArray[] = $Row;
                 }
+
+                return $ResultsArray;
             }
         }
 

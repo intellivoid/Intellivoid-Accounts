@@ -8,6 +8,7 @@
 
     /**
      * Class TransactionRecordNotFoundException
+     * @deprecated
      * @package IntellivoidAccounts\Exceptions
      */
     class TransactionRecordNotFoundException extends Exception

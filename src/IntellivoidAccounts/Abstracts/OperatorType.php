@@ -5,6 +5,7 @@
 
     /**
      * Class OperatorType
+     * @deprecated
      * @package IntellivoidAccounts\Abstracts
      */
     abstract class OperatorType

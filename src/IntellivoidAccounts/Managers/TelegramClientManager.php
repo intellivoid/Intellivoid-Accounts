@@ -160,12 +160,8 @@
         {
             switch($search_method)
             {
-                case TelegramClientSearchMethod::byUserId:
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
-                    break;
-
                 case TelegramClientSearchMethod::byChatId:
+                case TelegramClientSearchMethod::byUserId:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     $value = $this->intellivoidAccounts->database->real_escape_string($value);;
                     break;

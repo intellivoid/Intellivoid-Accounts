@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
     namespace IntellivoidAccounts\Managers;
 
@@ -71,22 +71,12 @@
 
             switch($status)
             {
-                case LoginStatus::Unknown:
-                    break;
-
-                case LoginStatus::Successful:
-                    break;
-
-                case LoginStatus::IncorrectCredentials:
-                    break;
-
-                case LoginStatus::VerificationFailed:
-                    break;
-
-                case LoginStatus::UntrustedIpBlocked:
-                    break;
-
                 case LoginStatus::BlockedSuspiciousActivities:
+                case LoginStatus::IncorrectCredentials:
+                case LoginStatus::VerificationFailed:
+                case LoginStatus::UntrustedIpBlocked:
+                case LoginStatus::Successful:
+                case LoginStatus::Unknown:
                     break;
 
                 default:
@@ -230,23 +220,15 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    $ResultsArray = [];
+                $ResultsArray = [];
 
-                    while($Row = $QueryResults->fetch_assoc())
-                    {
-                        $Row['user_agent'] = ZiProto::decode($Row['user_agent']);
-                        $ResultsArray[] = $Row;
-                    }
-
-                    return $ResultsArray;
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $Row['user_agent'] = ZiProto::decode($Row['user_agent']);
+                    $ResultsArray[] = $Row;
                 }
+
+                return $ResultsArray;
             }
         }
 
@@ -286,15 +268,7 @@
             }
             else
             {
-                $QueryResults = $this->intellivoidAccounts->database->query($Query);
-                if($QueryResults == false)
-                {
-                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
-                }
-                else
-                {
-                    return (int)$QueryResults->fetch_array()['total'];
-                }
+                return (int)$QueryResults->fetch_array()['total'];
             }
         }
     }

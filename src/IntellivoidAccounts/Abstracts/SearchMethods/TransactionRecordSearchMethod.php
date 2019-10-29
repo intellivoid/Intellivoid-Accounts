@@ -5,6 +5,7 @@
 
     /**
      * Class TransactionRecordSearchMethod
+     * @deprecated
      * @package IntellivoidAccounts\Abstracts
      */
     abstract class TransactionRecordSearchMethod

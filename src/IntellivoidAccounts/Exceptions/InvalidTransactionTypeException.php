@@ -8,6 +8,7 @@
 
     /**
      * Class InvalidTransactionTypeException
+     * @deprecated
      * @package IntellivoidAccounts\Exceptions
      */
     class InvalidTransactionTypeException extends Exception

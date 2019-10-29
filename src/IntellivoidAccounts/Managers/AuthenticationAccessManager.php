@@ -4,7 +4,6 @@
     namespace IntellivoidAccounts\Managers;
 
     use IntellivoidAccounts\Abstracts\AuthenticationAccessStatus;
-    use IntellivoidAccounts\Abstracts\AuthenticationRequestStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AuthenticationAccessSearchMethod;
     use IntellivoidAccounts\Exceptions\AuthenticationAccessNotFoundException;
     use IntellivoidAccounts\Exceptions\AuthenticationRequestAlreadyUsedException;

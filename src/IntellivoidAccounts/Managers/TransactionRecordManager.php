@@ -26,6 +26,7 @@
 
     /**
      * Class TransactionRecordManager
+     * @deprecated Not used anymore
      * @package IntellivoidAccounts\Managers
      */
     class TransactionRecordManager

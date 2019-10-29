@@ -7,6 +7,11 @@
     use IntellivoidAccounts\Abstracts\OperatorType;
     use IntellivoidAccounts\Abstracts\TransactionType;
 
+    /**
+     * Class TransactionRecord
+     * @deprecated
+     * @package IntellivoidAccounts\Objects
+     */
     class TransactionRecord
     {
         /**

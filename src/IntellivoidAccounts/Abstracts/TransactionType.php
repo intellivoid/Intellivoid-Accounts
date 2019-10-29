@@ -5,6 +5,7 @@
 
     /**
      * Class TransactionType
+     * @deprecated
      * @package IntellivoidAccounts\Abstracts
      */
     abstract class TransactionType
