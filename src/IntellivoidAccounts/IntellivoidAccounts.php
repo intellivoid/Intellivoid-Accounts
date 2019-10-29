@@ -120,6 +120,7 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient' . DIRECTORY_SEPARATOR . 'User.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'CurlVerification.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'RecoveryCodes.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'TelegramLink.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'VerificationMethods' . DIRECTORY_SEPARATOR . 'TwoFactorAuthentication.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'ApplicationAccess.php');
