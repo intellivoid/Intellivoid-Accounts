@@ -275,6 +275,11 @@
         private $AuditLogManager;
 
         /**
+         * @var mixed
+         */
+        private $TelegramConfiguration;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -284,6 +289,7 @@
             $this->DatabaseConfiguration = $this->acm->getConfiguration('Database');
             $this->IpStackConfiguration = $this->acm->getConfiguration('IpStack');
             $this->SystemConfiguration = $this->acm->getConfiguration('System');
+            $this->TelegramConfiguration = $this->acm->getConfiguration('TelegramService');
 
             $this->database = new mysqli(
                 $this->DatabaseConfiguration['Host'],
@@ -443,6 +449,14 @@
         public function getAuditLogManager(): AuditLogManager
         {
             return $this->AuditLogManager;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getTelegramConfiguration()
+        {
+            return $this->TelegramConfiguration;
         }
 
     }
