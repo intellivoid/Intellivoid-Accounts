@@ -248,4 +248,35 @@
             $this->updateRecord($user_agent_record);
             return $tracking_id;
         }
+
+        /**
+         * Returns the total amount of Tracking User Agent records by the Host ID
+         *
+         * @param int $host_id
+         * @return int
+         * @throws DatabaseException
+         */
+        public function getTotalRecordsByHost(int $host_id): int
+        {
+            $host_id = (int)$host_id;
+            $Query = "SELECT COUNT(id) AS total FROM `tracking_user_agents` WHERE host_id=$host_id";
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $QueryResults = $this->intellivoidAccounts->database->query($Query);
+                if($QueryResults == false)
+                {
+                    throw new DatabaseException($this->intellivoidAccounts->database->error, $Query);
+                }
+                else
+                {
+                    return (int)$QueryResults->fetch_array()['total'];
+                }
+            }
+        }
     }
