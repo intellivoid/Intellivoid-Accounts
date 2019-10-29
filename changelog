@@ -24,3 +24,4 @@ v2.0.1.3 (Zi Xing)
     - Removed Messaging System (Unused)
     - Added getTotalRecordsByHost() to \IntellivoidAccounts\Managers > TuaManager
     - Added getRecordsByHost() to \IntellivoidAccounts\Managers > TuaManager
+    - Corrected double-call queries
