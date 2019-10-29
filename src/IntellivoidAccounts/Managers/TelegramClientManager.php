@@ -37,17 +37,39 @@
         }
 
         /**
-         * Registers a new client into the database
+         * Registers a new client into the database, if it already exists then update it
          *
          * @param Chat $chat
          * @param User $user
          * @return TelegramClient
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramClientNotFoundException
          */
         public function registerClient(Chat $chat, User $user): TelegramClient
         {
             $CurrentTime = (int)time();
             $PublicID = Hashing::telegramClientPublicID($chat->ID, $user->ID);
+
+            try
+            {
+                $ExistingClient = $this->getClient(TelegramClientSearchMethod::byPublicId, $PublicID);
+
+                $ExistingClient->LastActivityTimestamp = $CurrentTime;
+                $ExistingClient->Available = true;
+                $ExistingClient->User = $user;
+                $ExistingClient->Chat = $chat;
+
+                $this->updateClient($ExistingClient);
+
+                return $ExistingClient;
+            }
+            catch (TelegramClientNotFoundException $e)
+            {
+                // Ignore this exception
+                unset($e);
+            }
+
             $PublicID = $this->intellivoidAccounts->database->real_escape_string($PublicID);
             $Available = (int)true;
             $AccountID = 0;
@@ -83,7 +105,7 @@
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
 
-            return new TelegramClient();
+            return $this->getClient(TelegramClientSearchMethod::byPublicId, $PublicID);
         }
 
         /**
