@@ -66,6 +66,7 @@
                 'is_bot' => (bool)$this->IsBot,
                 'first_name' => $this->FirstName,
                 'last_name' => $this->LastName,
+                'username' => $this->Username,
                 'language_code' => $this->LanguageCode
             );
         }
@@ -98,6 +99,16 @@
             if(isset($data['last_name']))
             {
                 $UserObject->LastName = $data['last_name'];
+            }
+
+            if(isset($data['username']))
+            {
+                $UserObject->Username = $data['username'];
+            }
+
+            if(isset($data['language_code']))
+            {
+                $UserObject->LanguageCode = $data['language_code'];
             }
 
             return $UserObject;
