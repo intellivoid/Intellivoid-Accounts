@@ -91,4 +91,6 @@
         const InvalidApplicationFlagException = 139;
 
         const TelegramApiException = 140;
+
+        const TelegramServicesNotAvailableException = 141;
     }

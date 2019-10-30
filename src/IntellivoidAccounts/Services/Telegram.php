@@ -67,6 +67,17 @@
             return $result;
         }
 
+        /**
+         * Builds the URL for the given endpoint via action
+         *
+         * @param string $action
+         * @return string
+         */
+        private function getEndpoint(string $action): string
+        {
+            return "https://api.telegram.org/bot" . $this->intellivoidAccounts->getTelegramConfiguration()['TgBotToken'] . "/$action";
+        }
+
         public function sendNotification(TelegramClient $telegramClient, string $from, string $message): bool
         {
 
