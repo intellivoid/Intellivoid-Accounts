@@ -281,4 +281,20 @@
             return true;
         }
 
+        /**
+         * Validates if a URL is valid or not
+         *
+         * @param string $input
+         * @return bool
+         */
+        public static function url(string $input): bool
+        {
+            if(filter_var($input, FILTER_VALIDATE_URL) == false)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }

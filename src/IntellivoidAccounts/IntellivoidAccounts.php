@@ -81,10 +81,12 @@
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidRequestPermissionException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidSearchMethodException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidTransactionTypeException.php');
+    include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidUrlException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidUsernameException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidVendorException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'LoginRecordNotFoundException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'OtlNotFoundException.php');
+    include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramActionFailedException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramApiException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramClientNotFoundException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramServicesNotAvailableException.php');

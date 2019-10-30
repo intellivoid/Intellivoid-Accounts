@@ -93,4 +93,6 @@
         const TelegramApiException = 140;
 
         const TelegramServicesNotAvailableException = 141;
+
+        const InvalidUrlException = 142;
     }
