@@ -89,4 +89,6 @@
         const ApplicationAccessNotFoundException = 138;
 
         const InvalidApplicationFlagException = 139;
+
+        const TelegramApiException = 140;
     }
