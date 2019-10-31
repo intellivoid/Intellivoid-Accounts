@@ -95,4 +95,6 @@
         const TelegramServicesNotAvailableException = 141;
 
         const InvalidUrlException = 142;
+
+        const TooManyPromptRequestsException = 143;
     }

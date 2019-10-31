@@ -10,4 +10,5 @@
         \IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod::byId, '1'
     );
 
-    $IntellivoidAccounts->getTelegramService()->sendNotification($TelegramClient, "CoffeeHouse", "Test Notification!");
+    //$IntellivoidAccounts->getTelegramService()->sendNotification($TelegramClient, "CoffeeHouse", "Test Notification!");
+    $IntellivoidAccounts->getTelegramService()->promptAuth($TelegramClient, "Netkas");

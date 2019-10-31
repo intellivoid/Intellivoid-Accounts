@@ -10,6 +10,7 @@
     use IntellivoidAccounts\Exceptions\TelegramActionFailedException;
     use IntellivoidAccounts\Exceptions\TelegramApiException;
     use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
+    use IntellivoidAccounts\Exceptions\TooManyPromptRequestsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TelegramClient;
     use IntellivoidAccounts\Utilities\Validate;
@@ -40,7 +41,10 @@
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
             $this->emojis = array(
-                'BELL' => "\u{1F514}"
+                'BELL' => "\u{1F514}",
+                'LOCK' => "\u{1F512}",
+                'CHECK' => "\u{2705}",
+                'DENY' => "\u{1F6AB}"
             );
         }
 
@@ -149,6 +153,108 @@
             $telegramClient->Available = true;
             $telegramClient->LastActivityTimestamp = (int)time();
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+
+            return true;
+        }
+
+        /**
+         * Prompts the user for authentication
+         *
+         * @param TelegramClient $telegramClient
+         * @param string $username
+         * @param string $ip_address
+         * @return bool
+         * @throws DatabaseException
+         * @throws TelegramActionFailedException
+         * @throws TelegramApiException
+         * @throws TelegramServicesNotAvailableException
+         * @throws TooManyPromptRequestsException
+         */
+        public function promptAuth(TelegramClient $telegramClient, string $username): bool
+        {
+            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
+            {
+                throw new TelegramServicesNotAvailableException();
+            }
+
+            // Check the current attempts and expire sessions
+            if($telegramClient->SessionData->keyExists('auth', 'current_attempts') == false)
+            {
+                $telegramClient->SessionData->setData('auth', 'current_attempts', 0);
+            }
+            else
+            {
+                $current_time = (int)time();
+                /** @var int $attempts_reset */
+                $attempts_reset = $telegramClient->SessionData->getData('auth', 'attempts_reset');
+                /** @var int $current_attempts */
+                $current_attempts = $telegramClient->SessionData->getData('auth', 'current_attempts');
+
+                if($current_time > $attempts_reset)
+                {
+                    $telegramClient->SessionData->setData('auth', 'current_attempts', 0);
+                }
+                else
+                {
+                    if($current_attempts == 3)
+                    {
+                        throw new TooManyPromptRequestsException();
+                    }
+                    else
+                    {
+                        $current_attempts += 1;
+                        $telegramClient->SessionData->setData('auth', 'current_attempts', $current_attempts);
+                    }
+                }
+            }
+
+            $telegramClient->SessionData->setData('auth', 'attempts_reset', (int)time() + 1800);
+            $telegramClient->SessionData->setData('auth', 'currently_active', true);
+            $telegramClient->SessionData->setData('auth', 'expires', (int)time() + 300);
+
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+
+            $Response = json_decode($this->sendRequest($this->getEndpoint('sendMessage'), array(
+                'chat_id' => $telegramClient->Chat->ID,
+                'parse_mode' => 'html',
+                'text' =>
+                    $this->emojis['LOCK'] . " Hi " . $username . ", please confirm the authentication request\n\n" .
+                    "<b>IP:</b> <code>12.0.0.1</code>\n" .
+                    "<b>Country:</b> <code>Unknown</code>\n" .
+                    "<b>Device:</b> <code>Android</code>\n" .
+                    "<b>Browser:</b> <code>Chrome</code>\n\n" .
+                    "<i>If this was not you, click deny and change your password immediately</i>",
+                'reply_markup' =>  array(
+                    "inline_keyboard" => [
+                        [
+                            array("text" => $this->emojis['DENY'] . ' Deny', "callback_data" => "auth_deny"),
+                            array("text" => $this->emojis['CHECK'] . ' Authenticate', "callback_data" => "auth_allow")
+                        ]
+                    ]
+                )
+            )), true);
+
+            if($Response['ok'] == false)
+            {
+                $Message = "unknown";
+                $ErrorCode = 0;
+
+                if(isset($Response['description']))
+                {
+                    $Message = $Response['description'];
+                }
+
+                if(isset($Response['error_code']))
+                {
+                    $ErrorCode = (int)$Response['error_code'];
+                }
+
+                $telegramClient->Available = false;
+                $telegramClient->LastActivityTimestamp = (int)time();
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+
+                throw new TelegramActionFailedException($Message, $ErrorCode);
+            }
 
             return true;
         }
