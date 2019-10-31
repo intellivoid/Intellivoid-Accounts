@@ -97,4 +97,6 @@
         const InvalidUrlException = 142;
 
         const TooManyPromptRequestsException = 143;
+
+        const AuthNotPromptedException = 144;
     }

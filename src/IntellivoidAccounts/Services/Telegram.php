@@ -224,7 +224,7 @@
                     "<b>Device:</b> <code>Android</code>\n" .
                     "<b>Browser:</b> <code>Chrome</code>\n\n" .
                     "<i>If this was not you, click deny and change your password immediately</i>",
-                'reply_markup' =>  array(
+                    'reply_markup' =>  array(
                     "inline_keyboard" => [
                         [
                             array("text" => $this->emojis['DENY'] . ' Deny', "callback_data" => "auth_deny"),
@@ -257,5 +257,18 @@
             }
 
             return true;
+        }
+
+        public function approve_auth(TelegramClient $telegramClient)
+        {
+            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
+            {
+                throw new TelegramServicesNotAvailableException();
+            }
+
+            if($telegramClient->SessionData->keyExists('auth', 'attempts_reset') == false)
+            {
+
+            }
         }
     }
