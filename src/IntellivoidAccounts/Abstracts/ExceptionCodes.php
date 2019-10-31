@@ -41,12 +41,15 @@
 
         const InvalidAccountStatusException = 115;
 
+        /** @deprecated  */
         const InsufficientFundsException = 116;
 
         const InvalidVendorException = 117;
 
+        /** @deprecated  */
         const InvalidTransactionTypeException = 118;
 
+        /** @deprecated  */
         const TransactionRecordNotFoundException = 119;
 
         const HostNotKnownException = 120;
@@ -99,4 +102,6 @@
         const TooManyPromptRequestsException = 143;
 
         const AuthNotPromptedException = 144;
+
+        const AuthPromptExpiredException = 145;
     }
