@@ -6,6 +6,7 @@
 
     use Exception;
     use IntellivoidAccounts\Exceptions\AuthNotPromptedException;
+    use IntellivoidAccounts\Exceptions\AuthPromptAlreadyApprovedException;
     use IntellivoidAccounts\Exceptions\AuthPromptExpiredException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidUrlException;
@@ -269,8 +270,9 @@
          * @return bool
          * @throws AuthNotPromptedException
          * @throws AuthPromptExpiredException
+         * @throws AuthPromptAlreadyApprovedException
          */
-        private function check_prompt_state(TelegramClient $telegramClient): bool
+        private function checkPromptState(TelegramClient $telegramClient): bool
         {
             // Check the prompt status
             if($telegramClient->SessionData->keyExists('auth', 'attempts_reset') == false)
@@ -298,20 +300,22 @@
                 throw new AuthNotPromptedException();
             }
 
-            /** @var int $attempts_reset */
-            $attempts_reset = $telegramClient->SessionData->getData('auth', 'attempts_reset');
-            /** @var int $current_attempts */
-            $current_attempts = $telegramClient->SessionData->getData('auth', 'current_attempts');
             /** @var bool $currently_active */
             $currently_active = $telegramClient->SessionData->getData('auth', 'currently_active');
             /** @var int $expires */
             $expires = $telegramClient->SessionData->getData('auth', 'expires');
+            /** @var bool $expires */
+            $approved = $telegramClient->SessionData->getData('auth', 'approved');
 
             if($currently_active == false)
             {
                 throw new AuthNotPromptedException();
             }
 
+            if($approved == true)
+            {
+                throw new AuthPromptAlreadyApprovedException();
+            }
 
             if((int)time() > $expires)
             {
@@ -322,20 +326,13 @@
         }
 
         /**
+         * Returns the state of the authentication method
+         *
          * @param TelegramClient $telegramClient
-         * @throws AuthNotPromptedException
-         * @throws AuthPromptExpiredException
-         * @throws TelegramServicesNotAvailableException
+         * @return array
          */
-        public function approve_auth(TelegramClient $telegramClient)
+        private function getAuth(TelegramClient $telegramClient): array
         {
-            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
-            {
-                throw new TelegramServicesNotAvailableException();
-            }
-
-            $this->check_prompt_state($telegramClient);
-
             /** @var int $attempts_reset */
             $attempts_reset = $telegramClient->SessionData->getData('auth', 'attempts_reset');
             /** @var int $current_attempts */
@@ -344,5 +341,34 @@
             $currently_active = $telegramClient->SessionData->getData('auth', 'currently_active');
             /** @var int $expires */
             $expires = $telegramClient->SessionData->getData('auth', 'expires');
+            /** @var bool $approved */
+            $approved = $telegramClient->SessionData->getData('auth', 'approved');
+
+            return array(
+                'attempts_reset' => (int)$attempts_reset,
+                'current_attempts' => (int)$current_attempts,
+                'currently_active' => (bool)$currently_active,
+                'expires' => (int)$expires,
+                'approved' => (bool)$approved
+            );
+        }
+
+        /**
+         * @param TelegramClient $telegramClient
+         * @throws AuthNotPromptedException
+         * @throws AuthPromptAlreadyApprovedException
+         * @throws AuthPromptExpiredException
+         * @throws TelegramServicesNotAvailableException
+         */
+        public function approveAuth(TelegramClient $telegramClient)
+        {
+            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
+            {
+                throw new TelegramServicesNotAvailableException();
+            }
+
+            $this->checkPromptState($telegramClient);
+
+
         }
     }
