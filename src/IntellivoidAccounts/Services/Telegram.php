@@ -460,4 +460,32 @@
                 $this->updateAuthPrompt($telegramClient, $AuthPrompt)
             );
         }
+
+        /**
+         * Disallows the auth prompt and updates the state
+         *
+         * @param TelegramClient $telegramClient
+         * @throws AuthNotPromptedException
+         * @throws AuthPromptAlreadyApprovedException
+         * @throws AuthPromptExpiredException
+         * @throws DatabaseException
+         * @throws TelegramServicesNotAvailableException
+         */
+        public function disallowAuth(TelegramClient $telegramClient)
+        {
+            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
+            {
+                throw new TelegramServicesNotAvailableException();
+            }
+
+            $this->checkPromptState($telegramClient);
+            $AuthPrompt = $this->getAuthPrompt($telegramClient);
+
+            $AuthPrompt['approved'] = false;
+            $AuthPrompt['currently_active'] = false;
+
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
+                $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+            );
+        }
     }
