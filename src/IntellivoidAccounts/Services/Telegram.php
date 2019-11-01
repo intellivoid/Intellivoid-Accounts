@@ -331,7 +331,7 @@
          * @param TelegramClient $telegramClient
          * @return array
          */
-        private function getAuth(TelegramClient $telegramClient): array
+        private function getAuthPrompt(TelegramClient $telegramClient): array
         {
             /** @var int $attempts_reset */
             $attempts_reset = $telegramClient->SessionData->getData('auth', 'attempts_reset');
@@ -351,6 +351,24 @@
                 'expires' => (int)$expires,
                 'approved' => (bool)$approved
             );
+        }
+
+        /**
+         * Updates the authentication prompt via properties
+         *
+         * @param TelegramClient $telegramClient
+         * @param array $properties
+         * @return TelegramClient
+         */
+        private function updateAuthPrompt(TelegramClient $telegramClient, array $properties): TelegramClient
+        {
+            $telegramClient->SessionData->setData('auth', 'attempts_reset', (int)$properties['attempts_reset']);
+            $telegramClient->SessionData->setData('auth', 'current_attempts', (int)$properties['current_attempts']);
+            $telegramClient->SessionData->setData('auth', 'currently_active', (bool)$properties['currently_active']);
+            $telegramClient->SessionData->setData('auth', 'expires', (int)$properties['expires']);
+            $telegramClient->SessionData->setData('auth', 'approved', (bool)$properties['approved']);
+
+            return $telegramClient;
         }
 
         /**
