@@ -1,5 +1,6 @@
-<?php
-    /** @noinspection PhpUnused */
+<?php /** @noinspection DuplicatedCode */
+
+/** @noinspection PhpUnused */
 
 
     namespace IntellivoidAccounts\Services;
@@ -487,5 +488,72 @@
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
                 $this->updateAuthPrompt($telegramClient, $AuthPrompt)
             );
+        }
+
+        /**
+         * Polls the auth prompt and determines if the prompt has been approved or not
+         *
+         * @param TelegramClient $telegramClient
+         * @return bool
+         * @throws AuthNotPromptedException
+         * @throws AuthPromptExpiredException
+         * @throws TelegramServicesNotAvailableException
+         */
+        public function pollAuthPrompt(TelegramClient $telegramClient): bool
+        {
+            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
+            {
+                throw new TelegramServicesNotAvailableException();
+            }
+
+            // Check the prompt status
+            if($telegramClient->SessionData->keyExists('auth', 'attempts_reset') == false)
+            {
+                throw new AuthNotPromptedException();
+            }
+
+            if($telegramClient->SessionData->keyExists('auth', 'current_attempts') == false)
+            {
+                throw new AuthNotPromptedException();
+            }
+
+            if($telegramClient->SessionData->keyExists('auth', 'currently_active') == false)
+            {
+                throw new AuthNotPromptedException();
+            }
+
+            if($telegramClient->SessionData->keyExists('auth', 'expires') == false)
+            {
+                throw new AuthNotPromptedException();
+            }
+
+            if($telegramClient->SessionData->keyExists('auth', 'approved') == false)
+            {
+                throw new AuthNotPromptedException();
+            }
+
+            /** @var bool $currently_active */
+            $currently_active = $telegramClient->SessionData->getData('auth', 'currently_active');
+            /** @var int $expires */
+            $expires = $telegramClient->SessionData->getData('auth', 'expires');
+            /** @var bool $expires */
+            $approved = $telegramClient->SessionData->getData('auth', 'approved');
+
+            if($currently_active == false)
+            {
+                throw new AuthNotPromptedException();
+            }
+
+            if((int)time() > $expires)
+            {
+                throw new AuthPromptExpiredException();
+            }
+
+            if($approved == true)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
