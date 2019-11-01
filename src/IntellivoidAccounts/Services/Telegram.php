@@ -459,6 +459,5 @@
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
                 $this->updateAuthPrompt($telegramClient, $AuthPrompt)
             );
-
         }
     }
