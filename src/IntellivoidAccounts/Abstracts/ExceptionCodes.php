@@ -104,4 +104,6 @@
         const AuthNotPromptedException = 144;
 
         const AuthPromptExpiredException = 145;
+
+        const AuthPromptAlreadyApprovedException = 146;
     }
