@@ -1,14 +1,17 @@
 <?php
+    /** @noinspection PhpUnused */
 
 
     namespace IntellivoidAccounts\Services;
 
-
     use Exception;
+    use IntellivoidAccounts\Abstracts\SearchMethods\KnownHostsSearchMethod;
     use IntellivoidAccounts\Exceptions\AuthNotPromptedException;
     use IntellivoidAccounts\Exceptions\AuthPromptAlreadyApprovedException;
     use IntellivoidAccounts\Exceptions\AuthPromptExpiredException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\HostNotKnownException;
+    use IntellivoidAccounts\Exceptions\InvalidIpException;
     use IntellivoidAccounts\Exceptions\InvalidUrlException;
     use IntellivoidAccounts\Exceptions\TelegramActionFailedException;
     use IntellivoidAccounts\Exceptions\TelegramApiException;
@@ -16,6 +19,7 @@
     use IntellivoidAccounts\Exceptions\TooManyPromptRequestsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TelegramClient;
+    use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Utilities\Validate;
 
     /**
@@ -131,6 +135,7 @@
                 'reply_markup' => $keyboard
             )), true);
 
+            /** @noinspection DuplicatedCode */
             if($Response['ok'] == false)
             {
                 $Message = "unknown";
@@ -165,15 +170,18 @@
          *
          * @param TelegramClient $telegramClient
          * @param string $username
-         * @param string $ip_address
+         * @param string $user_agent
+         * @param int $known_host_id
          * @return bool
          * @throws DatabaseException
          * @throws TelegramActionFailedException
          * @throws TelegramApiException
          * @throws TelegramServicesNotAvailableException
          * @throws TooManyPromptRequestsException
+         * @throws HostNotKnownException
+         * @throws InvalidIpException
          */
-        public function promptAuth(TelegramClient $telegramClient, string $username): bool
+        public function promptAuth(TelegramClient $telegramClient, string $username, string $user_agent, int $known_host_id): bool
         {
             if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
             {
@@ -218,15 +226,68 @@
 
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
 
+
+            $user_agent_x = null;
+
+            if(Validate::userAgent($user_agent))
+            {
+                $user_agent_x = UserAgent::fromString($user_agent);
+            }
+            else
+            {
+                $user_agent_x = new UserAgent();
+                $user_agent_x->UserAgentString = "None";
+            }
+
+            $host = $this->intellivoidAccounts->getKnownHostsManager()->getHost(KnownHostsSearchMethod::byId, $known_host_id);
+
+            $ip = $host->IpAddress;
+            /** @noinspection PhpUnusedLocalVariableInspection */
+            $country = "Unknown";
+            $device = "Unknown";
+            $browser = "Unknown";
+
+            if($host->LocationData->CountryName == null)
+            {
+                $country = "Unknown";
+            }
+            else
+            {
+                if(isset($host->LocationData->City))
+                {
+                    $country = $host->LocationData->City;
+                    $country .= ' ' . $host->LocationData->CountryName;
+                }
+                else
+                {
+                    $country = $host->LocationData->CountryName;
+                }
+
+                if(isset($host->LocationData->ZipCode))
+                {
+                    $country .= ' (' . $host->LocationData->ZipCode . ')';
+                }
+            }
+
+            if($user_agent_x->Platform !== null)
+            {
+                $device = $user_agent_x->Platform;
+            }
+
+            if($user_agent_x->Browser !== null)
+            {
+                $browser = $user_agent_x->Browser;
+            }
+
             $Response = json_decode($this->sendRequest($this->getEndpoint('sendMessage'), array(
                 'chat_id' => $telegramClient->Chat->ID,
                 'parse_mode' => 'html',
                 'text' =>
                     $this->emojis['LOCK'] . " Hi " . $username . ", please confirm the authentication request\n\n" .
-                    "<b>IP:</b> <code>12.0.0.1</code>\n" .
-                    "<b>Country:</b> <code>Unknown</code>\n" .
-                    "<b>Device:</b> <code>Android</code>\n" .
-                    "<b>Browser:</b> <code>Chrome</code>\n\n" .
+                    "<b>IP:</b> <code>$ip</code>\n" .
+                    "<b>Country:</b> <code>$country</code>\n" .
+                    "<b>Device:</b> <code>$device</code>\n" .
+                    "<b>Browser:</b> <code>$browser</code>\n\n" .
                     "<i>If this was not you, click deny and change your password immediately</i>",
                     'reply_markup' =>  array(
                     "inline_keyboard" => [
@@ -238,6 +299,7 @@
                 )
             )), true);
 
+            /** @noinspection DuplicatedCode */
             if($Response['ok'] == false)
             {
                 $Message = "unknown";
@@ -372,11 +434,14 @@
         }
 
         /**
+         * Approves of the auth prompt and updates the state
+         *
          * @param TelegramClient $telegramClient
          * @throws AuthNotPromptedException
          * @throws AuthPromptAlreadyApprovedException
          * @throws AuthPromptExpiredException
          * @throws TelegramServicesNotAvailableException
+         * @throws DatabaseException
          */
         public function approveAuth(TelegramClient $telegramClient)
         {
@@ -386,7 +451,14 @@
             }
 
             $this->checkPromptState($telegramClient);
+            $AuthPrompt = $this->getAuthPrompt($telegramClient);
 
+            $AuthPrompt['approved'] = true;
+            $AuthPrompt['currently_active'] = false;
+
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
+                $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+            );
 
         }
     }
