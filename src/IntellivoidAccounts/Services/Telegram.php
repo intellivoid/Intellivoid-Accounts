@@ -56,7 +56,8 @@
                 'BELL' => "\u{1F514}",
                 'LOCK' => "\u{1F512}",
                 'CHECK' => "\u{2705}",
-                'DENY' => "\u{1F6AB}"
+                'DENY' => "\u{1F6AB}",
+                "PARTY_POPPER" => "\u{1F389}"
             );
         }
 
@@ -138,6 +139,61 @@
                 'parse_mode' => 'html',
                 'text' => $this->emojis['BELL'] . " <b>Notification from $from</b>\n\n$message",
                 'reply_markup' => $keyboard
+            )), true);
+
+            /** @noinspection DuplicatedCode */
+            if($Response['ok'] == false)
+            {
+                $Message = "unknown";
+                $ErrorCode = 0;
+
+                if(isset($Response['description']))
+                {
+                    $Message = $Response['description'];
+                }
+
+                if(isset($Response['error_code']))
+                {
+                    $ErrorCode = (int)$Response['error_code'];
+                }
+
+                $telegramClient->Available = false;
+                $telegramClient->LastActivityTimestamp = (int)time();
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+
+                throw new TelegramActionFailedException($Message, $ErrorCode);
+            }
+
+            $telegramClient->Available = true;
+            $telegramClient->LastActivityTimestamp = (int)time();
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+
+            return true;
+        }
+
+        /**
+         * Sends a notification starting that the user has linked their Telegram Account successfully
+         *
+         * @param TelegramClient $telegramClient
+         * @return bool
+         * @throws DatabaseException
+         * @throws TelegramActionFailedException
+         * @throws TelegramApiException
+         * @throws TelegramServicesNotAvailableException
+         */
+        public function sendLinkedNotification(TelegramClient $telegramClient)
+        {
+            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
+            {
+                throw new TelegramServicesNotAvailableException();
+            }
+
+            $Response = json_decode($this->sendRequest($this->getEndpoint('sendMessage'), array(
+                'chat_id' => $telegramClient->Chat->ID,
+                'parse_mode' => 'html',
+                'text' =>
+                    $this->emojis['PARTY_POPPER'] . " Your Telegram has been linked to your Intellivoid Account!\n\n".
+                    "You will receive notifications and authentication prompts here"
             )), true);
 
             /** @noinspection DuplicatedCode */
