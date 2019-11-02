@@ -226,7 +226,7 @@
 
             $telegramClient->SessionData->setData('auth', 'attempts_reset', (int)time() + 1800);
             $telegramClient->SessionData->setData('auth', 'currently_active', true);
-            $telegramClient->SessionData->setData('auth', 'expires', (int)time() + 300);
+            $telegramClient->SessionData->setData('auth', 'expires', (int)time() + 180);
             $telegramClient->SessionData->setData('auth', 'approved', false);
             $telegramClient->SessionData->setData('auth', 'disallowed', false);
 
