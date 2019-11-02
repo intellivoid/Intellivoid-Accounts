@@ -227,6 +227,61 @@
         }
 
         /**
+         * Sends a notification stating the Telegram client has been unlinked
+         *
+         * @param TelegramClient $telegramClient
+         * @return bool
+         * @throws DatabaseException
+         * @throws TelegramActionFailedException
+         * @throws TelegramApiException
+         * @throws TelegramServicesNotAvailableException
+         */
+        public function sendUnlinkedNotification(TelegramClient $telegramClient)
+        {
+            if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
+            {
+                throw new TelegramServicesNotAvailableException();
+            }
+
+            $Response = json_decode($this->sendRequest($this->getEndpoint('sendMessage'), array(
+                'chat_id' => $telegramClient->Chat->ID,
+                'parse_mode' => 'html',
+                'text' =>
+                    "You have unlinked your Telegram account from Intellivoid Accounts!\n\n".
+                    "You will mo longer receive notifications and authentication prompts here"
+            )), true);
+
+            /** @noinspection DuplicatedCode */
+            if($Response['ok'] == false)
+            {
+                $Message = "unknown";
+                $ErrorCode = 0;
+
+                if(isset($Response['description']))
+                {
+                    $Message = $Response['description'];
+                }
+
+                if(isset($Response['error_code']))
+                {
+                    $ErrorCode = (int)$Response['error_code'];
+                }
+
+                $telegramClient->Available = false;
+                $telegramClient->LastActivityTimestamp = (int)time();
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+
+                throw new TelegramActionFailedException($Message, $ErrorCode);
+            }
+
+            $telegramClient->Available = true;
+            $telegramClient->LastActivityTimestamp = (int)time();
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+
+            return true;
+        }
+
+        /**
          * Prompts the user for authentication
          *
          * @param TelegramClient $telegramClient
@@ -644,6 +699,28 @@
 
             if($approved == true)
             {
+                return true;
+            }
+
+            if($disallowed == true)
+            {
+                throw new AuthPromptDeniedException();
+            }
+
+            return false;
+        }
+
+        /**
+         * Closes the auth prompt to prevent further polling
+         *
+         * @param TelegramClient $telegramClient
+         * @param bool $allow_further_attempts
+         * @throws DatabaseException
+         */
+        public function closePrompt(TelegramClient $telegramClient, bool $allow_further_attempts = false)
+        {
+            if($allow_further_attempts == true)
+            {
                 $AuthPrompt = $this->getAuthPrompt($telegramClient);
 
                 $AuthPrompt['currently_active'] = false;
@@ -653,11 +730,8 @@
                 $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
                     $this->updateAuthPrompt($telegramClient, $AuthPrompt)
                 );
-
-                return true;
             }
-
-            if($disallowed == true)
+            else
             {
                 $AuthPrompt = $this->getAuthPrompt($telegramClient);
 
@@ -666,10 +740,6 @@
                 $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
                     $this->updateAuthPrompt($telegramClient, $AuthPrompt)
                 );
-
-                throw new AuthPromptDeniedException();
             }
-
-            return false;
         }
     }
