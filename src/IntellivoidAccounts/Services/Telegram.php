@@ -7,15 +7,19 @@
 
     use Exception;
     use IntellivoidAccounts\Abstracts\SearchMethods\KnownHostsSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod;
     use IntellivoidAccounts\Exceptions\AuthNotPromptedException;
     use IntellivoidAccounts\Exceptions\AuthPromptAlreadyApprovedException;
+    use IntellivoidAccounts\Exceptions\AuthPromptDeniedException;
     use IntellivoidAccounts\Exceptions\AuthPromptExpiredException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\HostNotKnownException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUrlException;
     use IntellivoidAccounts\Exceptions\TelegramActionFailedException;
     use IntellivoidAccounts\Exceptions\TelegramApiException;
+    use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
     use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
     use IntellivoidAccounts\Exceptions\TooManyPromptRequestsException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -224,6 +228,7 @@
             $telegramClient->SessionData->setData('auth', 'currently_active', true);
             $telegramClient->SessionData->setData('auth', 'expires', (int)time() + 300);
             $telegramClient->SessionData->setData('auth', 'approved', false);
+            $telegramClient->SessionData->setData('auth', 'disallowed', false);
 
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
 
@@ -334,6 +339,7 @@
          * @throws AuthNotPromptedException
          * @throws AuthPromptExpiredException
          * @throws AuthPromptAlreadyApprovedException
+         * @throws AuthPromptDeniedException
          */
         private function checkPromptState(TelegramClient $telegramClient): bool
         {
@@ -363,16 +369,28 @@
                 throw new AuthNotPromptedException();
             }
 
+            if($telegramClient->SessionData->keyExists('auth', 'disallowed') == false)
+            {
+                throw new AuthNotPromptedException();
+            }
+
             /** @var bool $currently_active */
             $currently_active = $telegramClient->SessionData->getData('auth', 'currently_active');
             /** @var int $expires */
             $expires = $telegramClient->SessionData->getData('auth', 'expires');
             /** @var bool $expires */
             $approved = $telegramClient->SessionData->getData('auth', 'approved');
+            /** @var bool disallowed */
+            $disallowed = $telegramClient->SessionData->getData('auth', 'disallowed');
 
             if($currently_active == false)
             {
                 throw new AuthNotPromptedException();
+            }
+
+            if((int)time() > $expires)
+            {
+                throw new AuthPromptExpiredException();
             }
 
             if($approved == true)
@@ -380,9 +398,9 @@
                 throw new AuthPromptAlreadyApprovedException();
             }
 
-            if((int)time() > $expires)
+            if($disallowed == true)
             {
-                throw new AuthPromptExpiredException();
+                throw new AuthPromptDeniedException();
             }
 
             return true;
@@ -406,13 +424,16 @@
             $expires = $telegramClient->SessionData->getData('auth', 'expires');
             /** @var bool $approved */
             $approved = $telegramClient->SessionData->getData('auth', 'approved');
+            /** @var bool $disallowed */
+            $disallowed = $telegramClient->SessionData->getData('auth', 'disallowed');
 
             return array(
                 'attempts_reset' => (int)$attempts_reset,
                 'current_attempts' => (int)$current_attempts,
                 'currently_active' => (bool)$currently_active,
                 'expires' => (int)$expires,
-                'approved' => (bool)$approved
+                'approved' => (bool)$approved,
+                'disallowed' => (bool)$disallowed
             );
         }
 
@@ -430,6 +451,7 @@
             $telegramClient->SessionData->setData('auth', 'currently_active', (bool)$properties['currently_active']);
             $telegramClient->SessionData->setData('auth', 'expires', (int)$properties['expires']);
             $telegramClient->SessionData->setData('auth', 'approved', (bool)$properties['approved']);
+            $telegramClient->SessionData->setData('auth', 'disallowed', (bool)$properties['disallowed']);
 
             return $telegramClient;
         }
@@ -443,6 +465,7 @@
          * @throws AuthPromptExpiredException
          * @throws TelegramServicesNotAvailableException
          * @throws DatabaseException
+         * @throws AuthPromptDeniedException
          */
         public function approveAuth(TelegramClient $telegramClient)
         {
@@ -455,7 +478,7 @@
             $AuthPrompt = $this->getAuthPrompt($telegramClient);
 
             $AuthPrompt['approved'] = true;
-            $AuthPrompt['currently_active'] = false;
+            $AuthPrompt['disallowed'] = false;
 
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
                 $this->updateAuthPrompt($telegramClient, $AuthPrompt)
@@ -471,6 +494,7 @@
          * @throws AuthPromptExpiredException
          * @throws DatabaseException
          * @throws TelegramServicesNotAvailableException
+         * @throws AuthPromptDeniedException
          */
         public function disallowAuth(TelegramClient $telegramClient)
         {
@@ -483,7 +507,7 @@
             $AuthPrompt = $this->getAuthPrompt($telegramClient);
 
             $AuthPrompt['approved'] = false;
-            $AuthPrompt['currently_active'] = false;
+            $AuthPrompt['disallowed'] = true;
 
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
                 $this->updateAuthPrompt($telegramClient, $AuthPrompt)
@@ -493,11 +517,18 @@
         /**
          * Polls the auth prompt and determines if the prompt has been approved or not
          *
+         * Returns true if success
+         * throws AuthPromptDeniedException if denied
+         *
          * @param TelegramClient $telegramClient
          * @return bool
          * @throws AuthNotPromptedException
          * @throws AuthPromptExpiredException
+         * @throws DatabaseException
          * @throws TelegramServicesNotAvailableException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramClientNotFoundException
+         * @throws AuthPromptDeniedException
          */
         public function pollAuthPrompt(TelegramClient $telegramClient): bool
         {
@@ -505,6 +536,10 @@
             {
                 throw new TelegramServicesNotAvailableException();
             }
+
+            $telegramClient = $this->intellivoidAccounts->getTelegramClientManager()->getClient(
+                TelegramClientSearchMethod::byId, $telegramClient->ID
+            );
 
             // Check the prompt status
             if($telegramClient->SessionData->keyExists('auth', 'attempts_reset') == false)
@@ -538,6 +573,8 @@
             $expires = $telegramClient->SessionData->getData('auth', 'expires');
             /** @var bool $expires */
             $approved = $telegramClient->SessionData->getData('auth', 'approved');
+            /** @var bool $disallowed */
+            $disallowed = $telegramClient->SessionData->getData('auth', 'disallowed');
 
             if($currently_active == false)
             {
@@ -551,7 +588,30 @@
 
             if($approved == true)
             {
+                $AuthPrompt = $this->getAuthPrompt($telegramClient);
+
+                $AuthPrompt['currently_active'] = false;
+                $AuthPrompt['current_attempts'] = 0;
+                $AuthPrompt['attempts_reset'] = (int)time() + 1800;
+
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
+                    $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+                );
+
                 return true;
+            }
+
+            if($disallowed == true)
+            {
+                $AuthPrompt = $this->getAuthPrompt($telegramClient);
+
+                $AuthPrompt['currently_active'] = false;
+
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
+                    $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+                );
+
+                throw new AuthPromptDeniedException();
             }
 
             return false;
