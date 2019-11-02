@@ -299,7 +299,7 @@
                     "inline_keyboard" => [
                         [
                             array("text" => $this->emojis['DENY'] . ' Deny', "callback_data" => "auth_deny"),
-                            array("text" => $this->emojis['CHECK'] . ' Authenticate', "callback_data" => "auth_allow")
+                            array("text" => $this->emojis['CHECK'] . ' Alllow', "callback_data" => "auth_allow")
                         ]
                     ]
                 )
