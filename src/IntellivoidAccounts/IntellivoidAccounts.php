@@ -14,7 +14,6 @@
     use IntellivoidAccounts\Managers\TelegramClientManager;
     use IntellivoidAccounts\Managers\TelegramVerificationCodeManager;
     use IntellivoidAccounts\Managers\TrackingUserAgentManager;
-    use IntellivoidAccounts\Managers\TransactionRecordManager;
     use IntellivoidAccounts\Services\Telegram;
     use mysqli;
     use udp\udp;
@@ -33,7 +32,6 @@
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TelegramClientSearchMethod.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeSearchMethod.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TrackingUserAgentSearchMethod.php');
-    include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TransactionRecordSearchMethod.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountRequestPermissions.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'ApplicationAccessStatus.php');
@@ -49,7 +47,6 @@
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'OtlStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'TelegramChatType.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeStatus.php');
-    include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'TransactionType.php');
 
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'AccountLimitedException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'AccountNotFoundException.php');
@@ -84,7 +81,6 @@
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidPasswordException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidRequestPermissionException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidSearchMethodException.php');
-    include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidTransactionTypeException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidUrlException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidUsernameException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidVendorException.php');
@@ -96,7 +92,6 @@
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramServicesNotAvailableException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeNotFound.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TooManyPromptRequestsException.php');
-    include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TransactionRecordNotFoundException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'UserAgentNotFoundException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'UsernameAlreadyExistsException.php');
 
@@ -113,7 +108,6 @@
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TrackingUserAgentManager.php');
-    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TransactionRecordManager.php');
 
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'KnownHosts.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'Roles.php');
@@ -142,7 +136,6 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'OneTimeLoginCode.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramVerificationCode.php');
-    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TransactionRecord.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserAgent.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserAgentRecord.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'UserLoginRecord.php');
@@ -211,11 +204,6 @@
          * @var AccountManager
          */
         private $AccountManager;
-
-        /**
-         * @var TransactionRecordManager
-         */
-        private $TransactionRecordManager;
 
         /**
          * @var acm
@@ -320,7 +308,6 @@
             $this->AccountManager = new AccountManager($this);
             $this->KnownHostsManager = new KnownHostsManager($this);
             $this->LoginRecordManager = new LoginRecordManager($this);
-            $this->TransactionRecordManager = new TransactionRecordManager($this);
             $this->TelegramClientManager = new TelegramClientManager($this);
             $this->CrossOverAuthenticationManager = new CrossOverAuthenticationManager($this);
             $this->ApplicationManager = new ApplicationManager($this);
@@ -356,14 +343,6 @@
         public function getAccountManager(): AccountManager
         {
             return $this->AccountManager;
-        }
-
-        /**
-         * @return TransactionRecordManager
-         */
-        public function getTransactionRecordManager(): TransactionRecordManager
-        {
-            return $this->TransactionRecordManager;
         }
 
         /**
