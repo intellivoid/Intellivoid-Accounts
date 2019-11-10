@@ -32,11 +32,11 @@
         public $Features;
 
         /**
-         * The promotional code used for this subscription
+         * The ID of the promotional code used for this subscription
          *
-         * @var string
+         * @var int
          */
-        public $PromotionCode;
+        public $PromotionID;
 
         /**
          * Adds a feature to the subscription property
@@ -67,7 +67,7 @@
             return array(
                 'initial_price' => $this->InitialPrice,
                 'cycle_price' => $this->CyclePrice,
-                'promotion_code' => $this->PromotionCode,
+                'promotion_code' => (int)$this->PromotionID,
                 'features' => $features
             );
         }
@@ -94,7 +94,7 @@
 
             if(isset($data['promotion_code']))
             {
-                $PropertiesObject->PromotionCode = $data['promotion_code'];
+                $PropertiesObject->PromotionID = (int)$data['promotion_code'];
             }
 
             foreach($data['features'] as $feature)
