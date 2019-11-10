@@ -119,6 +119,7 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'COA' . DIRECTORY_SEPARATOR . 'Application.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'COA' . DIRECTORY_SEPARATOR . 'AuthenticationAccess.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'COA' . DIRECTORY_SEPARATOR . 'AuthenticationRequest.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Subscription' . DIRECTORY_SEPARATOR . 'Feature.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Subscription' . DIRECTORY_SEPARATOR . 'Properties.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient' . DIRECTORY_SEPARATOR . 'Chat.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient' . DIRECTORY_SEPARATOR . 'SessionData.php');
