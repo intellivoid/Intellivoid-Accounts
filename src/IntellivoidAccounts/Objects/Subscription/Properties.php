@@ -32,6 +32,13 @@
         public $Features;
 
         /**
+         * The promotional code used for this subscription
+         *
+         * @var string
+         */
+        public $PromotionCode;
+
+        /**
          * Adds a feature to the subscription property
          *
          * @param Feature $feature
@@ -60,6 +67,7 @@
             return array(
                 'initial_price' => $this->InitialPrice,
                 'cycle_price' => $this->CyclePrice,
+                'promotion_code' => $this->PromotionCode,
                 'features' => $features
             );
         }
@@ -82,6 +90,11 @@
             if(isset($data['cycle_price']))
             {
                 $PropertiesObject->CyclePrice = (float)$data['cycle_price'];
+            }
+
+            if(isset($data['promotion_code']))
+            {
+                $PropertiesObject->PromotionCode = $data['promotion_code'];
             }
 
             foreach($data['features'] as $feature)
