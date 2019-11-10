@@ -34,6 +34,8 @@
         /**
          * The ID of the promotional code used for this subscription
          *
+         * 0 = None
+         *
          * @var int
          */
         public $PromotionID;
