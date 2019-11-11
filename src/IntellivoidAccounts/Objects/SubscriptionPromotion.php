@@ -120,5 +120,23 @@
             return true;
         }
 
+        /**
+         * Removes an existing flag
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public function removeFlag(string $flag)
+        {
+            $flag = str_ireplace(' ', '_', strtoupper($flag));
+
+            if($this->hasFlag($flag) == false)
+            {
+                return false;
+            }
+
+            $this->Flags = array_diff($this->Flags, [$flag]);
+            return true;
+        }
 
     }
