@@ -84,7 +84,7 @@
         public $Flags;
 
         /**
-         * Determines if the
+         * Determines if the flag is already applied
          *
          * @param string $flag
          * @return bool
@@ -100,5 +100,25 @@
 
             return false;
         }
+
+        /**
+         * Applies a flag
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public function applyFlag(string $flag): bool
+        {
+            $flag = str_ireplace(' ', '_', strtoupper($flag));
+
+            if($this->hasFlag($flag))
+            {
+                return false;
+            }
+
+            $this->Flags[] = $flag;
+            return true;
+        }
+
 
     }
