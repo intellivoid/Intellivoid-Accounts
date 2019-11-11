@@ -7,6 +7,7 @@ create table subscription_plans
     features          blob         null comment 'ZiProto encoded data of a array of feature objects',
     initial_price     float        null comment 'The initial price for starting the subscription',
     cycle_price       float        null comment 'The price to charge the user per billing cycle',
+    billing_cycle     int(255)     null comment 'The amount of seconds required for each billing cycle',
     status            int(255)     null comment 'The status of the subscription plan',
     flags             blob         null comment 'ZiProto encoded data of the flags associated with this subscription plan',
     last_updated      int(255)     null comment 'The Unix Timestamp of when this subscription plan was last updated',
