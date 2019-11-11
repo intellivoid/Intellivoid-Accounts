@@ -34,11 +34,11 @@
         public $PromotionCode;
 
         /**
-         * The application ID that this promotion is applicable to
+         * The subscription plan ID that this promotion is applicable to
          *
          * @var int
          */
-        public $ApplicationID;
+        public $SubscriptionPlanID;
 
         /**
          * The account ID that this promotion is affiliated with
