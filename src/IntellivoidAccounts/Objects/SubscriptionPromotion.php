@@ -4,6 +4,8 @@
     namespace IntellivoidAccounts\Objects;
 
 
+    use IntellivoidAccounts\Abstracts\SubscriptionPromotionStatus;
+
     /**
      * Class SubscriptionPromotion
      * @package IntellivoidAccounts\Objects
@@ -68,7 +70,16 @@
         public $Features;
 
         /**
-         * @var
+         * The status of this promotion code
+         *
+         * @var int|SubscriptionPromotionStatus
          */
         public $Status;
+
+        /**
+         * Flags associated with this promotion code
+         *
+         * @var array
+         */
+        public $Flags;
     }
