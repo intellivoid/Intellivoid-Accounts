@@ -6,6 +6,10 @@
 
     use IntellivoidAccounts\Objects\Subscription\Properties;
 
+    /**
+     * Class Subscription
+     * @package IntellivoidAccounts\Objects
+     */
     class Subscription
     {
         /**
@@ -23,18 +27,11 @@
         public $PublicID;
 
         /**
-         * User-friendly name for this subscription
-         *
-         * @var string
-         */
-        public $SubscriptionName;
-
-        /**
-         * The ID of the Application that this subscription is associated with
+         * The ID of the subscription plan this subscription is affiliated to
          *
          * @var int
          */
-        public $ApplicationID;
+        public $SubscriptionPlanID;
 
         /**
          * The ID of the account that this subscription is tied to
@@ -95,7 +92,7 @@
             return array(
                 'id' => (int)$this->ID,
                 'public_id' => (int)$this->PublicID,
-                'application_id' => (int)$this->ApplicationID,
+                'subscription_plan_id' => (int)$this->SubscriptionPlanID,
                 'account_id' => (int)$this->AccountID,
                 'active' => (bool)$this->Active,
                 'billing_cycle' => (int)$this->BillingCycle,
@@ -126,9 +123,9 @@
                 $SubscriptionObject->PublicID = (int)$data['public_id'];
             }
 
-            if(isset($data['application_id']))
+            if(isset($data['subscription_plan_id']))
             {
-                $SubscriptionObject->ApplicationID = (int)$data['application_id'];
+                $SubscriptionObject->SubscriptionPlanID = (int)$data['subscription_plan_id'];
             }
 
             if(isset($data['account_id']))
