@@ -82,4 +82,23 @@
          * @var array
          */
         public $Flags;
+
+        /**
+         * Determines if the
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public function hasFlag(string $flag): bool
+        {
+            $flag = str_ireplace(' ', '_', strtoupper($flag));
+
+            if(in_array($flag, $this->Flags))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }

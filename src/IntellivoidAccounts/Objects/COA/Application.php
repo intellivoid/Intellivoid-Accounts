@@ -15,7 +15,7 @@
     class Application
     {
         /**
-         * Unique Internal Databsae ID
+         * Unique Internal Database ID
          *
          * @var int
          */
