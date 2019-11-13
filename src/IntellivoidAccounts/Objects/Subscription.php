@@ -83,6 +83,69 @@
         public $CreatedTimestamp;
 
         /**
+         * Flags associated with this subscription
+         *
+         * @var array
+         */
+        public $Flags;
+
+        /**
+         * Determines if the flag is already applied
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public function hasFlag(string $flag): bool
+        {
+            $flag = str_ireplace(' ', '_', strtoupper($flag));
+
+            if(in_array($flag, $this->Flags))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
+         * Applies a flag
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public function applyFlag(string $flag): bool
+        {
+            $flag = str_ireplace(' ', '_', strtoupper($flag));
+
+            if($this->hasFlag($flag))
+            {
+                return false;
+            }
+
+            $this->Flags[] = $flag;
+            return true;
+        }
+
+        /**
+         * Removes an existing flag
+         *
+         * @param string $flag
+         * @return bool
+         */
+        public function removeFlag(string $flag)
+        {
+            $flag = str_ireplace(' ', '_', strtoupper($flag));
+
+            if($this->hasFlag($flag) == false)
+            {
+                return false;
+            }
+
+            $this->Flags = array_diff($this->Flags, [$flag]);
+            return true;
+        }
+
+        /**
          * Returns an array which represents this object
          *
          * @return array
@@ -99,7 +162,8 @@
                 'next_billing_cycle' => (int)$this->NextBillingCycle,
                 'properties' => $this->Properties->toArray(),
                 'started_timestamp' => (int)$this->StartedTimestamp,
-                'created_timestamp' => (int)$this->CreatedTimestamp
+                'created_timestamp' => (int)$this->CreatedTimestamp,
+                'flags' => $this->Flags
             );
         }
 
@@ -161,6 +225,15 @@
             if(isset($data['created_timestamp']))
             {
                 $SubscriptionObject->CreatedTimestamp = (int)$data['created_timestamp'];
+            }
+
+            if(isset($data['flags']))
+            {
+                $SubscriptionObject->Flags = $data['flags'];
+            }
+            else
+            {
+                $SubscriptionObject->Flags = [];
             }
 
             return $SubscriptionObject;
