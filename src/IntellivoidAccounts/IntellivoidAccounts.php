@@ -138,6 +138,7 @@
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'LoginRecord.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'OneTimeLoginCode.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Subscription.php');
+    include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'SubscriptionPlan.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'SubscriptionPromotion.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramClient.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'TelegramVerificationCode.php');

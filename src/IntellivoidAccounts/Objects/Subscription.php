@@ -1,6 +1,6 @@
 <?php
 
-
+    /** @noinspection PhpUnused */
     namespace IntellivoidAccounts\Objects;
 
 
