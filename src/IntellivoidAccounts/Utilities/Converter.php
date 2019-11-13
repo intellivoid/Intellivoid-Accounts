@@ -10,5 +10,8 @@
      */
     class Converter
     {
-        
+        public static function SubscriptionPlanName(string $input): string
+        {
+
+        }
     }
