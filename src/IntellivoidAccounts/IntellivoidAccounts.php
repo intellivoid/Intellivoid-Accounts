@@ -11,6 +11,7 @@
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
     use IntellivoidAccounts\Managers\OtlManager;
+    use IntellivoidAccounts\Managers\SubscriptionPlanManager;
     use IntellivoidAccounts\Managers\TelegramClientManager;
     use IntellivoidAccounts\Managers\TelegramVerificationCodeManager;
     use IntellivoidAccounts\Managers\TrackingUserAgentManager;
@@ -106,6 +107,7 @@
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'KnownHostsManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'LoginRecordManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'OtlManager.php');
+    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'SubscriptionPlanManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TrackingUserAgentManager.php');
@@ -292,6 +294,11 @@
         private $TelegramService;
 
         /**
+         * @var SubscriptionPlanManager
+         */
+        private $SubscriptionPlanManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -322,6 +329,7 @@
             $this->OtlManager = new OtlManager($this);
             $this->AuditLogManager = new AuditLogManager($this);
             $this->TelegramService = new Telegram($this);
+            $this->SubscriptionPlanManager = new SubscriptionPlanManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -469,6 +477,14 @@
         public function getTelegramService(): Telegram
         {
             return $this->TelegramService;
+        }
+
+        /**
+         * @return SubscriptionPlanManager
+         */
+        public function getSubscriptionPlanManager(): SubscriptionPlanManager
+        {
+            return $this->SubscriptionPlanManager;
         }
 
     }
