@@ -5,6 +5,7 @@
 
 
     use IntellivoidAccounts\Abstracts\SubscriptionPromotionStatus;
+    use IntellivoidAccounts\Objects\Subscription\Feature;
 
     /**
      * Class SubscriptionPromotion
@@ -84,6 +85,20 @@
         public $Flags;
 
         /**
+         * The Unix Timestamp of when this promotion was last updated
+         *
+         * @var int
+         */
+        public $LastUpdatedTimestamp;
+
+        /**
+         * The Unix Timestamp of when this record was created
+         *
+         * @var int
+         */
+        public $CreatedTimestamp;
+
+        /**
          * Determines if the flag is already applied
          *
          * @param string $flag
@@ -137,6 +152,127 @@
 
             $this->Flags = array_diff($this->Flags, [$flag]);
             return true;
+        }
+
+        /**
+         * Returns an array which represents the structure of this object
+         *
+         * @return array
+         */
+        public function toArray(): array
+        {
+            $features = array();
+
+            /** @var Feature $feature */
+            foreach($this->Features as $feature)
+            {
+                $features[] = $feature->toArray();
+            }
+
+            return array(
+                'id' => (int)$this->ID,
+                'public_id' => (int)$this->PublicID,
+                'promotion_code' => $this->PromotionCode,
+                'subscription_plan_id' => (int)$this->SubscriptionPlanID,
+                'affiliation_account_id' => (int)$this->AffiliationAccountID,
+                'affiliation_initial_share' => (float)$this->AffiliationInitialShare,
+                'affiliation_cycle_share' => (float)$this->AffiliationCycleShare,
+                'features' => $features,
+                'status' => (int)$this->Status,
+                'flags' => $this->Flags,
+                'last_updated_timestamp' => $this->LastUpdatedTimestamp,
+                'created_timestamp' => $this->CreatedTimestamp
+            );
+        }
+
+        public static function fromArray(array $data): SubscriptionPromotion
+        {
+            $SubscriptionPromotionObject = new SubscriptionPromotion();
+
+            if(isset($data['id']))
+            {
+                $SubscriptionPromotionObject->ID = (int)$data['id'];
+            }
+
+            if(isset($data['public_id']))
+            {
+                $SubscriptionPromotionObject->PublicID = $data['public_id'];
+            }
+
+            if(isset($data['promotion_code']))
+            {
+                $SubscriptionPromotionObject->PromotionCode = $data['promotion_code'];
+            }
+
+            if(isset($data['subscription_plan_id']))
+            {
+                $SubscriptionPromotionObject->SubscriptionPlanID = (int)$data['subscription_plan_id'];
+            }
+
+            if(isset($data['affiliation_account_id']))
+            {
+                $SubscriptionPromotionObject->AffiliationAccountID = (int)$data['affiliation_account_id'];
+
+            }
+            else
+            {
+                $SubscriptionPromotionObject->AffiliationAccountID = 0;
+            }
+
+            if(isset($data['affiliation_initial_share']))
+            {
+                $SubscriptionPromotionObject->AffiliationInitialShare = (float)$data['affiliation_initial_share'];
+            }
+            else
+            {
+                $SubscriptionPromotionObject->AffiliationInitialShare = (float)0;
+            }
+
+            if(isset($data['affiliation_cycle_share']))
+            {
+                $SubscriptionPromotionObject->AffiliationCycleShare = (float)$data['affiliation_cycle_share'];
+            }
+            else
+            {
+                $SubscriptionPromotionObject->AffiliationCycleShare = (float)0;
+            }
+
+            if(isset($data['features']))
+            {
+                $SubscriptionPromotionObject->Features = [];
+
+                foreach($data['features'] as $feature)
+                {
+                    $feature = Feature::fromArray($feature);
+                    $SubscriptionPromotionObject->Features[] = $feature;
+                }
+            }
+            else
+            {
+                $SubscriptionPromotionObject->Features = [];
+            }
+
+            if(isset($data['status']))
+            {
+                $SubscriptionPromotionObject->Status = (int)$data['status'];
+            }
+
+            if(isset($data['flags']))
+            {
+                $SubscriptionPromotionObject->Flags = $data['flags'];
+            }
+
+            if(isset($data['last_updated_timestamp']))
+            {
+                $SubscriptionPromotionObject->LastUpdatedTimestamp = (int)$data['last_updated_timestamp'];
+            }
+
+            if(isset($data['created_timestamp']))
+            {
+                $SubscriptionPromotionObject->CreatedTimestamp = (int)$data['created_timestamp'];
+            }
+
+            return $SubscriptionPromotionObject;
         }
 
     }
