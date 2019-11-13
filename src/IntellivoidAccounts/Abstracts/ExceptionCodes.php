@@ -110,4 +110,6 @@
         const AuthPromptDeniedException = 147;
 
         const InvalidSubscriptionPlanNameException = 145;
+
+        const InvalidInitialPriceException = 146;
     }
