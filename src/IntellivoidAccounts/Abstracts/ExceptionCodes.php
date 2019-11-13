@@ -112,4 +112,6 @@
         const InvalidSubscriptionPlanNameException = 145;
 
         const InvalidInitialPriceException = 146;
+
+         const InvalidCyclePriceException = 147;
     }
