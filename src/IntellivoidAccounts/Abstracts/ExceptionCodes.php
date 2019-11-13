@@ -108,4 +108,6 @@
         const AuthPromptAlreadyApprovedException = 146;
 
         const AuthPromptDeniedException = 147;
+
+        const InvalidSubscriptionPlanNameException = 145;
     }
