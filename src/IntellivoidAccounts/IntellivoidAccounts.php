@@ -150,6 +150,7 @@
 
     include_once($LocalDirectory . 'Services' . DIRECTORY_SEPARATOR . 'Telegram.php');
 
+    include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Converter.php');
     include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Hashing.php');
     include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Parse.php');
     include_once($LocalDirectory . 'Utilities' . DIRECTORY_SEPARATOR . 'Validate.php');

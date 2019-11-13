@@ -391,4 +391,9 @@
             $core = hash('sha256', $account_id_c . $application_id_c . 'C');
             return $core . hash('crc32b', $account_id_c) . hash('crc32b', $application_id_c);
         }
+
+        public static function SubscriptionPlanPublicID(int $application_id, string $plan_name): string
+        {
+
+        }
     }
