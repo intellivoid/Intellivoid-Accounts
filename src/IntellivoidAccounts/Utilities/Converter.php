@@ -4,14 +4,12 @@
     namespace IntellivoidAccounts\Utilities;
 
 
+    use IntellivoidAccounts\Exceptions\InvalidSubscriptionPlanNameException;
+
     /**
      * Class Converter
      * @package IntellivoidAccounts\Utilities
      */
     class Converter
     {
-        public static function SubscriptionPlanName(string $input): string
-        {
-
-        }
     }
