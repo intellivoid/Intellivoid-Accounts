@@ -139,4 +139,9 @@
 
             // TODO: Return the subscription
         }
+
+        public function getSubscriptionPlan(string $search_method, string $value): SubscriptionPlan
+        {
+
+        }
     }
