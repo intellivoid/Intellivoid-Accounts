@@ -46,6 +46,7 @@
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'LoginStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'OperatorType.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'OtlStatus.php');
+    include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SubscriptionPlanStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SubscriptionPromotionStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'TelegramChatType.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeStatus.php');

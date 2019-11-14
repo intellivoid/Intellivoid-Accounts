@@ -17,7 +17,10 @@
     use IntellivoidAccounts\Objects\Subscription\Feature;
     use IntellivoidAccounts\Objects\SubscriptionPlan;
     use IntellivoidAccounts\Utilities\Converter;
+    use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use msqg\QueryBuilder;
+    use ZiProto\ZiProto;
 
     /**
      * Class SubscriptionPlanManager
@@ -97,5 +100,32 @@
             $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
 
             // TODO: Check if the subscription already exists
+
+            $PublicID = Hashing::SubscriptionPlanPublicID((int)$application_id, $name);
+            $PublicID = $this->intellivoidAccounts->database->real_escape_string($PublicID);
+            $PlanName = $this->intellivoidAccounts->database->real_escape_string($name);
+            $decodedFeatures = array();
+            /** @var Feature $feature */
+            foreach($features as $feature)
+            {
+                $decodedFeatures[] = $feature->toArray();
+            }
+            $decodedFeatures = ZiProto::encode($decodedFeatures);
+            $decodedFeatures = $this->intellivoidAccounts->database->real_escape_string($decodedFeatures);
+            $flags = ZiProto::encode([]);
+            $flags = $this->intellivoidAccounts->database->real_escape_string($flags);
+            $last_updated = (int)time();
+            $created_timestamp = $last_updated;
+
+            $Query = QueryBuilder::insert_into('subscription_plans', array(
+                'public_id' => $PublicID,
+                'application_id' => (int)$application_id,
+                'plan_name' => $PlanName,
+                'features' => $decodedFeatures,
+                'initial_price' => (float)$initial_price,
+                'cycle_price' => (float)$cycle_price,
+                'billing_cycle' => (int)$billing_cycle,
+                'status'
+            ));
         }
     }
