@@ -5,6 +5,7 @@
 
 
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Exceptions\InvalidBillingCycleException;
     use IntellivoidAccounts\Exceptions\InvalidCyclePriceException;
     use IntellivoidAccounts\Exceptions\InvalidInitialPriceException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPlanNameException;
@@ -48,6 +49,11 @@
             if($cycle_price < 0)
             {
                 throw new InvalidCyclePriceException();
+            }
+
+            if($billing_cycle < 0)
+            {
+                throw new InvalidBillingCycleException();
             }
 
             $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
