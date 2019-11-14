@@ -114,4 +114,6 @@
         const InvalidInitialPriceException = 146;
 
          const InvalidCyclePriceException = 147;
+
+         const InvalidBillingCycleException = 148;
     }

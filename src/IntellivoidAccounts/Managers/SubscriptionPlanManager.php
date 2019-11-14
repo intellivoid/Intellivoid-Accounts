@@ -5,6 +5,9 @@
 
 
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Exceptions\InvalidCyclePriceException;
+    use IntellivoidAccounts\Exceptions\InvalidInitialPriceException;
+    use IntellivoidAccounts\Exceptions\InvalidSubscriptionPlanNameException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\SubscriptionPlan;
     use IntellivoidAccounts\Utilities\Validate;
@@ -34,9 +37,21 @@
         {
             if(Validate::subscriptionPlanName($name) == false)
             {
+                throw new InvalidSubscriptionPlanNameException();
+            }
 
+            if($initial_price < 0)
+            {
+                throw new InvalidInitialPriceException();
+            }
+
+            if($cycle_price < 0)
+            {
+                throw new InvalidCyclePriceException();
             }
 
             $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
+
+
         }
     }
