@@ -15,6 +15,7 @@
     use IntellivoidAccounts\Exceptions\InvalidInitialPriceException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPlanNameException;
+    use IntellivoidAccounts\Exceptions\SubscriptionPlanNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Subscription\Feature;
     use IntellivoidAccounts\Objects\SubscriptionPlan;
@@ -141,6 +142,16 @@
             // TODO: Return the subscription
         }
 
+        /**
+         * Returns an existing SubscriptionPlan object from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return SubscriptionPlan
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws SubscriptionPlanNotFoundException
+         */
         public function getSubscriptionPlan(string $search_method, string $value): SubscriptionPlan
         {
             switch($search_method)
@@ -183,14 +194,13 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new TelegramClientNotFoundException();
+                    throw new SubscriptionPlanNotFoundException();
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
-                $Row['user'] = ZiProto::decode($Row['user']);
-                $Row['chat'] = ZiProto::decode($Row['chat']);
-                $Row['session_data'] = ZiProto::decode($Row['session_data']);
-                return TelegramClient::fromArray($Row);
+                $Row['features'] = ZiProto::decode($Row['features']);
+                $Row['flags'] = ZiProto::decode($Row['flags']);
+                return SubscriptionPlan::fromArray($Row);
             }
         }
     }
