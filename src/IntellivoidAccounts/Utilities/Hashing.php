@@ -380,7 +380,6 @@
          *
          * @param int $account_id
          * @param int $application_id
-         * @param int $timestamp
          * @return string
          */
         public static function ApplicationAccess(int $account_id, int $application_id): string
@@ -392,8 +391,15 @@
             return $core . hash('crc32b', $account_id_c) . hash('crc32b', $application_id_c);
         }
 
+        /**
+         * Calculates a unique public ID for the subscription plan's public ID
+         *
+         * @param int $application_id
+         * @param string $plan_name
+         * @return string
+         */
         public static function SubscriptionPlanPublicID(int $application_id, string $plan_name): string
         {
-
+            return hash('crc32b', $application_id) . hash('sha256', $plan_name);
         }
     }
