@@ -5,6 +5,7 @@
 
 
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPlanSearchMethod;
     use IntellivoidAccounts\Abstracts\SubscriptionPlanStatus;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -142,6 +143,54 @@
 
         public function getSubscriptionPlan(string $search_method, string $value): SubscriptionPlan
         {
+            switch($search_method)
+            {
+                case SubscriptionPlanSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
 
+                case SubscriptionPlanSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('subscription_plans', [
+                'id',
+                'public_id',
+                'application_id',
+                'plan_name',
+                'features',
+                'initial_price',
+                'cycle_price',
+                'billing_cycle',
+                'status',
+                'flags',
+                'last_updated',
+                'created_timestamp'
+            ], $search_method, $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new TelegramClientNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['user'] = ZiProto::decode($Row['user']);
+                $Row['chat'] = ZiProto::decode($Row['chat']);
+                $Row['session_data'] = ZiProto::decode($Row['session_data']);
+                return TelegramClient::fromArray($Row);
+            }
         }
     }

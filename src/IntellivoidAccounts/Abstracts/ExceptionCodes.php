@@ -118,4 +118,6 @@
          const InvalidBillingCycleException = 148;
 
          const InvalidFeatureException = 149;
+
+         const SubscriptionPlanNotFoundException = 150;
     }
