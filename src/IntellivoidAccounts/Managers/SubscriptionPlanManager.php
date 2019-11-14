@@ -5,6 +5,7 @@
 
 
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Abstracts\SubscriptionPlanStatus;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidBillingCycleException;
@@ -125,7 +126,17 @@
                 'initial_price' => (float)$initial_price,
                 'cycle_price' => (float)$cycle_price,
                 'billing_cycle' => (int)$billing_cycle,
-                'status'
+                'status' => SubscriptionPlanStatus::Available,
+                'flags' => $flags,
+                'last_updated' => $last_updated,
+                'created_timestamp' => $created_timestamp
             ));
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+
+            // TODO: Return the subscription
         }
     }
