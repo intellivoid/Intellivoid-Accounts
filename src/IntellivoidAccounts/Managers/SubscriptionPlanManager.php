@@ -102,8 +102,6 @@
 
             $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
 
-            // TODO: Check if the subscription already exists
-
             $PublicID = Hashing::SubscriptionPlanPublicID((int)$application_id, $name);
             $PublicID = $this->intellivoidAccounts->database->real_escape_string($PublicID);
             $PlanName = $this->intellivoidAccounts->database->real_escape_string($name);
@@ -139,7 +137,7 @@
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
 
-            // TODO: Return the subscription
+            return $this->getSubscriptionPlan(SubscriptionPlanSearchMethod::byPublicId, $PublicID);
         }
 
         /**
