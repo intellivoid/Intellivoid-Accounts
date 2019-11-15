@@ -120,4 +120,6 @@
          const InvalidFeatureException = 149;
 
          const SubscriptionPlanNotFoundException = 150;
+
+         const SubscriptionPlanAlreadyExistsException = 151;
     }

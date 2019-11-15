@@ -101,8 +101,17 @@
             }
 
             $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
-
             $PublicID = Hashing::SubscriptionPlanPublicID((int)$application_id, $name);
+
+            try
+            {
+                $this->getSubscriptionPlan(SubscriptionPlanSearchMethod::byPublicId, $PublicID);
+            }
+            catch(SubscriptionPlanNotFoundException $subscriptionPlanNotFoundException)
+            {
+                unset($subscriptionPlanNotFoundException);
+            }
+
             $PublicID = $this->intellivoidAccounts->database->real_escape_string($PublicID);
             $PlanName = $this->intellivoidAccounts->database->real_escape_string($name);
             $decodedFeatures = array();
