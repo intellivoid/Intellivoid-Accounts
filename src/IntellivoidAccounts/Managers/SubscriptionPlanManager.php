@@ -15,6 +15,7 @@
     use IntellivoidAccounts\Exceptions\InvalidInitialPriceException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPlanNameException;
+    use IntellivoidAccounts\Exceptions\SubscriptionPlanAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\SubscriptionPlanNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Subscription\Feature;
@@ -55,14 +56,16 @@
          * @param float $cycle_price
          * @param int $billing_cycle
          * @return SubscriptionPlan
+         * @throws ApplicationNotFoundException
+         * @throws DatabaseException
          * @throws InvalidBillingCycleException
          * @throws InvalidCyclePriceException
          * @throws InvalidFeatureException
          * @throws InvalidInitialPriceException
-         * @throws InvalidSubscriptionPlanNameException
-         * @throws ApplicationNotFoundException
-         * @throws DatabaseException
          * @throws InvalidSearchMethodException
+         * @throws InvalidSubscriptionPlanNameException
+         * @throws SubscriptionPlanAlreadyExistsException
+         * @throws SubscriptionPlanNotFoundException
          */
         public function createSubscriptionPlan(int $application_id, string $name, array $features, float $initial_price, float $cycle_price, int $billing_cycle): SubscriptionPlan
         {
@@ -106,6 +109,7 @@
             try
             {
                 $this->getSubscriptionPlan(SubscriptionPlanSearchMethod::byPublicId, $PublicID);
+                throw new SubscriptionPlanAlreadyExistsException();
             }
             catch(SubscriptionPlanNotFoundException $subscriptionPlanNotFoundException)
             {
