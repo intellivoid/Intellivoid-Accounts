@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 
     namespace IntellivoidAccounts\Managers;
@@ -20,7 +20,6 @@
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Subscription\Feature;
     use IntellivoidAccounts\Objects\SubscriptionPlan;
-    use IntellivoidAccounts\Utilities\Converter;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use msqg\QueryBuilder;
