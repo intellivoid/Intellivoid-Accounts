@@ -213,4 +213,64 @@
                 return SubscriptionPlan::fromArray($Row);
             }
         }
+
+        /**
+         * Updates an existing subscription plan in the database
+         *
+         * @param SubscriptionPlan $subscriptionPlan
+         * @return bool
+         * @throws DatabaseException
+         * @throws InvalidBillingCycleException
+         * @throws InvalidCyclePriceException
+         * @throws InvalidInitialPriceException
+         */
+        public function updateSubscriptionPlan(SubscriptionPlan $subscriptionPlan): bool
+        {
+            $subscriptionPlanArray = $subscriptionPlan->toArray();
+
+            if((float)$subscriptionPlanArray['initial_price'] < 0)
+            {
+                throw new InvalidInitialPriceException();
+            }
+
+            if((float)$subscriptionPlanArray['cycle_price'] < 0)
+            {
+                throw new InvalidCyclePriceException();
+            }
+
+            if((int)$subscriptionPlanArray['billing_cycle'] < 0)
+            {
+                throw new InvalidBillingCycleException();
+            }
+
+            $features = ZiProto::encode($subscriptionPlanArray['features']);
+            $features = $this->intellivoidAccounts->database->real_escape_string($features);
+            $flags = ZiProto::encode($subscriptionPlanArray['flags']);
+            $flags = $this->intellivoidAccounts->database->real_escape_string($flags);
+            $last_updated = (int)time();
+            $billing_cycle = (int)$subscriptionPlanArray['billing_cycle'];
+            $initial_price = (float)$subscriptionPlanArray['initial_price'];
+            $cycle_price = (float)$subscriptionPlanArray['cycle_price'];
+            $status = (int)$subscriptionPlanArray['status'];
+
+            $Query = QueryBuilder::update('subscription_plans', array(
+                'features' => $features,
+                'flags' => $flags,
+                'initial_price' => $initial_price,
+                'cycle_price' => $cycle_price,
+                'billing_cycle' => $billing_cycle,
+                'status' => $status,
+                'last_updated' => $last_updated
+            ), 'id', (int)$subscriptionPlanArray['id']);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == true)
+            {
+                return true;
+            }
+            else
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+        }
     }
