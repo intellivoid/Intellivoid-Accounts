@@ -20,7 +20,7 @@
         const Disabled = 1;
 
         /**
-         * Indicates if this promotion code is deleted
+         * Indicates if this promotion code is expired
          */
-        const Deleted = 2;
+        const Expired = 2;
     }
