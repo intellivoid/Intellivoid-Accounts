@@ -122,4 +122,6 @@
          const SubscriptionPlanNotFoundException = 150;
 
          const SubscriptionPlanAlreadyExistsException = 151;
+
+        const InvalidSubscriptionPromotionNameException = 152;
     }
