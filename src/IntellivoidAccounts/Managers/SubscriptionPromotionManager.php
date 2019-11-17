@@ -14,6 +14,7 @@
     use IntellivoidAccounts\Exceptions\InvalidInitialPriceException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPromotionNameException;
+    use IntellivoidAccounts\Exceptions\SubscriptionPromotionNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Subscription\Feature;
     use IntellivoidAccounts\Objects\SubscriptionPromotion;
@@ -142,6 +143,17 @@
             // TODO: Return the subscription promotion
         }
 
+        /**
+         * Returns the subscription promotion from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return SubscriptionPromotion
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidSubscriptionPromotionNameException
+         * @throws SubscriptionPromotionNotFoundException
+         */
         public function getSubscriptionPromotion(string $search_method, string $value): SubscriptionPromotion
         {
             switch($search_method)
@@ -194,13 +206,13 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new SubscriptionPlanNotFoundException();
+                    throw new SubscriptionPromotionNotFoundException();
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
                 $Row['features'] = ZiProto::decode($Row['features']);
                 $Row['flags'] = ZiProto::decode($Row['flags']);
-                return SubscriptionPlan::fromArray($Row);
+                return SubscriptionPromotion::fromArray($Row);
             }
         }
     }
