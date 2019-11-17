@@ -140,4 +140,9 @@
 
             // TODO: Return the subscription promotion
         }
+
+        public function getSubscriptionPromotion(string $search_method, string $value): SubscriptionPromotion
+        {
+            
+        }
     }
