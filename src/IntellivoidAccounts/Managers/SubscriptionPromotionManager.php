@@ -45,6 +45,8 @@
         }
 
         /**
+         * Creates a new subscription promotion record in the database
+         *
          * @param int $subscription_plan_id
          * @param string $promotion_code
          * @param int $affiliation_account_id
@@ -52,13 +54,14 @@
          * @param float $affiliation_cycle_share
          * @param array $features
          * @return SubscriptionPromotion
+         * @throws AccountNotFoundException
+         * @throws DatabaseException
          * @throws InvalidCyclePriceException
          * @throws InvalidFeatureException
          * @throws InvalidInitialPriceException
-         * @throws InvalidSubscriptionPromotionNameException
-         * @throws AccountNotFoundException
-         * @throws DatabaseException
          * @throws InvalidSearchMethodException
+         * @throws InvalidSubscriptionPromotionNameException
+         * @throws SubscriptionPromotionNotFoundException
          */
         public function createSubscriptionPromotion(int $subscription_plan_id, string $promotion_code, int $affiliation_account_id, float $affiliation_initial_share, float $affiliation_cycle_share, array $features): SubscriptionPromotion
         {
@@ -140,7 +143,7 @@
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
 
-            // TODO: Return the subscription promotion
+            return $this->getSubscriptionPromotion(SubscriptionPromotionSearchMethod::byPromotionCode, $public_id);
         }
 
         /**
