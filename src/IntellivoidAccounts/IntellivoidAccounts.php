@@ -100,6 +100,7 @@
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'OtlNotFoundException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'SubscriptionPlanAlreadyExistsException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'SubscriptionPlanNotFoundException.php');
+    include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'SubscriptionPromotionNotFoundException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramActionFailedException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramApiException.php');
     include_once($LocalDirectory . 'Exceptions' . DIRECTORY_SEPARATOR . 'TelegramClientNotFoundException.php');

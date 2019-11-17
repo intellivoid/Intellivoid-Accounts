@@ -5,6 +5,7 @@
 
 
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
     use IntellivoidAccounts\Abstracts\SubscriptionPromotionStatus;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -143,6 +144,63 @@
 
         public function getSubscriptionPromotion(string $search_method, string $value): SubscriptionPromotion
         {
-            
+            switch($search_method)
+            {
+                case SubscriptionPromotionSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
+
+                case SubscriptionPromotionSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                case SubscriptionPromotionSearchMethod::byPromotionCode:
+                    if(Validate::subscriptionPromotionCode($value) == false)
+                    {
+                        throw new InvalidSubscriptionPromotionNameException();
+                    }
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = Converter::subscriptionPromotionCode($value);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('subscription_promotions', [
+                'id',
+                'public_id',
+                'promotion_code',
+                'subscription_plan_id',
+                'affiliation_account_id',
+                'affiliation_initial_share',
+                'affiliation_cycle_share',
+                'features',
+                'status',
+                'flags',
+                'last_updated_timestamp',
+                'created_timestamp'
+            ], $search_method, $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new SubscriptionPlanNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['features'] = ZiProto::decode($Row['features']);
+                $Row['flags'] = ZiProto::decode($Row['flags']);
+                return SubscriptionPlan::fromArray($Row);
+            }
         }
     }
