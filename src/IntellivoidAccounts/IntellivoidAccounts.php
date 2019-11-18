@@ -16,6 +16,7 @@
     use IntellivoidAccounts\Managers\TelegramClientManager;
     use IntellivoidAccounts\Managers\TelegramVerificationCodeManager;
     use IntellivoidAccounts\Managers\TrackingUserAgentManager;
+    use IntellivoidAccounts\Managers\TransactionRecordManager;
     use IntellivoidAccounts\Services\Telegram;
     use mysqli;
     use udp\udp;
@@ -126,6 +127,7 @@
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TrackingUserAgentManager.php');
+    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TransactionRecordManager.php');
 
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'KnownHosts.php');
     include_once($LocalDirectory . 'Objects' . DIRECTORY_SEPARATOR . 'Account' . DIRECTORY_SEPARATOR . 'Configuration' . DIRECTORY_SEPARATOR . 'Roles.php');
@@ -320,6 +322,11 @@
         private $SubscriptionPromotionManager;
 
         /**
+         * @var TransactionRecordManager
+         */
+        private $TransactionRecordManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -352,6 +359,7 @@
             $this->TelegramService = new Telegram($this);
             $this->SubscriptionPlanManager = new SubscriptionPlanManager($this);
             $this->SubscriptionPromotionManager = new SubscriptionPromotionManager($this);
+            $this->TransactionRecordManager = new TransactionRecordManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -515,6 +523,14 @@
         public function getSubscriptionPromotionManager(): SubscriptionPromotionManager
         {
             return $this->SubscriptionPromotionManager;
+        }
+
+        /**
+         * @return TransactionRecordManager
+         */
+        public function getTransactionRecordManager(): TransactionRecordManager
+        {
+            return $this->TransactionRecordManager;
         }
 
     }
