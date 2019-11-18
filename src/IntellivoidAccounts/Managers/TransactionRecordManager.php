@@ -25,4 +25,9 @@
         {
             $this->intellivoidAccounts = $intellivoidAccounts;
         }
+
+        public function logTransaction(int $account_id, string $vendor, float $amount): bool
+        {
+
+        }
     }
