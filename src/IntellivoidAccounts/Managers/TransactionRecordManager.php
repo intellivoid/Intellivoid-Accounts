@@ -86,4 +86,44 @@
                 return (int)$QueryResults->fetch_array()['total'];
             }
         }
+
+        /**
+         * Returns an array of Transaction Records
+         *
+         * @param int $account_id
+         * @param int $offset
+         * @param int $limit
+         * @return array
+         * @throws DatabaseException
+         */
+        public function getRecords(int $account_id, int $offset = 0, $limit = 50): array
+        {
+            $account_id = (int)$account_id;
+
+            $Query = QueryBuilder::select('transaction_records', [
+                'id',
+                'public_id',
+                'account_id',
+                'vendor',
+                'amount',
+                'timestamp'
+            ], 'account_id', $account_id, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $ResultsArray = [];
+
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $ResultsArray[] = $Row;
+                }
+
+                return $ResultsArray;
+            }
+        }
     }
