@@ -7,6 +7,7 @@
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Utilities\Hashing;
+    use msqg\Abstracts\SortBy;
     use msqg\QueryBuilder;
 
     /**
@@ -108,6 +109,45 @@
                 'amount',
                 'timestamp'
             ], 'account_id', $account_id, null, null, $limit, $offset);
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                $ResultsArray = [];
+
+                while($Row = $QueryResults->fetch_assoc())
+                {
+                    $ResultsArray[] = $Row;
+                }
+
+                return $ResultsArray;
+            }
+        }
+
+        /**
+         * Returns the newer recent transaction records
+         *
+         * @param int $account_id
+         * @param int $limit
+         * @return array
+         * @throws DatabaseException
+         */
+        public function getNewRecords(int $account_id, $limit = 50): array
+        {
+            $account_id = (int)$account_id;
+
+            $Query = QueryBuilder::select('transaction_records', [
+                'id',
+                'public_id',
+                'account_id',
+                'vendor',
+                'amount',
+                'timestamp'
+            ], 'account_id', $account_id, 'timestamp', SortBy::descending, $limit);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if($QueryResults == false)
