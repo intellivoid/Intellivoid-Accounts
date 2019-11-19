@@ -128,4 +128,6 @@
         const SubscriptionPromotionNotFoundException = 153;
 
         const SubscriptionPromotionAlreadyExistsException = 154;
+
+        const InvalidFundsValueException = 155;
     }

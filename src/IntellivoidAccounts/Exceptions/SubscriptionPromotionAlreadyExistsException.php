@@ -18,6 +18,6 @@
          */
         public function __construct()
         {
-            parent::__construct("The subscription promotion already exists", ExceptionCodes::SubscriptionPlanAlreadyExistsException, null);
+            parent::__construct("The subscription promotion already exists", ExceptionCodes::SubscriptionPromotionAlreadyExistsException, null);
         }
     }
