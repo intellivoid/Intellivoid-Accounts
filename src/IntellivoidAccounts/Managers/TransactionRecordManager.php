@@ -62,4 +62,28 @@
 
             return true;
         }
+
+
+        /**
+         * Counts the total amount of records that are found
+         *
+         * @param int $account_id
+         * @return int
+         * @throws DatabaseException
+         */
+        public function getTotalRecords(int $account_id): int
+        {
+            $account_id = (int)$account_id;
+            $Query = "SELECT COUNT(id) AS total FROM `transaction_records` WHERE account_id=$account_id";
+
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                return (int)$QueryResults->fetch_array()['total'];
+            }
+        }
     }
