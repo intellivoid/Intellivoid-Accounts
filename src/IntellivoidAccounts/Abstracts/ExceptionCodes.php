@@ -41,7 +41,6 @@
 
         const InvalidAccountStatusException = 115;
 
-        /** @deprecated  */
         const InsufficientFundsException = 116;
 
         const InvalidVendorException = 117;
