@@ -42,6 +42,20 @@
         public $SubscriptionPlanID;
 
         /**
+         * The initial price that this promotion is offering
+         *
+         * @var float
+         */
+        public $InitialPrice;
+
+        /**
+         * The cycle share that this promotion is offering for every billing cycle
+         *
+         * @var float
+         */
+        public $CyclePrice;
+
+        /**
          * The account ID that this promotion is affiliated with
          * 0 = None
          *
@@ -174,6 +188,8 @@
                 'public_id' => (int)$this->PublicID,
                 'promotion_code' => $this->PromotionCode,
                 'subscription_plan_id' => (int)$this->SubscriptionPlanID,
+                'initial_price' => (float)$this->InitialPrice,
+                'cycle_price' => (float)$this->CyclePrice,
                 'affiliation_account_id' => (int)$this->AffiliationAccountID,
                 'affiliation_initial_share' => (float)$this->AffiliationInitialShare,
                 'affiliation_cycle_share' => (float)$this->AffiliationCycleShare,
@@ -185,6 +201,12 @@
             );
         }
 
+        /**
+         * Constructs object from array
+         *
+         * @param array $data
+         * @return SubscriptionPromotion
+         */
         public static function fromArray(array $data): SubscriptionPromotion
         {
             $SubscriptionPromotionObject = new SubscriptionPromotion();
@@ -207,6 +229,16 @@
             if(isset($data['subscription_plan_id']))
             {
                 $SubscriptionPromotionObject->SubscriptionPlanID = (int)$data['subscription_plan_id'];
+            }
+
+            if(isset($data['initial_price']))
+            {
+                $SubscriptionPromotionObject->InitialPrice = (float)$data['initial_price'];
+            }
+
+            if(isset($data['cycle_price']))
+            {
+                $SubscriptionPromotionObject->CyclePrice = (float)$data['cycle_price'];
             }
 
             if(isset($data['affiliation_account_id']))
