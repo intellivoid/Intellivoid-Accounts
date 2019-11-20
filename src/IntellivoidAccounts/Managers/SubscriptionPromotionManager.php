@@ -10,8 +10,10 @@
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidCyclePriceException;
+    use IntellivoidAccounts\Exceptions\InvalidCyclePriceShareException;
     use IntellivoidAccounts\Exceptions\InvalidFeatureException;
     use IntellivoidAccounts\Exceptions\InvalidInitialPriceException;
+    use IntellivoidAccounts\Exceptions\InvalidInitialPriceShareException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPromotionNameException;
     use IntellivoidAccounts\Exceptions\SubscriptionPromotionAlreadyExistsException;
@@ -50,6 +52,8 @@
          *
          * @param int $subscription_plan_id
          * @param string $promotion_code
+         * @param float $initial_price
+         * @param float $cycle_price
          * @param int $affiliation_account_id
          * @param float $affiliation_initial_share
          * @param float $affiliation_cycle_share
@@ -58,12 +62,14 @@
          * @throws AccountNotFoundException
          * @throws DatabaseException
          * @throws InvalidCyclePriceException
+         * @throws InvalidCyclePriceShareException
          * @throws InvalidFeatureException
          * @throws InvalidInitialPriceException
+         * @throws InvalidInitialPriceShareException
          * @throws InvalidSearchMethodException
          * @throws InvalidSubscriptionPromotionNameException
-         * @throws SubscriptionPromotionNotFoundException
          * @throws SubscriptionPromotionAlreadyExistsException
+         * @throws SubscriptionPromotionNotFoundException
          */
         public function createSubscriptionPromotion(int $subscription_plan_id, string $promotion_code, float $initial_price, float $cycle_price, int $affiliation_account_id, float $affiliation_initial_share, float $affiliation_cycle_share, array $features): SubscriptionPromotion
         {
@@ -104,12 +110,22 @@
 
                 if($affiliation_cycle_share < 0)
                 {
-                    throw new InvalidCyclePriceException();
+                    throw new InvalidCyclePriceShareException();
+                }
+
+                if($affiliation_cycle_share > $cycle_price)
+                {
+                    throw new InvalidCyclePriceShareException();
                 }
 
                 if($affiliation_initial_share < 0)
                 {
-                    throw new InvalidInitialPriceException();
+                    throw new InvalidInitialPriceShareException();
+                }
+
+                if($affiliation_initial_share > $initial_price)
+                {
+                    throw new InvalidInitialPriceShareException();
                 }
             }
 
@@ -148,6 +164,8 @@
                 'public_id' => $public_id,
                 'promotion_cde' => $promotion_code,
                 'subscription_plan_id' => (int)$subscription_plan_id,
+                'initial_price' => (float)$initial_price,
+                'cycle_price' => (float)$cycle_price,
                 'affiliation_account_id' => (int)$affiliation_account_id,
                 'affiliation_initial_share' => (float)$affiliation_initial_share,
                 'affiliation_cycle_share' => (float)$affiliation_cycle_share,
