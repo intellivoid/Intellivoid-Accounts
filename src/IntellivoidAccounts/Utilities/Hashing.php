@@ -406,4 +406,16 @@
             $vendor = hash('crc32b', $vendor);
             return $account_id . $vendor . hash('sha256', $account_id . $vendor . $timestamp);
         }
+
+        /**
+         * Calculates a unique Public ID for this subscription
+         *
+         * @param int $account_id
+         * @param int $subscription_plan_id
+         * @return bool
+         */
+        public static function SubscriptionPublicID(int $account_id, int $subscription_plan_id): bool
+        {
+            return hash('crc32b', $account_id) . hash('sha256', $account_id . $subscription_plan_id);
+        }
     }

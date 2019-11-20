@@ -41,7 +41,8 @@
 
         /**
          * @param int $account_id
-         * @param SubscriptionPlan $subscriptionPlan
+         * @param int $application_id
+         * @param string $plan_name
          * @param string $promotion_code
          * @return Subscription
          * @throws AccountLimitedException
@@ -50,16 +51,21 @@
          * @throws InvalidSearchMethodException
          * @throws InvalidSubscriptionPromotionNameException
          * @throws SubscriptionPromotionNotFoundException
+         * @throws SubscriptionPlanNotFoundException
          */
-        public function startSubscription(int $account_id, SubscriptionPlan $subscriptionPlan, string $promotion_code = "NONE"): Subscription
+        public function startSubscription(int $account_id, int $application_id, string $plan_name, string $promotion_code = "NONE"): Subscription
         {
             // Retrieve the required information
             $Account = $this->intellivoidAccounts->getAccountManager()->getAccount(AccountSearchMethod::byId, $account_id);
-
             if($Account->Status == AccountStatus::Limited)
             {
                 throw new AccountLimitedException();
             }
+
+            $SubscriptionPlan = $this->intellivoidAccounts->getSubscriptionPlanManager()->getSubscriptionPlanByName(
+                $application_id, $plan_name
+            );
+
             $SubscriptionPromotion = null;
             if($promotion_code !== "NONE")
             {
@@ -67,6 +73,8 @@
                     SubscriptionPromotionSearchMethod::byPromotionCode, $promotion_code
                 );
             }
+
+
 
         }
 
