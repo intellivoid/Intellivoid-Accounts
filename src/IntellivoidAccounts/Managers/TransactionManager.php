@@ -5,7 +5,6 @@
 
 
     use BasicCalculator\BC;
-    use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;

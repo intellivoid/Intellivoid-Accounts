@@ -11,6 +11,7 @@
     use IntellivoidAccounts\Managers\KnownHostsManager;
     use IntellivoidAccounts\Managers\LoginRecordManager;
     use IntellivoidAccounts\Managers\OtlManager;
+    use IntellivoidAccounts\Managers\SubscriptionManager;
     use IntellivoidAccounts\Managers\SubscriptionPlanManager;
     use IntellivoidAccounts\Managers\SubscriptionPromotionManager;
     use IntellivoidAccounts\Managers\TelegramClientManager;
@@ -124,6 +125,7 @@
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'KnownHostsManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'LoginRecordManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'OtlManager.php');
+    include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'SubscriptionManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'SubscriptionPlanManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'SubscriptionPromotionManager.php');
     include_once($LocalDirectory . 'Managers' . DIRECTORY_SEPARATOR . 'TelegramClientManager.php');
@@ -336,6 +338,11 @@
         private $TransactionManager;
 
         /**
+         * @var SubscriptionManager
+         */
+        private $SubscriptionManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -370,6 +377,7 @@
             $this->SubscriptionPromotionManager = new SubscriptionPromotionManager($this);
             $this->TransactionRecordManager = new TransactionRecordManager($this);
             $this->TransactionManager = new TransactionManager($this);
+            $this->SubscriptionManager = new SubscriptionManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -549,6 +557,14 @@
         public function getTransactionManager(): TransactionManager
         {
             return $this->TransactionManager;
+        }
+
+        /**
+         * @return SubscriptionManager
+         */
+        public function getSubscriptionManager(): SubscriptionManager
+        {
+            return $this->SubscriptionManager;
         }
 
     }
