@@ -172,6 +172,7 @@
                     break;
 
                 case SubscriptionPlanSearchMethod::byPublicId:
+                case SubscriptionPlanSearchMethod::byPlanName:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     $value = (int)$this->intellivoidAccounts->database->real_escape_string($value);
                     break;
