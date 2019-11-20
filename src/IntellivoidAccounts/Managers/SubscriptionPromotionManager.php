@@ -229,6 +229,8 @@
                 'public_id',
                 'promotion_code',
                 'subscription_plan_id',
+                'initial_price',
+                'cycle_price',
                 'affiliation_account_id',
                 'affiliation_initial_share',
                 'affiliation_cycle_share',
