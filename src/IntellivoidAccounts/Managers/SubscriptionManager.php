@@ -8,7 +8,7 @@
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountLimitedException;
-    use IntellivoidAccounts\Exceptions\AccountNotFoundException
+    use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPromotionNameException;
@@ -141,4 +141,8 @@
             }
         }
 
+        public function getSubscription(string $search_method, string $value): Subscription
+        {
+
+        }
     }
