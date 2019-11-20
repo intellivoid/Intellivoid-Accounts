@@ -69,13 +69,6 @@
         public $Properties;
 
         /**
-         * The Unix Timestamp for when this subscription has started
-         *
-         * @var int
-         */
-        public $StartedTimestamp;
-
-        /**
          * The Unix Timestamp for when this subscription record has been created
          *
          * @var int
@@ -161,7 +154,6 @@
                 'billing_cycle' => (int)$this->BillingCycle,
                 'next_billing_cycle' => (int)$this->NextBillingCycle,
                 'properties' => $this->Properties->toArray(),
-                'started_timestamp' => (int)$this->StartedTimestamp,
                 'created_timestamp' => (int)$this->CreatedTimestamp,
                 'flags' => $this->Flags
             );
@@ -215,11 +207,6 @@
             if(isset($data['properties']))
             {
                 $SubscriptionObject->Properties = Properties::fromArray($data['properties']);
-            }
-
-            if(isset($data['started_timestamp']))
-            {
-                $SubscriptionObject->StartedTimestamp = (int)$data['started_timestamp'];
             }
 
             if(isset($data['created_timestamp']))

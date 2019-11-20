@@ -8,7 +8,6 @@ create table subscriptions
     billing_cycle        int(255)     null comment 'The cycle for billing this subscription (Every x seconds, bill the user) x = this value',
     next_billing_cycle   int(255)     null comment 'The next Unix Timestamp for when this billing cycle should be processed',
     properties           blob         null comment 'ZiProto Encoded data which represents the properties for this subscription',
-    started_timestamp    int(255)     null comment 'The Unix Timestmap for when this subscription has started',
     created_timestamp    int(255)     null comment 'The Unix Timestamp of this record was created',
     flags                blob         null comment 'Admin-placed flags for this subscription record (Special perms, etc)',
     constraint subscriptions_id_uindex unique (id)

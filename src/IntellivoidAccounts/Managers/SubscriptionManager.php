@@ -25,6 +25,7 @@
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Subscription;
     use IntellivoidAccounts\Utilities\Hashing;
+    use ZiProto\ZiProto;
 
     /**
      * Class SubscriptionManager
@@ -84,6 +85,7 @@
 
             $properties = new Subscription\Properties();
             $SubscriptionPromotion = null;
+
             if($promotion_code !== "NONE")
             {
                 $SubscriptionPromotion = $this->intellivoidAccounts->getSubscriptionPromotionManager()->getSubscriptionPromotion(
@@ -91,16 +93,33 @@
                 );
             }
 
+            if(count($SubscriptionPlan->Features) > 0)
+            {
+                foreach($SubscriptionPlan->Features as $feature)
+                {
+                    $properties->addFeature($feature);
+                }
+            }
+
             if($SubscriptionPromotion == null)
             {
                 $properties->InitialPrice = $SubscriptionPlan->InitialPrice;
                 $properties->CyclePrice = $SubscriptionPlan->CyclePrice;
                 $properties->PromotionID = 0;
-                $properties->addFeature();
             }
             else
             {
+                $properties->InitialPrice = $SubscriptionPromotion->InitialPrice;
+                $properties->CyclePrice = $SubscriptionPromotion->CyclePrice;
+                $properties->PromotionID = $SubscriptionPromotion->ID;
 
+                if(count($SubscriptionPromotion->Features) > 0)
+                {
+                    foreach($SubscriptionPromotion->Features as $feature)
+                    {
+                        $properties->addFeature($feature);
+                    }
+                }
             }
 
 
@@ -111,6 +130,9 @@
             $active = (int)True;
             $billing_cycle = (int)$SubscriptionPlan->BillingCycle;
             $next_billing_cycle = (int)time() + $billing_cycle;
+            $properties = ZiProto::encode($properties->toArray());
+            $properties = $this->intellivoidAccounts->database->real_escape_string($properties);
+            $started_timestamp = (int)time();
 
         }
 
