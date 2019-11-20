@@ -155,4 +155,39 @@
 
             return True;
         }
+
+        /**
+         * Transfer funds from one account to another
+         *
+         * @param int $from_id
+         * @param int $to_id
+         * @param float $amount
+         * @return bool
+         * @throws AccountNotFoundException
+         * @throws DatabaseException
+         * @throws InsufficientFundsException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidFundsValueException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidUsernameException
+         * @throws InvalidVendorException
+         */
+        public function transferFunds(int $from_id, int $to_id, float $amount): bool
+        {
+            $from_account = $this->intellivoidAccounts->getAccountManager()->getAccount(
+                AccountSearchMethod::byId, $from_id
+            );
+
+            $this->validateSubOperation($from_account, $from_account->Username, $amount);
+
+            $to_account = $this->intellivoidAccounts->getAccountManager()->getAccount(
+                AccountSearchMethod::byId, $to_id
+            );
+
+            $this->processPayment($from_id, $to_account->Username, $amount);
+            $this->addFunds($to_id, $from_account->Username, $amount);
+
+            return True;
+        }
     }
