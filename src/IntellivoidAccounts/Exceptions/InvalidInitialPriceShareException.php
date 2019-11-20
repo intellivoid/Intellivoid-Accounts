@@ -18,6 +18,6 @@
          */
         public function __construct()
         {
-            parent::__construct("The initial price share is invalid, it cannot bless than 0 nor greater than the initial price", ExceptionCodes::InvalidInitialPriceException, null);
+            parent::__construct("The initial price share is invalid, it cannot bless than 0 nor greater than the initial price", ExceptionCodes::InvalidInitialPriceShareException, null);
         }
     }

@@ -131,4 +131,6 @@
         const InvalidFundsValueException = 155;
 
         const InvalidInitialPriceShareException = 156;
+
+        const InvalidCyclePriceShareException = 157;
     }
