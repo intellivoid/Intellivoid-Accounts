@@ -4,6 +4,8 @@ create table subscription_promotions
     public_id                 varchar(255) null comment 'Unique public ID for this subscription promotion',
     promotion_code            varchar(255) null comment 'User friendly promotion code',
     subscription_plan_id      int(255)     null comment 'The subscription plan ID that this promotion is applicable to',
+    initial_price             float        null comment 'The initial price that this promotion is offering for the subscription plan',
+    cycle_price               float        null comment 'The billing cycle price that this promotion is offering to apply',
     affiliation_account_id    int(255)     null comment 'THe Account ID that receives affiliations, 0 = None',
     affiliation_initial_share float        null comment 'The amount of the initial price to share with the affiliation, 0 = None',
     affiliation_cycle_share   float        null comment 'The amount to share per cycle with the affiliation, 0 = None',

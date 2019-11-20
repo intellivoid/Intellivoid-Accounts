@@ -6,6 +6,7 @@
 
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPlanSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountLimitedException;
@@ -18,6 +19,7 @@
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Subscription;
     use IntellivoidAccounts\Objects\SubscriptionPlan;
+    use IntellivoidAccounts\Utilities\Hashing;
 
     /**
      * Class SubscriptionManager
@@ -56,6 +58,7 @@
         public function startSubscription(int $account_id, int $application_id, string $plan_name, string $promotion_code = "NONE"): Subscription
         {
             // Retrieve the required information
+            $Application = $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
             $Account = $this->intellivoidAccounts->getAccountManager()->getAccount(AccountSearchMethod::byId, $account_id);
             if($Account->Status == AccountStatus::Limited)
             {
@@ -74,7 +77,34 @@
                 );
             }
 
+            if($SubscriptionPromotion == null)
+            {
+                $this->intellivoidAccounts->getTransactionManager()->processPayment(
+                    $account_id, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                    (float)$SubscriptionPlan->InitialPrice
+                );
+            }
+            else
+            {
+                // TODO: Need to update promotion system to have initial share
+                $this->intellivoidAccounts->getTransactionManager()->processPayment(
+                    $account_id, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                    (float)$SubscriptionPromotion->AffiliationInitialShare
+                );
+            }
 
+
+
+            $properties = new Subscription\Properties();
+            $properties->InitialPrice =
+
+            $public_id = Hashing::SubscriptionPublicID($account_id, $SubscriptionPlan->ID);
+            $public_id = $this->intellivoidAccounts->database->real_connect($public_id);
+            $account_id = (int)$account_id;
+            $subscription_plan_id = (int)$SubscriptionPlan->ID;
+            $active = (int)True;
+            $billing_cycle = (int)$SubscriptionPlan->BillingCycle;
+            $next_billing_cycle = (int)time() + $billing_cycle;
 
         }
 
