@@ -65,7 +65,7 @@
          * @throws SubscriptionPromotionNotFoundException
          * @throws SubscriptionPromotionAlreadyExistsException
          */
-        public function createSubscriptionPromotion(int $subscription_plan_id, string $promotion_code, int $affiliation_account_id, float $affiliation_initial_share, float $affiliation_cycle_share, array $features): SubscriptionPromotion
+        public function createSubscriptionPromotion(int $subscription_plan_id, string $promotion_code, float $initial_price, float $cycle_price, int $affiliation_account_id, float $affiliation_initial_share, float $affiliation_cycle_share, array $features): SubscriptionPromotion
         {
             $promotion_code = Converter::subscriptionPromotionCode($promotion_code);
             if(Validate::subscriptionPromotionCode($promotion_code) == false)
@@ -81,6 +81,16 @@
             catch(SubscriptionPromotionNotFoundException $e)
             {
                 unset($e);
+            }
+
+            if($initial_price < 0)
+            {
+                throw new InvalidInitialPriceException();
+            }
+
+            if($cycle_price < 0)
+            {
+                throw new InvalidCyclePriceException();
             }
 
             if($affiliation_account_id == 0)

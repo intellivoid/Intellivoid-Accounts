@@ -129,4 +129,6 @@
         const SubscriptionPromotionAlreadyExistsException = 154;
 
         const InvalidFundsValueException = 155;
+
+        const InvalidInitialPriceShareException = 156;
     }
