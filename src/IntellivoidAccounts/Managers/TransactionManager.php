@@ -17,6 +17,7 @@
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
     use IntellivoidAccounts\Exceptions\InvalidVendorException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Validate;
 
     /**
@@ -118,6 +119,39 @@
             $this->intellivoidAccounts->getTransactionRecordManager()->logTransaction(
                 $Account->ID, $vendor, -$amount
             );
+
+            return True;
+        }
+
+        /**
+         * Validates if the subtraction operation is valid
+         *
+         * @param Account $account
+         * @param string $vendor
+         * @param float $amount
+         * @return bool
+         * @throws InsufficientFundsException
+         * @throws InvalidFundsValueException
+         * @throws InvalidVendorException
+         */
+        public function validateSubOperation(Account $account, string $vendor, float $amount): bool
+        {
+            if(Validate::vendor($vendor) == false)
+            {
+                throw new InvalidVendorException();
+            }
+
+            if($amount < 0)
+            {
+                throw new InvalidFundsValueException();
+            }
+
+            $account->Configuration->Balance = (float)BC::sub($account->Configuration->Balance, abs($amount), 2);
+
+            if($account->Configuration->Balance < 0)
+            {
+                throw new InsufficientFundsException();
+            }
 
             return True;
         }
