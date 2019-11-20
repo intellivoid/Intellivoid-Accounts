@@ -7,6 +7,7 @@
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountLimitedException;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -141,8 +142,62 @@
             }
         }
 
+        /**
+         * Returns the subscription object from the database
+         *
+         * @param string $search_method
+         * @param string $value
+         * @return Subscription
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws SubscriptionPlanNotFoundException
+         */
         public function getSubscription(string $search_method, string $value): Subscription
         {
+            switch($search_method)
+            {
+                case SubscriptionSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
 
+                case SubscriptionSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('subscriptions', [
+                'id',
+                'public_id',
+                'account_id',
+                'subscription_plan_id',
+                'active',
+                'billing_cycle',
+                'next_billing_cycle',
+                'properties',
+                'created_timestamp',
+                'flags'
+            ], $search_method, $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new SubscriptionPlanNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['flags'] = ZiProto::decode($Row['flags']);
+                return Subscription::fromArray($Row);
+            }
         }
     }
