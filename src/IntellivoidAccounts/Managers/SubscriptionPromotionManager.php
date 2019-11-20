@@ -266,6 +266,8 @@
          * @param SubscriptionPromotion $subscriptionPromotion
          * @return bool
          * @throws DatabaseException
+         * @throws InvalidCyclePriceShareException
+         * @throws InvalidInitialPriceShareException
          * @throws InvalidSearchMethodException
          * @throws InvalidSubscriptionPromotionNameException
          * @throws SubscriptionPromotionNotFoundException
@@ -282,15 +284,40 @@
 
             $promotion_code = $this->intellivoidAccounts->database->real_escape_string($promotion_code);
             $public_id = Hashing::SubscriptionPromotionPublicID($subscriptionPromotion->SubscriptionPlanID, $promotion_code);
+            $initial_price = (float)$subscriptionPromotion->InitialPrice;
+            $cycle_price = (float)$subscriptionPromotion->CyclePrice;
             $affiliation_account_id = (int)$subscriptionPromotion->AffiliationAccountID;
-            $affiliation_initial_share = (float)0;
-            $affiliation_cycle_share = (float)0;
+            $affiliation_initial_share = (float)$subscriptionPromotion->AffiliationInitialShare;
+            $affiliation_cycle_share = (float)$subscriptionPromotion->AffiliationCycleShare;
 
-            if($subscriptionPromotion->AffiliationAccountID > 0)
+            if($subscriptionPromotion->AffiliationAccountID == 0)
             {
-                $affiliation_initial_share = (float)$subscriptionPromotion->AffiliationInitialShare;
-                $affiliation_cycle_share = (float)$subscriptionPromotion->AffiliationCycleShare;
+                $affiliation_initial_share = (float)0;
+                $affiliation_cycle_share = (float)0;
             }
+            else
+            {
+                if($affiliation_cycle_share < 0)
+                {
+                    throw new InvalidCyclePriceShareException();
+                }
+
+                if($affiliation_cycle_share > $cycle_price)
+                {
+                    throw new InvalidCyclePriceShareException();
+                }
+
+                if($affiliation_initial_share < 0)
+                {
+                    throw new InvalidInitialPriceShareException();
+                }
+
+                if($affiliation_initial_share > $initial_price)
+                {
+                    throw new InvalidInitialPriceShareException();
+                }
+            }
+
 
             $decoded_features = array();
             /** @var Feature $feature */
@@ -307,6 +334,8 @@
             $Query = QueryBuilder::update('subscription_promotions', array(
                 'public_id' => $public_id,
                 'promotion_code' => $promotion_code,
+                'initial_price' => $initial_price,
+                'cycle_price' => $cycle_price,
                 'affiliation_account_id' => $affiliation_account_id,
                 'affiliation_initial_share' => $affiliation_initial_share,
                 'affiliation_cycle_share' => $affiliation_cycle_share,
