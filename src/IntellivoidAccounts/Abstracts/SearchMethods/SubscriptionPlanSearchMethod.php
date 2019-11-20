@@ -13,6 +13,4 @@
         const byId = 'id';
 
         const byPublicId = 'public_id';
-
-        const byPlanName = 'plan_name';
     }
