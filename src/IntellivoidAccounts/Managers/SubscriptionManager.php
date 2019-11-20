@@ -140,6 +140,8 @@
             {
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
+
+            return $this->getSubscription(SubscriptionSearchMethod::byPublicId, $public_id);
         }
 
         /**
