@@ -7,18 +7,23 @@
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
-    use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPlanSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountLimitedException;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
+    use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InsufficientFundsException;
+    use IntellivoidAccounts\Exceptions\InvalidAccountStatusException;
+    use IntellivoidAccounts\Exceptions\InvalidEmailException;
+    use IntellivoidAccounts\Exceptions\InvalidFundsValueException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPromotionNameException;
+    use IntellivoidAccounts\Exceptions\InvalidUsernameException;
+    use IntellivoidAccounts\Exceptions\InvalidVendorException;
     use IntellivoidAccounts\Exceptions\SubscriptionPlanNotFoundException;
     use IntellivoidAccounts\Exceptions\SubscriptionPromotionNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Subscription;
-    use IntellivoidAccounts\Objects\SubscriptionPlan;
     use IntellivoidAccounts\Utilities\Hashing;
 
     /**
@@ -52,8 +57,15 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          * @throws InvalidSubscriptionPromotionNameException
-         * @throws SubscriptionPromotionNotFoundException
          * @throws SubscriptionPlanNotFoundException
+         * @throws SubscriptionPromotionNotFoundException
+         * @throws ApplicationNotFoundException
+         * @throws InsufficientFundsException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidFundsValueException
+         * @throws InvalidUsernameException
+         * @throws InvalidVendorException
          */
         public function startSubscription(int $account_id, int $application_id, string $plan_name, string $promotion_code = "NONE"): Subscription
         {
@@ -69,6 +81,8 @@
                 $application_id, $plan_name
             );
 
+
+            $properties = new Subscription\Properties();
             $SubscriptionPromotion = null;
             if($promotion_code !== "NONE")
             {
@@ -79,24 +93,16 @@
 
             if($SubscriptionPromotion == null)
             {
-                $this->intellivoidAccounts->getTransactionManager()->processPayment(
-                    $account_id, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
-                    (float)$SubscriptionPlan->InitialPrice
-                );
+                $properties->InitialPrice = $SubscriptionPlan->InitialPrice;
+                $properties->CyclePrice = $SubscriptionPlan->CyclePrice;
+                $properties->PromotionID = 0;
+                $properties->addFeature();
             }
             else
             {
-                // TODO: Need to update promotion system to have initial share
-                $this->intellivoidAccounts->getTransactionManager()->processPayment(
-                    $account_id, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
-                    (float)$SubscriptionPromotion->AffiliationInitialShare
-                );
+
             }
 
-
-
-            $properties = new Subscription\Properties();
-            $properties->InitialPrice =
 
             $public_id = Hashing::SubscriptionPublicID($account_id, $SubscriptionPlan->ID);
             $public_id = $this->intellivoidAccounts->database->real_connect($public_id);

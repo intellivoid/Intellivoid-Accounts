@@ -52,6 +52,17 @@
         }
 
         /**
+         * Removes a feature from the subscription property
+         *
+         * @param Feature $feature
+         */
+        public function removeFeature(Feature $feature)
+        {
+            $id = hash('crc32', $feature->Name);
+            unset($this->Features[$id]);
+        }
+
+        /**
          * Returns an array which represents this object
          *
          * @return array
