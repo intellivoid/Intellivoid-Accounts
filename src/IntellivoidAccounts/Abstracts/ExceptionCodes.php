@@ -133,4 +133,6 @@
         const InvalidInitialPriceShareException = 156;
 
         const InvalidCyclePriceShareException = 157;
+
+        const SubscriptionNotActiveException = 158;
     }

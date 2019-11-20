@@ -6,6 +6,7 @@
 
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPlanSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountLimitedException;
@@ -238,6 +239,16 @@
             {
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
+        }
+
+        /**
+         * Processes the billing for the subscription if applicable
+         *
+         * @param Subscription $subscription
+         * @return bool
+         */
+        public function processBilling(Subscription $subscription): bool
+        {
 
         }
     }
