@@ -55,7 +55,7 @@
 
             $tracking_id = Hashing::uaTrackingId($user_agent_string, $host_id);
             $tracking_id = $this->intellivoidAccounts->database->real_escape_string($tracking_id);
-            $user_agent_string = $this->intellivoidAccounts->database->real_escape_string($user_agent_string);
+            $user_agent_string = $this->intellivoidAccounts->database->real_escape_string(base64_encode($user_agent_string));
             $host_id = (int)$host_id;
             $platform = 'Unknown';
             $browser = 'Unknown';
@@ -78,7 +78,7 @@
 
             $Query = QueryBuilder::insert_into('tracking_user_agents', array(
                 'tracking_id' => $tracking_id,
-                'user_agent_string' => base64_encode($user_agent_string),
+                'user_agent_string' => $user_agent_string,
                 'platform' => $platform,
                 'browser' => $browser,
                 'version' => $version,
@@ -176,7 +176,7 @@
             $tracking_id = Hashing::uaTrackingId($userAgentRecord->UserAgentString, $userAgentRecord->HostID);
             $tracking_id = $this->intellivoidAccounts->database->real_escape_string($tracking_id);
             $user_agent_parse = UserAgent::fromString($userAgentRecord->UserAgentString);
-            $user_agent_string = $this->intellivoidAccounts->database->real_escape_string($userAgentRecord->UserAgentString);
+            $user_agent_string = $this->intellivoidAccounts->database->real_escape_string(base64_encode($userAgentRecord->UserAgentString));
             $platform = 'Unknown';
             $browser = 'Unknown';
             $version = 'Unknown';
@@ -308,6 +308,7 @@
 
                 while ($Row = $QueryResults->fetch_assoc())
                 {
+                    $Row['user_agent_string'] = base64_decode($Row['user_agent_string']);
                     $ResultsArray[] = $Row;
                 }
 
