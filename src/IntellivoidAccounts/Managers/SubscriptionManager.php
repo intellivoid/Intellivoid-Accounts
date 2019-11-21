@@ -278,16 +278,18 @@
          * @param Subscription $subscription
          * @return bool
          * @throws AccountNotFoundException
-         * @throws DatabaseException
-         * @throws InvalidSearchMethodException
-         * @throws SubscriptionPlanNotFoundException
          * @throws ApplicationNotFoundException
+         * @throws DatabaseException
          * @throws InsufficientFundsException
          * @throws InvalidAccountStatusException
          * @throws InvalidEmailException
          * @throws InvalidFundsValueException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidSubscriptionPromotionNameException
          * @throws InvalidUsernameException
          * @throws InvalidVendorException
+         * @throws SubscriptionPlanNotFoundException
+         * @throws SubscriptionPromotionNotFoundException
          */
         public function processBilling(Subscription $subscription): bool
         {
@@ -310,7 +312,20 @@
 
             if($subscription->Properties->PromotionID !== 0)
             {
-                $SubscriptionPromotion = $this->intellivoidAccounts->getA
+                $SubscriptionPromotion = $this->intellivoidAccounts->getSubscriptionPromotionManager()->getSubscriptionPromotion(
+                    SubscriptionPromotionSearchMethod::byId, $subscription->Properties->PromotionID
+                );
+
+                if($SubscriptionPromotion->AffiliationAccountID !== 0)
+                {
+                    if($SubscriptionPromotion->AffiliationCycleShare > 0)
+                    {
+                        $this->intellivoidAccounts->getTransactionManager()->addFunds(
+                            $SubscriptionPromotion->AffiliationAccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                            $SubscriptionPromotion->AffiliationInitialShare
+                        );
+                    }
+                }
             }
 
             return True;
