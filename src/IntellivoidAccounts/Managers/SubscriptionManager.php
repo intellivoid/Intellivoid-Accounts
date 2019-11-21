@@ -129,8 +129,16 @@
 
             $this->intellivoidAccounts->getTransactionManager()->processPayment(
                 $account_id, $Application->Name . '(' . $SubscriptionPlan->PlanName . ')',
-                $properties->CyclePrice
+                $properties->InitialPrice
             );
+
+            if($SubscriptionPromotion->AffiliationAccountID !== 0)
+            {
+                $this->intellivoidAccounts->getTransactionManager()->addFunds(
+                    $account_id, $Application->Name . '(' . $SubscriptionPlan->PlanName . ')',
+                    $SubscriptionPromotion->AffiliationInitialShare
+                );
+            }
 
             $public_id = Hashing::SubscriptionPublicID($account_id, $SubscriptionPlan->ID);
             $public_id = $this->intellivoidAccounts->database->real_connect($public_id);
