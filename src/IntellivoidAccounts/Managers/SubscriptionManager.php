@@ -128,16 +128,19 @@
             }
 
             $this->intellivoidAccounts->getTransactionManager()->processPayment(
-                $account_id, $Application->Name . '(' . $SubscriptionPlan->PlanName . ')',
+                $account_id, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
                 $properties->InitialPrice
             );
 
             if($SubscriptionPromotion->AffiliationAccountID !== 0)
             {
-                $this->intellivoidAccounts->getTransactionManager()->addFunds(
-                    $account_id, $Application->Name . '(' . $SubscriptionPlan->PlanName . ')',
-                    $SubscriptionPromotion->AffiliationInitialShare
-                );
+                if($SubscriptionPromotion->AffiliationInitialShare > 0)
+                {
+                    $this->intellivoidAccounts->getTransactionManager()->addFunds(
+                        $SubscriptionPromotion->AffiliationAccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                        $SubscriptionPromotion->AffiliationInitialShare
+                    );
+                }
             }
 
             $public_id = Hashing::SubscriptionPublicID($account_id, $SubscriptionPlan->ID);
@@ -301,9 +304,14 @@
             );
 
             $this->intellivoidAccounts->getTransactionManager()->processPayment(
-                $subscription->AccountID, $Application->Name . '(' . $SubscriptionPlan->PlanName . ')',
+                $subscription->AccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
                 $subscription->Properties->CyclePrice
             );
+
+            if($subscription->Properties->PromotionID !== 0)
+            {
+                $SubscriptionPromotion = $this->intellivoidAccounts->getA
+            }
 
             return True;
         }
