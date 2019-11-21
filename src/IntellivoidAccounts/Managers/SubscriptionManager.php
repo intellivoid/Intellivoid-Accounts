@@ -6,14 +6,22 @@
 
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPlanSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\SubscriptionSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountLimitedException;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
+    use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InsufficientFundsException;
+    use IntellivoidAccounts\Exceptions\InvalidAccountStatusException;
+    use IntellivoidAccounts\Exceptions\InvalidEmailException;
+    use IntellivoidAccounts\Exceptions\InvalidFundsValueException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPromotionNameException;
+    use IntellivoidAccounts\Exceptions\InvalidUsernameException;
+    use IntellivoidAccounts\Exceptions\InvalidVendorException;
     use IntellivoidAccounts\Exceptions\SubscriptionPlanNotFoundException;
     use IntellivoidAccounts\Exceptions\SubscriptionPromotionNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -246,9 +254,37 @@
          *
          * @param Subscription $subscription
          * @return bool
+         * @throws AccountNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws SubscriptionPlanNotFoundException
+         * @throws ApplicationNotFoundException
+         * @throws InsufficientFundsException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidFundsValueException
+         * @throws InvalidUsernameException
+         * @throws InvalidVendorException
          */
         public function processBilling(Subscription $subscription): bool
         {
+            if($subscription->NextBillingCycle > (int)time())
+            {
+                return False;
+            }
 
+            $SubscriptionPlan = $this->intellivoidAccounts->getSubscriptionPlanManager()->getSubscriptionPlan(
+                SubscriptionPlanSearchMethod::byId, $subscription->SubscriptionPlanID
+            );
+            $Account = $this->intellivoidAccounts->getApplicationManager()->getApplication(
+                ApplicationSearchMethod::byApplicationId, $SubscriptionPlan->ApplicationID
+            );
+
+            $this->intellivoidAccounts->getTransactionManager()->processPayment(
+                $subscription->AccountID, $Account->Name . '(' . $SubscriptionPlan->PlanName . ')',
+                $subscription->Properties->CyclePrice
+            );
+            
+            return True;
         }
     }
