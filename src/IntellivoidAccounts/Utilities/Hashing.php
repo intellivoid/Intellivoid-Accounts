@@ -46,6 +46,7 @@
         {
             $username = hash('haval256,3', $username);
             $password = hash('haval192,4', $password);
+            $email = self::pepper($email);
             $email = hash('haval256,5', $email);
 
             $crc_2 = hash('haval160,3', $username . $email);

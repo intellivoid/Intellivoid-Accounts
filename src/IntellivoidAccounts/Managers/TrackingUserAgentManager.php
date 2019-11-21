@@ -295,7 +295,7 @@
                 'host_id',
                 'created',
                 'last_seen'
-            ], 'account_id', $host_id, null, null, $limit, $offset);
+            ], 'host_id', $host_id, null, null, $limit, $offset);
 
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
             if ($QueryResults == false)
