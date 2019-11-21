@@ -60,15 +60,23 @@
          * @return Subscription
          * @throws AccountLimitedException
          * @throws AccountNotFoundException
+         * @throws ApplicationNotFoundException
          * @throws DatabaseException
+         * @throws InsufficientFundsException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidFundsValueException
          * @throws InvalidSearchMethodException
          * @throws InvalidSubscriptionPromotionNameException
+         * @throws InvalidUsernameException
+         * @throws InvalidVendorException
          * @throws SubscriptionPlanNotFoundException
          * @throws SubscriptionPromotionNotFoundException
          */
         public function startSubscription(int $account_id, int $application_id, string $plan_name, string $promotion_code = "NONE"): Subscription
         {
             // Retrieve the required information
+            $Application = $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
             $Account = $this->intellivoidAccounts->getAccountManager()->getAccount(AccountSearchMethod::byId, $account_id);
             if($Account->Status == AccountStatus::Limited)
             {
@@ -119,6 +127,10 @@
                 }
             }
 
+            $this->intellivoidAccounts->getTransactionManager()->processPayment(
+                $account_id, $Application->Name . '(' . $SubscriptionPlan->PlanName . ')',
+                $properties->CyclePrice
+            );
 
             $public_id = Hashing::SubscriptionPublicID($account_id, $SubscriptionPlan->ID);
             $public_id = $this->intellivoidAccounts->database->real_connect($public_id);
@@ -276,15 +288,15 @@
             $SubscriptionPlan = $this->intellivoidAccounts->getSubscriptionPlanManager()->getSubscriptionPlan(
                 SubscriptionPlanSearchMethod::byId, $subscription->SubscriptionPlanID
             );
-            $Account = $this->intellivoidAccounts->getApplicationManager()->getApplication(
+            $Application = $this->intellivoidAccounts->getApplicationManager()->getApplication(
                 ApplicationSearchMethod::byApplicationId, $SubscriptionPlan->ApplicationID
             );
 
             $this->intellivoidAccounts->getTransactionManager()->processPayment(
-                $subscription->AccountID, $Account->Name . '(' . $SubscriptionPlan->PlanName . ')',
+                $subscription->AccountID, $Application->Name . '(' . $SubscriptionPlan->PlanName . ')',
                 $subscription->Properties->CyclePrice
             );
-            
+
             return True;
         }
     }
