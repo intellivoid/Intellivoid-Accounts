@@ -29,15 +29,14 @@
          */
         public function apply_role(string $name): bool
         {
-            $name = strtoupper($name);
-
-            if(isset($this->Roles[$name]) == false)
+            if($this->has_role($name))
             {
-                $this->Roles[] = $name;
-                return true;
+                return false;
             }
 
-            return false;
+            $name = strtoupper($name);
+            $this->Roles[] = $name;
+            return true;
         }
 
         /**
@@ -67,6 +66,8 @@
          */
         public function has_role(string $name): bool
         {
+            $name = strtoupper($name);
+
             if(in_array($name, $this->Roles))
             {
                 return true;
