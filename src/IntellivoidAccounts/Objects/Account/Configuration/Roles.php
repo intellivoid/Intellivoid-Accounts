@@ -60,6 +60,22 @@
         }
 
         /**
+         * Determines if the role is applied
+         *
+         * @param string $name
+         * @return bool
+         */
+        public function has_role(string $name): bool
+        {
+            if(in_array($name, $this->Roles))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
          * Returns an array that represents this object
          *
          * @return array
