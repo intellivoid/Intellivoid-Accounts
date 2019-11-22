@@ -51,7 +51,7 @@
             {
                 return false;
             }
-            
+
             $name = strtoupper($name);
             $this->Roles = array_diff($this->Roles, [$name]);
             return true;
