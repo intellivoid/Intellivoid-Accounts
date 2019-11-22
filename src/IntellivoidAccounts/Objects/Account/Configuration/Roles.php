@@ -47,15 +47,14 @@
          */
         public function revoke_role(string $name): bool
         {
-            $name = strtoupper($name);
-
-            if(isset($this->Roles[$name]))
+            if($this->has_role($name) == false)
             {
-                unset($this->Roles[$name]);
-                return true;
+                return false;
             }
-
-            return false;
+            
+            $name = strtoupper($name);
+            $this->Roles = array_diff($this->Roles, [$name]);
+            return true;
         }
 
         /**
