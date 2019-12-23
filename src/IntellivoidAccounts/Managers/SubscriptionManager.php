@@ -326,6 +326,11 @@
                 {
                     if($SubscriptionPromotion->AffiliationCycleShare > 0)
                     {
+                        if($SubscriptionPromotion->CyclePrice >  $SubscriptionPlan->CyclePrice)
+                        {
+                            $SubscriptionPromotion->CyclePrice = $SubscriptionPlan->CyclePrice;
+                        }
+
                         $this->intellivoidAccounts->getTransactionManager()->addFunds(
                             $SubscriptionPromotion->AffiliationAccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
                             $SubscriptionPromotion->AffiliationInitialShare
