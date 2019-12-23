@@ -136,6 +136,12 @@
             {
                 if($SubscriptionPromotion->AffiliationInitialShare > 0)
                 {
+
+                    if($SubscriptionPromotion->AffiliationInitialShare > $properties->InitialPrice)
+                    {
+                        $SubscriptionPromotion->AffiliationInitialShare = $properties->InitialPrice;
+                    }
+
                     $this->intellivoidAccounts->getTransactionManager()->addFunds(
                         $SubscriptionPromotion->AffiliationAccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
                         $SubscriptionPromotion->AffiliationInitialShare
