@@ -182,7 +182,7 @@
                 throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
             }
 
-            return $this->getSubscriptionPromotion(SubscriptionPromotionSearchMethod::byPromotionCode, $public_id);
+            return $this->getSubscriptionPromotion(SubscriptionPromotionSearchMethod::byPublicId, $public_id);
         }
 
         /**
