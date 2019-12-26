@@ -45,17 +45,24 @@
          */
         public function registerRecord(string $user_agent_string, int $host_id): string
         {
-            if(Validate::userAgent($user_agent_string) == false)
+            if(Validate::userAgent($user_agent_string))
             {
-                return null;
+                $user_agent_parse = UserAgent::fromString($user_agent_string);
+            }
+            else
+            {
+                $user_agent_parse = new UserAgent();
+                $user_agent_parse->Browser = "Unknown";
+                $user_agent_parse->Platform = "Unknown";
+                $user_agent_parse->Version = "Unknown";
+                $user_agent_string = "Unknown";
             }
 
-            $created = (int)time();
-            $user_agent_parse = UserAgent::fromString($user_agent_string);
-
+            $user_agent_string = $this->intellivoidAccounts->database->real_escape_string(base64_encode($user_agent_string));
             $tracking_id = Hashing::uaTrackingId($user_agent_string, $host_id);
             $tracking_id = $this->intellivoidAccounts->database->real_escape_string($tracking_id);
-            $user_agent_string = $this->intellivoidAccounts->database->real_escape_string(base64_encode($user_agent_string));
+            $created = (int)time();
+
             $host_id = (int)$host_id;
             $platform = 'Unknown';
             $browser = 'Unknown';
