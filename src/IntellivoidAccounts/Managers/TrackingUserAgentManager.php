@@ -180,9 +180,21 @@
                 $this->getRecord(TrackingUserAgentSearchMethod::byId, $userAgentRecord->ID);
             }
 
+            if(Validate::userAgent($userAgentRecord->UserAgentString))
+            {
+                $user_agent_parse = UserAgent::fromString($userAgentRecord->UserAgentString);
+            }
+            else
+            {
+                $user_agent_parse = new UserAgent();
+                $user_agent_parse->Browser = "Unknown";
+                $user_agent_parse->Platform = "Unknown";
+                $user_agent_parse->Version = "Unknown";
+                $userAgentRecord->UserAgentString = "Unknown";
+            }
+
             $tracking_id = Hashing::uaTrackingId($userAgentRecord->UserAgentString, $userAgentRecord->HostID);
             $tracking_id = $this->intellivoidAccounts->database->real_escape_string($tracking_id);
-            $user_agent_parse = UserAgent::fromString($userAgentRecord->UserAgentString);
             $user_agent_string = $this->intellivoidAccounts->database->real_escape_string(base64_encode($userAgentRecord->UserAgentString));
             $platform = 'Unknown';
             $browser = 'Unknown';
