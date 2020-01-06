@@ -3,10 +3,10 @@
 
     namespace IntellivoidAccounts\Managers;
 
-
     use IntellivoidAccounts\Abstracts\SearchMethods\TransactionLogSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
+    use IntellivoidAccounts\Exceptions\TransactionRecordNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TransactionRecord;
     use IntellivoidAccounts\Utilities\Hashing;
@@ -67,6 +67,16 @@
             return true;
         }
 
+        /**
+         * Gets an existing Transaction Record from the database
+         *
+         * @param string $search_method
+         * @param $value
+         * @return TransactionRecord
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TransactionRecordNotFoundException
+         */
         public function getTransactionRecord(string $search_method, $value): TransactionRecord
         {
             switch($search_method)
@@ -103,12 +113,11 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new HostNotKnownException();
+                    throw new TransactionRecordNotFoundException();
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
-                $Row['location_data'] = ZiProto::decode($Row['location_data']);
-                return KnownHost::fromArray($Row);
+                return TransactionRecord::fromArray($Row);
             }
         }
 
