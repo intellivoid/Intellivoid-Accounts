@@ -4,7 +4,9 @@
     namespace IntellivoidAccounts\Managers;
 
 
+    use IntellivoidAccounts\Abstracts\SearchMethods\TransactionLogSearchMethod;
     use IntellivoidAccounts\Exceptions\DatabaseException;
+    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\TransactionRecord;
     use IntellivoidAccounts\Utilities\Hashing;
@@ -67,7 +69,47 @@
 
         public function getTransactionRecord(string $search_method, $value): TransactionRecord
         {
+            switch($search_method)
+            {
+                case TransactionLogSearchMethod::byId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = (int)$value;
+                    break;
 
+                case TransactionLogSearchMethod::byPublicId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
+                    break;
+
+                default:
+                    throw new InvalidSearchMethodException();
+            }
+
+            $Query = QueryBuilder::select('transaction_records', [
+                'id',
+                'pubic_id',
+                'account_id',
+                'vendor',
+                'amount',
+                'timestamp'
+            ], $search_method, $value);
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new HostNotKnownException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['location_data'] = ZiProto::decode($Row['location_data']);
+                return KnownHost::fromArray($Row);
+            }
         }
 
 

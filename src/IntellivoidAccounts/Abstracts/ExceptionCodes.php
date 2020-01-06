@@ -48,7 +48,6 @@
         /** @deprecated  */
         const InvalidTransactionTypeException = 118;
 
-        /** @deprecated  */
         const TransactionRecordNotFoundException = 119;
 
         const HostNotKnownException = 120;
