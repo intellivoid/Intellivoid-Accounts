@@ -40,6 +40,7 @@
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TelegramClientSearchMethod.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TelegramVerificationCodeSearchMethod.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TrackingUserAgentSearchMethod.php');
+    include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'SearchMethods' . DIRECTORY_SEPARATOR . 'TransactionLogSearchMethod.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountRequestPermissions.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'AccountStatus.php');
     include_once($LocalDirectory . 'Abstracts' . DIRECTORY_SEPARATOR . 'ApplicationAccessStatus.php');

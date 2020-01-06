@@ -6,6 +6,7 @@
 
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\TransactionRecord;
     use IntellivoidAccounts\Utilities\Hashing;
     use msqg\Abstracts\SortBy;
     use msqg\QueryBuilder;
@@ -62,6 +63,11 @@
             }
 
             return true;
+        }
+
+        public function getTransactionRecord(string $search_method, $value): TransactionRecord
+        {
+
         }
 
 
