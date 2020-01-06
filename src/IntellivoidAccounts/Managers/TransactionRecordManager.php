@@ -97,7 +97,7 @@
 
             $Query = QueryBuilder::select('transaction_records', [
                 'id',
-                'pubic_id',
+                'public_id',
                 'account_id',
                 'vendor',
                 'amount',
