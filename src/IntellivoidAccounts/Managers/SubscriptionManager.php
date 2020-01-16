@@ -22,6 +22,7 @@
     use IntellivoidAccounts\Exceptions\InvalidSubscriptionPromotionNameException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
     use IntellivoidAccounts\Exceptions\InvalidVendorException;
+    use IntellivoidAccounts\Exceptions\SubscriptionNotFoundException;
     use IntellivoidAccounts\Exceptions\SubscriptionPlanNotFoundException;
     use IntellivoidAccounts\Exceptions\SubscriptionPromotionNotFoundException;
     use IntellivoidAccounts\IntellivoidAccounts;
@@ -232,7 +233,7 @@
             {
                 if($QueryResults->num_rows !== 1)
                 {
-                    throw new SubscriptionPlanNotFoundException();
+                    throw new SubscriptionNotFoundException();
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
