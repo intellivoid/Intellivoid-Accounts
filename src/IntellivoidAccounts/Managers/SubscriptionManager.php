@@ -73,6 +73,7 @@
          * @throws InvalidVendorException
          * @throws SubscriptionPlanNotFoundException
          * @throws SubscriptionPromotionNotFoundException
+         * @throws SubscriptionNotFoundException
          */
         public function startSubscription(int $account_id, int $application_id, string $plan_name, string $promotion_code = "NONE"): Subscription
         {
@@ -192,6 +193,7 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          * @throws SubscriptionPlanNotFoundException
+         * @throws SubscriptionNotFoundException
          */
         public function getSubscription(string $search_method, string $value): Subscription
         {
