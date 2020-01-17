@@ -133,12 +133,12 @@
             /** @var Feature $feature */
             foreach($features as $feature)
             {
-                if($feature->Name == null)
+                if(is_null($feature->Name))
                 {
                     throw new InvalidFeatureException();
                 }
 
-                if($feature->Value == null)
+                if(is_null($feature->Value))
                 {
                     throw new InvalidFeatureException();
                 }
