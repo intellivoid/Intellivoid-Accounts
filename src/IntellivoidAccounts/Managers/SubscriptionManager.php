@@ -281,6 +281,11 @@
             }
         }
 
+        public function alreadySubscribedToApplication(int $account_id, int $application_id)
+        {
+
+        }
+
         /**
          * Processes the billing for the subscription if applicable
          *
