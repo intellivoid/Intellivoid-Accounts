@@ -322,6 +322,51 @@
         }
 
         /**
+         * Gets a subscription plan associated with an account
+         *
+         * @param int $account_id
+         * @param int $subscription_plan_id
+         * @return Subscription
+         * @throws DatabaseException
+         * @throws SubscriptionNotFoundException
+         */
+        public function getSubscriptionPlanAssociatedWithAccount(int $account_id, int $subscription_plan_id): Subscription
+        {
+            $account_id = (int)$account_id;
+
+            $Query = QueryBuilder::select('subscriptions', [
+                'id',
+                'public_id',
+                'account_id',
+                'subscription_plan_id',
+                'active',
+                'billing_cycle',
+                'next_billing_cycle',
+                'properties',
+                'created_timestamp',
+                'flags'
+            ], 'account_id', $account_id . "' AND subscription_plan_id='$subscription_plan_id");
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    throw new SubscriptionNotFoundException();
+                }
+
+                $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
+                $Row['flags'] = ZiProto::decode($Row['flags']);
+                $Row['properties'] = ZiProto::decode($Row['properties']);
+                return Subscription::fromArray($Row);
+            }
+        }
+
+        /**
          * Updates an existing subscription from the database
          *
          * @param Subscription $subscription
