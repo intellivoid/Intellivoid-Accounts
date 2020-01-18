@@ -360,7 +360,7 @@
                 while($Row = $QueryResults->fetch_assoc())
                 {
                     $Row['features'] = ZiProto::decode($Row['features']);
-                    $Row['flags'] = ZiProto::decode($Row['falgs']);
+                    $Row['flags'] = ZiProto::decode($Row['flags']);
                     $ResultsArray[] = SubscriptionPlan::fromArray($Row);
                 }
 
