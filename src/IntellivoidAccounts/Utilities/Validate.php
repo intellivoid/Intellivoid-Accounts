@@ -117,12 +117,7 @@
                 return false;
             }
 
-            if(preg_match("/^[a-zA-Z0-9 ]*$/", $input))
-            {
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         /**
