@@ -192,7 +192,6 @@
          * @return Subscription
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
-         * @throws SubscriptionPlanNotFoundException
          * @throws SubscriptionNotFoundException
          */
         public function getSubscription(string $search_method, string $value): Subscription
@@ -241,6 +240,39 @@
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
                 $Row['flags'] = ZiProto::decode($Row['flags']);
                 return Subscription::fromArray($Row);
+            }
+        }
+
+        /**
+         * Determines if the Subscription Plan is associated with an account
+         *
+         * @param int $account_id
+         * @param int $subscription_plan_id
+         * @return bool
+         * @throws DatabaseException
+         */
+        public function subscriptionPlanAssociatedWithAccount(int $account_id, int $subscription_plan_id): bool
+        {
+            $account_id = (int)$account_id;
+            $subscription_plan_id = (int)$subscription_plan_id;
+
+            $Query = QueryBuilder::select('subscriptions', ['id'],
+                'account_id', $account_id . "' AND subscription_pan_id='$subscription_plan_id"
+            );
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+            else
+            {
+                if($QueryResults->num_rows !== 1)
+                {
+                    return false;
+                }
+
+                return true;
             }
         }
 
