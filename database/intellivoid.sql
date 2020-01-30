@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2020 at 09:02 PM
+-- Generation Time: Jan 30, 2020 at 06:22 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.26
 
@@ -27,8 +27,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `applications`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `applications` (
   `id` int(255) NOT NULL COMMENT 'Internal Database ID',
@@ -45,18 +43,10 @@ CREATE TABLE `applications` (
   `last_updated_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this application was last updated'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table for Applications that are registered in Intellivoid';
 
---
--- RELATIONSHIPS FOR TABLE `applications`:
---   `account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `application_access`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `application_access` (
@@ -70,20 +60,10 @@ CREATE TABLE `application_access` (
   `last_authenticated_timestamp` int(255) DEFAULT NULL COMMENT 'The timestamp for when this Account last authenticated to ths Application'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Records for what Applications currently has access to Accounts';
 
---
--- RELATIONSHIPS FOR TABLE `application_access`:
---   `application_id`
---       `applications` -> `id`
---   `account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `authentication_access`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `authentication_access` (
@@ -99,22 +79,10 @@ CREATE TABLE `authentication_access` (
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this authentication access was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of authentication access tokens granted by the system for applications';
 
---
--- RELATIONSHIPS FOR TABLE `authentication_access`:
---   `application_id`
---       `applications` -> `id`
---   `request_id`
---       `authentication_requests` -> `id`
---   `account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `authentication_requests`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `authentication_requests` (
@@ -129,23 +97,10 @@ CREATE TABLE `authentication_requests` (
   `expires_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this request expires, once expired it won''t be used anymore.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Temporary authentication requests issued by applications';
 
---
--- RELATIONSHIPS FOR TABLE `authentication_requests`:
---   `application_id`
---       `applications` -> `id`
---   `account_id`
---       `users` -> `id`
---   `host_id`
---       `users_known_hosts` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cookies`
---
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `cookies` (
@@ -160,16 +115,26 @@ CREATE TABLE `cookies` (
   `data` blob DEFAULT NULL COMMENT 'ZiProto Encoded Data associated with the cookie'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='The main database for Secured Web Sessions library';
 
+-- --------------------------------------------------------
+
 --
--- RELATIONSHIPS FOR TABLE `cookies`:
+-- Table structure for table `otl_codes`
 --
+
+CREATE TABLE `otl_codes` (
+  `id` int(255) NOT NULL COMMENT 'The internal unique database ID for this login code',
+  `code` varchar(255) DEFAULT NULL COMMENT 'Unique authentication code used to login and authenticate',
+  `vendor` varchar(255) DEFAULT NULL COMMENT 'The name of the Application/Service that authenticated the account using this code (Default: None)',
+  `account_id` int(255) DEFAULT NULL COMMENT 'The account ID that generated this code',
+  `status` int(255) DEFAULT NULL COMMENT 'The current status of this authentication code',
+  `expires` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp for when this code expires',
+  `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was created'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='One time login codes used for authentication via internal services';
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `subscriptions`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `subscriptions` (
@@ -185,20 +150,10 @@ CREATE TABLE `subscriptions` (
   `flags` blob DEFAULT NULL COMMENT 'Admin-placed flags for this subscription record (Special perms, etc)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Subscriptions associated with users and services';
 
---
--- RELATIONSHIPS FOR TABLE `subscriptions`:
---   `subscription_plan_id`
---       `subscription_plans` -> `id`
---   `account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `subscription_plans`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `subscription_plans` (
@@ -216,18 +171,10 @@ CREATE TABLE `subscription_plans` (
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Applicable Subscription Plans for starting a new subscription';
 
---
--- RELATIONSHIPS FOR TABLE `subscription_plans`:
---   `application_id`
---       `applications` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `subscription_promotions`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `subscription_promotions` (
@@ -247,20 +194,10 @@ CREATE TABLE `subscription_promotions` (
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Promotion codes applicable to subscriptions';
 
---
--- RELATIONSHIPS FOR TABLE `subscription_promotions`:
---   `subscription_plan_id`
---       `subscription_plans` -> `id`
---   `affiliation_account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `support_tickets`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `support_tickets` (
@@ -275,16 +212,10 @@ CREATE TABLE `support_tickets` (
   `submission_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this support ticket was submitted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of support tickets that can be reported from various sources';
 
---
--- RELATIONSHIPS FOR TABLE `support_tickets`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `telegram_clients`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `telegram_clients` (
@@ -301,18 +232,10 @@ CREATE TABLE `telegram_clients` (
   `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this client was created and registered into the database'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of Telegram Clients that were assocaited with a Telegram Bot';
 
---
--- RELATIONSHIPS FOR TABLE `telegram_clients`:
---   `account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `telegram_verification_codes`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `telegram_verification_codes` (
@@ -324,19 +247,10 @@ CREATE TABLE `telegram_verification_codes` (
   `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp for when this code was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Verification codes used to verify Telegram Accounts';
 
---
--- RELATIONSHIPS FOR TABLE `telegram_verification_codes`:
---   `telegram_client_id`
---       `telegram_clients` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tracking_user_agents`
---
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `tracking_user_agents` (
@@ -351,16 +265,10 @@ CREATE TABLE `tracking_user_agents` (
   `last_seen` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was last seen'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table for tracking User Agents';
 
---
--- RELATIONSHIPS FOR TABLE `tracking_user_agents`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `transaction_records`
---
--- Creation: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `transaction_records` (
@@ -372,19 +280,10 @@ CREATE TABLE `transaction_records` (
   `timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this transaction took place'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Records of Balance Transactions regarding subscription payments, payments, withdrawals, etc.';
 
---
--- RELATIONSHIPS FOR TABLE `transaction_records`:
---   `account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
---
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 08:00 PM
 --
 
 CREATE TABLE `users` (
@@ -400,17 +299,10 @@ CREATE TABLE `users` (
   `creation_date` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this Account was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of all user accounts';
 
---
--- RELATIONSHIPS FOR TABLE `users`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users_audit`
---
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 08:00 PM
 --
 
 CREATE TABLE `users_audit` (
@@ -420,19 +312,10 @@ CREATE TABLE `users_audit` (
   `timestamp` int(255) DEFAULT NULL COMMENT 'The timestamp of when this record was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Security log for account changes';
 
---
--- RELATIONSHIPS FOR TABLE `users_audit`:
---   `account_id`
---       `users` -> `id`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users_known_hosts`
---
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `users_known_hosts` (
@@ -445,17 +328,10 @@ CREATE TABLE `users_known_hosts` (
   `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this entry was first created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of known hosts associated with user accounts';
 
---
--- RELATIONSHIPS FOR TABLE `users_known_hosts`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users_logins`
---
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 07:59 PM
 --
 
 CREATE TABLE `users_logins` (
@@ -470,14 +346,6 @@ CREATE TABLE `users_logins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Login history for Intellivoid Accounts (new)';
 
 --
--- RELATIONSHIPS FOR TABLE `users_logins`:
---   `account_id`
---       `users` -> `id`
---   `host_id`
---       `users_known_hosts` -> `id`
---
-
---
 -- Indexes for dumped tables
 --
 
@@ -486,37 +354,28 @@ CREATE TABLE `users_logins` (
 --
 ALTER TABLE `applications`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `applications_id_uindex` (`id`),
-  ADD KEY `applications_users_id_fk` (`account_id`);
+  ADD UNIQUE KEY `applications_id_uindex` (`id`);
 
 --
 -- Indexes for table `application_access`
 --
 ALTER TABLE `application_access`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `application_access_id_uindex` (`id`),
-  ADD KEY `application_access_applications_id_fk` (`application_id`),
-  ADD KEY `application_access_users_id_fk` (`account_id`);
+  ADD UNIQUE KEY `application_access_id_uindex` (`id`);
 
 --
 -- Indexes for table `authentication_access`
 --
 ALTER TABLE `authentication_access`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `authentication_access_id_uindex` (`id`),
-  ADD KEY `authentication_access_applications_id_fk` (`application_id`),
-  ADD KEY `authentication_access_authentication_requests_id_fk` (`request_id`),
-  ADD KEY `authentication_access_users_id_fk` (`account_id`);
+  ADD UNIQUE KEY `authentication_access_id_uindex` (`id`);
 
 --
 -- Indexes for table `authentication_requests`
 --
 ALTER TABLE `authentication_requests`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `authentication_requests_id_uindex` (`id`),
-  ADD KEY `authentication_requests_applications_id_fk` (`application_id`),
-  ADD KEY `authentication_requests_users_id_fk` (`account_id`),
-  ADD KEY `authentication_requests_users_known_hosts_id_fk` (`host_id`);
+  ADD UNIQUE KEY `authentication_requests_id_uindex` (`id`);
 
 --
 -- Indexes for table `cookies`
@@ -526,30 +385,32 @@ ALTER TABLE `cookies`
   ADD UNIQUE KEY `sws_id_uindex` (`id`);
 
 --
+-- Indexes for table `otl_codes`
+--
+ALTER TABLE `otl_codes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `otl_codes_id_uindex` (`id`);
+
+--
 -- Indexes for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `subscriptions_id_uindex` (`id`),
-  ADD KEY `subscriptions_subscription_plans_id_fk` (`subscription_plan_id`),
-  ADD KEY `subscriptions_users_id_fk` (`account_id`);
+  ADD UNIQUE KEY `subscriptions_id_uindex` (`id`);
 
 --
 -- Indexes for table `subscription_plans`
 --
 ALTER TABLE `subscription_plans`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `subscription_plans_id_uindex` (`id`),
-  ADD KEY `subscription_plans_applications_id_fk` (`application_id`);
+  ADD UNIQUE KEY `subscription_plans_id_uindex` (`id`);
 
 --
 -- Indexes for table `subscription_promotions`
 --
 ALTER TABLE `subscription_promotions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `subscription_promotions_id_uindex` (`id`),
-  ADD KEY `subscription_promotions_subscription_plans_id_fk` (`subscription_plan_id`),
-  ADD KEY `users` (`affiliation_account_id`);
+  ADD UNIQUE KEY `subscription_promotions_id_uindex` (`id`);
 
 --
 -- Indexes for table `support_tickets`
@@ -563,16 +424,14 @@ ALTER TABLE `support_tickets`
 --
 ALTER TABLE `telegram_clients`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `telegram_clients_id_uindex` (`id`),
-  ADD KEY `telegram_clients_users_id_fk` (`account_id`);
+  ADD UNIQUE KEY `telegram_clients_id_uindex` (`id`);
 
 --
 -- Indexes for table `telegram_verification_codes`
 --
 ALTER TABLE `telegram_verification_codes`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `telegram_verification_codes_id_uindex` (`id`),
-  ADD KEY `telegram_verification_codes_telegram_clients_id_fk` (`telegram_client_id`);
+  ADD UNIQUE KEY `telegram_verification_codes_id_uindex` (`id`);
 
 --
 -- Indexes for table `tracking_user_agents`
@@ -586,8 +445,7 @@ ALTER TABLE `tracking_user_agents`
 --
 ALTER TABLE `transaction_records`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `transaction_records_id_uindex` (`id`),
-  ADD KEY `transaction_records_users_id_fk` (`account_id`);
+  ADD UNIQUE KEY `transaction_records_id_uindex` (`id`);
 
 --
 -- Indexes for table `users`
@@ -601,8 +459,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users_audit`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_audit_id_uindex` (`id`),
-  ADD KEY `users_audit_users_id_fk` (`account_id`);
+  ADD UNIQUE KEY `users_audit_id_uindex` (`id`);
 
 --
 -- Indexes for table `users_known_hosts`
@@ -616,9 +473,7 @@ ALTER TABLE `users_known_hosts`
 --
 ALTER TABLE `users_logins`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_logins_id_uindex` (`id`),
-  ADD KEY `users_logins_users_id_fk` (`account_id`),
-  ADD KEY `users_logins_users_known_hosts_id_fk` (`host_id`);
+  ADD UNIQUE KEY `users_logins_id_uindex` (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -653,6 +508,12 @@ ALTER TABLE `authentication_requests`
 --
 ALTER TABLE `cookies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Cookie ID';
+
+--
+-- AUTO_INCREMENT for table `otl_codes`
+--
+ALTER TABLE `otl_codes`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT COMMENT 'The internal unique database ID for this login code';
 
 --
 -- AUTO_INCREMENT for table `subscriptions`
@@ -725,90 +586,6 @@ ALTER TABLE `users_known_hosts`
 --
 ALTER TABLE `users_logins`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT COMMENT 'The internal database ID for this login record';
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `applications`
---
-ALTER TABLE `applications`
-  ADD CONSTRAINT `applications_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `application_access`
---
-ALTER TABLE `application_access`
-  ADD CONSTRAINT `application_access_applications_id_fk` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
-  ADD CONSTRAINT `application_access_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `authentication_access`
---
-ALTER TABLE `authentication_access`
-  ADD CONSTRAINT `authentication_access_applications_id_fk` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
-  ADD CONSTRAINT `authentication_access_authentication_requests_id_fk` FOREIGN KEY (`request_id`) REFERENCES `authentication_requests` (`id`),
-  ADD CONSTRAINT `authentication_access_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `authentication_requests`
---
-ALTER TABLE `authentication_requests`
-  ADD CONSTRAINT `authentication_requests_applications_id_fk` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
-  ADD CONSTRAINT `authentication_requests_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `authentication_requests_users_known_hosts_id_fk` FOREIGN KEY (`host_id`) REFERENCES `users_known_hosts` (`id`);
-
---
--- Constraints for table `subscriptions`
---
-ALTER TABLE `subscriptions`
-  ADD CONSTRAINT `subscriptions_subscription_plans_id_fk` FOREIGN KEY (`subscription_plan_id`) REFERENCES `subscription_plans` (`id`),
-  ADD CONSTRAINT `subscriptions_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `subscription_plans`
---
-ALTER TABLE `subscription_plans`
-  ADD CONSTRAINT `subscription_plans_applications_id_fk` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`);
-
---
--- Constraints for table `subscription_promotions`
---
-ALTER TABLE `subscription_promotions`
-  ADD CONSTRAINT `subscription_promotions_subscription_plans_id_fk` FOREIGN KEY (`subscription_plan_id`) REFERENCES `subscription_plans` (`id`),
-  ADD CONSTRAINT `users` FOREIGN KEY (`affiliation_account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `telegram_clients`
---
-ALTER TABLE `telegram_clients`
-  ADD CONSTRAINT `telegram_clients_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `telegram_verification_codes`
---
-ALTER TABLE `telegram_verification_codes`
-  ADD CONSTRAINT `telegram_verification_codes_telegram_clients_id_fk` FOREIGN KEY (`telegram_client_id`) REFERENCES `telegram_clients` (`id`);
-
---
--- Constraints for table `transaction_records`
---
-ALTER TABLE `transaction_records`
-  ADD CONSTRAINT `transaction_records_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `users_audit`
---
-ALTER TABLE `users_audit`
-  ADD CONSTRAINT `users_audit_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `users_logins`
---
-ALTER TABLE `users_logins`
-  ADD CONSTRAINT `users_logins_users_id_fk` FOREIGN KEY (`account_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `users_logins_users_known_hosts_id_fk` FOREIGN KEY (`host_id`) REFERENCES `users_known_hosts` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

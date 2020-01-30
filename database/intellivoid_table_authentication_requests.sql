@@ -4,8 +4,6 @@
 --
 -- Table structure for table `authentication_requests`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `authentication_requests` (
   `id` int(255) NOT NULL COMMENT 'Internal unique database ID for this authentication request',
@@ -18,13 +16,3 @@ CREATE TABLE `authentication_requests` (
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this requested was issued',
   `expires_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this request expires, once expired it won''t be used anymore.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Temporary authentication requests issued by applications';
-
---
--- RELATIONSHIPS FOR TABLE `authentication_requests`:
---   `application_id`
---       `applications` -> `id`
---   `account_id`
---       `users` -> `id`
---   `host_id`
---       `users_known_hosts` -> `id`
---

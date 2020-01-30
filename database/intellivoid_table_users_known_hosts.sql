@@ -4,9 +4,6 @@
 --
 -- Table structure for table `users_known_hosts`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `users_known_hosts` (
   `id` int(255) NOT NULL COMMENT 'The unique ID for this entry',
@@ -17,7 +14,3 @@ CREATE TABLE `users_known_hosts` (
   `last_used` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this host was last used to login successfully',
   `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this entry was first created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of known hosts associated with user accounts';
-
---
--- RELATIONSHIPS FOR TABLE `users_known_hosts`:
---

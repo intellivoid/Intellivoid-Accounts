@@ -4,8 +4,6 @@
 --
 -- Table structure for table `telegram_clients`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `telegram_clients` (
   `id` int(255) NOT NULL COMMENT 'The unique internal database ID for this Telegram Client',
@@ -20,9 +18,3 @@ CREATE TABLE `telegram_clients` (
   `last_activity` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this client was last active',
   `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this client was created and registered into the database'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of Telegram Clients that were assocaited with a Telegram Bot';
-
---
--- RELATIONSHIPS FOR TABLE `telegram_clients`:
---   `account_id`
---       `users` -> `id`
---

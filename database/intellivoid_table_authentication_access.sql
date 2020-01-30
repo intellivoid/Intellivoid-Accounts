@@ -4,8 +4,6 @@
 --
 -- Table structure for table `authentication_access`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `authentication_access` (
   `id` int(255) NOT NULL COMMENT 'The internal unique database ID for this authentication access',
@@ -19,13 +17,3 @@ CREATE TABLE `authentication_access` (
   `last_used_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this authentication access was last used',
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this authentication access was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of authentication access tokens granted by the system for applications';
-
---
--- RELATIONSHIPS FOR TABLE `authentication_access`:
---   `application_id`
---       `applications` -> `id`
---   `request_id`
---       `authentication_requests` -> `id`
---   `account_id`
---       `users` -> `id`
---

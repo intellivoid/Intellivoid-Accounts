@@ -4,8 +4,6 @@
 --
 -- Table structure for table `subscription_promotions`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `subscription_promotions` (
   `id` int(255) NOT NULL,
@@ -23,11 +21,3 @@ CREATE TABLE `subscription_promotions` (
   `last_updated_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was last updated',
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Promotion codes applicable to subscriptions';
-
---
--- RELATIONSHIPS FOR TABLE `subscription_promotions`:
---   `subscription_plan_id`
---       `subscription_plans` -> `id`
---   `affiliation_account_id`
---       `users` -> `id`
---

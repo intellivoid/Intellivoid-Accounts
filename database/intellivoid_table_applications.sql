@@ -4,8 +4,6 @@
 --
 -- Table structure for table `applications`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `applications` (
   `id` int(255) NOT NULL COMMENT 'Internal Database ID',
@@ -21,9 +19,3 @@ CREATE TABLE `applications` (
   `creation_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this application was registered',
   `last_updated_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this application was last updated'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table for Applications that are registered in Intellivoid';
-
---
--- RELATIONSHIPS FOR TABLE `applications`:
---   `account_id`
---       `users` -> `id`
---

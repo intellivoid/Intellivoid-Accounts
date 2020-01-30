@@ -4,8 +4,6 @@
 --
 -- Table structure for table `support_tickets`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `support_tickets` (
   `id` int(255) NOT NULL,
@@ -18,7 +16,3 @@ CREATE TABLE `support_tickets` (
   `ticket_notes` text DEFAULT NULL COMMENT 'Optional Administrator Notes that are attached to this ticket',
   `submission_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this support ticket was submitted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of support tickets that can be reported from various sources';
-
---
--- RELATIONSHIPS FOR TABLE `support_tickets`:
---

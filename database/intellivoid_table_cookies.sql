@@ -4,9 +4,6 @@
 --
 -- Table structure for table `cookies`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `cookies` (
   `id` int(11) NOT NULL COMMENT 'Cookie ID',
@@ -19,7 +16,3 @@ CREATE TABLE `cookies` (
   `client_ip` varchar(255) DEFAULT NULL COMMENT 'The client''s IP Address of the cookie is tied to the IP',
   `data` blob DEFAULT NULL COMMENT 'ZiProto Encoded Data associated with the cookie'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='The main database for Secured Web Sessions library';
-
---
--- RELATIONSHIPS FOR TABLE `cookies`:
---

@@ -4,9 +4,6 @@
 --
 -- Table structure for table `users`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 08:00 PM
---
 
 CREATE TABLE `users` (
   `id` int(255) NOT NULL COMMENT 'The ID of the account',
@@ -20,7 +17,3 @@ CREATE TABLE `users` (
   `last_login_id` int(255) DEFAULT NULL COMMENT 'The ID of the last login record',
   `creation_date` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this Account was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table of all user accounts';
-
---
--- RELATIONSHIPS FOR TABLE `users`:
---

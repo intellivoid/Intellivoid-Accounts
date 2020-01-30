@@ -4,8 +4,6 @@
 --
 -- Table structure for table `subscription_plans`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `subscription_plans` (
   `id` int(255) NOT NULL COMMENT 'Internal unique database ID for this subscription plan',
@@ -21,9 +19,3 @@ CREATE TABLE `subscription_plans` (
   `last_updated` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this subscription plan was last updated',
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was created'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Applicable Subscription Plans for starting a new subscription';
-
---
--- RELATIONSHIPS FOR TABLE `subscription_plans`:
---   `application_id`
---       `applications` -> `id`
---

@@ -4,8 +4,6 @@
 --
 -- Table structure for table `subscriptions`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `subscriptions` (
   `id` int(255) NOT NULL COMMENT 'The internal unique database ID for this record',
@@ -19,11 +17,3 @@ CREATE TABLE `subscriptions` (
   `created_timestamp` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of this record was created',
   `flags` blob DEFAULT NULL COMMENT 'Admin-placed flags for this subscription record (Special perms, etc)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Subscriptions associated with users and services';
-
---
--- RELATIONSHIPS FOR TABLE `subscriptions`:
---   `subscription_plan_id`
---       `subscription_plans` -> `id`
---   `account_id`
---       `users` -> `id`
---

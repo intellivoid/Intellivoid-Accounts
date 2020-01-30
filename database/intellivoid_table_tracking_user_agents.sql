@@ -4,9 +4,6 @@
 --
 -- Table structure for table `tracking_user_agents`
 --
--- Creation: Jan 23, 2020 at 07:59 PM
--- Last update: Jan 23, 2020 at 07:59 PM
---
 
 CREATE TABLE `tracking_user_agents` (
   `id` int(255) NOT NULL COMMENT 'The ID for this record',
@@ -19,7 +16,3 @@ CREATE TABLE `tracking_user_agents` (
   `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was created',
   `last_seen` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was last seen'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table for tracking User Agents';
-
---
--- RELATIONSHIPS FOR TABLE `tracking_user_agents`:
---
