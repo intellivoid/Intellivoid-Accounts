@@ -413,9 +413,9 @@
          *
          * @param int $account_id
          * @param int $subscription_plan_id
-         * @return bool
+         * @return string
          */
-        public static function SubscriptionPublicID(int $account_id, int $subscription_plan_id): bool
+        public static function SubscriptionPublicID(int $account_id, int $subscription_plan_id): string
         {
             return hash('crc32b', $account_id) . hash('sha256', $account_id . $subscription_plan_id);
         }
