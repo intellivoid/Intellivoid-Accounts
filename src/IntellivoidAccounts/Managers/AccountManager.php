@@ -451,4 +451,28 @@
             // Return the temporary password
             return $TemporaryPassword;
         }
+
+        /**
+         * Enters the account into a government backed attack mode
+         *
+         * @param Account $account
+         * @return bool
+         * @throws AccountNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidUsernameException
+         */
+        public function enterGovernmentBackedAttackMode(Account $account): bool
+        {
+            // Verify the account
+            $this->getAccount(AccountSearchMethod::byId, $account->ID);
+
+            // Set the mode and update it
+            $account->Status = AccountStatus::BlockedDueToGovernmentBackedAttack;
+            $this->updateAccount($account);
+
+            return true;
+        }
     }
