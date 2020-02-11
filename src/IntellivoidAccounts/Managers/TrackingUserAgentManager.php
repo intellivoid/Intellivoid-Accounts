@@ -68,6 +68,19 @@
             $browser = 'Unknown';
             $version = 'Unknown';
 
+            try
+            {
+                $user_agent_record = $this->getRecord(TrackingUserAgentSearchMethod::byTrackingId, $tracking_id);
+                $user_agent_record->LastSeen = (int)time();
+                $this->updateRecord($user_agent_record);
+                return $tracking_id;
+            }
+            catch(UserAgentNotFoundException $userAgentNotFoundException)
+            {
+                // Ignore this exception
+                unset($userAgentNotFoundException);
+            }
+
             if($user_agent_parse->Platform !== null)
             {
                 $platform = $this->intellivoidAccounts->database->real_escape_string($user_agent_parse->Platform);
