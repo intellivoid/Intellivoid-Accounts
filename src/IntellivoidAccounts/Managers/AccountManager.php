@@ -8,6 +8,7 @@
     use IntellivoidAccounts\Exceptions\AccountSuspendedException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\EmailAlreadyExistsException;
+    use IntellivoidAccounts\Exceptions\GovernmentBackedAttackModeEnabledException;
     use IntellivoidAccounts\Exceptions\IncorrectLoginDetailsException;
     use IntellivoidAccounts\Exceptions\InvalidAccountStatusException;
     use IntellivoidAccounts\Exceptions\InvalidEmailException;
@@ -284,6 +285,7 @@
          * @throws AccountNotFoundException
          * @throws AccountSuspendedException
          * @throws DatabaseException
+         * @throws GovernmentBackedAttackModeEnabledException
          * @throws IncorrectLoginDetailsException
          * @throws InvalidSearchMethodException
          */
@@ -325,6 +327,11 @@
             if($account_details->Password !== Hashing::password($password))
             {
                 throw new IncorrectLoginDetailsException();
+            }
+
+            if($account_details->Status == AccountStatus::BlockedDueToGovernmentBackedAttack)
+            {
+                throw new GovernmentBackedAttackModeEnabledException();
             }
 
             return $account_details;
