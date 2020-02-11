@@ -419,4 +419,23 @@
         {
             return hash('crc32b', $account_id) . hash('sha256', $account_id . $subscription_plan_id);
         }
+
+        /**
+         * Generates a secured temporary password
+         *
+         * @param int $account_id
+         * @param int $timestamp
+         * @return string
+         */
+        public static function TemporaryPassword(int $account_id, int $timestamp)
+        {
+            $account = hash('sha256', $account_id);
+            $timestamp = hash('sha256', $timestamp . $account_id);
+
+            $seed = hash('adler32', self::pepper($account));
+            $timestamp_arc = hash('crc32b', $account . $timestamp);
+            $seed_hash = hash('crc32b', $seed);
+
+            return $timestamp_arc . hash('crc32b', $timestamp_arc . $seed) . $seed_hash;
+        }
     }

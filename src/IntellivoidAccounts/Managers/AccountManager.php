@@ -409,4 +409,20 @@
                 return false;
             }
         }
+
+        public function enterPasswordRecoveryMode(Account $account): bool
+        {
+            // Verify the account
+            $this->getAccount(AccountSearchMethod::byId, $account->ID);
+
+            // Disable verification methods
+            $account->Configuration->VerificationMethods->RecoveryCodes->disable();
+            $account->Configuration->VerificationMethods->RecoveryCodesEnabled = false;
+            $account->Configuration->VerificationMethods->TelegramLink->disable();
+            $account->Configuration->VerificationMethods->TelegramClientLinked = false;
+            $account->Configuration->VerificationMethods->TwoFactorAuthentication->disable();
+            $account->Configuration->VerificationMethods->TwoFactorAuthenticationEnabled = false;
+
+            $account->Password = Hashing::password()
+        }
     }
