@@ -475,4 +475,28 @@
 
             return true;
         }
+
+        /**
+         * Removes the account from a government backed attack mode
+         *
+         * @param Account $account
+         * @return bool
+         * @throws AccountNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidUsernameException
+         */
+        public function disableGovernmentBackedAttackMode(Account $account): bool
+        {
+            // Verify the account
+            $this->getAccount(AccountSearchMethod::byId, $account->ID);
+
+            // Set the mode and update it
+            $account->Status = AccountStatus::Active;
+            $this->updateAccount($account);
+
+            return true;
+        }
     }
