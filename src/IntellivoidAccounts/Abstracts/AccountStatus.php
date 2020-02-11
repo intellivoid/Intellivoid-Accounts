@@ -15,4 +15,6 @@
         const Limited = 2;
 
         const VerificationRequired = 3;
+
+        const BlockedDueToGovernmentBackedAttack = 4;
     }
