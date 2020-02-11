@@ -193,9 +193,13 @@
             {
                 case AccountStatus::VerificationRequired:
                 case AccountStatus::Suspended:
-                case AccountStatus::Active: break;
-                case AccountStatus::Limited: break;
-                default: throw new InvalidAccountStatusException();
+                case AccountStatus::Limited:
+                case AccountStatus::BlockedDueToGovernmentBackedAttack;
+                case AccountStatus::PasswordRecoveryMode;
+                case AccountStatus::Active:
+                    break;
+                default:
+                    throw new InvalidAccountStatusException();
             }
 
             $ID = (int)$account->ID;
@@ -410,7 +414,20 @@
             }
         }
 
-        public function enterPasswordRecoveryMode(Account $account): bool
+        /**
+         * Disables all verification methods, puts the account into a password recovery mode
+         * and returns a temporary password
+         *
+         * @param Account $account
+         * @return string
+         * @throws AccountNotFoundException
+         * @throws DatabaseException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidUsernameException
+         */
+        public function enterPasswordRecoveryMode(Account $account): string
         {
             // Verify the account
             $this->getAccount(AccountSearchMethod::byId, $account->ID);
@@ -423,6 +440,15 @@
             $account->Configuration->VerificationMethods->TwoFactorAuthentication->disable();
             $account->Configuration->VerificationMethods->TwoFactorAuthenticationEnabled = false;
 
-            $account->Password = Hashing::password()
+            // Set a temporary password
+            $TemporaryPassword = Hashing::TemporaryPassword($account->ID, (int)time());
+            $account->Password = Hashing::password($TemporaryPassword);
+
+            // Alter the account status and update it
+            $account->Status = AccountStatus::PasswordRecoveryMode;
+            $this->updateAccount($account);
+
+            // Return the temporary password
+            return $TemporaryPassword;
         }
     }
