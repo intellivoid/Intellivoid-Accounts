@@ -136,4 +136,6 @@
         const SubscriptionNotActiveException = 158;
 
         const SubscriptionNotFoundException = 159;
+
+        const GovernmentBackedAttackModeEnabledException = 160;
     }
