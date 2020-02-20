@@ -2,8 +2,10 @@
 
     namespace IntellivoidAccounts\Managers;
 
+    use Exception;
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\AccountSuspendedException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -15,6 +17,10 @@
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
+    use IntellivoidAccounts\Exceptions\TelegramActionFailedException;
+    use IntellivoidAccounts\Exceptions\TelegramApiException;
+    use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
+    use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
     use IntellivoidAccounts\Exceptions\UsernameAlreadyExistsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Account;
@@ -438,6 +444,33 @@
         {
             // Verify the account
             $this->getAccount(AccountSearchMethod::byId, $account->ID);
+
+            // Unlink Telegram Account
+            if($account->Configuration->VerificationMethods->TelegramClientLinked)
+            {
+                try
+                {
+                    $TelegramClient = $this->intellivoidAccounts->getTelegramClientManager()->getClient(
+                        TelegramClientSearchMethod::byId, $account->Configuration->VerificationMethods->TelegramLink->ClientId
+                    );
+
+                    $TelegramClient->AccountID = 0;
+                    $this->intellivoidAccounts->getTelegramClientManager()->updateClient($TelegramClient);
+                    try
+                    {
+                        $this->intellivoidAccounts->getTelegramService()->sendPasswordResetNotification($TelegramClient);
+                    }
+                    catch(Exception $e)
+                    {
+                        unset($e);
+                    }
+                }
+                catch (TelegramClientNotFoundException $e)
+                {
+                    unset($e);
+                }
+
+            }
 
             // Disable verification methods
             $account->Configuration->VerificationMethods->RecoveryCodes->disable();
