@@ -1,18 +1,23 @@
+create table if not exists intellivoid.tracking_user_agents
+(
+    id                int auto_increment comment 'The ID for this record',
+    tracking_id       varchar(255) null comment 'The unique tracking ID calculated for this useragent tracking record',
+    user_agent_string varchar(255) null comment 'The full string of the user agent',
+    platform          varchar(255) null comment 'The platform that was detected from this useragent',
+    browser           varchar(255) null comment 'The browser detected from this user agent',
+    version           varchar(255) null comment 'The version detected from this user agent',
+    host_id           int          null comment 'The ID of the host that this record is associated with',
+    created           int          null comment 'The Unix Timestamp of when this record was created',
+    last_seen         int          null comment 'The Unix Timestamp of when this record was last seen',
+    constraint tracking_user_agents_id_uindex
+        unique (id),
+    constraint tracking_user_agents_tracking_id_uindex
+        unique (tracking_id),
+    constraint tracking_user_agents_user_agent_string_host_id_uindex
+        unique (user_agent_string, host_id)
+)
+    comment 'Table for tracking User Agents' collate = utf8mb4_general_ci;
 
--- --------------------------------------------------------
+alter table intellivoid.tracking_user_agents
+    add primary key (id);
 
---
--- Table structure for table `tracking_user_agents`
---
-
-CREATE TABLE `tracking_user_agents` (
-  `id` int(255) NOT NULL COMMENT 'The ID for this record',
-  `tracking_id` varchar(255) DEFAULT NULL COMMENT 'The unique tracking ID calculated for this useragent tracking record',
-  `user_agent_string` varchar(255) DEFAULT NULL COMMENT 'The full string of the user agent',
-  `platform` varchar(255) DEFAULT NULL COMMENT 'The platform that was detected from this useragent',
-  `browser` varchar(255) DEFAULT NULL COMMENT 'The browser detected from this user agent',
-  `version` varchar(255) DEFAULT NULL COMMENT 'The version detected from this user agent',
-  `host_id` int(255) DEFAULT NULL COMMENT 'The ID of the host that this record is associated with',
-  `created` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was created',
-  `last_seen` int(255) DEFAULT NULL COMMENT 'The Unix Timestamp of when this record was last seen'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Table for tracking User Agents';
