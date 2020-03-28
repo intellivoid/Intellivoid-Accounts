@@ -17,15 +17,13 @@
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
-    use IntellivoidAccounts\Exceptions\TelegramActionFailedException;
-    use IntellivoidAccounts\Exceptions\TelegramApiException;
     use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
-    use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
     use IntellivoidAccounts\Exceptions\UsernameAlreadyExistsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use msqg\QueryBuilder;
     use ZiProto\ZiProto;
 
     /**
@@ -103,7 +101,19 @@
             $last_login_id = (int)0;
             $creation_date = (int)time();
 
-            $Query = "INSERT INTO `users` (public_id, username, email, password, status, personal_information, configuration, last_login_id, creation_date) VALUES ('$public_id', '$username', '$email', '$password', $status, '$personal_information', '$configuration', $last_login_id, $creation_date)";
+            $Query = QueryBuilder::insert_into('users',
+                array(
+                    'public_id' => $public_id,
+                    'username' => $username,
+                    'email' => $email,
+                    'password' => $password,
+                    'status' => $status,
+                    'personal_information' => $personal_information,
+                    'configuration' => $configuration,
+                    'last_login_id' => $last_login_id,
+                    'creation_date' => $creation_date
+                )
+            );
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
@@ -146,7 +156,18 @@
                     throw new InvalidSearchMethodException();
             }
 
-            $query = "SELECT id, public_id, username, email, password, status, personal_information, configuration, last_login_id, creation_date FROM `users` WHERE $search_method='$input'";
+            $query = QueryBuilder::select('users', [
+                'id',
+                'public_id',
+                'username',
+                'email',
+                'password',
+                'status',
+                'personal_information',
+                'configuration',
+                'last_login_id',
+                'creation_date'
+            ], $search_method, $input);
             $query_results = $this->intellivoidAccounts->database->query($query);
 
             if($query_results == false)
@@ -223,10 +244,17 @@
             );
             $LastLoginId = (int)$account->LastLoginID;
 
-            $Query = sprintf(
-                "UPDATE `users` SET public_id='%s', username='%s', password='%s', email='%s', status=%s, personal_information='%s', configuration='%s', last_login_id=%s WHERE id=%s",
-                $PublicID, $Username, $Password, $Email, $Status, $PersonalInformation, $Configuration, $LastLoginId, $ID
-            );
+            $Query = QueryBuilder::update('users',
+                array(
+                    'public_id' => $PublicID,
+                    'username' => $Username,
+                    'password' => $Password,
+                    'email' => $Email,
+                    'status' => $Status,
+                    'personal_information' => $PersonalInformation,
+                    'configuration' => $Configuration,
+                    'last_login_id' => $LastLoginId
+                ), 'id', $ID);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
