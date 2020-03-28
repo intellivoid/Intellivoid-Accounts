@@ -4,9 +4,7 @@
     // IVA1.0 -> IVA2.0
     //
     // !!BACKUP BEFORE RUNNING!!
-    use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\IntellivoidAccounts;
-    use IntellivoidAccounts\Utilities\Hashing;
 
     $SourceFolder = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
     include_once($SourceFolder . 'IntellivoidAccounts' . DIRECTORY_SEPARATOR . 'IntellivoidAccounts.php');
@@ -44,7 +42,7 @@
         try
         {
             $Account = $IntellivoidAccounts->getAccountManager()->getAccount(
-                AccountSearchMethod::byId, $account['id']
+                \IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod::byId, $account['id']
             );
         }
         catch(Exception $e)
@@ -55,7 +53,7 @@
 
         // Generate a new Public ID
         print("Old PUB_ID: " . $Account->PublicID . PHP_EOL);
-        $Account->PublicID = Hashing::publicID(
+        $Account->PublicID = \IntellivoidAccounts\Utilities\Hashing::publicID(
             $Account->Username, $Account->Password, $Account->Email
         );
 
