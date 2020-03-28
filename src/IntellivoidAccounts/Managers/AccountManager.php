@@ -17,10 +17,7 @@
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
-    use IntellivoidAccounts\Exceptions\TelegramActionFailedException;
-    use IntellivoidAccounts\Exceptions\TelegramApiException;
     use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
-    use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
     use IntellivoidAccounts\Exceptions\UsernameAlreadyExistsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Account;
