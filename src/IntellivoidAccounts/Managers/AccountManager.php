@@ -23,6 +23,7 @@
     use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use msqg\QueryBuilder;
     use ZiProto\ZiProto;
 
     /**
@@ -100,7 +101,19 @@
             $last_login_id = (int)0;
             $creation_date = (int)time();
 
-            $Query = "INSERT INTO `users` (public_id, username, email, password, status, personal_information, configuration, last_login_id, creation_date) VALUES ('$public_id', '$username', '$email', '$password', $status, '$personal_information', '$configuration', $last_login_id, $creation_date)";
+            $Query = QueryBuilder::insert_into('users',
+                array(
+                    'public_id' => $public_id,
+                    'username' => $username,
+                    'email' => $email,
+                    'password' => $password,
+                    'status' => $status,
+                    'personal_information' => $personal_information,
+                    'configuration' => $configuration,
+                    'last_login_id' => $last_login_id,
+                    'creation_date' => $creation_date
+                )
+            );
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
