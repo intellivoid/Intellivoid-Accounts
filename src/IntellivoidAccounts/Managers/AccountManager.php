@@ -244,10 +244,17 @@
             );
             $LastLoginId = (int)$account->LastLoginID;
 
-            $Query = sprintf(
-                "UPDATE `users` SET public_id='%s', username='%s', password='%s', email='%s', status=%s, personal_information='%s', configuration='%s', last_login_id=%s WHERE id=%s",
-                $PublicID, $Username, $Password, $Email, $Status, $PersonalInformation, $Configuration, $LastLoginId, $ID
-            );
+            $Query = QueryBuilder::update('users',
+                array(
+                    'public_id' => $PublicID,
+                    'username' => $Username,
+                    'password' => $Password,
+                    'email' => $Email,
+                    'status' => $Status,
+                    'personal_information' => $PersonalInformation,
+                    'configuration' => $Configuration,
+                    'last_login_id' => $LastLoginId
+                ), 'id', $ID);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == true)
