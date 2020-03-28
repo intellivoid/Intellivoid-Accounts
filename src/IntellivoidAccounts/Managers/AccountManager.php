@@ -156,7 +156,18 @@
                     throw new InvalidSearchMethodException();
             }
 
-            $query = "SELECT id, public_id, username, email, password, status, personal_information, configuration, last_login_id, creation_date FROM `users` WHERE $search_method='$input'";
+            $query = QueryBuilder::select('users', [
+                'id',
+                'public_id',
+                'username',
+                'email',
+                'password',
+                'status',
+                'personal_information',
+                'configuration',
+                'last_login_id',
+                'creation_date'
+            ], $search_method, $input);
             $query_results = $this->intellivoidAccounts->database->query($query);
 
             if($query_results == false)
