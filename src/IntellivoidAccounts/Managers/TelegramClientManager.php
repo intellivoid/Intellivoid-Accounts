@@ -184,6 +184,7 @@
             switch($search_method)
             {
                 case TelegramClientSearchMethod::byId:
+                case TelegramClientSearchMethod::byAccountId:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
                     $value = (int)$value;
                     break;
