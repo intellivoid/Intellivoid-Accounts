@@ -18,4 +18,6 @@
         const byChatId = 'chat_id';
 
         const byUserId = 'user_id';
+
+        const byUsername = 'username';
     }
