@@ -54,6 +54,9 @@
 
             try
             {
+                // Make sure duplicate usernames are not possible
+                $this->fixDuplicateUsername($chat, $user);
+
                 $ExistingClient = $this->getClient(TelegramClientSearchMethod::byPublicId, $PublicID);
 
                 $ExistingClient->LastActivityTimestamp = $CurrentTime;
@@ -83,8 +86,22 @@
             $SessionData = $this->intellivoidAccounts->database->real_escape_string($SessionData);
             $ChatID = $this->intellivoidAccounts->database->real_escape_string($chat->ID);
             $UserID = $this->intellivoidAccounts->database->real_escape_string($user->ID);
+            $Username = null;
             $LastActivity = $CurrentTime;
             $Created = $CurrentTime;
+
+            if((int)$ChatID == (int)$UserID)
+            {
+                if($user->Username !== null)
+                {
+                    $Username = $this->intellivoidAccounts->database->real_escape_string($user->Username);
+                }
+
+                if($chat->Username !== null)
+                {
+                    $Username = $this->intellivoidAccounts->database->real_escape_string($chat->Username);
+                }
+            }
 
             $Query = QueryBuilder::insert_into('telegram_clients', array(
                     'public_id' => $PublicID,
@@ -95,6 +112,7 @@
                     'session_data' => $SessionData,
                     'chat_id' => $ChatID,
                     'user_id' => $UserID,
+                    'username' => $Username,
                     'last_activity' => $LastActivity,
                     'created' => $Created
                 )
