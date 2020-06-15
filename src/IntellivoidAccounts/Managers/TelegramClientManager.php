@@ -5,6 +5,7 @@
 
 
     use IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod;
+    use IntellivoidAccounts\Abstracts\TelegramChatType;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
@@ -106,6 +107,50 @@
             }
 
             return $this->getClient(TelegramClientSearchMethod::byPublicId, $PublicID);
+        }
+
+        /**
+         * Registers the client as a user only (private)
+         *
+         * @param User $user
+         * @return TelegramClient
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramClientNotFoundException
+         */
+        public function registerUser(User $user): TelegramClient
+        {
+            $ChatObject = new Chat();
+            $ChatObject->ID = $user->ID;
+            $ChatObject->Type = TelegramChatType::Private;
+            $ChatObject->Title = null;
+            $ChatObject->Username = $user->Username;
+            $ChatObject->FirstName = $user->FirstName;
+            $ChatObject->LastName = $user->LastName;
+
+            return $this->registerClient($ChatObject, $user);
+        }
+
+        /**
+         * Registers the client as a chat only (bot based)
+         *
+         * @param Chat $chat
+         * @return TelegramClient
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws TelegramClientNotFoundException
+         */
+        public function registerChat(Chat $chat): TelegramClient
+        {
+            $UserObject = new User();
+            $UserObject->ID = $chat->ID;
+            $UserObject->FirstName = $chat->Title;
+            $UserObject->LastName = null;
+            $UserObject->LanguageCode = null;
+            $UserObject->IsBot = false;
+            $UserObject->Username = $chat->Username;
+
+            return $this->registerClient($chat, $UserObject);
         }
 
         /**
