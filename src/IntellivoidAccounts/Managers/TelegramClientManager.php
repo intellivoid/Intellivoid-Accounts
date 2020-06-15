@@ -223,6 +223,26 @@
         }
 
         /**
+         * Returns a telegram client by username returns null if not found
+         *
+         * @param string $username
+         * @return TelegramClient|null
+         * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         */
+        public function getClientByUsername(string $username)
+        {
+            try
+            {
+                return $this->getClient(TelegramClientSearchMethod::byUsername, $username);
+            }
+            catch(TelegramClientNotFoundException $telegramClientNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        /**
          * Returns an array of Telegram Clients associated with the given search query
          *
          * @param string $search_method
