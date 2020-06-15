@@ -274,15 +274,22 @@
         {
             switch($search_method)
             {
-                case TelegramClientSearchMethod::byChatId:
-                case TelegramClientSearchMethod::byUserId:
-                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
-                    break;
-
+                case TelegramClientSearchMethod::byId:
                 case TelegramClientSearchMethod::byAccountId:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = (int)$value;;
+                    $value = (int)$value;
+                    break;
+
+                case TelegramClientSearchMethod::byChatId:
+                case TelegramClientSearchMethod::byUserId:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string("public_id");
+                    $value = Hashing::telegramClientPublicID((int)$value, (int)$value);
+                    break;
+
+                case TelegramClientSearchMethod::byPublicId:
+                case TelegramClientSearchMethod::byUsername:
+                    $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
                     break;
 
                 default:
