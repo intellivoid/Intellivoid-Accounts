@@ -311,6 +311,7 @@
          * @param TelegramClient $telegramClient
          * @return bool
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
          */
         public function updateClient(TelegramClient $telegramClient): bool
         {
@@ -325,7 +326,14 @@
             $session_data = $this->intellivoidAccounts->database->real_escape_string($session_data);
             $chat_id = $this->intellivoidAccounts->database->real_escape_string($telegramClient->Chat->ID);
             $user_id = $this->intellivoidAccounts->database->real_escape_string($telegramClient->User->ID);
+            $username = null;
             $last_activity = (int)time();
+
+            if($telegramClient->getUsername() !== null)
+            {
+                $username = $this->intellivoidAccounts->database->real_escape_string($telegramClient->getUsername());
+                $this->fixDuplicateUsername($telegramClient->Chat, $telegramClient->User);
+            }
 
             $Query = QueryBuilder::update('telegram_clients', array(
                 'available' => $available,
@@ -335,6 +343,7 @@
                 'session_data' => $session_data,
                 'chat_id' => $chat_id,
                 'user_id' => $user_id,
+                'username' => $username,
                 'last_activity' => $last_activity
             ), 'id', $id);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
