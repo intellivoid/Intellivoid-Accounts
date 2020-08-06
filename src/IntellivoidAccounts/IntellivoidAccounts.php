@@ -21,6 +21,7 @@
     use IntellivoidAccounts\Managers\TransactionRecordManager;
     use IntellivoidAccounts\Services\Telegram;
     use mysqli;
+    use ppm\ppm;
     use udp\udp;
 
     $LocalDirectory = __DIR__ . DIRECTORY_SEPARATOR;
@@ -222,6 +223,16 @@
         {
             include_once(__DIR__ . DIRECTORY_SEPARATOR . 'udp' . DIRECTORY_SEPARATOR . 'udp.php');
         }
+    }
+    else
+    {
+        ppm::import("net.intellivoid.acm");
+        ppm::import("net.intellivoid.bcmath");
+        ppm::import("net.intellivoid.ipstack");
+        ppm::import("net.intellivoid.msqg");
+        ppm::import("net.intellivoid.tsa");
+        ppm::import("net.intellivoid.udp");
+        ppm::import("net.intellivoid.ziproto");
     }
 
     include(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');
