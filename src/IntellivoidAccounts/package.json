@@ -7,7 +7,15 @@
         "organization": "Intellivoid",
         "description": "Intellivoid Accounts Manager Library",
         "url": "https://github.com/intellivoid/Intellivoid-Accounts",
-        "dependencies": [],
+        "dependencies": [
+            {"package": "net.intellivoid.acm", "version": "latest", "required": true},
+            {"package": "net.intellivoid.bcmath", "version": "latest", "required": true},
+            {"package": "net.intellivoid.ipstack", "version": "latest", "required": true},
+            {"package": "net.intellivoid.msqg", "version": "latest", "required": true},
+            {"package": "net.intellivoid.tsa", "version": "latest", "required": true},
+            {"package": "net.intellivoid.udp", "version": "latest", "required": true},
+            {"package": "net.intellivoid.ziproto", "version": "latest", "required": true}
+        ],
         "configuration": {
             "autoload_method": "indexed",
             "main": null,
