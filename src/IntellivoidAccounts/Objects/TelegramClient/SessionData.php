@@ -6,6 +6,7 @@
     /**
      * Class SessionData
      * @package IntellivoidAccounts\Objects\TelegramClient
+     * @deprecated
      */
     class SessionData
     {

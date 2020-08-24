@@ -6,6 +6,7 @@
     /**
      * Class User
      * @package IntellivoidAccounts\Objects\TelegramUser
+     * @deprecated
      */
     class User
     {

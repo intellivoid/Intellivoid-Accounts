@@ -9,6 +9,7 @@
     /**
      * Class Chat
      * @package IntellivoidAccounts\Objects\TelegramUser
+     * @deprecated
      */
     class Chat
     {

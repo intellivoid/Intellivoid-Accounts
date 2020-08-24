@@ -7,7 +7,6 @@
 
     use Exception;
     use IntellivoidAccounts\Abstracts\SearchMethods\KnownHostsSearchMethod;
-    use IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod;
     use IntellivoidAccounts\Exceptions\AuthNotPromptedException;
     use IntellivoidAccounts\Exceptions\AuthPromptAlreadyApprovedException;
     use IntellivoidAccounts\Exceptions\AuthPromptDeniedException;
@@ -15,17 +14,18 @@
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\HostNotKnownException;
     use IntellivoidAccounts\Exceptions\InvalidIpException;
-    use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUrlException;
     use IntellivoidAccounts\Exceptions\TelegramActionFailedException;
     use IntellivoidAccounts\Exceptions\TelegramApiException;
-    use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
     use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
     use IntellivoidAccounts\Exceptions\TooManyPromptRequestsException;
     use IntellivoidAccounts\IntellivoidAccounts;
-    use IntellivoidAccounts\Objects\TelegramClient;
     use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Utilities\Validate;
+    use TelegramClientManager\Abstracts\SearchMethods\TelegramClientSearchMethod;
+    use TelegramClientManager\Exceptions\InvalidSearchMethod;
+    use TelegramClientManager\Exceptions\TelegramClientNotFoundException;
+    use TelegramClientManager\Objects\TelegramClient;
 
     /**
      * Class Telegram
@@ -105,11 +105,13 @@
          * @param string $message
          * @param string|null $url
          * @return bool
+         * @throws InvalidSearchMethod
+         * @throws InvalidUrlException
          * @throws TelegramActionFailedException
          * @throws TelegramApiException
+         * @throws TelegramClientNotFoundException
          * @throws TelegramServicesNotAvailableException
-         * @throws InvalidUrlException
-         * @throws DatabaseException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function sendNotification(TelegramClient $telegramClient, string $from, string $message, string $url=null): bool
         {
@@ -182,10 +184,12 @@
          *
          * @param TelegramClient $telegramClient
          * @return bool
-         * @throws DatabaseException
          * @throws TelegramActionFailedException
          * @throws TelegramApiException
          * @throws TelegramServicesNotAvailableException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
+         * @throws InvalidSearchMethod
+         * @throws TelegramClientNotFoundException
          */
         public function sendLinkedNotification(TelegramClient $telegramClient)
         {
@@ -237,10 +241,12 @@
          *
          * @param TelegramClient $telegramClient
          * @return bool
-         * @throws DatabaseException
+         * @throws InvalidSearchMethod
          * @throws TelegramActionFailedException
          * @throws TelegramApiException
+         * @throws TelegramClientNotFoundException
          * @throws TelegramServicesNotAvailableException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function sendUnlinkedNotification(TelegramClient $telegramClient)
         {
@@ -292,10 +298,12 @@
          *
          * @param TelegramClient $telegramClient
          * @return bool
-         * @throws DatabaseException
+         * @throws InvalidSearchMethod
          * @throws TelegramActionFailedException
          * @throws TelegramApiException
+         * @throws TelegramClientNotFoundException
          * @throws TelegramServicesNotAvailableException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function sendPasswordResetNotification(TelegramClient $telegramClient)
         {
@@ -351,12 +359,15 @@
          * @param int $known_host_id
          * @return bool
          * @throws DatabaseException
-         * @throws TelegramActionFailedException
-         * @throws TelegramApiException
-         * @throws TelegramServicesNotAvailableException
-         * @throws TooManyPromptRequestsException
          * @throws HostNotKnownException
          * @throws InvalidIpException
+         * @throws InvalidSearchMethod
+         * @throws TelegramActionFailedException
+         * @throws TelegramApiException
+         * @throws TelegramClientNotFoundException
+         * @throws TelegramServicesNotAvailableException
+         * @throws TooManyPromptRequestsException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function promptAuth(TelegramClient $telegramClient, string $username, string $user_agent, int $known_host_id): bool
         {
@@ -634,10 +645,12 @@
          * @param TelegramClient $telegramClient
          * @throws AuthNotPromptedException
          * @throws AuthPromptAlreadyApprovedException
-         * @throws AuthPromptExpiredException
-         * @throws TelegramServicesNotAvailableException
-         * @throws DatabaseException
          * @throws AuthPromptDeniedException
+         * @throws AuthPromptExpiredException
+         * @throws InvalidSearchMethod
+         * @throws TelegramClientNotFoundException
+         * @throws TelegramServicesNotAvailableException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function approveAuth(TelegramClient $telegramClient)
         {
@@ -663,10 +676,12 @@
          * @param TelegramClient $telegramClient
          * @throws AuthNotPromptedException
          * @throws AuthPromptAlreadyApprovedException
-         * @throws AuthPromptExpiredException
-         * @throws DatabaseException
-         * @throws TelegramServicesNotAvailableException
          * @throws AuthPromptDeniedException
+         * @throws AuthPromptExpiredException
+         * @throws InvalidSearchMethod
+         * @throws TelegramClientNotFoundException
+         * @throws TelegramServicesNotAvailableException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function disallowAuth(TelegramClient $telegramClient)
         {
@@ -695,12 +710,12 @@
          * @param TelegramClient $telegramClient
          * @return bool
          * @throws AuthNotPromptedException
-         * @throws AuthPromptExpiredException
-         * @throws DatabaseException
-         * @throws TelegramServicesNotAvailableException
-         * @throws InvalidSearchMethodException
-         * @throws TelegramClientNotFoundException
          * @throws AuthPromptDeniedException
+         * @throws AuthPromptExpiredException
+         * @throws InvalidSearchMethod
+         * @throws TelegramClientNotFoundException
+         * @throws TelegramServicesNotAvailableException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function pollAuthPrompt(TelegramClient $telegramClient): bool
         {
@@ -776,7 +791,9 @@
          *
          * @param TelegramClient $telegramClient
          * @param bool $allow_further_attempts
-         * @throws DatabaseException
+         * @throws InvalidSearchMethod
+         * @throws TelegramClientNotFoundException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
         public function closePrompt(TelegramClient $telegramClient, bool $allow_further_attempts = false)
         {

@@ -6,6 +6,7 @@
     /**
      * Class TelegramChatType
      * @package IntellivoidAccounts\Abstracts
+     * @deprecated
      */
     abstract class TelegramChatType
     {

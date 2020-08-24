@@ -10,6 +10,7 @@
     /**
      * Class TelegramClient
      * @package IntellivoidAccounts\Objects
+     * @deprecated
      */
     class TelegramClient
     {

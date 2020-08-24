@@ -20,6 +20,7 @@
     /**
      * Class TelegramClientManager
      * @package IntellivoidAccounts\Managers
+     * @deprecated use net.intellivoid.telegram_client_manager
      */
     class TelegramClientManager
     {

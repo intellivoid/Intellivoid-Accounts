@@ -17,6 +17,7 @@
     /**
      * Class TelegramVerificationCodeManager
      * @package IntellivoidAccounts\Managers
+     * @deprecated unused
      */
     class TelegramVerificationCodeManager
     {
