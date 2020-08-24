@@ -10,6 +10,7 @@
     /**
      * Class SubscriptionNotFoundException
      * @package IntellivoidAccounts\Exceptions
+     * @deprecated
      */
     class SubscriptionNotFoundException extends Exception
     {

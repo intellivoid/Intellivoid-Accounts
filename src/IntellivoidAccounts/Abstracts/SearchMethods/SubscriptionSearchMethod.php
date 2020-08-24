@@ -6,6 +6,7 @@
     /**
      * Class SubscriptionSearchMethod
      * @package IntellivoidAccounts\Abstracts\SearchMethods
+     * @deprecated
      */
     abstract class SubscriptionSearchMethod
     {

@@ -6,6 +6,7 @@
     /**
      * Class Feature
      * @package IntellivoidAccounts\Objects\Subscription
+     * @deprecated
      */
     class Feature
     {

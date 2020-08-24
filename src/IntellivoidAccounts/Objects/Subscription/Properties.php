@@ -7,6 +7,7 @@
     /**
      * Class Properties
      * @package IntellivoidAccounts\Objects\Subscription
+     * @deprecated
      */
     class Properties
     {

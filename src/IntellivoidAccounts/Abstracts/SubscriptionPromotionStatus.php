@@ -6,6 +6,7 @@
     /**
      * Class SubscriptionPromotionStatus
      * @package IntellivoidAccounts\Abstracts
+     * @deprecated
      */
     abstract class SubscriptionPromotionStatus
     {

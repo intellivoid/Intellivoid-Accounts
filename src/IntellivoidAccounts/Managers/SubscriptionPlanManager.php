@@ -28,6 +28,7 @@
     /**
      * Class SubscriptionPlanManager
      * @package IntellivoidAccounts\Managers
+     * @deprecated
      */
     class SubscriptionPlanManager
     {

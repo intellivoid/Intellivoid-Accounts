@@ -10,6 +10,7 @@
     /**
      * Class SubscriptionPlanAlreadyExistsException
      * @package IntellivoidAccounts\Exceptions
+     * @deprecated
      */
     class SubscriptionPlanAlreadyExistsException extends Exception
     {

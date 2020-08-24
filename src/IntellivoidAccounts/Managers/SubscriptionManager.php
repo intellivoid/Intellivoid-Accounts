@@ -34,6 +34,7 @@
     /**
      * Class SubscriptionManager
      * @package IntellivoidAccounts\Managers
+     * @deprecated
      */
     class SubscriptionManager
     {

@@ -9,6 +9,7 @@
     /**
      * Class SubscriptionPlans
      * @package IntellivoidAccounts\Objects
+     * @deprecated
      */
     class SubscriptionPlan
     {

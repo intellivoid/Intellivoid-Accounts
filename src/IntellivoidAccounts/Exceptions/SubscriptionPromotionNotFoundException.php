@@ -10,6 +10,7 @@
     /**
      * Class SubscriptionPromotionNotFoundException
      * @package IntellivoidAccounts\Exceptions
+     * @deprecated
      */
     class SubscriptionPromotionNotFoundException extends Exception
     {

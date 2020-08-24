@@ -10,6 +10,7 @@
     /**
      * Class SubscriptionPromotion
      * @package IntellivoidAccounts\Objects
+     * @deprecated
      */
     class SubscriptionPromotion
     {

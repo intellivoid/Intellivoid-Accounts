@@ -7,6 +7,7 @@
     /**
      * Class SubscriptionPlanStatus
      * @package IntellivoidAccounts\Abstracts
+     * @deprecated
      */
     abstract class SubscriptionPlanStatus
     {

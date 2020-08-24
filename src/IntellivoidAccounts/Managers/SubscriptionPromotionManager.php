@@ -30,6 +30,7 @@
     /**
      * Class SubscriptionPromotionManager
      * @package IntellivoidAccounts\Managers
+     * @deprecated
      */
     class SubscriptionPromotionManager
     {
