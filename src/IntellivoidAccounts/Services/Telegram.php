@@ -190,6 +190,7 @@
          * @throws \TelegramClientManager\Exceptions\DatabaseException
          * @throws InvalidSearchMethod
          * @throws TelegramClientNotFoundException
+         * @noinspection RedundantSuppression
          */
         public function sendLinkedNotification(TelegramClient $telegramClient)
         {

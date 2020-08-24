@@ -24,13 +24,21 @@
     use TelegramClientManager\Managers\TelegramClientManager;
     use udp\udp;
 
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.acm");
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.bcmath");
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.ipstack");
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.msqg");
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.tsa");
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.udp");
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.ziproto");
+    /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.telegram_client_manager");
 
     include(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');

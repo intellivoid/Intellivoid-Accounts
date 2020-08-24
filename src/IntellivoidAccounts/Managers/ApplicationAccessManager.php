@@ -339,8 +339,7 @@
 
             try
             {
-                $Application = $this->getApplicationAccess(ApplicationAccessSearchMethod::byPublicId, $PublicID);
-                return $Application;
+                return $this->getApplicationAccess(ApplicationAccessSearchMethod::byPublicId, $PublicID);
             }
             catch(ApplicationAccessNotFoundException $applicationAccessNotFoundException)
             {

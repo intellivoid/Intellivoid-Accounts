@@ -5,7 +5,6 @@
     use Exception;
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
-    use IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\AccountSuspendedException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
@@ -17,13 +16,15 @@
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
-    use IntellivoidAccounts\Exceptions\TelegramClientNotFoundException;
     use IntellivoidAccounts\Exceptions\UsernameAlreadyExistsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use msqg\QueryBuilder;
+    use TelegramClientManager\Abstracts\SearchMethods\TelegramClientSearchMethod;
+    use TelegramClientManager\Exceptions\InvalidSearchMethod;
+    use TelegramClientManager\Exceptions\TelegramClientNotFoundException;
     use ZiProto\ZiProto;
 
     /**
@@ -61,6 +62,7 @@
          * @throws InvalidSearchMethodException
          * @throws InvalidUsernameException
          * @throws UsernameAlreadyExistsException
+         * @noinspection PhpUnused
          */
         public function registerAccount(string $username, string $email, string $password): Account
         {
@@ -279,6 +281,8 @@
          * @throws DatabaseException
          * @throws IncorrectLoginDetailsException
          * @throws InvalidSearchMethodException
+         * @noinspection DuplicatedCode
+         * @noinspection PhpUnused
          */
         public function checkLogin(string $username_or_email, string $password): bool
         {
@@ -322,6 +326,8 @@
          * @throws GovernmentBackedAttackModeEnabledException
          * @throws IncorrectLoginDetailsException
          * @throws InvalidSearchMethodException
+         * @noinspection DuplicatedCode
+         * @noinspection PhpUnused
          */
         public function getAccountByAuth(string $username_or_email, string $password): Account
         {
@@ -420,6 +426,7 @@
          * @return bool
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
+         * @noinspection PhpUnused
          */
         public function publicIdExists(string $public_id): bool
         {
@@ -467,6 +474,9 @@
          * @throws InvalidEmailException
          * @throws InvalidSearchMethodException
          * @throws InvalidUsernameException
+         * @throws \TelegramClientManager\Exceptions\DatabaseException
+         * @throws InvalidSearchMethod
+         * @throws TelegramClientNotFoundException
          */
         public function enterPasswordRecoveryMode(Account $account): string
         {
@@ -476,24 +486,17 @@
             // Unlink Telegram Account
             if($account->Configuration->VerificationMethods->TelegramClientLinked)
             {
+                $TelegramClient = $this->intellivoidAccounts->getTelegramClientManager()->getClient(
+                    TelegramClientSearchMethod::byId, $account->Configuration->VerificationMethods->TelegramLink->ClientId
+                );
+
+                $TelegramClient->AccountID = 0;
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($TelegramClient);
                 try
                 {
-                    $TelegramClient = $this->intellivoidAccounts->getTelegramClientManager()->getClient(
-                        TelegramClientSearchMethod::byId, $account->Configuration->VerificationMethods->TelegramLink->ClientId
-                    );
-
-                    $TelegramClient->AccountID = 0;
-                    $this->intellivoidAccounts->getTelegramClientManager()->updateClient($TelegramClient);
-                    try
-                    {
-                        $this->intellivoidAccounts->getTelegramService()->sendPasswordResetNotification($TelegramClient);
-                    }
-                    catch(Exception $e)
-                    {
-                        unset($e);
-                    }
+                    $this->intellivoidAccounts->getTelegramService()->sendPasswordResetNotification($TelegramClient);
                 }
-                catch (TelegramClientNotFoundException $e)
+                catch(Exception $e)
                 {
                     unset($e);
                 }
@@ -531,6 +534,7 @@
          * @throws InvalidEmailException
          * @throws InvalidSearchMethodException
          * @throws InvalidUsernameException
+         * @noinspection PhpUnused
          */
         public function enterGovernmentBackedAttackMode(Account $account): bool
         {
@@ -555,6 +559,7 @@
          * @throws InvalidEmailException
          * @throws InvalidSearchMethodException
          * @throws InvalidUsernameException
+         * @noinspection PhpUnused
          */
         public function disableGovernmentBackedAttackMode(Account $account): bool
         {

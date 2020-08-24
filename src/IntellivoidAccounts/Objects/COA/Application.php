@@ -4,7 +4,6 @@
     namespace IntellivoidAccounts\Objects\COA;
 
     use IntellivoidAccounts\Abstracts\AccountRequestPermissions;
-    use IntellivoidAccounts\Exceptions\InvalidApplicationFlagException;
     use IntellivoidAccounts\Exceptions\InvalidRequestPermissionException;
     use IntellivoidAccounts\Utilities\Validate;
 

@@ -60,6 +60,7 @@
          *
          * @param array $data
          * @return UserAgent
+         * @noinspection DuplicatedCode
          */
         public static function fromArray(array $data): UserAgent
         {
@@ -93,6 +94,7 @@
          *
          * @param string $user_agent
          * @return UserAgent
+         * @noinspection DuplicatedCode
          */
         public static function fromString(string $user_agent): UserAgent
         {

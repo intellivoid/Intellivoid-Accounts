@@ -6,7 +6,6 @@
 
     use Exception;
     use IntellivoidAccounts\Abstracts\ExceptionCodes;
-    use Throwable;
 
     /**
      * Class InvalidApplicationNameException

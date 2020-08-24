@@ -4,6 +4,8 @@
     namespace IntellivoidAccounts\Objects\VerificationMethods;
 
 
+    use Exception;
+    use RuntimeException;
     use tsa\Classes\Crypto;
     use tsa\Exceptions\BadLengthException;
     use tsa\Exceptions\InvalidSecretException;
@@ -73,7 +75,7 @@
         {
             if($this->Enabled == false)
             {
-                return null;
+                throw new RuntimeException("This authentication method is unavailable");
             }
 
             return Crypto::getCode($this->PrivateSignature);
@@ -99,7 +101,7 @@
                     return True;
                 }
             }
-            catch(\Exception $exception)
+            catch(Exception $exception)
             {
                 return False;
             }

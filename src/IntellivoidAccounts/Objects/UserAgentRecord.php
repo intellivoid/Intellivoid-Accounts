@@ -98,6 +98,7 @@
          *
          * @param array $data
          * @return UserAgentRecord
+         * @noinspection DuplicatedCode
          */
         public static function fromArray(array $data): UserAgentRecord
         {

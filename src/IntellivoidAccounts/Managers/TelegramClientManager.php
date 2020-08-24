@@ -179,6 +179,7 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          * @throws TelegramClientNotFoundException
+         * @noinspection DuplicatedCode
          */
         public function getClient(string $search_method, string $value): TelegramClient
         {
@@ -199,7 +200,7 @@
                 case TelegramClientSearchMethod::byPublicId:
                 case TelegramClientSearchMethod::byUsername:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
                     break;
 
                 default:
@@ -270,6 +271,7 @@
          * @return array
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
+         * @noinspection DuplicatedCode
          */
         public function getAssociatedClients(string $search_method, string $value): array
         {
@@ -290,7 +292,7 @@
                 case TelegramClientSearchMethod::byPublicId:
                 case TelegramClientSearchMethod::byUsername:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = $this->intellivoidAccounts->database->real_escape_string($value);;
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
                     break;
 
                 default:

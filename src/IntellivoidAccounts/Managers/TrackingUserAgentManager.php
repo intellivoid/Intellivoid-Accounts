@@ -42,6 +42,9 @@
          * @param int $host_id
          * @return string
          * @throws DatabaseException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidSearchMethodException
+         * @noinspection DuplicatedCode
          */
         public function registerRecord(string $user_agent_string, int $host_id): string
         {
@@ -185,6 +188,8 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          * @throws UserAgentNotFoundException
+         * @noinspection DuplicatedCode
+         * @noinspection RedundantSuppression
          */
         public function updateRecord(UserAgentRecord $userAgentRecord, bool $check = false): bool
         {

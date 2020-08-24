@@ -47,7 +47,7 @@
             $timestamp = (int)time();
             $public_id = Hashing::TransactionRecordPublicID($account_id, $vendor, $timestamp);
             $account_id = (int)$account_id;
-            $vendor = $this->intellivoidAccounts->database->real_escape_string($vendor);;
+            $vendor = $this->intellivoidAccounts->database->real_escape_string($vendor);
             $amount = (float)$amount;
 
             $Query = QueryBuilder::insert_into('transaction_records', array(

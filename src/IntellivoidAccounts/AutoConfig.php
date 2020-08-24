@@ -30,6 +30,7 @@
 
     // IPStack Schema Configuration (For GeoLocating IP Addresses)
     $IpStackSchema = new Schema();
+    /** @noinspection HtmlUnknownTag */
     $IpStackSchema->setDefinition('AccessKey', '<API KEY>');
     $IpStackSchema->setDefinition('UseSSL', 'false');
     $IpStackSchema->setDefinition('IpStackHost', 'api.ipstack.com');
@@ -46,6 +47,7 @@
     // Telegram Service Schema
     $TelegramSchema = new Schema();
     $TelegramSchema->setDefinition('TgBotName', 'IntellivoidBot');
+    /** @noinspection HtmlUnknownTag */
     $TelegramSchema->setDefinition('TgBotToken', '<BOT TOKEN>');
     $TelegramSchema->setDefinition('TgBotEnabled', 'true');
     $TelegramSchema->setDefinition('TgBotHook', 'http://localhost');

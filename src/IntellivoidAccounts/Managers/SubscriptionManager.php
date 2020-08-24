@@ -194,6 +194,7 @@
          * @throws DatabaseException
          * @throws InvalidSearchMethodException
          * @throws SubscriptionNotFoundException
+         * @noinspection DuplicatedCode
          */
         public function getSubscription(string $search_method, string $value): Subscription
         {
@@ -330,6 +331,7 @@
          * @return Subscription
          * @throws DatabaseException
          * @throws SubscriptionNotFoundException
+         * @noinspection DuplicatedCode
          */
         public function getSubscriptionPlanAssociatedWithAccount(int $account_id, int $subscription_plan_id): Subscription
         {

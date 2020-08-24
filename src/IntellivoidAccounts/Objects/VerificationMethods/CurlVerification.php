@@ -4,6 +4,7 @@
     namespace IntellivoidAccounts\Objects\VerificationMethods;
 
     use IntellivoidAccounts\Utilities\Hashing;
+    use RuntimeException;
     use tsa\Exceptions\BadLengthException;
     use tsa\Exceptions\SecuredRandomProcessorNotFoundException;
 
@@ -57,7 +58,7 @@
         {
             if($this->Enabled == false)
             {
-                return null;
+                throw new RuntimeException("This authentication method is unavailable");
             }
 
             return Hashing::curlPrivateKey($this->PublicKey, $this->MagicKey);

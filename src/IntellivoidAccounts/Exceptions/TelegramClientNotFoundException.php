@@ -4,6 +4,7 @@
     namespace IntellivoidAccounts\Exceptions;
 
 
+    use Exception;
     use Throwable;
 
     /**
@@ -11,7 +12,7 @@
      * @package IntellivoidAccounts\Exceptions
      * @deprecated
      */
-    class TelegramClientNotFoundException extends \Exception
+    class TelegramClientNotFoundException extends Exception
     {
         /**
          * TelegramClientNotFoundException constructor.
