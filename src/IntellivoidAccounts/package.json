@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.accounts",
         "name": "Intellivoid Accounts",
-        "version": "2.0.2.5",
+        "version": "2.0.2.6",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "Intellivoid Accounts Manager Library",
@@ -45,6 +45,11 @@
             },
             {
                 "package": "net.intellivoid.telegram_client_manager",
+                "version": "latest",
+                "required": true
+            },
+            {
+                "package": "net.intellivoid.subscriptions",
                 "version": "latest",
                 "required": true
             }

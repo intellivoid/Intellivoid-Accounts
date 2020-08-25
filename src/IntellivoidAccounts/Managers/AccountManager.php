@@ -5,22 +5,34 @@
     use Exception;
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
+    use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\AccountSuspendedException;
+    use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
     use IntellivoidAccounts\Exceptions\DatabaseException;
     use IntellivoidAccounts\Exceptions\EmailAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\GovernmentBackedAttackModeEnabledException;
     use IntellivoidAccounts\Exceptions\IncorrectLoginDetailsException;
+    use IntellivoidAccounts\Exceptions\InsufficientFundsException;
     use IntellivoidAccounts\Exceptions\InvalidAccountStatusException;
     use IntellivoidAccounts\Exceptions\InvalidEmailException;
+    use IntellivoidAccounts\Exceptions\InvalidFundsValueException;
     use IntellivoidAccounts\Exceptions\InvalidPasswordException;
     use IntellivoidAccounts\Exceptions\InvalidSearchMethodException;
     use IntellivoidAccounts\Exceptions\InvalidUsernameException;
+    use IntellivoidAccounts\Exceptions\InvalidVendorException;
     use IntellivoidAccounts\Exceptions\UsernameAlreadyExistsException;
     use IntellivoidAccounts\IntellivoidAccounts;
     use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
+    use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionPlanSearchMethod;
+    use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
+    use IntellivoidSubscriptionManager\Exceptions\InvalidSubscriptionPromotionNameException;
+    use IntellivoidSubscriptionManager\Exceptions\SubscriptionPlanNotFoundException;
+    use IntellivoidSubscriptionManager\Exceptions\SubscriptionPromotionNotFoundException;
+    use IntellivoidSubscriptionManager\IntellivoidSubscriptionManager;
+    use IntellivoidSubscriptionManager\Objects\Subscription;
     use msqg\QueryBuilder;
     use TelegramClientManager\Abstracts\SearchMethods\TelegramClientSearchMethod;
     use TelegramClientManager\Exceptions\InvalidSearchMethod;
@@ -571,5 +583,74 @@
             $this->updateAccount($account);
 
             return true;
+        }
+
+        /**
+         * Processes the billing for the subscription if applicable
+         *
+         * @param IntellivoidSubscriptionManager $subscriptionManager
+         * @param Subscription $subscription
+         * @return bool
+         * @throws AccountNotFoundException
+         * @throws ApplicationNotFoundException
+         * @throws DatabaseException
+         * @throws InsufficientFundsException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidFundsValueException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidSubscriptionPromotionNameException
+         * @throws InvalidUsernameException
+         * @throws InvalidVendorException
+         * @throws SubscriptionPlanNotFoundException
+         * @throws SubscriptionPromotionNotFoundException
+         * @throws \IntellivoidSubscriptionManager\Exceptions\DatabaseException
+         * @throws \IntellivoidSubscriptionManager\Exceptions\InvalidSearchMethodException
+         * @noinspection PhpUnused
+         */
+        public function processBilling(IntellivoidSubscriptionManager $subscriptionManager, Subscription $subscription): bool
+        {
+            if($subscription->NextBillingCycle > (int)time())
+            {
+                return False;
+            }
+
+            $SubscriptionPlan = $subscriptionManager->getPlanManager()->getSubscriptionPlan(
+                SubscriptionPlanSearchMethod::byId, $subscription->SubscriptionPlanID
+            );
+            $Application = $this->intellivoidAccounts->getApplicationManager()->getApplication(
+                ApplicationSearchMethod::byId, $SubscriptionPlan->ApplicationID
+            );
+
+            $this->intellivoidAccounts->getTransactionManager()->processPayment(
+                $subscription->AccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                $subscription->Properties->CyclePrice
+            );
+
+            if($subscription->Properties->PromotionID !== 0)
+            {
+                $SubscriptionPromotion = $subscriptionManager->getPromotionManager()->getSubscriptionPromotion(
+                    SubscriptionPromotionSearchMethod::byId, $subscription->Properties->PromotionID
+                );
+
+                /** @noinspection DuplicatedCode */
+                if($SubscriptionPromotion->AffiliationAccountID !== 0)
+                {
+                    if($SubscriptionPromotion->AffiliationCycleShare > 0)
+                    {
+                        if($SubscriptionPromotion->CyclePrice >  $SubscriptionPlan->CyclePrice)
+                        {
+                            $SubscriptionPromotion->CyclePrice = $SubscriptionPlan->CyclePrice;
+                        }
+
+                        $this->intellivoidAccounts->getTransactionManager()->addFunds(
+                            $SubscriptionPromotion->AffiliationAccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                            $SubscriptionPromotion->AffiliationInitialShare
+                        );
+                    }
+                }
+            }
+
+            return True;
         }
     }

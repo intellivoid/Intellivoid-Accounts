@@ -40,6 +40,8 @@
     ppm::import("net.intellivoid.ziproto");
     /** @noinspection PhpUnhandledExceptionInspection */
     ppm::import("net.intellivoid.telegram_client_manager");
+    /** @noinspection PhpUnhandledExceptionInspection */
+    ppm::import("net.intellivoid.subscriptions");
 
     include(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');
 
