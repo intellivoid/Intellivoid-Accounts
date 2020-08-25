@@ -55,7 +55,7 @@
             }
         ],
         "configuration": {
-            "autoload_method": "generated_spl",
+            "autoload_method": "generted_spl",
             "main": null,
             "post_installation": [],
             "pre_installation": []
