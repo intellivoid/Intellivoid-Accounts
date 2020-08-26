@@ -413,9 +413,7 @@
             $telegramClient->SessionData->setData('auth', 'expires', (int)time() + 180);
             $telegramClient->SessionData->setData('auth', 'approved', false);
             $telegramClient->SessionData->setData('auth', 'disallowed', false);
-
-            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
-
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
             $user_agent_x = null;
 
