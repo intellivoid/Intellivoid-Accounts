@@ -6,6 +6,7 @@
     use IntellivoidAccounts\Abstracts\AccountStatus;
     use IntellivoidAccounts\Abstracts\SearchMethods\AccountSearchMethod;
     use IntellivoidAccounts\Abstracts\SearchMethods\ApplicationSearchMethod;
+    use IntellivoidAccounts\Exceptions\AccountLimitedException;
     use IntellivoidAccounts\Exceptions\AccountNotFoundException;
     use IntellivoidAccounts\Exceptions\AccountSuspendedException;
     use IntellivoidAccounts\Exceptions\ApplicationNotFoundException;
@@ -28,7 +29,9 @@
     use IntellivoidAccounts\Utilities\Validate;
     use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionPlanSearchMethod;
     use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionPromotionSearchMethod;
+    use IntellivoidSubscriptionManager\Abstracts\SearchMethods\SubscriptionSearchMethod;
     use IntellivoidSubscriptionManager\Exceptions\InvalidSubscriptionPromotionNameException;
+    use IntellivoidSubscriptionManager\Exceptions\SubscriptionNotFoundException;
     use IntellivoidSubscriptionManager\Exceptions\SubscriptionPlanNotFoundException;
     use IntellivoidSubscriptionManager\Exceptions\SubscriptionPromotionNotFoundException;
     use IntellivoidSubscriptionManager\IntellivoidSubscriptionManager;
@@ -652,5 +655,145 @@
             }
 
             return True;
+        }
+
+        /**
+         * Starts a new subscription for the account
+         *
+         * @param IntellivoidSubscriptionManager $subscriptionManager
+         * @param int $account_id
+         * @param int $application_id
+         * @param string $plan_name
+         * @param string $promotion_code
+         * @return Subscription
+         * @throws AccountLimitedException
+         * @throws AccountNotFoundException
+         * @throws ApplicationNotFoundException
+         * @throws DatabaseException
+         * @throws InsufficientFundsException
+         * @throws InvalidAccountStatusException
+         * @throws InvalidEmailException
+         * @throws InvalidFundsValueException
+         * @throws InvalidSearchMethodException
+         * @throws InvalidSubscriptionPromotionNameException
+         * @throws InvalidUsernameException
+         * @throws InvalidVendorException
+         * @throws SubscriptionPlanNotFoundException
+         * @throws SubscriptionPromotionNotFoundException
+         * @throws \IntellivoidSubscriptionManager\Exceptions\DatabaseException
+         * @throws \IntellivoidSubscriptionManager\Exceptions\InvalidSearchMethodException
+         * @throws SubscriptionNotFoundException
+         * @noinspection DuplicatedCode
+         * @noinspection PhpUnused
+         */
+        public function startSubscription(IntellivoidSubscriptionManager $subscriptionManager, int $account_id, int $application_id, string $plan_name, string $promotion_code = "NONE"): Subscription
+        {
+            // Retrieve the required information
+            /** @noinspection DuplicatedCode */
+            $Application = $this->intellivoidAccounts->getApplicationManager()->getApplication(ApplicationSearchMethod::byId, $application_id);
+            $Account = $this->intellivoidAccounts->getAccountManager()->getAccount(AccountSearchMethod::byId, $account_id);
+            if($Account->Status == AccountStatus::Limited)
+            {
+                throw new AccountLimitedException();
+            }
+
+            $SubscriptionPlan = $subscriptionManager->getPlanManager()->getSubscriptionPlanByName(
+                $application_id, $plan_name
+            );
+
+
+            $properties = new Subscription\Properties();
+            $SubscriptionPromotion = null;
+
+            if($promotion_code !== "NONE")
+            {
+                $SubscriptionPromotion = $subscriptionManager->getPromotionManager()->getSubscriptionPromotion(
+                    SubscriptionPromotionSearchMethod::byPromotionCode, $promotion_code
+                );
+            }
+
+            /** @noinspection DuplicatedCode */
+            if(count($SubscriptionPlan->Features) > 0)
+            {
+                foreach($SubscriptionPlan->Features as $feature)
+                {
+                    $properties->addFeature($feature);
+                }
+            }
+
+            if($SubscriptionPromotion == null)
+            {
+                $properties->InitialPrice = $SubscriptionPlan->InitialPrice;
+                $properties->CyclePrice = $SubscriptionPlan->CyclePrice;
+                $properties->PromotionID = 0;
+            }
+            else
+            {
+                $properties->InitialPrice = $SubscriptionPromotion->InitialPrice;
+                $properties->CyclePrice = $SubscriptionPromotion->CyclePrice;
+                $properties->PromotionID = $SubscriptionPromotion->ID;
+
+                if(count($SubscriptionPromotion->Features) > 0)
+                {
+                    foreach($SubscriptionPromotion->Features as $feature)
+                    {
+                        $properties->addFeature($feature);
+                    }
+                }
+            }
+
+            $this->intellivoidAccounts->getTransactionManager()->processPayment(
+                $account_id, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                $properties->InitialPrice
+            );
+
+            if($SubscriptionPromotion->AffiliationAccountID !== 0)
+            {
+                if($SubscriptionPromotion->AffiliationInitialShare > 0)
+                {
+
+                    if($SubscriptionPromotion->AffiliationInitialShare > $properties->InitialPrice)
+                    {
+                        $SubscriptionPromotion->AffiliationInitialShare = $properties->InitialPrice;
+                    }
+
+                    $this->intellivoidAccounts->getTransactionManager()->addFunds(
+                        $SubscriptionPromotion->AffiliationAccountID, $Application->Name . ' (' . $SubscriptionPlan->PlanName . ')',
+                        $SubscriptionPromotion->AffiliationInitialShare
+                    );
+                }
+            }
+
+            $public_id = Hashing::SubscriptionPublicID($account_id, $SubscriptionPlan->ID);
+            $public_id = $this->intellivoidAccounts->database->real_escape_string($public_id);
+            $account_id = (int)$account_id;
+            $subscription_plan_id = (int)$SubscriptionPlan->ID;
+            $active = (int)True;
+            $billing_cycle = (int)$SubscriptionPlan->BillingCycle;
+            $next_billing_cycle = (int)time() + $billing_cycle;
+            $properties = ZiProto::encode($properties->toArray());
+            $properties = $this->intellivoidAccounts->database->real_escape_string($properties);
+            $created_timestamp = (int)time();
+            $flags = ZiProto::encode([]);
+            $flags = $this->intellivoidAccounts->database->real_escape_string($flags);
+
+            $Query = QueryBuilder::insert_into('subscriptions', array(
+                'public_id' => $public_id,
+                'account_id' => (int)$account_id,
+                'subscription_plan_id' => (int)$subscription_plan_id,
+                'active' => $active,
+                'billing_cycle' => $billing_cycle,
+                'next_billing_cycle' => $next_billing_cycle,
+                'properties' => $properties,
+                'created_timestamp' => $created_timestamp,
+                'flags' => $flags
+            ));
+            $QueryResults = $this->intellivoidAccounts->database->query($Query);
+            if($QueryResults == false)
+            {
+                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            }
+
+            return $subscriptionManager->getSubscriptionManager()->getSubscription(SubscriptionSearchMethod::byPublicId, $public_id);
         }
     }
