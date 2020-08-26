@@ -167,14 +167,14 @@
 
                 $telegramClient->Available = false;
                 $telegramClient->LastActivityTimestamp = (int)time();
-                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
                 throw new TelegramActionFailedException($Message, $ErrorCode);
             }
 
             $telegramClient->Available = true;
             $telegramClient->LastActivityTimestamp = (int)time();
-            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
             return true;
         }
@@ -225,14 +225,14 @@
 
                 $telegramClient->Available = false;
                 $telegramClient->LastActivityTimestamp = (int)time();
-                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
                 throw new TelegramActionFailedException($Message, $ErrorCode);
             }
 
             $telegramClient->Available = true;
             $telegramClient->LastActivityTimestamp = (int)time();
-            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
             return true;
         }
@@ -282,14 +282,14 @@
 
                 $telegramClient->Available = false;
                 $telegramClient->LastActivityTimestamp = (int)time();
-                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
                 throw new TelegramActionFailedException($Message, $ErrorCode);
             }
 
             $telegramClient->Available = true;
             $telegramClient->LastActivityTimestamp = (int)time();
-            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+            $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
             return true;
         }
@@ -505,7 +505,7 @@
 
                 $telegramClient->Available = false;
                 $telegramClient->LastActivityTimestamp = (int)time();
-                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient);
+                $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
                 throw new TelegramActionFailedException($Message, $ErrorCode);
             }
@@ -665,7 +665,7 @@
             $AuthPrompt['disallowed'] = false;
 
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
-                $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+                $this->updateAuthPrompt($telegramClient, $AuthPrompt), false, true
             );
         }
 
@@ -696,7 +696,7 @@
             $AuthPrompt['disallowed'] = true;
 
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
-                $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+                $this->updateAuthPrompt($telegramClient, $AuthPrompt), false, true
             );
         }
 
@@ -805,7 +805,7 @@
                 $AuthPrompt['attempts_reset'] = (int)time() + 1800;
 
                 $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
-                    $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+                    $this->updateAuthPrompt($telegramClient, $AuthPrompt), false, true
                 );
             }
             else
@@ -815,7 +815,7 @@
                 $AuthPrompt['currently_active'] = false;
 
                 $this->intellivoidAccounts->getTelegramClientManager()->updateClient(
-                    $this->updateAuthPrompt($telegramClient, $AuthPrompt)
+                    $this->updateAuthPrompt($telegramClient, $AuthPrompt), false, true
                 );
             }
         }
