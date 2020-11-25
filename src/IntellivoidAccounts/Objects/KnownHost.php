@@ -4,6 +4,13 @@
     namespace IntellivoidAccounts\Objects;
 
 
+    use IntellivoidAccounts\Abstracts\KnownHostViolationStatus;
+    use IntellivoidAccounts\Objects\KnownHost\Properties;
+
+    /**
+     * Class KnownHost
+     * @package IntellivoidAccounts\Objects
+     */
     class KnownHost
     {
         /**
@@ -35,6 +42,13 @@
         public $Blocked;
 
         /**
+         * The properties associated with this KnownHost
+         *
+         * @var Properties
+         */
+        public $Properties;
+
+        /**
          * Unix Timestamp for when this host was last used
          *
          * @var int
@@ -56,6 +70,35 @@
         public $Created;
 
         /**
+         * KnownHost constructor.
+         */
+        public function __construct()
+        {
+            $this->Properties = new Properties();
+        }
+
+        /**
+         * Checks the violation status and returns the status
+         *
+         * @return int
+         */
+        public function checkViolationStatus(): int
+        {
+            if($this->Blocked)
+            {
+                return KnownHostViolationStatus::HostBlockedByAdministrator;
+            }
+
+            // Check if the violation check fails
+            if($this->Properties->AccountCreationLimitation->violationCheck() == false)
+            {
+                return KnownHostViolationStatus::HostBlockedAccountCreationLimit;
+            }
+
+            return KnownHostViolationStatus::NoViolation;
+        }
+
+        /**
          * Returns an array that represents this object
          *
          * @return array
@@ -63,13 +106,14 @@
         public function toArray(): array
         {
             return array(
-                'id' => (int)$this->ID,
-                'public_id' => $this->PublicID,
-                'ip_address' => $this->IpAddress,
-                'blocked' => (bool)$this->Blocked,
-                'last_used' => (int)$this->LastUsed,
-                'location_data' => $this->LocationData->toArray(),
-                'created' => $this->LastUsed
+                "id" => (int)$this->ID,
+                "public_id" => $this->PublicID,
+                "ip_address" => $this->IpAddress,
+                "blocked" => (bool)$this->Blocked,
+                "properties" => $this->Properties->toArray(),
+                "last_used" => (int)$this->LastUsed,
+                "location_data" => $this->LocationData->toArray(),
+                "created" => $this->LastUsed
             );
         }
 
@@ -83,43 +127,48 @@
         {
             $KnownHostObject = new KnownHost();
 
-            if(isset($data['id']))
+            if(isset($data["id"]))
             {
-                $KnownHostObject->ID = (int)$data['id'];
+                $KnownHostObject->ID = (int)$data["id"];
             }
 
-            if(isset($data['public_id']))
+            if(isset($data["public_id"]))
             {
-                $KnownHostObject->PublicID = $data['public_id'];
+                $KnownHostObject->PublicID = $data["public_id"];
             }
 
-            if(isset($data['ip_address']))
+            if(isset($data["ip_address"]))
             {
-                $KnownHostObject->IpAddress = $data['ip_address'];
+                $KnownHostObject->IpAddress = $data["ip_address"];
             }
 
-            if(isset($data['blocked']))
+            if(isset($data["blocked"]))
             {
-                $KnownHostObject->Blocked = (bool)$data['blocked'];
+                $KnownHostObject->Blocked = (bool)$data["blocked"];
             }
 
-            if(isset($data['last_used']))
+            if(isset($data["properties"]))
             {
-                $KnownHostObject->LastUsed = (int)$data['last_used'];
+                $KnownHostObject->Properties = Properties::fromArray($data["properties"]);
             }
 
-            if(isset($data['location_data']))
+            if(isset($data["last_used"]))
             {
-                $KnownHostObject->LocationData = LocationData::fromArray($data['location_data']);
+                $KnownHostObject->LastUsed = (int)$data["last_used"];
+            }
+
+            if(isset($data["location_data"]))
+            {
+                $KnownHostObject->LocationData = LocationData::fromArray($data["location_data"]);
             }
             else
             {
                 $KnownHostObject->LocationData = new LocationData();
             }
 
-            if(isset($data['created']))
+            if(isset($data["created"]))
             {
-                $KnownHostObject->Created = (int)$data['created'];
+                $KnownHostObject->Created = (int)$data["created"];
             }
 
             return $KnownHostObject;

@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.accounts",
         "name": "Intellivoid Accounts",
-        "version": "2.0.2.7",
+        "version": "2.0.2.8",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "Intellivoid Accounts Manager Library",
@@ -11,56 +11,68 @@
             {
                 "package": "net.intellivoid.acm",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/acm"
+                "source": "default@github/intellivoid/acm",
+                "required": true
             },
             {
                 "package": "net.intellivoid.bcmath",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/basic-calculator"
+                "source": "default@github/intellivoid/basic-calculator",
+                "required": true
             },
             {
                 "package": "net.intellivoid.ipstack",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/ipstack-wrapper"
+                "source": "default@github/intellivoid/ipstack-wrapper",
+                "required": true
             },
             {
                 "package": "net.intellivoid.msqg",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/msqg"
+                "source": "default@github/intellivoid/msqg",
+                "required": true
             },
             {
                 "package": "net.intellivoid.tsa",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/time-signature-authentication"
+                "source": "default@github/intellivoid/time-signature-authentication",
+                "required": true
             },
             {
                 "package": "net.intellivoid.udp",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/udp_manager"
+                "source": "default@github/intellivoid/udp_manager",
+                "required": true
             },
             {
                 "package": "net.intellivoid.ziproto",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/ziproto"
+                "source": "default@github/intellivoid/ziproto",
+                "required": true
             },
             {
                 "package": "net.intellivoid.telegram_client_manager",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/iva-telegram"
+                "source": "default@github/intellivoid/iva-telegram",
+                "required": true
             },
             {
                 "package": "net.intellivoid.subscriptions",
                 "version": "latest",
-                "required": true,
-		"source": "default@github/intellivoid/intellivoid-subscription-manager"
+                "source": "default@github/intellivoid/intellivoid-subscription-manager",
+                "required": true
+            },
+            {
+                "package": "net.intellivoid.pwc",
+                "version": "latest",
+                "source": "default@github/intellivoid/PwCompromission",
+                "required": true
+            },
+            {
+                "package": "net.intellivoid.support",
+                "version": "latest",
+                "source": "default@github/intellivoid/support",
+                "required": true
             }
         ],
         "configuration": {
@@ -73,63 +85,23 @@
     "components": [
         {
             "required": true,
-            "file": "Abstracts/AccountRequestPermissions.php"
+            "file": "Utilities/Converter.php"
         },
         {
             "required": true,
-            "file": "Abstracts/AccountStatus.php"
+            "file": "Utilities/Validate.php"
         },
         {
             "required": true,
-            "file": "Abstracts/ApplicationAccessStatus.php"
+            "file": "Utilities/Parse.php"
         },
         {
             "required": true,
-            "file": "Abstracts/ApplicationFlags.php"
+            "file": "Utilities/Hashing.php"
         },
         {
             "required": true,
-            "file": "Abstracts/ApplicationStatus.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/AuditEventType.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/AuthenticationAccessStatus.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/AuthenticationMode.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/AuthenticationRequestStatus.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/ExceptionCodes.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/LoginStatus.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/OperatorType.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/OtlStatus.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/SearchMethods/AccountSearchMethod.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/SearchMethods/ApplicationAccessSearchMethod.php"
+            "file": "Services/Telegram.php"
         },
         {
             "required": true,
@@ -141,19 +113,7 @@
         },
         {
             "required": true,
-            "file": "Abstracts/SearchMethods/AuthenticationRequestSearchMethod.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/SearchMethods/KnownHostsSearchMethod.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/SearchMethods/LoginRecordMultiSearchMethod.php"
-        },
-        {
-            "required": true,
-            "file": "Abstracts/SearchMethods/LoginRecordSearchMethod.php"
+            "file": "Abstracts/SearchMethods/SubscriptionPromotionSearchMethod.php"
         },
         {
             "required": true,
@@ -161,15 +121,31 @@
         },
         {
             "required": true,
-            "file": "Abstracts/SearchMethods/SubscriptionPlanSearchMethod.php"
+            "file": "Abstracts/SearchMethods/LoginRecordSearchMethod.php"
         },
         {
             "required": true,
-            "file": "Abstracts/SearchMethods/SubscriptionPromotionSearchMethod.php"
+            "file": "Abstracts/SearchMethods/LoginRecordMultiSearchMethod.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/SearchMethods/TrackingUserAgentSearchMethod.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/SearchMethods/ApplicationAccessSearchMethod.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/SearchMethods/KnownHostsSearchMethod.php"
         },
         {
             "required": true,
             "file": "Abstracts/SearchMethods/SubscriptionSearchMethod.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/SearchMethods/AuthenticationRequestSearchMethod.php"
         },
         {
             "required": true,
@@ -181,7 +157,7 @@
         },
         {
             "required": true,
-            "file": "Abstracts/SearchMethods/TrackingUserAgentSearchMethod.php"
+            "file": "Abstracts/SearchMethods/AccountSearchMethod.php"
         },
         {
             "required": true,
@@ -189,11 +165,11 @@
         },
         {
             "required": true,
-            "file": "Abstracts/SubscriptionPlanStatus.php"
+            "file": "Abstracts/SearchMethods/SubscriptionPlanSearchMethod.php"
         },
         {
             "required": true,
-            "file": "Abstracts/SubscriptionPromotionStatus.php"
+            "file": "Abstracts/KnownHostViolationStatus.php"
         },
         {
             "required": true,
@@ -201,235 +177,67 @@
         },
         {
             "required": true,
+            "file": "Abstracts/AccountStatus.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/ExceptionCodes.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/AccountRequestPermissions.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/ApplicationAccessStatus.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/SubscriptionPromotionStatus.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/AuditEventType.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/AuthenticationAccessStatus.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/OtlStatus.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/SubscriptionPlanStatus.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/AuthenticationMode.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/ApplicationStatus.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/OperatorType.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/ApplicationFlags.php"
+        },
+        {
+            "required": true,
+            "file": "Abstracts/AuthenticationRequestStatus.php"
+        },
+        {
+            "required": true,
             "file": "Abstracts/TelegramVerificationCodeStatus.php"
         },
         {
             "required": true,
-            "file": "AutoConfig.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AccountLimitedException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AccountNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AccountSuspendedException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/ApplicationAccessNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/ApplicationAlreadyExistsException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/ApplicationNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AuthenticationAccessNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AuthenticationRequestAlreadyUsedException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AuthenticationRequestNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AuthNotPromptedException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AuthPromptAlreadyApprovedException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AuthPromptDeniedException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/AuthPromptExpiredException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/ConfigurationNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/DatabaseException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/EmailAlreadyExistsException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/GovernmentBackedAttackModeEnabledException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/HostBlockedFromAccountException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/HostNotKnownException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/IncorrectLoginDetailsException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InsufficientFundsException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidAccountStatusException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidApplicationFlagException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidApplicationNameException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidArgumentException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidBillingCycleException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidCyclePriceException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidCyclePriceShareException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidEmailException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidEventTypeException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidFeatureException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidFundsValueException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidInitialPriceException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidInitialPriceShareException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidIpException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidLoginStatusException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidMessageContentException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidMessageSubjectException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidPasswordException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidRequestPermissionException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidSearchMethodException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidSubscriptionPlanNameException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidSubscriptionPromotionNameException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidUrlException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidUsernameException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/InvalidVendorException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/LoginRecordNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/OtlNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/SubscriptionNotActiveException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/SubscriptionNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/SubscriptionPlanAlreadyExistsException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/SubscriptionPlanNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/SubscriptionPromotionAlreadyExistsException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/SubscriptionPromotionNotFoundException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/TelegramActionFailedException.php"
-        },
-        {
-            "required": true,
-            "file": "Exceptions/TelegramApiException.php"
+            "file": "Abstracts/LoginStatus.php"
         },
         {
             "required": true,
@@ -437,23 +245,71 @@
         },
         {
             "required": true,
-            "file": "Exceptions/TelegramServicesNotAvailableException.php"
+            "file": "Exceptions/InvalidSearchMethodException.php"
         },
         {
             "required": true,
-            "file": "Exceptions/TelegramVerificationCodeNotFound.php"
+            "file": "Exceptions/AuthenticationRequestNotFoundException.php"
         },
         {
             "required": true,
-            "file": "Exceptions/TooManyPromptRequestsException.php"
+            "file": "Exceptions/OtlNotFoundException.php"
         },
         {
             "required": true,
-            "file": "Exceptions/TransactionRecordNotFoundException.php"
+            "file": "Exceptions/InvalidInitialPriceShareException.php"
         },
         {
             "required": true,
-            "file": "Exceptions/UserAgentNotFoundException.php"
+            "file": "Exceptions/TelegramApiException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/SubscriptionNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidRequestPermissionException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/TelegramActionFailedException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AccountNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidSubscriptionPromotionNameException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidCyclePriceException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/LoginRecordNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AccountLimitedException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/DatabaseException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/ApplicationNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AuthPromptAlreadyApprovedException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidInitialPriceException.php"
         },
         {
             "required": true,
@@ -461,79 +317,315 @@
         },
         {
             "required": true,
+            "file": "Exceptions/ApplicationAlreadyExistsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidMessageContentException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidLoginStatusException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidEventTypeException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidApplicationFlagException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidUrlException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidMessageSubjectException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/ApplicationAccessNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/TransactionRecordNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/HostNotKnownException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidSubscriptionPlanNameException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InsufficientFundsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidCyclePriceShareException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidAccountStatusException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/SubscriptionPromotionAlreadyExistsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/HostBlockedFromAccountException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AuthNotPromptedException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/UserAgentNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidPasswordException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidApplicationNameException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidVendorException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/SubscriptionPlanNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidBillingCycleException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/IncorrectLoginDetailsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AuthenticationAccessNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/SubscriptionPromotionNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/SubscriptionNotActiveException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidFundsValueException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AccountSuspendedException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/TelegramVerificationCodeNotFound.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AuthPromptExpiredException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AuthPromptDeniedException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/SubscriptionPlanAlreadyExistsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AuthenticationRequestAlreadyUsedException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidIpException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/TelegramServicesNotAvailableException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/GovernmentBackedAttackModeEnabledException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/TooManyPromptRequestsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidFeatureException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidUsernameException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/ConfigurationNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidEmailException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidArgumentException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/EmailAlreadyExistsException.php"
+        },
+        {
+            "required": true,
             "file": "IntellivoidAccounts.php"
         },
         {
             "required": true,
-            "file": "Managers/AccountManager.php"
+            "file": "Objects/TransactionRecord.php"
         },
         {
             "required": true,
-            "file": "Managers/ApplicationAccessManager.php"
+            "file": "Objects/ApplicationAccess.php"
         },
         {
             "required": true,
-            "file": "Managers/ApplicationManager.php"
+            "file": "Objects/VerificationMethods/TwoFactorAuthentication.php"
         },
         {
             "required": true,
-            "file": "Managers/AuditLogManager.php"
+            "file": "Objects/VerificationMethods/RecoveryCodes.php"
         },
         {
             "required": true,
-            "file": "Managers/AuthenticationAccessManager.php"
+            "file": "Objects/VerificationMethods/TelegramLink.php"
         },
         {
             "required": true,
-            "file": "Managers/AuthenticationRequestManager.php"
+            "file": "Objects/VerificationMethods/CurlVerification.php"
         },
         {
             "required": true,
-            "file": "Managers/CrossOverAuthenticationManager.php"
+            "file": "Objects/KnownHost/Properties/AccountCreationLimitation.php"
         },
         {
             "required": true,
-            "file": "Managers/KnownHostsManager.php"
+            "file": "Objects/KnownHost/Properties.php"
         },
         {
             "required": true,
-            "file": "Managers/LoginRecordManager.php"
+            "file": "Objects/Account.php"
         },
         {
             "required": true,
-            "file": "Managers/OtlManager.php"
+            "file": "Objects/ApplicationConfiguration.php"
         },
         {
             "required": true,
-            "file": "Managers/SubscriptionManager.php"
+            "file": "Objects/KnownHost.php"
         },
         {
             "required": true,
-            "file": "Managers/SubscriptionPlanManager.php"
+            "file": "Objects/OneTimeLoginCode.php"
         },
         {
             "required": true,
-            "file": "Managers/SubscriptionPromotionManager.php"
+            "file": "Objects/LocationData.php"
         },
         {
             "required": true,
-            "file": "Managers/TelegramClientManager.php"
+            "file": "Objects/LoginRecord.php"
         },
         {
             "required": true,
-            "file": "Managers/TelegramVerificationCodeManager.php"
+            "file": "Objects/TelegramClient.php"
         },
         {
             "required": true,
-            "file": "Managers/TrackingUserAgentManager.php"
+            "file": "Objects/SubscriptionPromotion.php"
         },
         {
             "required": true,
-            "file": "Managers/TransactionManager.php"
+            "file": "Objects/UserAgentRecord.php"
         },
         {
             "required": true,
-            "file": "Managers/TransactionRecordManager.php"
+            "file": "Objects/TelegramClient/Chat.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/TelegramClient/User.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/TelegramClient/SessionData.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/Subscription.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/COA/AuthenticationAccess.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/COA/Application.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/COA/AuthenticationRequest.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/UserLoginRecord.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/TelegramVerificationCode.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/UserAgent.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/AuditRecord.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/SubscriptionPlan.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/Subscription/Feature.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/Subscription/Properties.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/Account/PersonalInformation/BirthDate.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/Account/PersonalInformation/LoginLocations.php"
         },
         {
             "required": true,
@@ -549,160 +641,92 @@
         },
         {
             "required": true,
-            "file": "Objects/Account/Configuration.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/Account/PersonalInformation/BirthDate.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/Account/PersonalInformation/LoginLocations.php"
-        },
-        {
-            "required": true,
             "file": "Objects/Account/PersonalInformation.php"
         },
         {
             "required": true,
-            "file": "Objects/Account.php"
+            "file": "Objects/Account/Configuration.php"
         },
         {
             "required": true,
-            "file": "Objects/ApplicationAccess.php"
+            "file": "AutoConfig.php"
         },
         {
             "required": true,
-            "file": "Objects/ApplicationConfiguration.php"
+            "file": "Managers/KnownHostsManager.php"
         },
         {
             "required": true,
-            "file": "Objects/AuditRecord.php"
+            "file": "Managers/AuthenticationRequestManager.php"
         },
         {
             "required": true,
-            "file": "Objects/COA/Application.php"
+            "file": "Managers/TelegramVerificationCodeManager.php"
         },
         {
             "required": true,
-            "file": "Objects/COA/AuthenticationAccess.php"
+            "file": "Managers/CrossOverAuthenticationManager.php"
         },
         {
             "required": true,
-            "file": "Objects/COA/AuthenticationRequest.php"
+            "file": "Managers/TransactionRecordManager.php"
         },
         {
             "required": true,
-            "file": "Objects/KnownHost.php"
+            "file": "Managers/TrackingUserAgentManager.php"
         },
         {
             "required": true,
-            "file": "Objects/LocationData.php"
+            "file": "Managers/TransactionManager.php"
         },
         {
             "required": true,
-            "file": "Objects/LoginRecord.php"
+            "file": "Managers/SubscriptionPlanManager.php"
         },
         {
             "required": true,
-            "file": "Objects/OneTimeLoginCode.php"
+            "file": "Managers/ApplicationAccessManager.php"
         },
         {
             "required": true,
-            "file": "Objects/Subscription/Feature.php"
+            "file": "Managers/OtlManager.php"
         },
         {
             "required": true,
-            "file": "Objects/Subscription/Properties.php"
+            "file": "Managers/SubscriptionPromotionManager.php"
         },
         {
             "required": true,
-            "file": "Objects/Subscription.php"
+            "file": "Managers/LoginRecordManager.php"
         },
         {
             "required": true,
-            "file": "Objects/SubscriptionPlan.php"
+            "file": "Managers/TelegramClientManager.php"
         },
         {
             "required": true,
-            "file": "Objects/SubscriptionPromotion.php"
+            "file": "Managers/ApplicationManager.php"
         },
         {
             "required": true,
-            "file": "Objects/TelegramClient/Chat.php"
+            "file": "Managers/AuthenticationAccessManager.php"
         },
         {
             "required": true,
-            "file": "Objects/TelegramClient/SessionData.php"
+            "file": "Managers/AuditLogManager.php"
         },
         {
             "required": true,
-            "file": "Objects/TelegramClient/User.php"
+            "file": "Managers/SubscriptionManager.php"
         },
         {
             "required": true,
-            "file": "Objects/TelegramClient.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/TelegramVerificationCode.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/TransactionRecord.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/UserAgent.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/UserAgentRecord.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/UserLoginRecord.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/VerificationMethods/CurlVerification.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/VerificationMethods/RecoveryCodes.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/VerificationMethods/TelegramLink.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/VerificationMethods/TwoFactorAuthentication.php"
-        },
-        {
-            "required": true,
-            "file": "Services/Telegram.php"
-        },
-        {
-            "required": true,
-            "file": "Utilities/Converter.php"
-        },
-        {
-            "required": true,
-            "file": "Utilities/Hashing.php"
-        },
-        {
-            "required": true,
-            "file": "Utilities/Parse.php"
-        },
-        {
-            "required": true,
-            "file": "Utilities/Validate.php"
+            "file": "Managers/AccountManager.php"
         }
     ],
     "files": [
-        "configuration.ini",
         "intellivoid_accounts.json",
-        "package.json"
+        "package.json",
+        "configuration.ini"
     ]
 }
