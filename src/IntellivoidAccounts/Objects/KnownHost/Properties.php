@@ -16,7 +16,7 @@
          *
          * @var AccountCreationLimitation
          */
-        public AccountCreationLimitation $AccountCreationLimitation;
+        public $AccountCreationLimitation;
 
         /**
          * Properties constructor.

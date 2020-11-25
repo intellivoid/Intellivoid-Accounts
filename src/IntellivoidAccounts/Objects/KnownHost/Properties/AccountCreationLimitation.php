@@ -14,28 +14,28 @@
          *
          * @var int
          */
-        public int $AccountsCreatedCount;
+        public $AccountsCreatedCount;
 
         /**
          * The next Unix Timestamp that will take a number off the AccountsCreatedCount
          *
          * @var int
          */
-        public int $NextClearTimestamp;
+        public $NextClearTimestamp;
 
         /**
          * If this property is true, the Mass Account Creation check will always return false
          *
          * @var bool
          */
-        public bool $AutomatedBanTriggered;
+        public $AutomatedBanTriggered;
 
         /**
          * The Unix Timestamp for when this automated ban is supposed to be lifted
          *
          * @var int
          */
-        public int $AutomatedBanLiftTimestamp;
+        public $AutomatedBanLiftTimestamp;
 
         /**
          * Violation check for mass account creation, passes if the host hasn't violated this policy

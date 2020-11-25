@@ -24,21 +24,21 @@
          *
          * @var bool
          */
-        public bool $Enabled;
+        public $Enabled;
 
         /**
          * The Unix Timestamp of when the signature was last updated
          *
          * @var int
          */
-        public int $LastUpdated;
+        public $LastUpdated;
 
         /**
          * The private signature associated with this account
          *
          * @var string
          */
-        public string $PrivateSignature;
+        public $PrivateSignature;
 
         /**
          * Generates a new Private Signature and enables this

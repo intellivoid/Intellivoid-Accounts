@@ -41,7 +41,7 @@
         /**
          * @var IntellivoidAccounts
          */
-        private IntellivoidAccounts $intellivoidAccounts;
+        private $intellivoidAccounts;
 
         /**
          * SubscriptionManager constructor.

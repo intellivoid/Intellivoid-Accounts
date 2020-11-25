@@ -15,56 +15,56 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * The Public unique ID for this record
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * The internal Application ID that has access to the Account
          *
          * @var int
          */
-        public int $ApplicationID;
+        public $ApplicationID;
 
         /**
          * The internal Account ID that has authentication relations with this Application
          *
          * @var int
          */
-        public int $AccountID;
+        public $AccountID;
 
         /**
          * Permissions that this Application currently requests from the Account
          *
          * @var array
          */
-        public array $Permissions;
+        public $Permissions;
 
         /**
          * The current status of the access of the Application has over the Account
          *
          * @var int
          */
-        public int $Status;
+        public $Status;
 
         /**
          * The Unix Timestamp of when this record was created
          *
          * @var int
          */
-        public int $CreationTimestamp;
+        public $CreationTimestamp;
 
         /**
          * The Unix Timestamp of when the Account has last authenticated to this Application
          *
          * @var int
          */
-        public int $LastAuthenticatedTimestamp;
+        public $LastAuthenticatedTimestamp;
 
         /**
          * Returns an array for this object

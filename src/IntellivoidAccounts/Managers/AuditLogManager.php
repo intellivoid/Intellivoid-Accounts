@@ -19,7 +19,7 @@
         /**
          * @var IntellivoidAccounts
          */
-        private IntellivoidAccounts $intellivoidAccounts;
+        private $intellivoidAccounts;
 
         /**
          * AuditLogManager constructor.

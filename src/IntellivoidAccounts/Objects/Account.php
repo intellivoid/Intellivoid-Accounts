@@ -16,70 +16,70 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * The public ID for this Account
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * The username for this account
          *
          * @var string
          */
-        public string $Username;
+        public $Username;
 
         /**
          * The Email Address for this Account
          *
          * @var string
          */
-        public string $Email;
+        public $Email;
 
         /**
          * The access password for this account (hashed)
          *
          * @var string
          */
-        public string $Password;
+        public $Password;
 
         /**
          * The status of the account
          *
          * @var int
          */
-        public int $Status;
+        public $Status;
 
         /**
          * Personal information related to the user
          *
          * @var PersonalInformation
          */
-        public PersonalInformation $PersonalInformation;
+        public $PersonalInformation;
 
         /**
          * Account Configuration for various properties
          *
          * @var Configuration
          */
-        public Configuration $Configuration;
+        public $Configuration;
 
         /**
          * The ID which points to the last login record in the database
          *
          * @var int
          */
-        public int $LastLoginID;
+        public $LastLoginID;
 
         /**
          * The date that this account was created
          *
          * @var int
          */
-        public int $CreationDate;
+        public $CreationDate;
 
         /**
          * Account constructor.

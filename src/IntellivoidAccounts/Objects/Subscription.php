@@ -18,70 +18,70 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * The unique Public ID for this subscription record
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * The ID of the subscription plan this subscription is affiliated to
          *
          * @var int
          */
-        public int $SubscriptionPlanID;
+        public $SubscriptionPlanID;
 
         /**
          * The ID of the account that this subscription is tied to
          *
          * @var int
          */
-        public int $AccountID;
+        public $AccountID;
 
         /**
          * Indicates if this subscription is active or not
          *
          * @var bool
          */
-        public bool $Active;
+        public $Active;
 
         /**
          * The interval for the billing cycle
          *
          * @var int
          */
-        public int $BillingCycle;
+        public $BillingCycle;
 
         /**
          * The Unix Timestamp which indicates the next billing cycle
          *
          * @var int
          */
-        public int $NextBillingCycle;
+        public $NextBillingCycle;
 
         /**
          * Properties for this subscription
          *
          * @var Properties
          */
-        public Properties $Properties;
+        public $Properties;
 
         /**
          * The Unix Timestamp for when this subscription record has been created
          *
          * @var int
          */
-        public int $CreatedTimestamp;
+        public $CreatedTimestamp;
 
         /**
          * Flags associated with this subscription
          *
          * @var array
          */
-        public array $Flags;
+        public $Flags;
 
         /**
          * Determines if the flag is already applied

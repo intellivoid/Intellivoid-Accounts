@@ -15,7 +15,7 @@
          *
          * @var array
          */
-        public array $Data;
+        public $Data;
 
         /**
          * Sets session data to the unique identifier

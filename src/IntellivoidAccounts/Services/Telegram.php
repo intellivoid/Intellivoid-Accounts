@@ -36,14 +36,14 @@
         /**
          * @var IntellivoidAccounts
          */
-        private IntellivoidAccounts $intellivoidAccounts;
+        private $intellivoidAccounts;
 
         /**
          * Array of Emojis that are used for Telegram
          *
          * @var array
          */
-        private array $emojis;
+        private $emojis;
 
         /**
          * Telegram constructor.

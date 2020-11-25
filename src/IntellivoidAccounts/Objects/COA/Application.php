@@ -18,84 +18,84 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * Public Application ID
          *
          * @var string
          */
-        public string $PublicAppId;
+        public $PublicAppId;
 
         /**
          * Secret Key for issuing access requests
          *
          * @var string
          */
-        public string $SecretKey;
+        public $SecretKey;
 
         /**
          * The name of the application
          *
          * @var string
          */
-        public string $Name;
+        public $Name;
 
         /**
          * Safe name of the application
          *
          * @var string
          */
-        public string $NameSafe;
+        public $NameSafe;
 
         /**
          * Permissions required by the Application
          *
          * @var array
          */
-        public array $Permissions;
+        public $Permissions;
 
         /**
          * The current status of the application
          *
          * @var int
          */
-        public int $Status;
+        public $Status;
 
         /**
          * The authentication mode that this application uses
          *
          * @var int
          */
-        public int $AuthenticationMode;
+        public $AuthenticationMode;
 
         /**
          * Account ID that owns this application
          *
          * @var int
          */
-        public int $AccountID;
+        public $AccountID;
 
         /**
          * Flags associated with this Application
          *
          * @var array
          */
-        public array $Flags;
+        public $Flags;
 
         /**
          * The Unix Timestamp of when this Application was registered
          *
          * @var int
          */
-        public int $CreationTimestamp;
+        public $CreationTimestamp;
 
         /**
          * The Unix Timestamp of when this application was last updated
          *
          * @var int
          */
-        public int $LastUpdatedTimestamp;
+        public $LastUpdatedTimestamp;
 
         /**
          * Application constructor.
@@ -296,10 +296,6 @@
          *
          * @param array $data
          * @return Application
-         * @throws InvalidRequestPermissionException
-         * @throws InvalidRequestPermissionException
-         * @throws InvalidRequestPermissionException
-         * @throws InvalidRequestPermissionException
          */
         public static function fromArray(array $data): Application
         {

@@ -15,7 +15,7 @@
          *
          * @var string
          */
-        public string $Name;
+        public $Name;
 
         /**
          * The value for this feature

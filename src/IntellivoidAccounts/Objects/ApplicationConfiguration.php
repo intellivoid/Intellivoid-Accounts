@@ -13,35 +13,35 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * The Public ID of this configuration
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * The name of the application that operates this configuration
          *
          * @var string
          */
-        public string $ApplicationName;
+        public $ApplicationName;
 
         /**
          * The account that this configuration is linked to
          *
          * @var int
          */
-        public int $AccountID;
+        public $AccountID;
 
         /**
          * The data associated with this configuration
          *
          * @var array
          */
-        public array $Data;
+        public $Data;
 
         /**
          * Converts object to array

@@ -18,56 +18,56 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * The Public ID for this host record
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * The IP Address
          *
          * @var string
          */
-        public string $IpAddress;
+        public $IpAddress;
 
         /**
          * Indicates if this host was blocked by the user
          *
          * @var bool
          */
-        public bool $Blocked;
+        public $Blocked;
 
         /**
          * The properties associated with this KnownHost
          *
          * @var Properties
          */
-        public Properties $Properties;
+        public $Properties;
 
         /**
          * Unix Timestamp for when this host was last used
          *
          * @var int
          */
-        public int $LastUsed;
+        public $LastUsed;
 
         /**
          * The location data associated with this host
          *
          * @var LocationData
          */
-        public LocationData $LocationData;
+        public $LocationData;
 
         /**
          * The Unix Timestamp for when this host was registered into the system
          *
          * @var int
          */
-        public int $Created;
+        public $Created;
 
         /**
          * KnownHost constructor.

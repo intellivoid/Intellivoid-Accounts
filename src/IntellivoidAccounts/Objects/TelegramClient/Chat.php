@@ -19,14 +19,14 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * Type of chat, can be either "private", "group", "supergroup" or "channel"
          *
          * @var TelegramChatType
          */
-        public TelegramChatType $Type;
+        public $Type;
 
         /**
          * Title for supergroups, channels and group chats
@@ -34,7 +34,7 @@
          * @optional
          * @var string
          */
-        public string $Title;
+        public $Title;
 
         /**
          * Username for private chats, supergroups and channels if available
@@ -42,7 +42,7 @@
          * @optional
          * @var string
          */
-        public string $Username;
+        public $Username;
 
         /**
          * First name of the other party in a private chat
@@ -50,7 +50,7 @@
          * @optional
          * @var string
          */
-        public string $FirstName;
+        public $FirstName;
 
         /**
          * Last name of the other party in a private chat
@@ -58,7 +58,7 @@
          * @optional
          * @var string
          */
-        public string $LastName;
+        public $LastName;
 
         /**
          * Creates array from object

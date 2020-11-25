@@ -15,21 +15,21 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * True, if this user is a bot
          *
          * @var bool
          */
-        public bool $IsBot;
+        public $IsBot;
 
         /**
          * User's or bot's first name
          *
          * @var string
          */
-        public string $FirstName;
+        public $FirstName;
 
         /**
          * User's or bot's last name
@@ -37,7 +37,7 @@
          * @optional
          * @var string
          */
-        public string $LastName;
+        public $LastName;
 
         /**
          * User's or bot's username
@@ -45,7 +45,7 @@
          * @optional
          * @var string
          */
-        public string $Username;
+        public $Username;
 
         /**
          * IETF language tag of the user's language
@@ -53,7 +53,7 @@
          * @optional
          * @var bool
          */
-        public bool $LanguageCode;
+        public $LanguageCode;
 
         /**
          * Returns an array that represents this object

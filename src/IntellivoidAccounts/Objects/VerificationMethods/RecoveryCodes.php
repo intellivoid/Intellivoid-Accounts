@@ -19,21 +19,21 @@
          *
          * @var bool
          */
-        public bool $Enabled;
+        public $Enabled;
 
         /**
          * Array of available recovery codes
          *
          * @var array
          */
-        public array $RecoveryCodes;
+        public $RecoveryCodes;
 
         /**
          * The Unix Timestamp of when this was last updated
          *
          * @var int
          */
-        public int $LastUpdated;
+        public $LastUpdated;
 
         /**
          * Enables this method of verification and creates the recovery codes set

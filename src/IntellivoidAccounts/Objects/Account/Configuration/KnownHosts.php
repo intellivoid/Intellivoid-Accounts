@@ -14,7 +14,7 @@
          *
          * @var array
          */
-        public array $KnownHosts;
+        public $KnownHosts;
 
         /**
          * Adds a known host id to be associated with this account

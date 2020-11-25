@@ -16,42 +16,42 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * The generated verification code
          *
          * @var string
          */
-        public string $VerificationCode;
+        public $VerificationCode;
 
         /**
          * The ID of the Telegram Client
          *
          * @var int
          */
-        public int $TelegramClientID;
+        public $TelegramClientID;
 
         /**
          * The current status of this verification code
          *
          * @var int
          */
-        public int $Status;
+        public $Status;
 
         /**
          * The Unix Timestamp of when this verification code expires
          *
          * @var int
          */
-        public int $Expires;
+        public $Expires;
 
         /**
          * The Unix Timestamp of when this verification code was created
          *
          * @var int
          */
-        public int $Created;
+        public $Created;
 
         public function toArray(): array
         {

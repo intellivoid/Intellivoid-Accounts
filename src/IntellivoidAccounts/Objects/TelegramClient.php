@@ -19,21 +19,21 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * Public unique ID for this Telegram Client
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * Indicates if this client is available or not
          *
          * @var bool
          */
-        public bool $Available;
+        public $Available;
 
         /**
          * The Account ID that's associated with this client
@@ -41,42 +41,42 @@
          *
          * @var int
          */
-        public int $AccountID;
+        public $AccountID;
 
         /**
          * The user associated with this client
          *
          * @var User
          */
-        public User $User;
+        public $User;
 
         /**
          * The chat for this client
          *
          * @var Chat
          */
-        public Chat $Chat;
+        public $Chat;
 
         /**
          * Session data associated with this Telegram Client
          *
          * @var SessionData
          */
-        public SessionData $SessionData;
+        public $SessionData;
 
         /**
          * The Unix Timestamp of when this client was last active
          *
          * @var int
          */
-        public int $LastActivityTimestamp;
+        public $LastActivityTimestamp;
 
         /**
          * The Unix Timestamp of when this client was registered
          *
          * @var int
          */
-        public int $CreatedTimestamp;
+        public $CreatedTimestamp;
 
         /**
          * Returns the Chat ID if it exists

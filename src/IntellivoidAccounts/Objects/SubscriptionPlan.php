@@ -18,84 +18,84 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * Unique public ID for this record
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * The Application ID that this plan is applicable to
          *
          * @var int
          */
-        public int $ApplicationID;
+        public $ApplicationID;
 
         /**
          * The name of the plan
          *
          * @var string
          */
-        public string $PlanName;
+        public $PlanName;
 
         /**
          * The list of features to be applied for the subscription
          *
          * @var array(Feature)
          */
-        public array $Features;
+        public $Features;
 
         /**
          * The initial price to start the subscription
          *
          * @var float
          */
-        public float $InitialPrice;
+        public $InitialPrice;
 
         /**
          * The price to charge per cycle
          *
          * @var float
          */
-        public float $CyclePrice;
+        public $CyclePrice;
 
         /**
          * The amount of time per cycle
          *
          * @var int
          */
-        public int $BillingCycle;
+        public $BillingCycle;
 
         /**
          * The status of this subscription plan
          *
          * @var int
          */
-        public int $Status;
+        public $Status;
 
         /**
          * Flags associated with the subscription plan
          *
          * @var array
          */
-        public array $Flags;
+        public $Flags;
 
         /**
          * The Unix Timestamp of when this record was last updated
          *
          * @var int
          */
-        public int $LastUpdated;
+        public $LastUpdated;
 
         /**
          * The Unix Timestamp of when this record was created
          *
          * @var int
          */
-        public int $CreatedTimestamp;
+        public $CreatedTimestamp;
 
         /**
          * Returns an array which represents this object's structure

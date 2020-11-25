@@ -14,12 +14,12 @@
         /**
          * @var string
          */
-        private string $query;
+        private $query;
 
         /**
          * @var string
          */
-        private string $error;
+        private $error;
 
         /**
          * DatabaseException constructor.

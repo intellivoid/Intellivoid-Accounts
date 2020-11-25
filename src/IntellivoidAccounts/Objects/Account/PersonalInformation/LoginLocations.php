@@ -14,7 +14,7 @@
          *
          * @var array
          */
-        public array $KnownLocations;
+        public $KnownLocations;
 
         /**
          * LoginLocations constructor.

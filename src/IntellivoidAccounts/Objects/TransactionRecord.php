@@ -15,42 +15,42 @@
          *
          * @var int
          */
-        public int $ID;
+        public $ID;
 
         /**
          * Unique Public ID of this transaction
          *
          * @var string
          */
-        public string $PublicID;
+        public $PublicID;
 
         /**
          * The account ID that this transaction is associated with
          *
          * @var int
          */
-        public int $AccountID;
+        public $AccountID;
 
         /**
          * The name of the vendor or account username that this transaction is for/from
          *
          * @var string
          */
-        public string $Vendor;
+        public $Vendor;
 
         /**
          * The amount that was given/taken from the account
          *
          * @var float
          */
-        public float $Amount;
+        public $Amount;
 
         /**
          * The Unix Timestamp of when this transaction took place
          *
          * @var int
          */
-        public int $Timestamp;
+        public $Timestamp;
 
         /**
          * Returns an array which represents this object

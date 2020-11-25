@@ -16,21 +16,21 @@
          *
          * @var float
          */
-        public float $InitialPrice;
+        public $InitialPrice;
 
         /**
          * The amount to charge the user per billing cycle
          *
          * @var float
          */
-        public float $CyclePrice;
+        public $CyclePrice;
 
         /**
          * The features that this subscription provides
          *
          * @var array(Feature)
          */
-        public array $Features;
+        public $Features;
 
         /**
          * The ID of the promotional code used for this subscription
@@ -39,7 +39,7 @@
          *
          * @var int
          */
-        public int $PromotionID;
+        public $PromotionID;
 
         /**
          * Adds a feature to the subscription property

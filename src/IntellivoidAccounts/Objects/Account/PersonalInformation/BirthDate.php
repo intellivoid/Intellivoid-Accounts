@@ -13,21 +13,21 @@
          *
          * @var int|null
          */
-        public ?int $Day;
+        public $Day;
 
         /**
          * Month of birth
          *
          * @var int|null
          */
-        public ?int $Month;
+        public $Month;
 
         /**
          * Year of birth
          *
          * @var int|null
          */
-        public ?int $Year;
+        public $Year;
 
         /**
          * Converts object to array

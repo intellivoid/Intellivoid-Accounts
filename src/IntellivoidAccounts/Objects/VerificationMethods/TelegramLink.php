@@ -15,14 +15,14 @@
          *
          * @var bool
          */
-        public bool $Enabled;
+        public $Enabled;
 
         /**
          * The Unix Timestamp of when the Telegram Client was last linked
          *
          * @var int
          */
-        public int $LastLinked;
+        public $LastLinked;
 
         /**
          * Internal Unique Database ID for the Telegram Client (telegram_clients)

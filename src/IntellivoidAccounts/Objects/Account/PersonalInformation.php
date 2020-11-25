@@ -24,42 +24,42 @@
          *
          * @var string
          */
-        public string $FirstName;
+        public $FirstName;
 
         /**
          * The last name of the user
          *
          * @var string
          */
-        public string $LastName;
+        public $LastName;
 
         /**
          * The country that this user is located in
          *
          * @var string
          */
-        public string $Country;
+        public $Country;
 
         /**
          * The date of birth
          *
          * @var BirthDate
          */
-        public BirthDate $BirthDate;
+        public $BirthDate;
 
         /**
          * User's phone number
          *
          * @var string
          */
-        public string $PhoneNumber;
+        public $PhoneNumber;
 
         /**
          * Tracked login locations for this Intellivoid Account
          *
          * @var LoginLocations;
          */
-        public LoginLocations $LoginLocations;
+        public $LoginLocations;
 
         /**
          * Converts object to array
