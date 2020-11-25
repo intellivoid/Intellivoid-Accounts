@@ -15,22 +15,22 @@
         /**
          * @var IntellivoidAccounts
          */
-        private $intellivoidAccounts;
+        private IntellivoidAccounts $intellivoidAccounts;
 
         /**
          * @var AuthenticationRequestManager
          */
-        private $authenticationRequestManager;
+        private AuthenticationRequestManager $authenticationRequestManager;
 
         /**
          * @var AuthenticationAccessManager
          */
-        private $authenticationAccessManager;
+        private AuthenticationAccessManager $authenticationAccessManager;
 
         /**
          * @var ApplicationAccessManager
          */
-        private $ApplicationAccessManager;
+        private ApplicationAccessManager $ApplicationAccessManager;
 
         /**
          * CrossOverAuthenticationManager constructor.

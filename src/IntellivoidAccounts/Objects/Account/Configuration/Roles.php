@@ -11,7 +11,7 @@
          *
          * @var array
          */
-        public $Roles;
+        public array $Roles;
 
         /**
          * Roles constructor.

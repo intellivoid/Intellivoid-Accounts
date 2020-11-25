@@ -15,63 +15,63 @@
          *
          * @var int
          */
-        public $ID;
+        public int $ID;
 
         /**
          * The calculated tracking ID
          *
          * @var string
          */
-        public $TrackingID;
+        public string $TrackingID;
 
         /**
          * The full UserAgent string
          *
          * @var string
          */
-        public $UserAgentString;
+        public string $UserAgentString;
 
         /**
          * The detected platform form the UserAgent
          *
          * @var string
          */
-        public $Platform;
+        public string $Platform;
 
         /**
          * The detected platform from the UserAgent
          *
          * @var string
          */
-        public $Browser;
+        public string $Browser;
 
         /**
          * The detected version from the UserAgent
          *
          * @var string
          */
-        public $Version;
+        public string $Version;
 
         /**
          * The host ID associated with this record
          *
          * @var int
          */
-        public $HostID;
+        public int $HostID;
 
         /**
          * The Unix Timestamp of when this record was created
          *
          * @var int
          */
-        public $Created;
+        public int $Created;
 
         /**
          * The Unix Timestamp of when this useragent was last used by the host
          *
          * @var int
          */
-        public $LastSeen;
+        public int $LastSeen;
 
         /**
          * Returns an array that represents the structure of this object

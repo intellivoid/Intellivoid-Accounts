@@ -51,7 +51,7 @@
         /**
          * @var IntellivoidAccounts
          */
-        private $intellivoidAccounts;
+        private IntellivoidAccounts $intellivoidAccounts;
 
         /**
          * AccountManager constructor.

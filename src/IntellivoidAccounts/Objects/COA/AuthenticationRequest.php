@@ -14,63 +14,63 @@
          *
          * @var int
          */
-        public $Id;
+        public int $Id;
 
         /**
          * Public Request Token
          *
          * @var string
          */
-        public $RequestToken;
+        public string $RequestToken;
 
         /**
          * The application ID that issued this authentication request
          *
          * @var int
          */
-        public $ApplicationId;
+        public int $ApplicationId;
 
         /**
          * The status of the request authentication
          *
          * @var int
          */
-        public $Status;
+        public int $Status;
 
         /**
          * The account ID authenticated with this request. 0 means none
          *
          * @var int
          */
-        public $AccountId;
+        public int $AccountId;
 
         /**
          * The ID of the known host that generated this Request
          *
          * @var int
          */
-        public $HostId;
+        public int $HostId;
 
         /**
          * The permissions that the Application requests at the time
          *
          * @var array
          */
-        public $RequestedPermissions;
+        public array $RequestedPermissions;
 
         /**
          * The Unix Timestamp of when this request was generated
          *
          * @var int
          */
-        public $CreatedTimestamp;
+        public int $CreatedTimestamp;
 
         /**
          * The Unix Timestamp of when this request expires
          *
          * @var int
          */
-        public $ExpiresTimestamp;
+        public int $ExpiresTimestamp;
 
         /**
          * Determines if the Authentication Request has the requested permission

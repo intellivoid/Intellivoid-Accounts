@@ -26,7 +26,7 @@
         /**
          * @var IntellivoidAccounts
          */
-        private $intellivoidAccounts;
+        private IntellivoidAccounts $intellivoidAccounts;
 
         /**
          * AuthenticationAccessManager constructor.

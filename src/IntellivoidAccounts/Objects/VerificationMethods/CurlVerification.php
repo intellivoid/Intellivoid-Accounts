@@ -19,35 +19,35 @@
          *
          * @var bool
          */
-        public $Enabled;
+        public bool $Enabled;
 
         /**
          * The Public Key without the account's hashed password combination
          *
          * @var string
          */
-        public $PublicKey;
+        public string $PublicKey;
 
         /**
          * The magic key that calculates the Private Key
          *
          * @var string
          */
-        public $MagicKey;
+        public string $MagicKey;
 
         /**
          * The current challenge that's set
          *
          * @var string|null
          */
-        public $CurrentChallenge;
+        public ?string $CurrentChallenge;
 
         /**
          * The Unix Timestamp of when this was last updated
          *
          * @var int
          */
-        public $LastUpdated;
+        public int $LastUpdated;
 
         /**
          * Calculates the private key

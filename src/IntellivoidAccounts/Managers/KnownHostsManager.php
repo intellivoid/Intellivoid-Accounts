@@ -29,12 +29,12 @@
         /**
          * @var IntellivoidAccounts
          */
-        private $intellivoidAccounts;
+        private IntellivoidAccounts $intellivoidAccounts;
 
         /**
          * @var IPStack
          */
-        private $ip_stack;
+        private IPStack $ip_stack;
 
         /**
          * KnownHostsManager constructor.

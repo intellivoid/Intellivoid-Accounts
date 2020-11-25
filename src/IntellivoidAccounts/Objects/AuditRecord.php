@@ -14,28 +14,28 @@
          *
          * @var int
          */
-        public $ID;
+        public int $ID;
 
         /**
          * The account ID associated with this record
          *
          * @var int
          */
-        public $AccountID;
+        public int $AccountID;
 
         /**
          * The event type
          *
          * @var int
          */
-        public $EventType;
+        public int $EventType;
 
         /**
          * The Unix Timestamp of when this record was created
          *
          * @var int
          */
-        public $Timestamp;
+        public int $Timestamp;
 
         /**
          * AuditRecord constructor.

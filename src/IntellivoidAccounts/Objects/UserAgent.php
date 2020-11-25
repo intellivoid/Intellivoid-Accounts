@@ -17,28 +17,28 @@
          *
          * @var string
          */
-        public $UserAgentString;
+        public string $UserAgentString;
 
         /**
          * The platform that was detected
          *
          * @var string|null
          */
-        public $Platform;
+        public ?string $Platform;
 
         /**
          * The browser that was detected
          *
          * @var string|null
          */
-        public $Browser;
+        public ?string $Browser;
 
         /**
          * The version that was detected
          *
          * @var string|null
          */
-        public $Version;
+        public ?string $Version;
 
         /**
          * Returns an array that represents this object

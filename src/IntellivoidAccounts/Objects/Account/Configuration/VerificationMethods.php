@@ -21,42 +21,42 @@
          *
          * @var bool
          */
-        public $TwoFactorAuthenticationEnabled;
+        public bool $TwoFactorAuthenticationEnabled;
 
         /**
          * TwoFactorAuthentication Configuration
          *
          * @var TwoFactorAuthentication
          */
-        public $TwoFactorAuthentication;
+        public TwoFactorAuthentication $TwoFactorAuthentication;
 
         /**
          * Indicates if RecoveryCodes are enabled on this account
          *
          * @var bool
          */
-        public $RecoveryCodesEnabled;
+        public bool $RecoveryCodesEnabled;
 
         /**
          * RecoveryCodes Configuration
          *
          * @var RecoveryCodes
          */
-        public $RecoveryCodes;
+        public RecoveryCodes $RecoveryCodes;
 
         /**
          * Indicates if a Telegram Client has been linked which allows IV to send notifications to said client
          *
          * @var bool
          */
-        public $TelegramClientLinked;
+        public bool $TelegramClientLinked;
 
         /**
          * TelegramLink Configuration
          *
          * @var TelegramLink
          */
-        public $TelegramLink;
+        public TelegramLink $TelegramLink;
 
         /**
          * VerificationMethods constructor.

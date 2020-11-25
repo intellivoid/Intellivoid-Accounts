@@ -18,84 +18,84 @@
          *
          * @var int
          */
-        public $ID;
+        public int $ID;
 
         /**
          * Public Application ID
          *
          * @var string
          */
-        public $PublicAppId;
+        public string $PublicAppId;
 
         /**
          * Secret Key for issuing access requests
          *
          * @var string
          */
-        public $SecretKey;
+        public string $SecretKey;
 
         /**
          * The name of the application
          *
          * @var string
          */
-        public $Name;
+        public string $Name;
 
         /**
          * Safe name of the application
          *
          * @var string
          */
-        public $NameSafe;
+        public string $NameSafe;
 
         /**
          * Permissions required by the Application
          *
          * @var array
          */
-        public $Permissions;
+        public array $Permissions;
 
         /**
          * The current status of the application
          *
          * @var int
          */
-        public $Status;
+        public int $Status;
 
         /**
          * The authentication mode that this application uses
          *
          * @var int
          */
-        public $AuthenticationMode;
+        public int $AuthenticationMode;
 
         /**
          * Account ID that owns this application
          *
          * @var int
          */
-        public $AccountID;
+        public int $AccountID;
 
         /**
          * Flags associated with this Application
          *
          * @var array
          */
-        public $Flags;
+        public array $Flags;
 
         /**
          * The Unix Timestamp of when this Application was registered
          *
          * @var int
          */
-        public $CreationTimestamp;
+        public int $CreationTimestamp;
 
         /**
          * The Unix Timestamp of when this application was last updated
          *
          * @var int
          */
-        public $LastUpdatedTimestamp;
+        public int $LastUpdatedTimestamp;
 
         /**
          * Application constructor.
@@ -103,16 +103,23 @@
         public function __construct()
         {
             $this->Permissions = [];
+
+            // Apply the default permissions
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $this->apply_permission(AccountRequestPermissions::ViewUsername);
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $this->apply_permission(AccountRequestPermissions::GetUserDisplay);
         }
 
         /**
          * Applies a permission to the application
          *
          * @param string|AccountRequestPermissions $permission
+         * @param bool $balance_permissions
          * @return bool
          * @throws InvalidRequestPermissionException
          */
-        public function apply_permission(string $permission): bool
+        public function apply_permission(string $permission, bool $balance_permissions=true): bool
         {
             if(isset($this->Permissions[$permission]))
             {
@@ -125,6 +132,13 @@
             }
 
             $this->Permissions[] = $permission;
+            $this->Permissions = array_unique($this->Permissions);
+
+            if ($balance_permissions)
+            {
+                $this->balance_permissions();
+            }
+
             return true;
         }
 
@@ -133,6 +147,7 @@
          *
          * @param string $permission
          * @return bool
+         * @noinspection PhpUnused
          */
         public function revoke_permission(string $permission): bool
         {
@@ -143,6 +158,43 @@
 
             unset($this->Permissions[$permission]);
             return true;
+        }
+
+        /**
+         * Checks if there are conflicting permissions and attempts to balance it out
+         * with the correct permissions, returns the number of permissions that has been
+         * corrected appropriately
+         *
+         * @return int
+         * @throws InvalidRequestPermissionException
+         */
+        private function balance_permissions() : int
+        {
+            $FixedPermissions = 0;
+
+            if (in_array(AccountRequestPermissions::ManageTodo, $this->Permissions))
+            {
+                if (in_array(AccountRequestPermissions::AccessTodo, $this->Permissions) == false)
+                {
+                    // "MANAGE_TODO" requires the "READ_TODO" permission
+                    /** @noinspection PhpUnhandledExceptionInspection */
+                    $this->apply_permission(AccountRequestPermissions::AccessTodo, false);
+                    $FixedPermissions += 1;
+                }
+            }
+
+            if (in_array(AccountRequestPermissions::EditPersonalInformation, $this->Permissions))
+            {
+                if (in_array(AccountRequestPermissions::ReadPersonalInformation, $this->Permissions) == false)
+                {
+                    // "EDIT_PERSONAL_INFORMATION" requires the "READ_PERSONAL_INFORMATION" permission
+                    /** @noinspection PhpUnhandledExceptionInspection */
+                    $this->apply_permission(AccountRequestPermissions::ReadPersonalInformation, false);
+                    $FixedPermissions += 1;
+                }
+            }
+
+            return $FixedPermissions;
         }
 
         /**
@@ -167,6 +219,7 @@
          *
          * @param string $flag
          * @return bool
+         * @noinspection PhpUnused
          */
         public function remove_flag(string $flag): bool
         {
@@ -184,6 +237,7 @@
          *
          * @param string $permission
          * @return bool
+         * @noinspection PhpUnused
          */
         public function has_permission(string $permission): bool
         {
@@ -242,6 +296,10 @@
          *
          * @param array $data
          * @return Application
+         * @throws InvalidRequestPermissionException
+         * @throws InvalidRequestPermissionException
+         * @throws InvalidRequestPermissionException
+         * @throws InvalidRequestPermissionException
          */
         public static function fromArray(array $data): Application
         {
@@ -271,6 +329,11 @@
             if(isset($data['permissions']))
             {
                 $ApplicationObject->Permissions = $data['permissions'];
+
+                /** @noinspection PhpUnhandledExceptionInspection */
+                $ApplicationObject->apply_permission(AccountRequestPermissions::ViewUsername);
+                /** @noinspection PhpUnhandledExceptionInspection */
+                $ApplicationObject->apply_permission(AccountRequestPermissions::GetUserDisplay);
             }
 
             if(isset($data['status']))

@@ -19,42 +19,42 @@
          *
          * @var int
          */
-        public $ID;
+        public int $ID;
 
         /**
          * The unique public ID for this promotion
          *
          * @var string
          */
-        public $PublicID;
+        public string $PublicID;
 
         /**
          * User-friendly promotion code for this promotion
          *
          * @var string
          */
-        public $PromotionCode;
+        public string $PromotionCode;
 
         /**
          * The subscription plan ID that this promotion is applicable to
          *
          * @var int
          */
-        public $SubscriptionPlanID;
+        public int $SubscriptionPlanID;
 
         /**
          * The initial price that this promotion is offering
          *
          * @var float
          */
-        public $InitialPrice;
+        public float $InitialPrice;
 
         /**
          * The cycle share that this promotion is offering for every billing cycle
          *
          * @var float
          */
-        public $CyclePrice;
+        public float $CyclePrice;
 
         /**
          * The account ID that this promotion is affiliated with
@@ -62,28 +62,28 @@
          *
          * @var int
          */
-        public $AffiliationAccountID;
+        public int $AffiliationAccountID;
 
         /**
          * The share of initial purchase to give to the affiliated account
          *
          * @var float
          */
-        public $AffiliationInitialShare;
+        public float $AffiliationInitialShare;
 
         /**
          * The share of billing cycles to give to the affiliated account
          *
          * @var float
          */
-        public $AffiliationCycleShare;
+        public float $AffiliationCycleShare;
 
         /**
          * Array of new features or features to override
          *
          * @var array(Feature)
          */
-        public $Features;
+        public array $Features;
 
         /**
          * The status of this promotion code
@@ -97,21 +97,21 @@
          *
          * @var array
          */
-        public $Flags;
+        public array $Flags;
 
         /**
          * The Unix Timestamp of when this promotion was last updated
          *
          * @var int
          */
-        public $LastUpdatedTimestamp;
+        public int $LastUpdatedTimestamp;
 
         /**
          * The Unix Timestamp of when this record was created
          *
          * @var int
          */
-        public $CreatedTimestamp;
+        public int $CreatedTimestamp;
 
         /**
          * Determines if the flag is already applied

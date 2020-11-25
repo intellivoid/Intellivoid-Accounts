@@ -14,70 +14,70 @@
          *
          * @var int
          */
-        public $ID;
+        public int $ID;
 
         /**
          * The access token used to retrieve information about the authenticated account
          *
          * @var string
          */
-        public $AccessToken;
+        public string $AccessToken;
 
         /**
          * The ID of the application that issued this authentication access
          *
          * @var int
          */
-        public $ApplicationId;
+        public int $ApplicationId;
 
         /**
          * The id of the account that's authenticated
          *
          * @var int
          */
-        public $AccountId;
+        public int $AccountId;
 
         /**
          * The id of the authentication request that created this authentication access
          *
          * @var int
          */
-        public $RequestId;
+        public int $RequestId;
 
         /**
          * The permissions this Authentication Access has access to
          *
          * @var array
          */
-        public $Permissions;
+        public array $Permissions;
 
         /**
          * The current status of the access
          *
          * @var int
          */
-        public $Status;
+        public int $Status;
 
         /**
          * The Unix Timestamp of when this access expires
          *
          * @var int
          */
-        public $ExpiresTimestamp;
+        public int $ExpiresTimestamp;
 
         /**
          * The Unix Timestamp of when this record was last used
          *
          * @var int
          */
-        public $LastUsedTimestamp;
+        public int $LastUsedTimestamp;
 
         /**
          * The Unix Timestamp of when this record was created
          *
          * @var int
          */
-        public $CreatedTimestamp;
+        public int $CreatedTimestamp;
 
         /**
          * Determines if the Authentication Access has the specified permission

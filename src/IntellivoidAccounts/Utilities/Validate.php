@@ -147,6 +147,7 @@
          * @param string $password
          * @param string $hash
          * @return bool
+         * @noinspection PhpUnused
          */
         public static function verifyHashedPassword(string $password, string $hash): bool
         {
@@ -168,11 +169,17 @@
         {
             switch($permission)
             {
+                case AccountRequestPermissions::ViewUsername:
+                case AccountRequestPermissions::GetUserDisplay:
                 case AccountRequestPermissions::ReadPersonalInformation:
                 case AccountRequestPermissions::EditPersonalInformation:
                 case AccountRequestPermissions::ViewEmailAddress:
                 case AccountRequestPermissions::MakePurchases:
                 case AccountRequestPermissions::TelegramNotifications:
+                case AccountRequestPermissions::GetTelegramClient:
+                case AccountRequestPermissions::AccessTodo:
+                case AccountRequestPermissions::ManageTodo:
+                case AccountRequestPermissions::SyncApplicationSettings:
                     return true;
                 default:
                     return false;
@@ -184,6 +191,7 @@
          *
          * @param string $flag
          * @return bool
+         * @noinspection PhpUnused
          */
         public static function verify_application_flag(string $flag): bool
         {

@@ -17,7 +17,7 @@
          * @var int
          * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
-        public $ID;
+        public int $ID;
 
         /**
          * The Public ID of the Login Record
@@ -25,7 +25,7 @@
          * @var string
          * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
-        public $PublicID;
+        public string $PublicID;
 
         /**
          * The account ID associated with this Login Record
@@ -33,7 +33,7 @@
          * @var int
          * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
-        public $AccountID;
+        public int $AccountID;
 
         /**
          * The IP Address
@@ -41,7 +41,7 @@
          * @var string
          * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
-        public $IPAddress;
+        public string $IPAddress;
 
         /**
          * The origin of the login
@@ -49,7 +49,7 @@
          * @var string
          * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
-        public $Origin;
+        public string $Origin;
 
         /**
          * The Unix Timestamp of when this login has been established
@@ -57,7 +57,7 @@
          * @var int
          * @deprecated Use IntellivoidAccounts\Objects\UserLoginRecord instead
          */
-        public $Time;
+        public int $Time;
 
         /**
          * The status of the login

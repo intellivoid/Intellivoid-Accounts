@@ -16,42 +16,42 @@
          *
          * @var int
          */
-        public $ID;
+        public int $ID;
 
         /**
          * Public unique ID for this login record
          *
          * @var string
          */
-        public $PublicID;
+        public string $PublicID;
 
         /**
          * The origin of where this login came from
          *
          * @var string
          */
-        public $Origin;
+        public string $Origin;
 
         /**
          * The host ID associated with this login record
          *
          * @var int
          */
-        public $HostID;
+        public int $HostID;
 
         /**
          * Parsed user agent data associated with this login record
          *
          * @var UserAgent
          */
-        public $UserAgent;
+        public UserAgent $UserAgent;
 
         /**
          * The account ID associated with this Login Record
          *
          * @var int
          */
-        public $AccountID;
+        public int $AccountID;
 
         /**
          * The status of the login
@@ -65,7 +65,7 @@
          *
          * @var int
          */
-        public $Timestamp;
+        public int $Timestamp;
 
         /**
          * Returns an array that represents this object

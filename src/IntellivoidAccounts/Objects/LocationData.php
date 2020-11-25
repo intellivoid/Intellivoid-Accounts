@@ -15,63 +15,63 @@
          *
          * @var int|null
          */
-        public $ZipCode;
+        public ?int $ZipCode;
 
         /**
          * The name of the continent
          *
          * @var string|null
          */
-        public $ContinentName;
+        public ?string $ContinentName;
 
         /**
          * The code of the continent
          *
          * @var string|null
          */
-        public $ContinentCode;
+        public ?string $ContinentCode;
 
         /**
          * The name of the country
          *
          * @var string|null
          */
-        public $CountryName;
+        public ?string $CountryName;
 
         /**
          * The country code
          *
          * @var string|null
          */
-        public $CountryCode;
+        public ?string $CountryCode;
 
         /**
          * The city
          *
          * @var string|null
          */
-        public $City;
+        public ?string $City;
 
         /**
          * The Longitude
          *
          * @var string|null
          */
-        public $Longitude;
+        public ?string $Longitude;
 
         /**
          * The Latitude
          *
          * @var string|null
          */
-        public $Latitude;
+        public ?string $Latitude;
 
         /**
          * The Unix Timestamp of when this data was last updated
          *
          * @var int
          */
-        public $LastUpdated;
+        public int $LastUpdated;
 
         /**
          * Returns an array that represents this object

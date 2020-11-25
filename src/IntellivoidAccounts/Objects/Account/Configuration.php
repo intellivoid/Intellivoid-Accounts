@@ -18,21 +18,21 @@
          *
          * @var KnownHosts
          */
-        public $KnownHosts;
+        public KnownHosts $KnownHosts;
 
         /**
          * Verification Methods that are available for this account
          *
          * @var VerificationMethods
          */
-        public $VerificationMethods;
+        public VerificationMethods $VerificationMethods;
 
         /**
          * Roles associated with this account
          *
          * @var Roles
          */
-        public $Roles;
+        public Roles $Roles;
 
         /**
          * The current balance in the account

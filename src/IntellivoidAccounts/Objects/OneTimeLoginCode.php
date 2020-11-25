@@ -14,14 +14,14 @@
          *
          * @var int
          */
-        public $ID;
+        public int $ID;
 
         /**
          * The unique login verification code
          *
          * @var string
          */
-        public $Code;
+        public string $Code;
 
         /**
          * The Application/Service that authenticated using this code (Default; None)
@@ -29,35 +29,35 @@
          * @default None
          * @var string
          */
-        public $Vendor;
+        public string $Vendor;
 
         /**
          * The Account ID that requested this login code
          *
          * @var int
          */
-        public $AccountID;
+        public int $AccountID;
 
         /**
          * The status of the verification code
          *
          * @var int
          */
-        public $Status;
+        public int $Status;
 
         /**
          * The Unix Timestamp of when this login code expires
          *
          * @var int
          */
-        public $ExpiresTimestamp;
+        public int $ExpiresTimestamp;
 
         /**
          * The Unix Timestamp of when this login code was created
          *
          * @var int
          */
-        public $CreatedTimestamp;
+        public int $CreatedTimestamp;
 
         /**
          * Returns an array that represents this object's structure
