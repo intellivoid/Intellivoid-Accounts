@@ -16,6 +16,7 @@
     use IntellivoidAccounts\Utilities\Hashing;
     use IntellivoidAccounts\Utilities\Validate;
     use IPStack\IPStack;
+    use msqg\QueryBuilder;
     use ZiProto\ZiProto;
 
 
@@ -104,7 +105,18 @@
             $location_data = ZiProto::encode($location_data->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
-            $Query = "INSERT INTO `users_known_hosts` (public_id, ip_address, blocked, last_used, location_data, created) VALUES ('$public_id', '$ip_address', $blocked, $last_used, '$location_data', $timestamp)";
+            $properties = ZiProto::encode(new KnownHost\Properties());
+            $properties = $this->intellivoidAccounts->database->real_escape_string($properties);
+
+            $Query = QueryBuilder::insert_into("users_known_hosts", array(
+                "public_id" => $public_id,
+                "ip_address" => $ip_address,
+                "blocked" => $blocked,
+                "properties" => $properties,
+                "last_used" => $last_used,
+                "location_data" => $location_data,
+                "created" => $timestamp
+            ));
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
@@ -183,7 +195,16 @@
                     break;
             }
 
-            $Query = "SELECT id, public_id, ip_address, blocked, last_used, location_data, created FROM `users_known_hosts` WHERE $search_method=$value";
+            $Query = QueryBuilder::select("users_known_hosts", [
+                "id",
+                "public_id",
+                "ip_address",
+                "blocked",
+                "properties",
+                "location_data",
+                "last_used",
+                "created"
+            ], $search_method, $value);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults == false)
@@ -198,7 +219,8 @@
                 }
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
-                $Row['location_data'] = ZiProto::decode($Row['location_data']);
+                $Row["location_data"] = ZiProto::decode($Row["location_data"]);
+                $Row["properties"] = ZiProto::decode($Row["properties"]);
                 return KnownHost::fromArray($Row);
             }
         }
@@ -227,11 +249,18 @@
             $public_id = $this->intellivoidAccounts->database->real_escape_string($knownHost->PublicID);
             $ip_address = $this->intellivoidAccounts->database->real_escape_string($knownHost->IpAddress);
             $blocked = (int)$knownHost->Blocked;
+            $properties = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($knownHost->Properties));
             $location_data = ZiProto::encode($knownHost->LocationData->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
             $last_used = (int)$knownHost->LastUsed;
 
-            $Query = "UPDATE `users_known_hosts` SET ip_address='$ip_address', blocked=$blocked, location_data='$location_data', last_used=$last_used WHERE public_id='$public_id'";
+            $Query = QueryBuilder::update("users_known_hosts", array(
+                "ip_address" => $ip_address,
+                "blocked" => $blocked,
+                "properties" => $properties,
+                "location_data" => $location_data,
+                "last_used" => $last_used
+            ), "public_id", $public_id);
             $QueryResults = $this->intellivoidAccounts->database->query($Query);
 
             if($QueryResults)
