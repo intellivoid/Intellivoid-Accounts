@@ -182,7 +182,7 @@
 
                 case KnownHostsSearchMethod::byPublicId:
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($value) . "'";
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
                     break;
 
                 case KnownHostsSearchMethod::byIpAddress:
@@ -191,7 +191,7 @@
                         throw new InvalidIpException();
                     }
                     $search_method = $this->intellivoidAccounts->database->real_escape_string($search_method);
-                    $value = "'" . $this->intellivoidAccounts->database->real_escape_string($value) . "'";
+                    $value = $this->intellivoidAccounts->database->real_escape_string($value);
                     break;
             }
 
@@ -220,7 +220,17 @@
 
                 $Row = $QueryResults->fetch_array(MYSQLI_ASSOC);
                 $Row["location_data"] = ZiProto::decode($Row["location_data"]);
-                $Row["properties"] = ZiProto::decode($Row["properties"]);
+
+                if($Row["properties"] == null)
+                {
+                    $PropertiesObject = new KnownHost\Properties();
+                    $Row["properties"] = $PropertiesObject->toArray();
+                }
+                else
+                {
+                    $Row["properties"] = ZiProto::decode($Row["properties"]);
+                }
+
                 return KnownHost::fromArray($Row);
             }
         }
@@ -249,7 +259,7 @@
             $public_id = $this->intellivoidAccounts->database->real_escape_string($knownHost->PublicID);
             $ip_address = $this->intellivoidAccounts->database->real_escape_string($knownHost->IpAddress);
             $blocked = (int)$knownHost->Blocked;
-            $properties = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($knownHost->Properties));
+            $properties = $this->intellivoidAccounts->database->real_escape_string(ZiProto::encode($knownHost->Properties->toArray()));
             $location_data = ZiProto::encode($knownHost->LocationData->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
             $last_used = (int)$knownHost->LastUsed;
