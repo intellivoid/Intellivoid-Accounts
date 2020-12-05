@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.accounts",
         "name": "Intellivoid Accounts",
-        "version": "2.0.2.8",
+        "version": "2.0.2.9",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "Intellivoid Accounts Manager Library",
@@ -241,6 +241,10 @@
         },
         {
             "required": true,
+            "file": "Abstracts/ApplicationSettingsDatumType.php"
+        },
+        {
+            "required": true,
             "file": "Exceptions/TelegramClientNotFoundException.php"
         },
         {
@@ -258,6 +262,10 @@
         {
             "required": true,
             "file": "Exceptions/InvalidInitialPriceShareException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidDataTypeForDatumException.php"
         },
         {
             "required": true,
@@ -357,6 +365,10 @@
         },
         {
             "required": true,
+            "file": "Exceptions/VariableNotFoundException.php"
+        },
+        {
+            "required": true,
             "file": "Exceptions/InvalidSubscriptionPlanNameException.php"
         },
         {
@@ -374,6 +386,10 @@
         {
             "required": true,
             "file": "Exceptions/SubscriptionPromotionAlreadyExistsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/VariableNameAlreadyExistsException.php"
         },
         {
             "required": true,
@@ -477,6 +493,10 @@
         },
         {
             "required": true,
+            "file": "Exceptions/InvalidDatumTypeException.php"
+        },
+        {
+            "required": true,
             "file": "Exceptions/ConfigurationNotFoundException.php"
         },
         {
@@ -490,6 +510,10 @@
         {
             "required": true,
             "file": "Exceptions/EmailAlreadyExistsException.php"
+        },
+        {
+            "required": true,
+            "file": "Interfaces/iApplicationSettingsDatumType.php"
         },
         {
             "required": true,
@@ -601,6 +625,30 @@
         },
         {
             "required": true,
+            "file": "Objects/ApplicationSettings/DatumBoolean.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/ApplicationSettings/DatumInteger.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/ApplicationSettings/DatumString.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/ApplicationSettings/DatumList.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/ApplicationSettings/Datum.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/ApplicationSettings/DatumArray.php"
+        },
+        {
+            "required": true,
             "file": "Objects/UserAgent.php"
         },
         {
@@ -618,6 +666,10 @@
         {
             "required": true,
             "file": "Objects/Subscription/Properties.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/ApplicationSettings.php"
         },
         {
             "required": true,

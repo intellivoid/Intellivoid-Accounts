@@ -351,4 +351,26 @@
 
             return false;
         }
+
+        /**
+         * Validates the data that can be added to a datum array
+         *
+         * @param $input
+         * @return bool
+         */
+        public static function validateDatumArrayValue($input): bool
+        {
+            switch(gettype($input))
+            {
+                case "integer":
+                case "string":
+                case "double":
+                case "boolean":
+                case "float":
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
     }
