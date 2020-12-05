@@ -438,4 +438,19 @@
 
             return $timestamp_arc . hash('crc32b', $timestamp_arc . $seed) . $seed_hash;
         }
+
+        /**
+         * Calculates the Unique Public ID for a Application Settings combination
+         *
+         * @param int $application_id
+         * @param int $account_id
+         * @return string
+         */
+        public static function ApplicationSettingsPublicId(int $application_id, int $account_id): string
+        {
+            $h_application_id = hash('crc32b', $application_id);
+            $h_account_id = hash('crc32b', $account_id);
+
+            return hash("sha256", $h_account_id . $account_id . $h_application_id . $application_id);
+        }
     }

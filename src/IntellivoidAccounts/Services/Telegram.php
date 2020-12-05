@@ -1,7 +1,8 @@
-<?php /** @noinspection DuplicatedCode */
+<?php
 
-/** @noinspection PhpUnused */
-
+    /** @noinspection PhpMissingFieldTypeInspection */
+    /** @noinspection DuplicatedCode */
+    /** @noinspection PhpUnused */
 
     namespace IntellivoidAccounts\Services;
 

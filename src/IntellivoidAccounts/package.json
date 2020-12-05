@@ -129,6 +129,10 @@
         },
         {
             "required": true,
+            "file": "Abstracts/SearchMethods/ApplicationSettingsSearchMethod.php"
+        },
+        {
+            "required": true,
             "file": "Abstracts/SearchMethods/TrackingUserAgentSearchMethod.php"
         },
         {
@@ -325,6 +329,10 @@
         },
         {
             "required": true,
+            "file": "Exceptions/ApplicationSettingsRecordNotFoundException.php"
+        },
+        {
+            "required": true,
             "file": "Exceptions/ApplicationAlreadyExistsException.php"
         },
         {
@@ -457,6 +465,10 @@
         },
         {
             "required": true,
+            "file": "Exceptions/ApplicationSettingsRecordAlreadyExistsException.php"
+        },
+        {
+            "required": true,
             "file": "Exceptions/AuthPromptDeniedException.php"
         },
         {
@@ -513,6 +525,10 @@
         },
         {
             "required": true,
+            "file": "Exceptions/ApplicationSettingsSizeExceededException.php"
+        },
+        {
+            "required": true,
             "file": "Interfaces/iApplicationSettingsDatumType.php"
         },
         {
@@ -554,10 +570,6 @@
         {
             "required": true,
             "file": "Objects/Account.php"
-        },
-        {
-            "required": true,
-            "file": "Objects/ApplicationConfiguration.php"
         },
         {
             "required": true,
@@ -710,6 +722,10 @@
         {
             "required": true,
             "file": "Managers/AuthenticationRequestManager.php"
+        },
+        {
+            "required": true,
+            "file": "Managers/ApplicationSettingsManager.php"
         },
         {
             "required": true,

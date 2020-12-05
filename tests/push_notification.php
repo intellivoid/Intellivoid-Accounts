@@ -2,10 +2,7 @@
 
 
     use IntellivoidAccounts\Abstracts\SearchMethods\TelegramClientSearchMethod;
-    use IntellivoidAccounts\Exceptions\AuthNotPromptedException;
-use IntellivoidAccounts\Exceptions\AuthPromptDeniedException;
-use IntellivoidAccounts\Exceptions\AuthPromptExpiredException;
-    use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
+    use IntellivoidAccounts\Exceptions\AuthPromptDeniedException;
     use IntellivoidAccounts\IntellivoidAccounts;
 
     $SourceFolder = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;

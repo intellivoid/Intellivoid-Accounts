@@ -1,12 +1,15 @@
-<?php /** @noinspection PhpMissingFieldTypeInspection */
+<?php
 
-/** @noinspection PhpUnused */
+    /** @noinspection PhpMissingFieldTypeInspection */
+    /** @noinspection PhpUnused */
+
     namespace IntellivoidAccounts;
 
     use acm\acm;
     use Exception;
     use IntellivoidAccounts\Managers\AccountManager;
     use IntellivoidAccounts\Managers\ApplicationManager;
+    use IntellivoidAccounts\Managers\ApplicationSettingsManager;
     use IntellivoidAccounts\Managers\AuditLogManager;
     use IntellivoidAccounts\Managers\CrossOverAuthenticationManager;
     use IntellivoidAccounts\Managers\KnownHostsManager;
@@ -155,6 +158,11 @@
         private $SubscriptionManager;
 
         /**
+         * @var ApplicationSettingsManager
+         */
+        private ApplicationSettingsManager $ApplicationSettingsManager;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -191,6 +199,7 @@
             $this->TransactionRecordManager = new TransactionRecordManager($this);
             $this->TransactionManager = new TransactionManager($this);
             $this->SubscriptionManager = new SubscriptionManager($this);
+            $this->ApplicationSettingsManager = new ApplicationSettingsManager($this);
 
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
             {
@@ -379,6 +388,14 @@
         public function getSubscriptionManager(): SubscriptionManager
         {
             return $this->SubscriptionManager;
+        }
+
+        /**
+         * @return ApplicationSettingsManager
+         */
+        public function getApplicationSettingsManager(): ApplicationSettingsManager
+        {
+            return $this->ApplicationSettingsManager;
         }
 
     }
