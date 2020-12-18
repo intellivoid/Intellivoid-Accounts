@@ -489,6 +489,10 @@
         },
         {
             "required": true,
+            "file": "Exceptions/MalformedJsonDataException.php"
+        },
+        {
+            "required": true,
             "file": "Exceptions/GovernmentBackedAttackModeEnabledException.php"
         },
         {

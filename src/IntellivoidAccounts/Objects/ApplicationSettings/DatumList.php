@@ -227,4 +227,12 @@
         {
             $this->last_updated_timestamp = $value;
         }
+
+        /**
+         * @inheritDoc
+         */
+        public function getData(): array
+        {
+            return $this->value;
+        }
     }

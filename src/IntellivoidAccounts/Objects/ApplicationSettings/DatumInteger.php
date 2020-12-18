@@ -128,4 +128,12 @@
         {
             $this->last_updated_timestamp = $value;
         }
+
+        /**
+         * @inheritDoc
+         */
+        public function getData(): int
+        {
+            return $this->value;
+        }
     }

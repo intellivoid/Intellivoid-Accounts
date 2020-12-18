@@ -64,4 +64,11 @@
          * @return mixed
          */
         public function setLastUpdatedTimestamp(int $value);
+
+        /**
+         * Gets the data of the datum
+         *
+         * @return mixed
+         */
+        public function getData();
     }

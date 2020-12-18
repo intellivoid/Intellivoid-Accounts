@@ -78,7 +78,7 @@
             $permissions = $authenticationRequest->RequestedPermissions;
             $permissions = ZiProto::encode($permissions);
             $status = (int)AuthenticationAccessStatus::Active;
-            $expires_timestamp = $current_timestamp + 43200;
+            $expires_timestamp = $current_timestamp + 460800;
             $last_used_timestamp = $current_timestamp;
             $created_timestamp = $current_timestamp;
 

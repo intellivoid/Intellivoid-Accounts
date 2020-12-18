@@ -6,6 +6,7 @@
     use IntellivoidAccounts\Abstracts\ApplicationSettingsDatumType;
     use IntellivoidAccounts\Exceptions\InvalidDataTypeForDatumException;
     use IntellivoidAccounts\Exceptions\InvalidDatumTypeException;
+    use IntellivoidAccounts\Exceptions\MalformedJsonDataException;
     use IntellivoidAccounts\Exceptions\VariableNameAlreadyExistsException;
     use IntellivoidAccounts\Exceptions\VariableNotFoundException;
     use IntellivoidAccounts\Interfaces\iApplicationSettingsDatumType;
@@ -14,6 +15,7 @@
     use IntellivoidAccounts\Objects\ApplicationSettings\DatumInteger;
     use IntellivoidAccounts\Objects\ApplicationSettings\DatumList;
     use IntellivoidAccounts\Objects\ApplicationSettings\DatumString;
+    use IntellivoidAccounts\Utilities\Converter;
     use ZiProto\ZiProto;
 
     /**
@@ -90,42 +92,75 @@
          * @throws InvalidDataTypeForDatumException
          * @throws VariableNameAlreadyExistsException
          * @throws InvalidDatumTypeException
+         * @throws MalformedJsonDataException
          */
         public function add(int $type, string $name, $value, bool $overwrite=true): iApplicationSettingsDatumType
         {
+            $LastUpdatedTimestamp = null;
             if(isset($this->Data[$name]))
             {
                 if($overwrite == false)
                 {
                     throw new VariableNameAlreadyExistsException("The variable '$name' already exists");
                 }
+
+                $LastUpdatedTimestamp = $this->Data[$name]->getLastUpdatedTimestamp();
             }
 
             switch($type)
             {
                 case ApplicationSettingsDatumType::string:
                     $this->Data[$name] = new DatumString();
-                    $this->Data[$name]->setValue($value);
+                    if($value !== null)
+                        $this->Data[$name]->setValue((string)$value);
+                    if($LastUpdatedTimestamp !== null)
+                        $this->Data[$name]->setLastUpdatedTimestamp($LastUpdatedTimestamp);
                     break;
 
                 case ApplicationSettingsDatumType::boolean:
                     $this->Data[$name] = new DatumBoolean();
-                    $this->Data[$name]->setValue($value);
+                    if($value !== null)
+                        $this->Data[$name]->setValue((bool)$value);
+                    if($LastUpdatedTimestamp !== null)
+                        $this->Data[$name]->setLastUpdatedTimestamp($LastUpdatedTimestamp);
                     break;
 
                 case ApplicationSettingsDatumType::integer:
                     $this->Data[$name] = new DatumInteger();
-                    $this->Data[$name]->setValue($value);
+                    if($value !== null)
+                        $this->Data[$name]->setValue((int)$value);
+                    if($LastUpdatedTimestamp !== null)
+                        $this->Data[$name]->setLastUpdatedTimestamp($LastUpdatedTimestamp);
                     break;
 
                 case ApplicationSettingsDatumType::list:
                     $this->Data[$name] = new DatumList();
-                    $this->Data[$name]->setValue($value);
+                    if($value !== null)
+                    {
+                        $DecodedContents = json_decode($value, true);
+
+                        if ($DecodedContents === null && json_last_error() !== JSON_ERROR_NONE)
+                           throw new MalformedJsonDataException("Expected JSON data, failed to parse.");
+
+                        $this->Data[$name]->setValue($DecodedContents);
+                    }
+                    if($LastUpdatedTimestamp !== null)
+                        $this->Data[$name]->setLastUpdatedTimestamp($LastUpdatedTimestamp);
                     break;
 
                 case ApplicationSettingsDatumType::array:
                     $this->Data[$name] = new DatumArray();
-                    $this->Data[$name]->setValue($value);
+                    if($value !== null)
+                    {
+                        $DecodedContents = json_decode($value, true);
+
+                        if ($DecodedContents === null && json_last_error() !== JSON_ERROR_NONE)
+                            throw new MalformedJsonDataException("Expected JSON data, failed to parse.");
+
+                        $this->Data[$name]->setValue($DecodedContents);
+                    }
+                    if($LastUpdatedTimestamp !== null)
+                        $this->Data[$name]->setLastUpdatedTimestamp($LastUpdatedTimestamp);
                     break;
 
                 default:
@@ -176,7 +211,7 @@
          */
         public function calculateSize(): int
         {
-            return strlen(ZiProto::encode($this->toArray()));
+            return strlen(ZiProto::encode($this->dataToArray()));
         }
 
         /**
@@ -195,11 +230,43 @@
             foreach($this->Data as $name => $datum)
             {
                 $Results["variables"][$name] = [
-                    "type" => $datum->getCurrentType(),
+                    "type" => Converter::applicationDatumTypeToString($datum->getCurrentType()),
                     "created_timestamp" => $datum->getCreatedTimestamp(),
                     "last_updated_timestamp" => $datum->getLastUpdatedTimestamp(),
                     "size" => strlen(ZiProto::encode($datum->toArray()))
                 ];
+            }
+
+            return $Results;
+        }
+
+        /**
+         * Dumps the data
+         *
+         * @param bool $include_meta
+         * @return array
+         */
+        public function dump(bool $include_meta=false): array
+        {
+            $Results = [];
+
+            foreach($this->Data as $name => $datum)
+            {
+                if($include_meta)
+                {
+                    $Results[$name] = [
+                        "type" => Converter::applicationDatumTypeToString($datum->getCurrentType()),
+                        "value" => $datum->getData(),
+                        "created_timestamp" => $datum->getCreatedTimestamp(),
+                        "last_updated_timestamp" => $datum->getLastUpdatedTimestamp(),
+                        "size" => strlen(ZiProto::encode($datum->toArray()))
+                    ];
+                }
+                else
+                {
+                    $Results[$name] = $datum->getData();
+
+                }
             }
 
             return $Results;
@@ -212,22 +279,32 @@
          */
         public function toArray(): array
         {
-            $data_array = array();
-
-            foreach($this->Data as $name => $datum)
-            {
-                $data_array[$name] = $datum->toArray();
-            }
-
             return array(
                 "id" => $this->ID,
                 "public_id" => $this->PublicID,
                 "application_id" => $this->ApplicationID,
                 "account_id" => $this->AccountID,
-                "data" => $data_array,
+                "data" => $this->dataToArray(),
                 "last_updated_timestamp" => $this->LastUpdatedTimestamp,
                 "created_timestamp" => $this->CreatedTimestamp
             );
+        }
+
+        /**
+         * Returns an array representation of the data
+         *
+         * @return array
+         */
+        public function dataToArray(): array
+        {
+            $results = array();
+
+            foreach($this->Data as $name => $datum)
+            {
+                $results[$name] = $datum->toArray();
+            }
+
+            return $results;
         }
 
         /**
@@ -294,7 +371,7 @@
 
             if(isset($data["last_updated_timestamp"]))
             {
-                $ApplicationSettingsObject->Data = $data["last_updated_timestamp"];
+                $ApplicationSettingsObject->LastUpdatedTimestamp = $data["last_updated_timestamp"];
             }
 
             if(isset($data["created_timestamp"]))

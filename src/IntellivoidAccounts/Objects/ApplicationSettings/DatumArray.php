@@ -126,7 +126,7 @@
             $results = array();
 
             foreach($value as $key => $value_i)
-                $results[$key] = $value;
+                $results[$key] = $value_i;
 
             $this->last_updated_timestamp = (int)time();
             $this->value = $results;
@@ -190,5 +190,13 @@
         public function setLastUpdatedTimestamp(int $value)
         {
             $this->last_updated_timestamp = $value;
+        }
+
+        /**
+         * @inheritDoc
+         */
+        public function getData(): array
+        {
+            return $this->value;
         }
     }
