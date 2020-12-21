@@ -73,6 +73,12 @@
                 "version": "latest",
                 "source": "default@github/intellivoid/support",
                 "required": true
+            },
+            {
+                "package": "net.intellivoid.verbose_adventure",
+                "version": "latest",
+                "source": "default@github/intellivoid/VerboseAdventure",
+                "required": true
             }
         ],
         "configuration": {

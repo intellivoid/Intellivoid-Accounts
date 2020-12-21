@@ -133,7 +133,7 @@
                 return false;
             }
 
-            if(strlen($input) > 526)
+            if(strlen($input) > 1526)
             {
                 return false;
             }

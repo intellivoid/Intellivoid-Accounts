@@ -17,6 +17,7 @@
     use IntellivoidAccounts\Utilities\Validate;
     use IPStack\IPStack;
     use msqg\QueryBuilder;
+    use VerboseAdventure\Abstracts\EventType;
     use ZiProto\ZiProto;
 
 
@@ -73,6 +74,8 @@
          */
         public function syncHost(string $ip_address, string $user_agent): KnownHost
         {
+            $this->intellivoidAccounts->getLogHandler()->log(EventType::INFO, "Syncing host '$ip_address' ($user_agent)", get_class($this));
+
             if($this->hostKnown($ip_address) == true)
             {
                 $KnownHost = $this->getHost(KnownHostsSearchMethod::byIpAddress, $ip_address);
@@ -126,7 +129,9 @@
                 return $host;
             }
 
-            throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            $exception = new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            $this->intellivoidAccounts->getLogHandler()->logException($exception, get_class($this));
+            throw $exception;
         }
 
         /**
@@ -155,6 +160,8 @@
             }
             catch(Exception $exception)
             {
+                $this->intellivoidAccounts->getLogHandler()->log(EventType::WARNING, $exception->getMessage(), get_class($this));
+                $this->intellivoidAccounts->getLogHandler()->logException($exception, get_class($this));
                 // Ignore the error
             }
 
@@ -209,7 +216,9 @@
 
             if($QueryResults == false)
             {
-                throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+                $exception = new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+                $this->intellivoidAccounts->getLogHandler()->logException($exception, get_class($this));
+                throw $exception;
             }
             else
             {
@@ -278,7 +287,9 @@
                 return True;
             }
 
-            throw new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            $exception = new DatabaseException($Query, $this->intellivoidAccounts->database->error);
+            $this->intellivoidAccounts->getLogHandler()->logException($exception, get_class($this));
+            throw $exception;
         }
 
         /**

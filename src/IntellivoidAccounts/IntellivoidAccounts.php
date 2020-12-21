@@ -26,6 +26,7 @@
     use mysqli;
     use TelegramClientManager\Managers\TelegramClientManager;
     use udp\udp;
+    use VerboseAdventure\VerboseAdventure;
 
     include(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');
 
@@ -163,6 +164,11 @@
         private ApplicationSettingsManager $ApplicationSettingsManager;
 
         /**
+         * @var VerboseAdventure
+         */
+        private VerboseAdventure $LogHandler;
+
+        /**
          * IntellivoidAccounts constructor.
          * @throws Exception
          */
@@ -173,6 +179,7 @@
             $this->IpStackConfiguration = $this->acm->getConfiguration('IpStack');
             $this->SystemConfiguration = $this->acm->getConfiguration('System');
             $this->TelegramConfiguration = $this->acm->getConfiguration('TelegramService');
+            $this->LogHandler = new VerboseAdventure("Intellivoid Accounts");
 
             $this->database = new mysqli(
                 $this->DatabaseConfiguration['Host'],
@@ -396,6 +403,14 @@
         public function getApplicationSettingsManager(): ApplicationSettingsManager
         {
             return $this->ApplicationSettingsManager;
+        }
+
+        /**
+         * @return VerboseAdventure
+         */
+        public function getLogHandler(): VerboseAdventure
+        {
+            return $this->LogHandler;
         }
 
     }
