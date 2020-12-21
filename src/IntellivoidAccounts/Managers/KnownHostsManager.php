@@ -108,7 +108,8 @@
             $location_data = ZiProto::encode($location_data->toArray());
             $location_data = $this->intellivoidAccounts->database->real_escape_string($location_data);
 
-            $properties = ZiProto::encode(new KnownHost\Properties());
+            $properties = new KnownHost\Properties();
+            $properties = ZiProto::encode($properties->toArray());
             $properties = $this->intellivoidAccounts->database->real_escape_string($properties);
 
             $Query = QueryBuilder::insert_into("users_known_hosts", array(
