@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.accounts",
         "name": "Intellivoid Accounts",
-        "version": "2.0.2.9",
+        "version": "2.0.2.10",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "Intellivoid Accounts Manager Library",
