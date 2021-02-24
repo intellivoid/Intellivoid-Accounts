@@ -21,6 +21,7 @@
     use IntellivoidAccounts\Exceptions\TelegramServicesNotAvailableException;
     use IntellivoidAccounts\Exceptions\TooManyPromptRequestsException;
     use IntellivoidAccounts\IntellivoidAccounts;
+    use IntellivoidAccounts\Objects\Account;
     use IntellivoidAccounts\Objects\UserAgent;
     use IntellivoidAccounts\Utilities\Validate;
     use TelegramClientManager\Abstracts\SearchMethods\TelegramClientSearchMethod;
@@ -359,6 +360,7 @@
          * @param string $username
          * @param string $user_agent
          * @param int $known_host_id
+         * @param Account $account
          * @return bool
          * @throws DatabaseException
          * @throws HostNotKnownException
@@ -371,7 +373,7 @@
          * @throws TooManyPromptRequestsException
          * @throws \TelegramClientManager\Exceptions\DatabaseException
          */
-        public function promptAuth(TelegramClient $telegramClient, string $username, string $user_agent, int $known_host_id): bool
+        public function promptAuth(TelegramClient $telegramClient, string $username, string $user_agent, int $known_host_id, Account $account): bool
         {
             if(strtolower($this->intellivoidAccounts->getTelegramConfiguration()['TgBotEnabled']) !== "true")
             {
@@ -414,6 +416,12 @@
             $telegramClient->SessionData->setData('auth', 'expires', (int)time() + 180);
             $telegramClient->SessionData->setData('auth', 'approved', false);
             $telegramClient->SessionData->setData('auth', 'disallowed', false);
+
+            if($telegramClient->AccountID == 0 || $telegramClient->AccountID == null)
+            {
+                $telegramClient->AccountID = $account->ID;
+            }
+
             $this->intellivoidAccounts->getTelegramClientManager()->updateClient($telegramClient, false, true);
 
             $user_agent_x = null;
