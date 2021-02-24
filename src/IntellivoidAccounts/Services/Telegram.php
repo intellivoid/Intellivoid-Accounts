@@ -262,7 +262,7 @@
                 'parse_mode' => 'html',
                 'text' =>
                     "You have unlinked your Telegram account from Intellivoid Accounts!\n\n".
-                    "You will mo longer receive notifications and authentication prompts here"
+                    "You will no longer receive notifications and authentication prompts here"
             )), true);
 
             /** @noinspection DuplicatedCode */
@@ -482,7 +482,7 @@
                     "inline_keyboard" => [
                         [
                             array("text" => $this->emojis['DENY'] . ' Deny', "callback_data" => "auth_deny"),
-                            array("text" => $this->emojis['CHECK'] . ' Alllow', "callback_data" => "auth_allow")
+                            array("text" => $this->emojis['CHECK'] . ' Allow', "callback_data" => "auth_allow")
                         ]
                     ]
                 )
